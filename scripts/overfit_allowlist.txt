@@ -1,0 +1,2 @@
+# Values that appear in data/ but are genuinely general, so may appear in src/ or config/.
+# One per line, with the reason after '#'. Keep this list short and justified.

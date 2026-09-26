@@ -1,0 +1,13 @@
+# Same gate as the local Stop hook. No API key in CI: offline tests only.
+name: check
+on: [push, pull_request]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0                  # check_repo.py diffs formatting.py against the upstream commit
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --all-extras
+      - run: bash scripts/check.sh
