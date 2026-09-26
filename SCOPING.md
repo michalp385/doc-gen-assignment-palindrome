@@ -34,8 +34,8 @@ So the pipeline has two outputs, for two readers:
 - **The facts ledger** is the pipeline's own record of every fact, its source, date and selecting rule.
   It gives traceability (S5), and on a client with no expected facts (i.e. in production) it is the
   only *correctness* check available: every figure in the report must be a ledger entry marked
-  *reportable*. Gates checked against the sources themselves rather than expected facts (G3, G4,
-  G9–G13) run on every client.
+  *reportable*. Gates checked against the sources themselves rather than expected facts (G3, G4, G8,
+  G10–G13) run the same way on every client.
 
 On a client without expected facts, each fact-dependent gate falls back to a ledger check (the "else"
 in the table). Those checks prove the report is consistent with what the pipeline decided, not that
@@ -54,12 +54,12 @@ expected facts: the four in `data/`, the synthetic clients and the hand-written 
 | G6 | Each account shows the value the trust rules select (§3.1 rule 3). Approximate values say so, and the footnote quotes the source's wording. | Deterministic: against expected facts; else against the ledger's selected value per account |
 | G7 | Money that is contingent, not yet received, or already committed is never treated as available to invest. | Deterministic (against expected facts; else the ledger's money classes, P5) + judge |
 | G8 | Nothing is recommended that the client did not agree to. Aspirations and tangents are never actioned. | Judge |
-| G9 | Background contains no transaction amounts: top-ups, proceeds, the size of any new money (e.g. a sale completion payment or an inheritance), tax figures. Values in the account table are not transaction amounts. | Deterministic |
+| G9 | Background contains no transaction amounts: top-ups, proceeds, the size of any new money (e.g. a sale completion payment or an inheritance), tax figures. Values in the account table are not transaction amounts. | Deterministic: against expected facts; else against the ledger's classification of transaction amounts |
 | G10 | Internal guidance text never appears in the report. | Deterministic screen (n-gram overlap with internal notes, excluding phrases that also occur in the meeting record or spec) + judge for paraphrase |
 | G11 | Each section contains only its own content: no tables, risk warnings, FCA statements or recommendations bleeding into other sections. The account table appears exactly once. | Deterministic |
 | G12 | Placeholders produce grammatical text in their template sentence (no "in relation to This report relates to…"). | Deterministic + judge |
 | G13 | Risk profile and initial charge match the report instruction verbatim; client names match the account data; new accounts show "To be opened". | Deterministic |
-| G14 | Every expected marker is present, and nothing the sources settle carries a marker. Where §7 lists acceptable alternatives for a judgement call, any of them passes. | Deterministic: against expected facts; else every ledger gap has a marker and every marker maps to a ledger gap |
+| G14 | Every expected marker is present, and nothing the sources settle carries a marker. Where §7 lists acceptable alternatives for a judgement call, any of them passes. | Deterministic: against expected facts; else every ledger gap classed as a report marker (P2) has a marker, and every marker maps to one |
 | G15 | The review sheet contains every review-sheet item in the expected facts (conflicts with both values, sources, dates and the winning rule; superseded values; out-of-scope accounts with no value; open actions marked blocking or not; P4 notes; scope-resolution flags; currency items), and every report marker has a matching row (P1). | Deterministic: against expected facts; else against every review item in the ledger |
 
 ### 2.2 Quality: scored, not pass/fail
@@ -120,10 +120,12 @@ logged, never silently fed to a prompt.
 5. **Exact vs approximate**: where the report instruction gives an exact figure and the meeting an
    approximate one for the same amount, use the exact one, provided the approximate figure is
    consistent with it. **Consistent** means the exact figure lies within the approximate figure's
-   precision, taken as the unit of its last non-zero digit (£120,000 → £10,000; £45,000 → £1,000):
-   "around X" allows X ± half a unit; "a little over X" allows X up to X + one unit; "a little under X"
-   allows X − one unit up to X. So "around £120,000" is consistent with £120,000 and £124,000 but not
-   £126,000. Outside the range, it is a conflict under rule 4.
+   precision, taken as the unit of its last non-zero digit (£120,000 → £10,000; £45,000 → £1,000),
+   with the tolerance capped at 5% of X so that round figures stay tight: "around X" allows X ± the
+   smaller of half a unit and 5% of X; "a little over X" allows X up to X + the smaller of one unit and
+   5% of X; "a little under X" mirrors it below X. So "around £120,000" is consistent with £124,000 but
+   not £126,000, and "around £100,000" allows £95,000 to £105,000, not £50,000 to £150,000. Outside the
+   range, it is a conflict under rule 4.
 6. **Missing, null or closed**: never given a value. Closed accounts outside scope are ignored; a
    closed account inside scope is a conflict to flag, never silently dropped. Open accounts with no
    value outside scope go to the review sheet only; inside scope, the value cell is a marker and the
@@ -204,8 +206,8 @@ Columns `Account | Owner | Type | Value`, one row per in-scope account. Joint ow
 ("David Clarke & Susan Clarke"). A live or approximate value is shown as `c. £45,000`, with a footnote
 under the table quoting the source's wording ("a little over £45,000, viewed live on 14 May 2026") and
 the last statement value and date. The footnote is the only place a superseded value may appear (G2).
-A new account's Type uses the source's own wording (e.g. "Jointly-held investment account") and its
-Value is "To be opened"; its platform, if not stated, goes to the review sheet. Built in code from the
+A new account's Type uses the report instruction's wording, falling back to the meeting record's
+(e.g. "New joint account"), and its Value is "To be opened"; its platform, if not stated, goes to the review sheet. Built in code from the
 facts ledger, not by the model.
 
 **P10. Statement images**
@@ -289,7 +291,10 @@ eval's expected facts. Values are the latest available on the meeting date: the 
 the meeting records a later, live-viewed one.
 
 **Reportable figures** is a closed list: G2 fails any other money amount or percentage. Figures marked
-*optional* may appear or not. Where an expected fact is a judgement call, it lists the **acceptable
+*optional* may appear or not. Section notes in parentheses say where a figure is expected; they are
+guidance, not rules, except "table footnote only", which G2 enforces. Placement is otherwise judged
+(Q1), and G9 keeps transaction amounts out of Background. So the Tax section may say "your GIA, worth
+about £45,000". Where an expected fact is a judgement call, it lists the **acceptable
 alternatives**, and the eval accepts any of them.
 
 ### client_01_clean (meeting 12 May 2026)
