@@ -32,28 +32,35 @@ So the pipeline has two outputs, for two readers:
   with these, never with the pipeline's own output, because a pipeline that picks the wrong value
   would record the wrong value in its ledger too.
 - **The facts ledger** is the pipeline's own record of every fact, its source, date and selecting rule.
-  It gives traceability (S5), and it is the only check available on a client with no expected facts
-  (i.e. in production): every figure in the report must be a ledger entry marked *reportable*.
+  It gives traceability (S5), and on a client with no expected facts (i.e. in production) it is the
+  only *correctness* check available: every figure in the report must be a ledger entry marked
+  *reportable*. Gates checked against the sources themselves rather than expected facts (G3, G4,
+  G9–G13) run on every client.
+
+On a client without expected facts, each fact-dependent gate falls back to a ledger check (the "else"
+in the table). Those checks prove the report is consistent with what the pipeline decided, not that
+the decision was right. Whether the decisions are right is measured on the clients that do have
+expected facts: the four in `data/`, the synthetic clients and the hand-written cases (§9).
 
 ### 2.1 Hard gates: any failure means the report cannot go to a client
 
 | # | Gate | How checked |
 |---|---|---|
-| G1 | Every account in the table is in the report instruction's scope, exists in the account data (or is a new account the instruction creates), and appears once. Joint accounts appear once, owned by both holders by name. | Deterministic, against expected facts |
-| G2 | Every numeric token in the report (£, %, "k", figures in words) is an expected reportable fact for this client, or an allowlisted non-financial number (dates, tax year, risk-profile number, the instruction's initial charge). No figure from a general document, and no superseded or out-of-scope value, ever appears. | Deterministic: against expected facts where they exist; otherwise against ledger entries marked reportable |
+| G1 | Every account in the table is in the report instruction's scope, exists in the account data (or is a new account the instruction creates), and appears once. Joint accounts appear once, owned by both holders by name. | Deterministic: against expected facts; else against the ledger's resolved scope (in scope, deduplicated, existing or new) |
+| G2 | Every money amount and percentage in the report (in digits, with "k", or in words) is a reportable figure for this client (§7), or the instruction's initial charge. No figure from a general document and no out-of-scope value ever appears. A superseded value appears only in the table footnote, next to its date (P9). Other numbers are allowed: dates, the tax year, the risk-profile number, durations ("about three years"), counts ("both ISAs") and marker IDs. | Deterministic: against §7's reportable figures; else against ledger entries marked reportable |
 | G3 | CGT amounts, CGT rates, platform charge rates and ongoing advice charge rates never appear as figures; each appears as an adviser-review marker. The only charge rate stated is the instruction's initial charge, in a charge context. | Deterministic |
 | G4 | The FCA authorisation line and the risk warning appear verbatim, exactly once each, and no paraphrase of either appears elsewhere. | Deterministic (exact match, plus fuzzy match outside the static slots) |
-| G5 | The Tax Implications section is present if and only if the advice involves selling or disposing of investments held outside a tax-exempt wrapper (e.g. a GIA). Switches inside an ISA or SIPP don't trigger it; a bond encashment raises a marker instead (P7). | Deterministic, against expected facts |
-| G6 | Each account shows the value the trust rules select (§3.1 rule 3). Approximate values say so, and the footnote quotes the source's wording. | Deterministic, against expected facts |
-| G7 | Money that is contingent, not yet received, or already committed is never treated as available to invest. | Deterministic + judge |
+| G5 | The Tax Implications section is present if and only if the advice involves selling or disposing of investments held outside a tax-exempt wrapper (e.g. a GIA). Switches inside an ISA or SIPP don't trigger it; a bond encashment raises a marker instead (P7). | Deterministic: against expected facts; else against the ledger's taxable-disposal flag |
+| G6 | Each account shows the value the trust rules select (§3.1 rule 3). Approximate values say so, and the footnote quotes the source's wording. | Deterministic: against expected facts; else against the ledger's selected value per account |
+| G7 | Money that is contingent, not yet received, or already committed is never treated as available to invest. | Deterministic (against expected facts; else the ledger's money classes, P5) + judge |
 | G8 | Nothing is recommended that the client did not agree to. Aspirations and tangents are never actioned. | Judge |
 | G9 | Background contains no transaction amounts: top-ups, proceeds, the size of any new money (e.g. a sale completion payment or an inheritance), tax figures. Values in the account table are not transaction amounts. | Deterministic |
 | G10 | Internal guidance text never appears in the report. | Deterministic screen (n-gram overlap with internal notes, excluding phrases that also occur in the meeting record or spec) + judge for paraphrase |
 | G11 | Each section contains only its own content: no tables, risk warnings, FCA statements or recommendations bleeding into other sections. The account table appears exactly once. | Deterministic |
 | G12 | Placeholders produce grammatical text in their template sentence (no "in relation to This report relates to…"). | Deterministic + judge |
 | G13 | Risk profile and initial charge match the report instruction verbatim; client names match the account data; new accounts show "To be opened". | Deterministic |
-| G14 | Every expected marker is present, and nothing the sources settle carries a marker. | Deterministic, against expected facts |
-| G15 | The review sheet lists every conflict (both values, sources, dates, the winning rule), every superseded value, every out-of-scope account with no value, and every open action, each marked blocking or not. | Deterministic, against expected facts |
+| G14 | Every expected marker is present, and nothing the sources settle carries a marker. Where §7 lists acceptable alternatives for a judgement call, any of them passes. | Deterministic: against expected facts; else every ledger gap has a marker and every marker maps to a ledger gap |
+| G15 | The review sheet contains every review-sheet item in the expected facts (conflicts with both values, sources, dates and the winning rule; superseded values; out-of-scope accounts with no value; open actions marked blocking or not; P4 notes; scope-resolution flags; currency items), and every report marker has a matching row (P1). | Deterministic: against expected facts; else against every review item in the ledger |
 
 ### 2.2 Quality: scored, not pass/fail
 
@@ -112,7 +119,11 @@ logged, never silently fed to a prompt.
    pick silently.
 5. **Exact vs approximate**: where the report instruction gives an exact figure and the meeting an
    approximate one for the same amount, use the exact one, provided the approximate figure is
-   consistent with it ("around £120,000" and "GBP 120,000"). If not, it is a conflict under rule 4.
+   consistent with it. **Consistent** means the exact figure lies within the approximate figure's
+   precision, taken as the unit of its last non-zero digit (£120,000 → £10,000; £45,000 → £1,000):
+   "around X" allows X ± half a unit; "a little over X" allows X up to X + one unit; "a little under X"
+   allows X − one unit up to X. So "around £120,000" is consistent with £120,000 and £124,000 but not
+   £126,000. Outside the range, it is a conflict under rule 4.
 6. **Missing, null or closed**: never given a value. Closed accounts outside scope are ignored; a
    closed account inside scope is a conflict to flag, never silently dropped. Open accounts with no
    value outside scope go to the review sheet only; inside scope, the value cell is a marker and the
@@ -181,7 +192,7 @@ Recommendations.
 Included per G5. Content: which disposal; that it may create a CGT liability assessed against the
 annual exempt amount (the spec's wording); a CGT marker. No gain estimates, rates or exempt-amount
 figure. Wrapper switches (inside an ISA or SIPP) create no section. A bond encashment gets a marker
-("chargeable-event gain to be assessed"), not a CGT section.
+("chargeable-event gain to be assessed") in Recommendations, next to the encashment, not a CGT section.
 
 **P8. Per-client instructions**
 The "This client" section of internal guidance becomes a tone or handling directive for the sections it
@@ -192,15 +203,18 @@ notes' "the client" can be either holder.
 Columns `Account | Owner | Type | Value`, one row per in-scope account. Joint owners by name
 ("David Clarke & Susan Clarke"). A live or approximate value is shown as `c. £45,000`, with a footnote
 under the table quoting the source's wording ("a little over £45,000, viewed live on 14 May 2026") and
-the last statement value and date. New accounts show "To be opened". Built in code from the facts
-ledger, not by the model.
+the last statement value and date. The footnote is the only place a superseded value may appear (G2).
+A new account's Type uses the source's own wording (e.g. "Jointly-held investment account") and its
+Value is "To be opened"; its platform, if not stated, goes to the review sheet. Built in code from the
+facts ledger, not by the model.
 
 **P10. Statement images**
 Read with a vision model into the same account-value schema, at **low trust**: an image value can
 confirm a value or raise a conflict for the review sheet, but never selects a value. In the current
 clients the images only repeat the account data, so the expected effect is none; the point is that an
-image that *did* disagree would be caught. A currency-symbol mismatch is treated as a likely read error,
-not a client conflict. Cost is small: at most one image per client, and client 01 has none.
+image that *did* disagree would be caught. Where the account data says GBP, a currency-symbol mismatch
+in an image is treated as a likely read error, not a client conflict. Where the account data is not in
+GBP, P12 applies. Cost is small: at most one image per client, and client 01 has none.
 
 **P11. Risk profile and request fields**
 The risk profile is copied from the report instruction verbatim, number and label ("4 (balanced to
@@ -274,11 +288,17 @@ Hand-derived from the sources and independently fact-checked (`notes/scoping_rev
 eval's expected facts. Values are the latest available on the meeting date: the snapshot value unless
 the meeting records a later, live-viewed one.
 
+**Reportable figures** is a closed list: G2 fails any other money amount or percentage. Figures marked
+*optional* may appear or not. Where an expected fact is a judgement call, it lists the **acceptable
+alternatives**, and the eval accepts any of them.
+
 ### client_01_clean (meeting 12 May 2026)
 - **Table:** Holloway Stocks & Shares ISA, Margaret Hughes, £52,000.
 - **Not in table:** Holloway cash account (£25,000): the source of funds, outside scope.
 - **Advice:** move £20,000 from the cash account into the ISA. Nothing sold.
 - **Tax section:** no. **Initial charge:** 0%. **Risk profile:** 4, moderate.
+- **Reportable figures:** £52,000 (table); £20,000 (Recommendations); 0% (initial charge). Not the cash
+  account's £25,000: it is out of scope (the source of funds is named, not valued).
 - **Markers:** platform charge rate; ongoing advice charge rate.
 - **Review sheet:** the £20,000 top-up is a full year's ISA allowance and prior use this tax year is
   unstated: a note, not a marker (P4).
@@ -291,6 +311,8 @@ the meeting records a later, live-viewed one.
 - **Advice (as agreed):** sell the joint GIA in full; split the proceeds equally into both ISAs. The
   report must not state that all the proceeds go into the ISAs: see the ISA marker.
 - **Tax section:** yes. **Initial charge:** 0%. **Risk profile:** 5, balanced.
+- **Reportable figures:** £61,000; £58,500; c. £45,000 (table and Recommendations); £40,000 (table
+  footnote only); 0%. Not a per-ISA amount such as £22,500 (see the ISA marker).
 - **Markers:** CGT; platform charge rate; advice charge rate; **ISA top-up amounts**: half the
   proceeds is about £22,500 per ISA, which exceeds one annual allowance, so even two unused allowances
   couldn't take it all, and both ISAs are already part-funded this year. Detected with the P4
@@ -308,9 +330,13 @@ the meeting records a later, live-viewed one.
 - **Advice:** sell the joint GIA; with the inheritance, fund both ISAs for the new tax year; the balance
   into the new joint account.
 - **Tax section:** yes. **Initial charge:** 0.5%. **Risk profile:** 4, moderate.
+- **Reportable figures:** £70,000; £66,000; c. £38,000; £30,000 (table footnote only); £120,000
+  (Recommendations); 0.5%. *Optional:* the combined total, c. £158,000 (a calculation over the two).
 - **Markers:** CGT; platform charge rate; advice charge rate; charges on the new joint account; ISA
-  top-up amounts and the resulting balance for the new account. (The meeting says "fund both ISAs",
-  not "use both allowances", so the amount is unspecified: a marker under P2. Contrast client 04.)
+  top-up amounts and the resulting balance for the new account. The balance marker is required. For
+  the ISA amounts: required, no ISA figure in the report; acceptable alternatives: (a) an ISA-amount
+  marker (preferred: the meeting says "fund both ISAs", not "use both allowances", so the amount is
+  unspecified, P2); (b) wording that both ISAs are funded, with a review-sheet note.
 - **Handling:** the inheritance follows a bereavement: reference it with sensitivity.
 - **Review sheet:** GIA statement value £30,000 (10 March) superseded by c. £38,000 (16 May); Jean's
   cash account, **blocking** ("confirm it before anything is finalised"); the new joint account's type
@@ -332,13 +358,21 @@ the meeting records a later, live-viewed one.
   the Holloway joint GIA; sell and rebalance a portion of the Holloway joint GIA; the balance into the
   new joint account; leave the offshore bond as it is. All weighed against replacing James's income in
   about three years.
+- **Circumstance, not money:** "James may do some consultancy work but nothing is settled." Not a money
+  item under P5 (no amount, nothing agreed) and not a tangent under P6 (it bears on the income
+  objective). It may appear in Background as unsettled; never actioned or quantified.
 - **Tax section:** yes (the partial GIA sale). **Initial charge:** 0.5%. **Risk profile:** 4,
   balanced to moderate.
+- **Reportable figures:** £85,000; £82,000; £610,000; £430,000; c. £255,000; £240,000 (table footnote
+  only); £95,000; £180,000; 0.5%. In Recommendations: £850,000 (the completion payment), £200,000 (the
+  committed loan repayment), £650,000 (available), and "up to £400,000" (the earnout, named as
+  excluded, P5).
 - **Markers:** CGT; platform charge rates (three platforms, plus the new account's if on another);
-  advice charge rate; SIPP contribution
-  amounts; the amount added to the Holloway GIA; the portion sold; the balance for the new account.
-- **ISA subscriptions:** "use both ISA allowances", prior use unstated. Per P4: the report says both
-  allowances are used, with no figure; the review sheet notes that prior use is unconfirmed.
+  advice charge rate; SIPP contribution amounts; the amount added to the Holloway GIA; the portion
+  sold; the balance for the new account.
+- **ISA subscriptions:** "use both ISA allowances", prior use unstated. Required: no ISA figure in the
+  report. Acceptable alternatives: (a) wording that both allowances are used, with a review-sheet note
+  that prior use is unconfirmed (preferred, P4); (b) an ISA-amount marker.
 - **Review sheet:** Caroline's cash balance; bridging-loan repayment timing; Holloway GIA statement
   value £240,000 (28 February) superseded by c. £255,000 (20 May); whether the partial-sale proceeds
   stay in the GIA or join the £650,000; the new account's type and platform.
