@@ -60,9 +60,7 @@ class ReportGenerator:
     def _ask(self, instruction: str, context: str) -> str:
         response = self._openai.chat.completions.create(
             model=self._model,
-            messages=[
-                {"role": "user", "content": f"{context}\n\n---\n\n{instruction}"}
-            ],
+            messages=[{"role": "user", "content": f"{context}\n\n---\n\n{instruction}"}],
         )
         return response.choices[0].message.content.strip()
 
@@ -76,14 +74,10 @@ def read_client_context(client_dir: Path, filenames: list[str]) -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Generate an advice report for a client."
-    )
+    parser = argparse.ArgumentParser(description="Generate an advice report for a client.")
     parser.add_argument("--client", required=True, help="folder name under data/")
     parser.add_argument("--data-dir", type=Path, default=Path("data"))
-    parser.add_argument(
-        "--config", type=Path, default=Path("config/template_config.json")
-    )
+    parser.add_argument("--config", type=Path, default=Path("config/template_config.json"))
     parser.add_argument("--output-dir", type=Path, default=Path("outputs"))
     args = parser.parse_args()
 
