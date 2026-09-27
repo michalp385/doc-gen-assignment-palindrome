@@ -61,7 +61,7 @@ blocking item. That step is outside the pipeline.
 | G2 | Every money amount and percentage in the report (in digits, with "k", or in words) is a reportable figure for this client (§7), or the instruction's initial charge. No figure from a general document and no out-of-scope value ever appears. A superseded value appears only in the table footnote, next to its date (P9). Other numbers are allowed: dates, the tax year, the risk-profile number, durations ("about three years"), counts ("both ISAs") and marker IDs. Each figure is used in its fact's role (a value as a value, the available amount as available). | Deterministic list check (money in digits, "k" and common word forms): against §7's reportable figures, else ledger entries marked reportable; role check by judge |
 | G3 | CGT amounts, CGT rates, platform charge rates and ongoing advice charge rates never appear as figures; each appears as an adviser-review marker. The only charge rate stated is the instruction's initial charge, in a charge context. | Deterministic |
 | G4 | The FCA authorisation line and the risk warning appear verbatim, exactly once each, and no paraphrase of either appears elsewhere. | Deterministic exact match; paraphrase detection is a heuristic (fuzzy match above a calibrated threshold) backed by the judge |
-| G5 | The Tax Implications section is present if and only if the advice involves selling or disposing of investments held outside a tax-exempt wrapper (e.g. a GIA). Switches inside an ISA or SIPP don't trigger it; a bond encashment raises a marker instead (P7). | Deterministic: against expected facts; else against the ledger's taxable-disposal flag |
+| G5 | The Tax Implications section is present if and only if (a) the advice involves selling or disposing of investments held outside a tax-exempt wrapper (e.g. a GIA), or (b) the sources conflict on whether such a disposal happens: a *possible taxable disposal pending confirmation*, included with a marker (P2). Switches inside an ISA or SIPP never trigger it. A bond encashment alone never triggers it: it gets a marker in Recommendations (P7); if the advice also has a taxable disposal, the section covers that disposal only. | Deterministic: against expected facts; else against the ledger's taxable-disposal flag |
 | G6 | Each account shows the value the trust rules select (§3.1 rule 3). Approximate values say so, and the footnote quotes the source's wording. | Deterministic: against expected facts; else against the ledger's selected value per account |
 | G7 | Money that is contingent, not yet received, or already committed is never treated as available to invest. | Deterministic (against expected facts; else the ledger's money classes, P5) + judge |
 | G8 | Every agreed action appears in Recommendations, and nothing is recommended that the client did not agree to. Aspirations and tangents are never actioned. | Judge, against the expected actions in §7; else against the ledger's action list |
@@ -106,7 +106,7 @@ logged, never silently fed to a prompt.
 
 | Role | Current file | Trusted for | Never used for |
 |---|---|---|---|
-| Account data | `client_data_db.json` | Which accounts exist; owners (from the `owner` field); types, platforms, status; values with their `valuation_date` | Decisions; the scope of this report |
+| Account data | `client_data_db.json` | Which accounts exist; owners (the `owner` field, or for "Joint" the holders whose records contain the account, rule 1); types, platforms, status; values with their `valuation_date` | Decisions; the scope of this report |
 | Meeting record | `meeting_notes.docx` | What was discussed and **decided**; values *viewed during the meeting* (with the meeting date); money received, committed or contingent; open actions | Account existence (it may mention accounts loosely) |
 | Report instruction | `report_request.docx` | Accounts in scope; the headline instruction; whether anything is being sold; risk profile; initial charge | Account values |
 | Report spec | `template_spec.md` | What each section must contain | Client facts |
@@ -167,9 +167,9 @@ row in the review sheet, which gives its reason.
   charge rates; the ongoing advice charge rate.
 - A marker: amounts the sources leave unspecified but the report needs (e.g. "a portion" of an account
   to be sold); amounts where the plan may breach a limit (P4).
-- If the sources conflict on whether anything is sold, the Tax Implications section is included with a
-  marker, and the conflict goes to the review sheet: flagging a possible disposal is safer than
-  omitting one.
+- If the sources conflict on whether a taxable disposal happens, that is a *possible taxable disposal
+  pending confirmation* (G5 case b): the Tax Implications section is included with a marker, and the
+  conflict goes to the review sheet. Flagging a possible disposal is safer than omitting one.
 - Review sheet only: open actions that don't change the report text (e.g. confirming an out-of-scope
   cash balance, the timing of a loan repayment). Each is marked **blocking** when the sources make it a
   precondition ("confirm it before anything is finalised"), otherwise informational.
@@ -196,14 +196,18 @@ Every money item is classified, with its source quote:
 - **Received:** cash the client already holds (e.g. a completion payment in a solicitor's account).
 - **Committed:** received money already earmarked elsewhere (e.g. a loan repayment). Subtracted from
   received, in code.
-- **Proceeds of recommended disposals:** money this advice creates by selling an account. It is
-  allocated as part of the plan, at the value rule 3 selects, and described as approximate where that
-  value is: it is gross, before any CGT, and not yet realised.
+- **Proceeds of recommended disposals:** money this advice creates by selling. It counts toward the
+  plan's funding only when both the amount sold and its destination are known (e.g. an account sold
+  in full, at the value rule 3 selects, into agreed accounts), and is then described as gross, before
+  any CGT, not yet realised, and approximate where that value is. If only "a portion" is sold, or the
+  destination is unclear, the amount is a marker and the destination a review-sheet item.
 - **External and not received:** contingent or expected money from outside the plan (e.g. an earnout).
   Named in Recommendations as excluded, with the reason, and never allocated.
 
-Money available now is received minus committed. Total funding for the plan is that plus proceeds of
-recommended disposals (e.g. client 03's c. £158,000 is anticipated gross funding, not cash in hand). If
+Money available now is received minus committed. Total funding for the plan is that plus proceeds
+that meet the rule above (e.g. client 03's c. £158,000 is anticipated gross funding, not cash in hand;
+client 04's partial GIA sale adds nothing to its £650,000 until the amount and destination are
+confirmed). If
 a commitment has no stated amount, the available amount becomes a marker: a guessed amount is never
 subtracted.
 
