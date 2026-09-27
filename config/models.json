@@ -1,8 +1,28 @@
 {
-  "source": "DECISIONS.md D2",
-  "retrieved": "2026-09-27",
+  "capabilities": {
+    "gpt-6-luna": {
+      "checked": "2026-09-27",
+      "image_input": true,
+      "structured_outputs": true,
+      "temperature_accepted": false
+    },
+    "gpt-6-sol": {
+      "checked": "2026-09-27",
+      "image_input": true,
+      "structured_outputs": true,
+      "temperature_accepted": false
+    }
+  },
   "prices_per_1m_tokens": {
-    "gpt-6-luna": { "input": 0.10, "output": 0.50 },
-    "gpt-6-sol": { "input": 2.00, "output": 10.00 }
-  }
+    "gpt-6-luna": {
+      "input": 0.1,
+      "output": 0.5
+    },
+    "gpt-6-sol": {
+      "input": 2.0,
+      "output": 10.0
+    }
+  },
+  "retrieved": "2026-09-27",
+  "source": "DECISIONS.md D2"
 }

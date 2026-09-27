@@ -1,0 +1,16 @@
+{
+  "cost_usd": "0.000270",
+  "input_hash": "6e3a344547bcf68fdf2770230a8f1dd8602f33713dac01e59f3abef047e74439",
+  "model": "gpt-6-sol",
+  "prompt_version": "live-probe-v1",
+  "response": {
+    "answer": "Blue"
+  },
+  "stage": "probe",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 65,
+    "output_tokens": 14,
+    "reasoning_tokens": 0
+  }
+}
