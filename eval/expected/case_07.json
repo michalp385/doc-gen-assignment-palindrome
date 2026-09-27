@@ -1,0 +1,110 @@
+{
+  "client": "case_07",
+  "meeting_date": "2026-05-14",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "C-ISA-01",
+      "owners": [
+        "Diane Carter"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£60,000"
+    },
+    {
+      "account": "C-GIA-01",
+      "owners": [
+        "Diane Carter"
+      ],
+      "type": "General Investment Account",
+      "value": "£25,000"
+    }
+  ],
+  "not_in_table": [],
+  "reportable_figures": [
+    {
+      "value": "£60,000",
+      "placement": "table"
+    },
+    {
+      "value": "£25,000",
+      "placement": "table"
+    },
+    {
+      "value": "£10,000",
+      "placement": "any"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "cgt",
+      "description": "capital gains tax on the possible disposal of the General Investment Account"
+    },
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    },
+    {
+      "key": "disposal_pending_confirmation",
+      "description": "whether the General Investment Account disposal is proceeding (the report instruction and the meeting note disagree)"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "selling_conflict",
+      "kind": "conflict",
+      "blocking": true,
+      "must_mention": [
+        "Selling existing investments? | No",
+        "sell £10,000"
+      ]
+    }
+  ],
+  "sections": {
+    "tax_implications": true
+  },
+  "actions": [
+    {
+      "description": "Sell £10,000 of the General Investment Account and use the proceeds to top up the Stocks & Shares ISA",
+      "kind": "action",
+      "accounts": [
+        "C-GIA-01",
+        "C-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [
+      {
+        "class": "proceeds",
+        "amount_quote": "£10,000",
+        "evidence_quote": "We agreed to sell £10,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year."
+      }
+    ],
+    "disposals": [
+      {
+        "account": "C-GIA-01",
+        "extent": "portion",
+        "evidence_quote": "We agreed to sell £10,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year."
+      }
+    ],
+    "open_actions": []
+  },
+  "investigation": []
+}

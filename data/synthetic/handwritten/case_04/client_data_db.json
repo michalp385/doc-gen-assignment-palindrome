@@ -1,0 +1,55 @@
+{
+  "snapshot_date": "2026-04-15",
+  "holders": {
+    "client": {
+      "name": "Marcus Bell",
+      "accounts": [
+        {
+          "account_id": "B-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Marcus Bell",
+          "status": "open",
+          "value": 42000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-04-15"
+        },
+        {
+          "account_id": "B-GIA-01",
+          "platform": "Holloway",
+          "type": "General Investment Account",
+          "owner": "Joint",
+          "status": "open",
+          "value": 61000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-04-15"
+        }
+      ]
+    },
+    "partner": {
+      "name": "Fiona Bell",
+      "accounts": [
+        {
+          "account_id": "B-ISA-02",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Fiona Bell",
+          "status": "open",
+          "value": 39000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-04-15"
+        },
+        {
+          "account_id": "B-GIA-01",
+          "platform": "Holloway",
+          "type": "General Investment Account",
+          "owner": "Joint",
+          "status": "open",
+          "value": 63000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-04-15"
+        }
+      ]
+    }
+  }
+}

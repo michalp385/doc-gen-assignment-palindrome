@@ -14,6 +14,7 @@ dependencies = [
 # You are free to add whatever you like (e.g. pydantic-ai, pytest). These are only what the
 # starting scaffold needs to run.
 dev = [
+    "Pillow>=10.0",
     "pytest>=8.0",
     "ruff>=0.6",
     "pyright>=1.1.380",

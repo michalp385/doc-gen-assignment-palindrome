@@ -1,0 +1,87 @@
+{
+  "client": "case_16",
+  "meeting_date": "2026-05-18",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "Y-ISA-01",
+      "owners": [
+        "Yvonne Pascoe"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£36,000"
+    },
+    {
+      "account": "Y-GIA-01",
+      "owners": [
+        "Yvonne Pascoe"
+      ],
+      "type": "General Investment Account",
+      "value": "£22,000"
+    }
+  ],
+  "not_in_table": [],
+  "reportable_figures": [
+    {
+      "value": "£36,000",
+      "placement": "table"
+    },
+    {
+      "value": "£22,000",
+      "placement": "table"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    }
+  ],
+  "review_items": [],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Continue as invested; no changes recommended at this time",
+      "kind": "non_action",
+      "accounts": [
+        "Y-ISA-01",
+        "Y-GIA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": [
+      {
+        "description": "confirm the value of Yvonne's other Holloway account and report back to her",
+        "blocking": false,
+        "evidence_quote": "We agreed to confirm the value of that account and report back to her."
+      }
+    ]
+  },
+  "investigation": [
+    {
+      "question": "which account is meant by \"her other account on the Holloway platform\"",
+      "expected": "Y-GIA-01"
+    }
+  ]
+}

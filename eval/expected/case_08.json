@@ -1,0 +1,83 @@
+{
+  "client": "case_08",
+  "meeting_date": "2026-05-12",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "V-ISA-01",
+      "owners": [
+        "Vera Hopkins"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£50,000"
+    }
+  ],
+  "not_in_table": [
+    {
+      "account": "V-CASH-01",
+      "reason": "out_of_scope"
+    }
+  ],
+  "reportable_figures": [
+    {
+      "value": "£50,000",
+      "placement": "table"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    },
+    {
+      "key": "topup_amount_conflict",
+      "description": "the ISA top-up amount: the report instruction and the meeting note disagree"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "topup_amount_conflict",
+      "kind": "conflict",
+      "blocking": true,
+      "must_mention": [
+        "GBP 12,000",
+        "around £15,000"
+      ]
+    }
+  ],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Move money from the Holloway cash account into the Stocks & Shares ISA (amount to be confirmed)",
+      "kind": "action",
+      "accounts": [
+        "V-CASH-01",
+        "V-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": []
+  },
+  "investigation": []
+}

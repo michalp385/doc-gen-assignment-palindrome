@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "Yvonne Pascoe",
+      "accounts": [
+        {
+          "account_id": "Y-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Yvonne Pascoe",
+          "status": "open",
+          "value": 36000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "Y-GIA-01",
+          "platform": "Holloway",
+          "type": "General Investment Account",
+          "owner": "Yvonne Pascoe",
+          "status": "open",
+          "value": 22000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}

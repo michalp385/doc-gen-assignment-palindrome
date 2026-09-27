@@ -1,0 +1,96 @@
+{
+  "client": "case_10",
+  "meeting_date": "2026-05-11",
+  "risk_profile": "3 (cautious)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "D-BOND-01",
+      "owners": [
+        "Sandra Doyle"
+      ],
+      "type": "Offshore Investment Bond",
+      "value": "£90,000"
+    },
+    {
+      "account": "D-ISA-01",
+      "owners": [
+        "Sandra Doyle"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£35,000"
+    }
+  ],
+  "not_in_table": [],
+  "reportable_figures": [
+    {
+      "value": "£90,000",
+      "placement": "table"
+    },
+    {
+      "value": "£35,000",
+      "placement": "table"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "bond_chargeable_gain",
+      "description": "chargeable-event gain on the bond encashment, to be assessed"
+    },
+    {
+      "key": "platform_charge_meridian",
+      "description": "ongoing platform charge rate, Meridian"
+    },
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    }
+  ],
+  "review_items": [],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Fully encash the Meridian offshore bond",
+      "kind": "action",
+      "accounts": [
+        "D-BOND-01"
+      ]
+    },
+    {
+      "description": "Switch the funds held within the Stocks & Shares ISA to a more cautious fund range",
+      "kind": "action",
+      "accounts": [
+        "D-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [
+      {
+        "account": "D-BOND-01",
+        "extent": "full",
+        "evidence_quote": "We agreed to fully encash the Meridian offshore bond, as it no longer suits her plans."
+      }
+    ],
+    "open_actions": []
+  },
+  "investigation": []
+}

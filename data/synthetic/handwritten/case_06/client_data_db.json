@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-05-05",
+  "holders": {
+    "client": {
+      "name": "Owen Pratt",
+      "accounts": [
+        {
+          "account_id": "P-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Owen Pratt",
+          "status": "open",
+          "value": 48000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-05"
+        },
+        {
+          "account_id": "P-SIPP-01",
+          "platform": "Brightwell",
+          "type": "SIPP",
+          "owner": "Owen Pratt",
+          "status": "open",
+          "value": null,
+          "currency": "GBP",
+          "valuation_date": null
+        }
+      ]
+    }
+  }
+}

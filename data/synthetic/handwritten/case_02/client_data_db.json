@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "George Ashworth",
+      "accounts": [
+        {
+          "account_id": "A-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "George Ashworth",
+          "status": "open",
+          "value": 45000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "A-CASH-01",
+          "platform": "Holloway",
+          "type": "Cash Account",
+          "owner": "George Ashworth",
+          "status": "open",
+          "value": 10000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}

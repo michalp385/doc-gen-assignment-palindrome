@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-05-05",
+  "holders": {
+    "client": {
+      "name": "Nora Whitfield",
+      "accounts": [
+        {
+          "account_id": "N-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Nora Whitfield",
+          "status": "open",
+          "value": 55000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-05"
+        },
+        {
+          "account_id": "N-CASH-01",
+          "platform": "Holloway",
+          "type": "Cash Account",
+          "owner": "Nora Whitfield",
+          "status": "closed",
+          "value": 0.0,
+          "currency": "GBP",
+          "valuation_date": "2026-01-10"
+        }
+      ]
+    }
+  }
+}

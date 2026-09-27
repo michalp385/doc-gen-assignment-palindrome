@@ -1,0 +1,93 @@
+{
+  "client": "case_09",
+  "meeting_date": "2026-05-10",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "T-ISA-01",
+      "owners": [
+        "Trevor Higgs"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£30,000"
+    }
+  ],
+  "not_in_table": [],
+  "reportable_figures": [
+    {
+      "value": "£30,000",
+      "placement": "table"
+    },
+    {
+      "value": "£40,000",
+      "placement": "any"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    },
+    {
+      "key": "available_to_invest",
+      "description": "the amount available to invest, once the loan repayment is confirmed"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "loan_repayment_amount_unknown",
+      "kind": "open_action",
+      "blocking": true,
+      "must_mention": [
+        "loan",
+        "repayment",
+        "confirm"
+      ]
+    }
+  ],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Invest the remainder of the £40,000, after the loan repayment, into the Stocks & Shares ISA",
+      "kind": "action",
+      "accounts": [
+        "T-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [
+      {
+        "class": "received",
+        "amount_quote": "£40,000",
+        "evidence_quote": "Trevor recently received £40,000 from a matured investment held elsewhere, which is now sitting in his current account."
+      },
+      {
+        "class": "committed",
+        "amount_quote": null,
+        "evidence_quote": "Some of this money is already committed to repaying a personal loan, though Trevor could not say exactly how much that repayment would be."
+      }
+    ],
+    "disposals": [],
+    "open_actions": []
+  },
+  "investigation": []
+}

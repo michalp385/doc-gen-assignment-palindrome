@@ -35,7 +35,9 @@ class Release(_Strict):
 
 
 class TableRow(_Strict):
-    """One row of the account table (G1, G6, P9). `account` is an account_id or `new:<slug>`."""
+    """One row of the account table (G1, G6, P9). `account` is an account_id, `new:<slug>` for
+    an account the advice creates (P9), or `unresolved:<slug>` for a scope-phrase marker row
+    (R8: a phrase that fails a check or matches more than it names, §5.2)."""
 
     account: str
     owners: list[str]

@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-06-01",
+  "holders": {
+    "client": {
+      "name": "Helen Foster",
+      "accounts": [
+        {
+          "account_id": "F-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Helen Foster",
+          "status": "open",
+          "value": 30000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-06-01"
+        },
+        {
+          "account_id": "F-CASH-01",
+          "platform": "Holloway",
+          "type": "Cash Account",
+          "owner": "Helen Foster",
+          "status": "open",
+          "value": 12000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-06-01"
+        }
+      ]
+    }
+  }
+}

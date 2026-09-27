@@ -1,0 +1,27 @@
+{
+  "client": "case_19",
+  "meeting_date": "2026-05-21",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "failed",
+    "reason": "two report instructions disagree: report_request.docx covers only the ISA and GBP 5,000 with no disposal, report_request_2.docx covers the ISA and GIA and GBP 9,000 with a disposal"
+  },
+  "table_rows": [],
+  "not_in_table": [],
+  "reportable_figures": [],
+  "markers": [],
+  "review_items": [],
+  "sections": {},
+  "actions": [],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": []
+  },
+  "investigation": []
+}

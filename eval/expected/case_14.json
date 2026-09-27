@@ -1,0 +1,78 @@
+{
+  "client": "case_14",
+  "meeting_date": "2026-05-20",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "G2-ISA-01",
+      "owners": [
+        "Alistair Grieve"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£33,000"
+    }
+  ],
+  "not_in_table": [
+    {
+      "account": "G2-CASH-01",
+      "reason": "out_of_scope"
+    }
+  ],
+  "reportable_figures": [
+    {
+      "value": "£33,000",
+      "placement": "table"
+    },
+    {
+      "value": "£7,000",
+      "placement": "any"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    }
+  ],
+  "review_items": [],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Move £7,000 from the Holloway cash account into the Stocks & Shares ISA",
+      "kind": "action",
+      "accounts": [
+        "G2-CASH-01",
+        "G2-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [
+    {
+      "claim": "The top-up amount was revised from £3,000 to £7,000 in a follow-up call",
+      "source_quote": "We agreed the top-up amount would be revised to £7,000 from the cash account into the Stocks & Shares ISA."
+    }
+  ],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": []
+  },
+  "investigation": []
+}

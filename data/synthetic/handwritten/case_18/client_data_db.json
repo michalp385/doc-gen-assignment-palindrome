@@ -1,0 +1,29 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "Mildred Sowerby",
+      "accounts": [
+        {
+          "account_id": "S-ISA-01",
+          "type": "Stocks & Shares ISA",
+          "owner": "Mildred Sowerby",
+          "status": "open",
+          "value": 29000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "S-CASH-01",
+          "platform": "Holloway",
+          "type": "Cash Account",
+          "owner": "Mildred Sowerby",
+          "status": "open",
+          "value": 8000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}

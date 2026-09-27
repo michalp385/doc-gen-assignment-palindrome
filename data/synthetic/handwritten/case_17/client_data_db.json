@@ -1,0 +1,40 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "Bernard Otieno",
+      "accounts": [
+        {
+          "account_id": "O-GIA-01",
+          "platform": "Holloway",
+          "type": "General Investment Account",
+          "owner": "Bernard Otieno",
+          "status": "open",
+          "value": 21000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "O-GIA-02",
+          "platform": "Holloway",
+          "type": "General Investment Account",
+          "owner": "Bernard Otieno",
+          "status": "open",
+          "value": 26000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "O-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Bernard Otieno",
+          "status": "open",
+          "value": 30000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}

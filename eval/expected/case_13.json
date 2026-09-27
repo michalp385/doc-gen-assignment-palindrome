@@ -1,0 +1,79 @@
+{
+  "client": "case_13",
+  "meeting_date": "2026-05-15",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "TBC",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "R-ISA-01",
+      "owners": [
+        "Rosalind Ferris"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£41,000"
+    }
+  ],
+  "not_in_table": [
+    {
+      "account": "R-CASH-01",
+      "reason": "out_of_scope"
+    }
+  ],
+  "reportable_figures": [
+    {
+      "value": "£41,000",
+      "placement": "table"
+    },
+    {
+      "value": "£5,000",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    },
+    {
+      "key": "initial_charge_tbc",
+      "description": "initial charge (report instruction says TBC)"
+    }
+  ],
+  "review_items": [],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Move £5,000 from the Holloway cash account into the Stocks & Shares ISA",
+      "kind": "action",
+      "accounts": [
+        "R-CASH-01",
+        "R-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": [
+      {
+        "description": "confirm the initial charge once the paperwork is finalised",
+        "blocking": false,
+        "evidence_quote": "The adviser will confirm the initial charge once the paperwork is finalised."
+      }
+    ]
+  },
+  "investigation": []
+}

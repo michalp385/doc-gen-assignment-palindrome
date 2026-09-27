@@ -1,0 +1,108 @@
+{
+  "client": "case_03",
+  "meeting_date": "2026-04-30",
+  "risk_profile": "5 (balanced)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "W-ISA-01",
+      "owners": [
+        "Ian Walsh"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£40,000"
+    },
+    {
+      "account": "W-ISA-02",
+      "owners": [
+        "Priya Walsh"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£38,000"
+    },
+    {
+      "account": "W-GIA-01",
+      "owners": [
+        "Ian Walsh",
+        "Priya Walsh"
+      ],
+      "type": "General Investment Account",
+      "value": "£52,000",
+      "footnote": "Account data, 15 April 2026: £52,000. Earlier copy: £50,000 at 1 April 2026."
+    }
+  ],
+  "not_in_table": [],
+  "reportable_figures": [
+    {
+      "value": "£40,000",
+      "placement": "table"
+    },
+    {
+      "value": "£38,000",
+      "placement": "table"
+    },
+    {
+      "value": "£52,000",
+      "placement": "table"
+    },
+    {
+      "value": "£50,000",
+      "placement": "footnote_only"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "gia_joint_copies_conflict",
+      "kind": "superseded",
+      "blocking": false,
+      "must_mention": [
+        "£50,000",
+        "1 April",
+        "£52,000",
+        "15 April"
+      ]
+    }
+  ],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Continue as invested; no changes recommended at this time",
+      "kind": "non_action",
+      "accounts": [
+        "W-ISA-01",
+        "W-ISA-02",
+        "W-GIA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [
+    {
+      "claim": "Both confirmed their circumstances and objectives are unchanged",
+      "source_quote": "Both confirmed their circumstances and objectives are unchanged since the last review and remain comfortable with a balanced approach to risk."
+    }
+  ],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": []
+  },
+  "investigation": []
+}

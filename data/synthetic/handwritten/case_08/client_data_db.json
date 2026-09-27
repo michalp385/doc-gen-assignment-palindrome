@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "Vera Hopkins",
+      "accounts": [
+        {
+          "account_id": "V-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Vera Hopkins",
+          "status": "open",
+          "value": 50000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "V-CASH-01",
+          "platform": "Holloway",
+          "type": "Cash Account",
+          "owner": "Vera Hopkins",
+          "status": "open",
+          "value": 20000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}

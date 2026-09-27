@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "Douglas Kerr",
+      "accounts": [
+        {
+          "account_id": "K-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Douglas Kerr",
+          "status": "open",
+          "value": 44000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "K-CASH-01",
+          "platform": "Holloway",
+          "type": "Cash Account",
+          "owner": "Douglas Kerr",
+          "status": "open",
+          "value": 9000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}

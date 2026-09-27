@@ -1,0 +1,90 @@
+{
+  "client": "case_05",
+  "meeting_date": "2026-05-12",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "N-ISA-01",
+      "owners": [
+        "Nora Whitfield"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£55,000"
+    }
+  ],
+  "not_in_table": [
+    {
+      "account": "N-CASH-01",
+      "reason": "closed"
+    }
+  ],
+  "reportable_figures": [
+    {
+      "value": "£55,000",
+      "placement": "table"
+    },
+    {
+      "value": "£5,000",
+      "placement": "any"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "cash_account_closed_but_in_scope",
+      "kind": "conflict",
+      "blocking": true,
+      "must_mention": [
+        "closed",
+        "cash account",
+        "Holloway"
+      ]
+    }
+  ],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Move £5,000 from the Holloway cash account into the Stocks & Shares ISA, subject to confirming the account is available",
+      "kind": "action",
+      "accounts": [
+        "N-CASH-01",
+        "N-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": [
+      {
+        "description": "check the status of the cash account",
+        "blocking": true,
+        "evidence_quote": "We agreed to look into the cash account, and if the funds are available, move £5,000 from it into the Stocks & Shares ISA."
+      }
+    ]
+  },
+  "investigation": []
+}

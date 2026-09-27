@@ -1,0 +1,73 @@
+{
+  "client": "case_15",
+  "meeting_date": "2026-05-16",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "K-ISA-01",
+      "owners": [
+        "Douglas Kerr"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£44,000"
+    }
+  ],
+  "not_in_table": [
+    {
+      "account": "K-CASH-01",
+      "reason": "out_of_scope"
+    }
+  ],
+  "reportable_figures": [
+    {
+      "value": "£44,000",
+      "placement": "table"
+    },
+    {
+      "value": "£4,000",
+      "placement": "any"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    }
+  ],
+  "review_items": [],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Move £4,000 from the Holloway cash account into the Stocks & Shares ISA",
+      "kind": "action",
+      "accounts": [
+        "K-CASH-01",
+        "K-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": []
+  },
+  "investigation": []
+}

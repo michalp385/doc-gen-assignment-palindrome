@@ -1,0 +1,27 @@
+{
+  "client": "case_20",
+  "meeting_date": "2026-05-22",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "failed",
+    "reason": "the report instruction's scope field is \"TBC\": no basis for the account table"
+  },
+  "table_rows": [],
+  "not_in_table": [],
+  "reportable_figures": [],
+  "markers": [],
+  "review_items": [],
+  "sections": {},
+  "actions": [],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": []
+  },
+  "investigation": []
+}

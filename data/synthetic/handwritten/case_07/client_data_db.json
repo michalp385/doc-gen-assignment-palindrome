@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "Diane Carter",
+      "accounts": [
+        {
+          "account_id": "C-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Diane Carter",
+          "status": "open",
+          "value": 60000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "C-GIA-01",
+          "platform": "Holloway",
+          "type": "General Investment Account",
+          "owner": "Diane Carter",
+          "status": "open",
+          "value": 25000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}

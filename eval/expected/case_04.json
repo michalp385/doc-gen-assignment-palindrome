@@ -1,0 +1,104 @@
+{
+  "client": "case_04",
+  "meeting_date": "2026-04-30",
+  "risk_profile": "5 (balanced)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "B-ISA-01",
+      "owners": [
+        "Marcus Bell"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£42,000"
+    },
+    {
+      "account": "B-ISA-02",
+      "owners": [
+        "Fiona Bell"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£39,000"
+    },
+    {
+      "account": "B-GIA-01",
+      "owners": [
+        "Marcus Bell",
+        "Fiona Bell"
+      ],
+      "type": "General Investment Account",
+      "value": "marker"
+    }
+  ],
+  "not_in_table": [],
+  "reportable_figures": [
+    {
+      "value": "£42,000",
+      "placement": "table"
+    },
+    {
+      "value": "£39,000",
+      "placement": "table"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    },
+    {
+      "key": "gia_same_date_conflict_value",
+      "description": "account value, Holloway joint GIA — records disagree"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "gia_same_date_conflict_value",
+      "kind": "conflict",
+      "blocking": true,
+      "must_mention": [
+        "£61,000",
+        "£63,000",
+        "15 April 2026",
+        "before anything is finalised"
+      ]
+    }
+  ],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Continue as invested; no changes recommended at this time",
+      "kind": "non_action",
+      "accounts": [
+        "B-ISA-01",
+        "B-ISA-02",
+        "B-GIA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": [
+      {
+        "description": "confirm the correct GIA balance before anything is finalised",
+        "blocking": true,
+        "evidence_quote": "we will confirm the correct balance before anything is finalised."
+      }
+    ]
+  },
+  "investigation": []
+}

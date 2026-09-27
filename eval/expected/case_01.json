@@ -1,0 +1,89 @@
+{
+  "client": "case_01",
+  "meeting_date": "2026-06-08",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "F-ISA-01",
+      "owners": [
+        "Helen Foster"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£30,000"
+    }
+  ],
+  "not_in_table": [
+    {
+      "account": "F-CASH-01",
+      "reason": "out_of_scope"
+    }
+  ],
+  "reportable_figures": [
+    {
+      "value": "£30,000",
+      "placement": "table"
+    },
+    {
+      "value": "£8,000",
+      "placement": "any"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "isa_statement_image_discrepancy",
+      "kind": "image_discrepancy",
+      "blocking": false,
+      "must_mention": [
+        "GBP 34,000",
+        "£30,000",
+        "10 Jun 2026"
+      ]
+    }
+  ],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Move £8,000 from the Holloway cash account into the Stocks & Shares ISA",
+      "kind": "action",
+      "accounts": [
+        "F-CASH-01",
+        "F-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [
+    {
+      "claim": "Helen agreed to move £8,000 from the cash account into the ISA",
+      "source_quote": "We agreed she would move £8,000 from the cash account into the Stocks & Shares ISA. No investments are being sold to do this."
+    }
+  ],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": []
+  },
+  "investigation": []
+}

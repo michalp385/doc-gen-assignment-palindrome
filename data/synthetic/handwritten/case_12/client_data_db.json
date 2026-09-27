@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "Klaus Under",
+      "accounts": [
+        {
+          "account_id": "U-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Klaus Under",
+          "status": "open",
+          "value": 52000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "U-GIA-01",
+          "platform": "Holloway",
+          "type": "General Investment Account",
+          "owner": "Klaus Under",
+          "status": "open",
+          "value": 18000.0,
+          "currency": "EUR",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}

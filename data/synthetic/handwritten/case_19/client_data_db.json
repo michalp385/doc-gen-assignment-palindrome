@@ -1,0 +1,40 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "Warren Betts",
+      "accounts": [
+        {
+          "account_id": "WB-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Warren Betts",
+          "status": "open",
+          "value": 37000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "WB-CASH-01",
+          "platform": "Holloway",
+          "type": "Cash Account",
+          "owner": "Warren Betts",
+          "status": "open",
+          "value": 12000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "WB-GIA-01",
+          "platform": "Holloway",
+          "type": "General Investment Account",
+          "owner": "Warren Betts",
+          "status": "open",
+          "value": 19000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}

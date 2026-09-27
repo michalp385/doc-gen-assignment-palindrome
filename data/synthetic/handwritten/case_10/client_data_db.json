@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "Sandra Doyle",
+      "accounts": [
+        {
+          "account_id": "D-BOND-01",
+          "platform": "Meridian",
+          "type": "Offshore Investment Bond",
+          "owner": "Sandra Doyle",
+          "status": "open",
+          "value": 90000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "D-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Sandra Doyle",
+          "status": "open",
+          "value": 35000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}

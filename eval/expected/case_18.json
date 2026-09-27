@@ -1,0 +1,94 @@
+{
+  "client": "case_18",
+  "meeting_date": null,
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "S-ISA-01",
+      "owners": [
+        "Mildred Sowerby"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£29,000"
+    }
+  ],
+  "not_in_table": [
+    {
+      "account": "S-CASH-01",
+      "reason": "out_of_scope"
+    }
+  ],
+  "reportable_figures": [
+    {
+      "value": "£29,000",
+      "placement": "table"
+    },
+    {
+      "value": "£3,500",
+      "placement": "any"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_unknown_platform",
+      "description": "ongoing platform charge rate (platform not stated for the Stocks & Shares ISA)"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "meeting_date_unavailable",
+      "kind": "degradation",
+      "blocking": false,
+      "must_mention": [
+        "date",
+        "meeting",
+        "undated"
+      ]
+    },
+    {
+      "key": "isa_platform_missing",
+      "kind": "degradation",
+      "blocking": false,
+      "must_mention": [
+        "platform",
+        "not stated",
+        "Stocks & Shares ISA"
+      ]
+    }
+  ],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Move £3,500 from the Holloway cash account into the Stocks & Shares ISA",
+      "kind": "action",
+      "accounts": [
+        "S-CASH-01",
+        "S-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": []
+  },
+  "investigation": []
+}

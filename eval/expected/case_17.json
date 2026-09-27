@@ -1,0 +1,110 @@
+{
+  "client": "case_17",
+  "meeting_date": "2026-05-19",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "O-ISA-01",
+      "owners": [
+        "Bernard Otieno"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£30,000"
+    },
+    {
+      "account": "O-GIA-01",
+      "owners": [
+        "Bernard Otieno"
+      ],
+      "type": "General Investment Account",
+      "value": "£21,000"
+    },
+    {
+      "account": "O-GIA-02",
+      "owners": [
+        "Bernard Otieno"
+      ],
+      "type": "General Investment Account",
+      "value": "£26,000"
+    }
+  ],
+  "not_in_table": [],
+  "reportable_figures": [
+    {
+      "value": "£30,000",
+      "placement": "table"
+    },
+    {
+      "value": "£21,000",
+      "placement": "table"
+    },
+    {
+      "value": "£26,000",
+      "placement": "table"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "gia_certificate_unresolved",
+      "kind": "ambiguity",
+      "blocking": false,
+      "must_mention": [
+        "paper share certificate",
+        "General Investment Account"
+      ]
+    }
+  ],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Continue as invested; no changes recommended at this time",
+      "kind": "non_action",
+      "accounts": [
+        "O-ISA-01",
+        "O-GIA-01",
+        "O-GIA-02"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": [
+      {
+        "description": "leave the paper share certificate matter for now and revisit if it becomes relevant",
+        "blocking": false,
+        "evidence_quote": "We agreed to leave this for now and revisit if it becomes relevant."
+      }
+    ]
+  },
+  "investigation": [
+    {
+      "question": "which General Investment Account the old paper share certificate relates to",
+      "stays_unresolved": true
+    }
+  ]
+}

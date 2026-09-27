@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "Rosalind Ferris",
+      "accounts": [
+        {
+          "account_id": "R-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Rosalind Ferris",
+          "status": "open",
+          "value": 41000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "R-CASH-01",
+          "platform": "Holloway",
+          "type": "Cash Account",
+          "owner": "Rosalind Ferris",
+          "status": "open",
+          "value": 15000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}

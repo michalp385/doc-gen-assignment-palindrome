@@ -1,0 +1,89 @@
+{
+  "client": "case_11",
+  "meeting_date": "2026-05-09",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "L-ISA-01",
+      "owners": [
+        "Patricia Nolan"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£47,000"
+    },
+    {
+      "account": "unresolved:personal_pension",
+      "owners": [
+        "Patricia Nolan"
+      ],
+      "type": "Personal Pension",
+      "value": "marker"
+    }
+  ],
+  "not_in_table": [],
+  "reportable_figures": [
+    {
+      "value": "£47,000",
+      "placement": "table"
+    },
+    {
+      "value": "£3,000",
+      "placement": "any"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "scope_unresolved_personal_pension",
+      "description": "which account(s) are meant by \"Patricia's Personal Pension\" in the report instruction"
+    },
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "scope_unresolved_personal_pension",
+      "kind": "scope_flag",
+      "blocking": true,
+      "must_mention": [
+        "Personal Pension",
+        "Accounts covered"
+      ]
+    }
+  ],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Pay £3,000 into the Stocks & Shares ISA",
+      "kind": "action",
+      "accounts": [
+        "L-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": []
+  },
+  "investigation": []
+}

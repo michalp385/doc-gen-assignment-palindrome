@@ -1,0 +1,100 @@
+{
+  "client": "case_06",
+  "meeting_date": "2026-05-12",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": {
+    "state": "draft"
+  },
+  "table_rows": [
+    {
+      "account": "P-ISA-01",
+      "owners": [
+        "Owen Pratt"
+      ],
+      "type": "Stocks & Shares ISA",
+      "value": "£48,000"
+    },
+    {
+      "account": "P-SIPP-01",
+      "owners": [
+        "Owen Pratt"
+      ],
+      "type": "SIPP",
+      "value": "marker"
+    }
+  ],
+  "not_in_table": [],
+  "reportable_figures": [
+    {
+      "value": "£48,000",
+      "placement": "table"
+    },
+    {
+      "value": "£4,000",
+      "placement": "any"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
+    }
+  ],
+  "markers": [
+    {
+      "key": "platform_charge_holloway",
+      "description": "ongoing platform charge rate, Holloway"
+    },
+    {
+      "key": "platform_charge_brightwell",
+      "description": "ongoing platform charge rate, Brightwell"
+    },
+    {
+      "key": "advice_charge",
+      "description": "ongoing advice charge rate"
+    },
+    {
+      "key": "sipp_value",
+      "description": "account value, Brightwell SIPP"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "sipp_no_value",
+      "kind": "open_action",
+      "blocking": false,
+      "must_mention": [
+        "SIPP",
+        "value",
+        "confirm"
+      ]
+    }
+  ],
+  "sections": {
+    "tax_implications": false
+  },
+  "actions": [
+    {
+      "description": "Pay £4,000 into the Stocks & Shares ISA",
+      "kind": "action",
+      "accounts": [
+        "P-ISA-01"
+      ]
+    }
+  ],
+  "excluded_items": [],
+  "must_not_appear": [],
+  "material_claims": [],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": [
+      {
+        "description": "confirm the SIPP's current value",
+        "blocking": false,
+        "evidence_quote": "the SIPP's current value was not available on our system, so we could not confirm it during the meeting."
+      }
+    ]
+  },
+  "investigation": []
+}

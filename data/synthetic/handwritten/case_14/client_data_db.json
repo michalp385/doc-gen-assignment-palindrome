@@ -1,0 +1,30 @@
+{
+  "snapshot_date": "2026-05-01",
+  "holders": {
+    "client": {
+      "name": "Alistair Grieve",
+      "accounts": [
+        {
+          "account_id": "G2-ISA-01",
+          "platform": "Holloway",
+          "type": "Stocks & Shares ISA",
+          "owner": "Alistair Grieve",
+          "status": "open",
+          "value": 33000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        },
+        {
+          "account_id": "G2-CASH-01",
+          "platform": "Holloway",
+          "type": "Cash Account",
+          "owner": "Alistair Grieve",
+          "status": "open",
+          "value": 15000.0,
+          "currency": "GBP",
+          "valuation_date": "2026-05-01"
+        }
+      ]
+    }
+  }
+}
