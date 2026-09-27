@@ -8,7 +8,11 @@
 4. Protected file: src/document_formatter/formatting.py unchanged from the upstream commit.
 
 Allowlist genuinely general values in scripts/overfit_allowlist.txt, one per line, with a
-reason after a '#', e.g. `20000  # UK ISA annual allowance, a general rule`.
+reason after a '#'. A bare value is allowed everywhere in src/ and config/, e.g.
+`20000  # UK ISA annual allowance, a general rule`. Prefer scoping it to the one file that
+needs it, `path/relative/to/repo: value  # reason`, e.g.
+`config/tax_rules.json: 20000  # ISA allowance, a general rule` -- the exemption then
+doesn't also cover that value showing up unexplained anywhere else in src/ or config/.
 """
 
 from __future__ import annotations
@@ -47,15 +51,23 @@ def docx_text(path: Path) -> str:
     return re.sub(r"<[^>]+>", " ", xml)
 
 
-def load_allowlist() -> set[str]:
+def load_allowlist() -> tuple[set[str], dict[str, set[str]]]:
+    """Return (global_values, per_file_values), both lower-cased. A line 'path: value'
+    scopes the exemption to that one file; a bare 'value' line is global."""
+    global_values: set[str] = set()
+    per_file: dict[str, set[str]] = {}
     if not ALLOWLIST_FILE.exists():
-        return set()
-    items = set()
-    for line in ALLOWLIST_FILE.read_text(encoding="utf-8").splitlines():
-        value = line.split("#", 1)[0].strip()
-        if value:
-            items.add(value.lower())
-    return items
+        return global_values, per_file
+    for raw_line in ALLOWLIST_FILE.read_text(encoding="utf-8").splitlines():
+        line = raw_line.split("#", 1)[0].strip()
+        if not line:
+            continue
+        path, sep, value = line.partition(":")
+        if sep and value.strip() and "/" in path:
+            per_file.setdefault(path.strip(), set()).add(value.strip().lower())
+        else:
+            global_values.add(line.lower())
+    return global_values, per_file
 
 
 def collect_denylist() -> tuple[set[str], set[int]]:
@@ -103,23 +115,24 @@ def scan_files() -> list[Path]:
     return files
 
 
-def check_overfitting(allow: set[str]) -> list[str]:
+def check_overfitting(global_allow: set[str], per_file_allow: dict[str, set[str]]) -> list[str]:
     terms, amounts = collect_denylist()
     term_res = [
         (t, re.compile(rf"(?<![A-Za-z0-9]){re.escape(t)}(?![A-Za-z0-9])", re.IGNORECASE))
         for t in sorted(terms)
-        if t.lower() not in allow
     ]
-    amount_res = [
-        (str(a), p) for a in sorted(amounts) if str(a) not in allow for p in amount_patterns(a)
-    ]
+    amount_res = [(str(a), p) for a in sorted(amounts) for p in amount_patterns(a)]
     problems = []
     for path in scan_files():
         rel = path.relative_to(ROOT)
+        rel_str = rel.as_posix()
+        file_allow = per_file_allow.get(rel_str, set())
         for lineno, line in enumerate(
             path.read_text(encoding="utf-8", errors="ignore").splitlines(), 1
         ):
             for label, pattern in term_res + amount_res:
+                if label.lower() in global_allow or label.lower() in file_allow:
+                    continue
                 if pattern.search(line):
                     problems.append(f"{rel}:{lineno}: client-specific value '{label}'")
     return sorted(set(problems))
@@ -172,8 +185,9 @@ def check_protected() -> list[str]:
 
 
 def main() -> int:
+    global_allow, per_file_allow = load_allowlist()
     sections = {
-        "overfitting": check_overfitting(load_allowlist()),
+        "overfitting": check_overfitting(global_allow, per_file_allow),
         "secrets": check_secrets(),
         "static text": check_static_text(),
         "protected files": check_protected(),

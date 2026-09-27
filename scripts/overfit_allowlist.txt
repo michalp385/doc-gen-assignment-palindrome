@@ -1,2 +1,6 @@
 # Values that appear in data/ but are genuinely general, so may appear in src/ or config/.
-# One per line, with the reason after '#'. Keep this list short and justified.
+# One per line, with the reason after '#'. A bare value is global; 'path: value' scopes it
+# to that one file, so the exemption doesn't also cover the value turning up unexplained
+# anywhere else. Keep this list short and justified.
+
+config/tax_rules.json: 20000  # UK ISA annual allowance for 2025/26 and 2026/27, a general rule

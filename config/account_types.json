@@ -1,0 +1,13 @@
+{
+  "_comment": "Type wording -> wrapper class and allowance family (DESIGN.md section 5.1). General vocabulary, not client data. A type not listed here classifies as 'unknown': never guessed, always a review item.",
+  "wrappers": {
+    "Stocks & Shares ISA": { "class": "tax_exempt", "allowance_family": "isa" },
+    "Cash ISA": { "class": "tax_exempt", "allowance_family": "isa" },
+    "SIPP": { "class": "tax_exempt", "allowance_family": "pension" },
+    "Personal Pension": { "class": "tax_exempt", "allowance_family": "pension" },
+    "General Investment Account": { "class": "taxable" },
+    "Cash Account": { "class": "cash" },
+    "Offshore Investment Bond": { "class": "bond" },
+    "Onshore Investment Bond": { "class": "bond" }
+  }
+}
