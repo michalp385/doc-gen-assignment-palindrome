@@ -44,8 +44,8 @@ seen, because new clients arrive all the time.
 - Do not modify `src/document_formatter/formatting.py`.
 - Never commit `.env` or any key. Do commit final `outputs/`.
 - Must run end to end from a clean checkout (`uv sync` + `.env`).
-- One $10 OpenAI key. Offline tests never call the API. Cache LLM calls; estimate cost before
-  any live batch run.
+- Offline tests never call the API. Cache LLM calls. Print the cost estimate before any live batch
+  run; ask first when the estimate exceeds $1 or it is a `--fresh` batch.
 - Every metric quoted in docs is read from an eval output file, never typed by hand.
 
 ## How we work
@@ -69,6 +69,7 @@ seen, because new clients arrive all the time.
    assumptions you made that the user didn't state.
 
 ## Don't
-- Edit `data/` or `formatting.py`. Add dependencies without listing them in the plan.
+- Edit `data/` (except `data/synthetic/`, which holds the hand-written and generated eval clients) or
+  `formatting.py`. Add dependencies without listing them in the plan.
 - Silence errors (broad `except`, `# type: ignore`, `noqa`) without a comment saying why.
 - Put anything in committed files that isn't about this project.
