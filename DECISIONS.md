@@ -271,6 +271,27 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   *is* part of a real run's pipeline path rather than eval/test tooling only.
 - **Evidence:** `bash scripts/check.sh` green (350 tests, all repo checks pass) after the change.
 
+### D18. Extraction's verification loop calls `find_in_source` from code, not as a real model tool
+- **Context:** DESIGN §4.1 says the model "may call one tool, `find_in_source(text) → matching
+  paragraphs`" while correcting a rejected quote. T11 deliberately left OpenAI function-calling
+  unwired in `LLMClient` (tool definitions go into the cache key per DESIGN §9, but nothing threads
+  them into the transport call) -- building that now, just for this one loop, is real surface in
+  `llm.py` neither T11 nor T13 otherwise needs.
+- **Decision:** the verification loop itself calls a deterministic `find_in_source` search function
+  when a fact's quote fails `verify_quote`, and folds the candidate paragraphs into the next re-ask
+  as plain text. The model never issues a real tool call; it just sees better context on retry.
+- **Alternatives:** wire real SDK tool-calling into `LLMClient` now. More implementation surface for
+  no behavioural difference DESIGN requires here, and harder to test offline with a scripted fake
+  model (T13's own tests-first requirement).
+- **Consequences / how it generalises:** this doesn't block or duplicate T22's conflict-investigation
+  agent, which needs genuine adaptive multi-tool SDK calling across five tools (`find_in_source(text,
+  source?)`, `list_sources()`, `read_paragraphs()`, `get_accounts()`, `get_ledger_entry()`, DESIGN
+  §5.2) searching across every source, not one document -- a different signature and a different
+  mechanism (the agent chooses which tool to call, not code deciding when to retry). T22 builds real
+  tool-calling infrastructure in `llm.py` regardless of what T13 does. Revisit if a future stage needs
+  the model itself to decide when to search, rather than code deciding for it.
+- **Evidence:** none yet.
+
 ## What I would do with more time
 <!-- For production: what's missing, what you'd change in the pipeline and the agent setup,
      and the risks you know about. Concrete, not a wish list. -->
