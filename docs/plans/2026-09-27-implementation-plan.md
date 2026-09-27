@@ -226,6 +226,15 @@ case first needs it.
 - **Done:** client 01 sections pass the section gates; ⛳ verifier before prompts are committed.
 
 ### T15. Release judge, assembly, review sheet, failure policy ⛳ (prompt)
+- **Known gap to close here (verifier report, M0b checkpoint, finding #3):** G15 requires every
+  report marker to have a matching review-sheet row, but `reconcile/review.py`'s
+  `build_review_items` has no such wiring, DESIGN.md's `build_review_items` input list doesn't
+  mention marker rows, and `eval/expected/{client_02_medium,client_03_hard,client_04_stretch}.json`
+  (already committed) list zero review items referencing any of their markers. T9's
+  `report_eval/reference.py` only satisfies G15 by hand-inventing `marker_reference`-kind rows
+  for its stub bundle -- that convention isn't `ReviewKind`-legal in `report_eval/expected.py` and
+  isn't real reconciliation output. This task must build the real wiring (or T9's check needs
+  revisiting if the real design turns out not to need one row per marker).
 - **Files:** `src/agent_pipeline/gates/{judge,release}.py`, `src/agent_pipeline/assemble.py`;
   `config/prompts/release_judge.md`.
 - **Interfaces:** `release_judge(bundle, ledger) -> JudgeVerdict` (G7/G8/G12/G16 parts, G2 role, G4 and

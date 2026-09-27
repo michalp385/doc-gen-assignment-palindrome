@@ -24,15 +24,10 @@ from agent_pipeline.gates.deterministic import (
     TableRow,
     run_gates,
 )
-from agent_pipeline.gates.truth import (
-    ExpectedTruth,
-    LedgerTruth,
-    MarkerSpec,
-    ReviewSpec,
-    TableAccount,
-)
+from agent_pipeline.gates.truth import LedgerTruth, MarkerSpec, ReviewSpec, TableAccount
 from agent_pipeline.ledger import Account, Ledger, Marker, ReviewItem
 from report_eval.reference import build_reference_bundle
+from report_eval.truth import ExpectedTruth
 
 BUNDLE, TRUTH = build_reference_bundle("client_01_clean")
 
@@ -48,6 +43,18 @@ def test_the_reference_bundle_passes_every_gate() -> None:
     assert {r.gate for r in results} == {
         "G1", "G2", "G3", "G4", "G5", "G6", "G9", "G10", "G11", "G12", "G13", "G14", "G15", "P6",
     }  # fmt: skip
+
+
+def test_g2_allows_a_qualifier_prefixed_figure() -> None:
+    # verifier report (M0b checkpoint), finding #1: _MONEY_RE used to extract only the bare
+    # amount, so a genuinely reportable approximate value (client 01 has none -- built
+    # directly) never matched the allowed set's qualifier-prefixed string, and G2 false-failed
+    # on every client with an approximate figure -- most real and synthetic clients.
+    bundle = ReportBundle(
+        report_text="The joint GIA is worth c. £45,000 and the ISA is up to £400,000."
+    )
+    truth = _StubTruth(reportable_figures={"c. £45,000", "up to £400,000"})
+    assert _results_by_gate(bundle, truth)["G2"].passed is True
 
 
 # --- G1: the table is exactly the in-scope accounts, each once, owners named -------------

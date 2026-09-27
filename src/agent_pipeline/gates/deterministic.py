@@ -69,7 +69,14 @@ def _word_ngrams(text: str, n: int) -> set[tuple[str, ...]]:
     return {tuple(words[i : i + n]) for i in range(len(words) - n + 1)}
 
 
-_MONEY_RE = re.compile(r"£\s?\d[\d,]*(?:\.\d+)?k?\b")
+_QUALIFIER_PREFIXES = ("c. ", "up to ", "around ", "a little over ", "a little under ")
+# Truth's reportable figures keep any qualifier prefix verbatim (ledger.py's render_table/
+# render_prose always emit one of these immediately before the amount -- verifier report,
+# M0b checkpoint, finding #1), so the money figure captured here must too, or a genuinely
+# reportable approximate value never matches the allowed set and G2 false-fails.
+_MONEY_RE = re.compile(
+    rf"(?:{'|'.join(re.escape(p) for p in _QUALIFIER_PREFIXES)})?£\s?\d[\d,]*(?:\.\d+)?k?\b"
+)
 _PERCENT_RE = re.compile(r"\b\d+(?:\.\d+)?%")
 _NUMBER_WORDS = (
     r"(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|"

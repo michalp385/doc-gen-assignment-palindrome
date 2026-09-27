@@ -1,7 +1,13 @@
 """The `Truth` a gate checks a report against, in either of the pipeline's two modes
-(DESIGN.md section 8.1): `ExpectedTruth` wraps a client's hand-derived `ExpectedFacts`
-(eval mode); `LedgerTruth` wraps a real run's `Ledger` (pipeline mode). Every gate function
-in `deterministic.py` is written once against this protocol and works unchanged in both.
+(DESIGN.md section 8.1): `report_eval.truth.ExpectedTruth` wraps a client's hand-derived
+`ExpectedFacts` (eval mode); `LedgerTruth` here wraps a real run's `Ledger` (pipeline mode).
+Every gate function in `deterministic.py` is written once against this protocol and works
+unchanged in both.
+
+`ExpectedTruth` lives in `report_eval/`, not here: this package (`agent_pipeline`) is the
+pipeline itself and must never depend on `report_eval` (eval/test tooling, D17) -- only the
+reverse. `report_eval.truth` imports `TableAccount`/`MarkerSpec`/`ReviewSpec` from here
+instead (verifier report, M0b checkpoint, finding #2).
 """
 
 from __future__ import annotations
@@ -10,7 +16,6 @@ from dataclasses import dataclass, field
 from typing import Protocol
 
 from agent_pipeline.ledger import Ledger, render_prose, render_table
-from report_eval.expected import ExpectedFacts
 
 
 @dataclass(frozen=True)
@@ -53,71 +58,6 @@ class Truth(Protocol):
     def initial_charge(self) -> str | None: ...  # G13
     def client_names(self) -> set[str]: ...  # G13
     def excluded_item_subjects(self) -> set[str]: ...  # P6 aspirations only (see docstring)
-
-
-class ExpectedTruth:
-    """Truth from a client's hand-derived `eval/expected/<client>.json` (eval mode)."""
-
-    def __init__(self, facts: ExpectedFacts) -> None:
-        self._facts = facts
-
-    def table_accounts(self) -> list[TableAccount]:
-        return [
-            TableAccount(
-                id=row.account,
-                owners=row.owners,
-                value_text=row.value,
-                superseded_texts=[row.footnote] if row.footnote else [],
-            )
-            for row in self._facts.table_rows
-        ]
-
-    def reportable_figures(self) -> set[str]:
-        return {fig.value for fig in self._facts.reportable_figures}
-
-    def transaction_figures(self) -> set[str]:
-        # ExpectedFacts.ReportableFigure has no explicit "transaction" flag (unlike the real
-        # Ledger's Fact.transaction, T6): a table value is never a transaction amount (G9's
-        # own wording), and a percentage is a charge/risk figure, not a money movement --
-        # what's left is exactly SCOPING's "top-ups, proceeds, new money, tax figures".
-        table_values = {row.value for row in self._facts.table_rows}
-        return {
-            fig.value
-            for fig in self._facts.reportable_figures
-            if fig.value not in table_values and "%" not in fig.value
-        }
-
-    def tax_section_expected(self) -> bool:
-        return self._facts.sections.get("tax_implications", False)
-
-    def required_markers(self) -> list[MarkerSpec]:
-        return [
-            MarkerSpec(key=m.key, description=m.description)
-            for m in self._facts.markers
-            if m.required
-        ]
-
-    def expected_review_items(self) -> list[ReviewSpec]:
-        return [
-            ReviewSpec(key=r.key, kind=r.kind, blocking=r.blocking, must_mention=r.must_mention)
-            for r in self._facts.review_items
-        ]
-
-    def risk_profile(self) -> str | None:
-        return self._facts.risk_profile
-
-    def initial_charge(self) -> str | None:
-        return self._facts.initial_charge
-
-    def client_names(self) -> set[str]:
-        return {owner for row in self._facts.table_rows for owner in row.owners}
-
-    def excluded_item_subjects(self) -> set[str]:
-        # P6's at-most-once rule is T9's scope; tangents ("never appear at all") and
-        # circumstances aren't a named T9 gate, so only aspirations are represented here.
-        return {
-            item.subject for item in self._facts.excluded_items if item.item_class == "aspiration"
-        }
 
 
 class LedgerTruth:
