@@ -119,6 +119,15 @@ class Question(_Strict):
 class Ledger(_Strict):
     client: str
     meeting_date: _date | None = None
+    # The report instruction's own values, verbatim (G13); None until T10's config/instruction
+    # loading populates them from a real run -- LedgerTruth (gates/truth.py) needs a field to
+    # read, not a speculative one: G13 is in T9's gate scope and has nothing else to check.
+    risk_profile: str | None = None
+    initial_charge: str | None = None
+    # Whether the Tax Implications section applies (G5), set by resolve_sections's
+    # `taxable_disposal` predicate (reconcile/sections.py); mirrors that decision so gates
+    # don't re-derive it from raw disposal data.
+    tax_section: bool = False
     accounts: list[Account] = Field(default_factory=list)
     money: list[MoneyItem] = Field(default_factory=list)
     actions: list[Action] = Field(default_factory=list)

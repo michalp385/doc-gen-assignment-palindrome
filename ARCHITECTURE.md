@@ -37,12 +37,15 @@ starter path (`agent_pipeline/generate.py` + `document_formatter/`) is what runs
   through `reconcile`.
 - `agent_pipeline/write/`: section plans (fact slices), the writer loop, token substitution, the table.
   The writer never sees a number.
-- `agent_pipeline/gates/`: every gate, used by the pipeline (truth = ledger) and the eval (truth =
-  expected facts); the release judge.
+- `agent_pipeline/gates/`: `truth.py`'s `Truth` protocol (`ExpectedTruth` wraps expected facts,
+  `LedgerTruth` wraps a real run's ledger) and `deterministic.py`'s `run_gates(bundle, truth) ->
+  list[GateResult]` (T9: G1-G6, G9-G15, P6). The release judge (G7-judge-part, G8, G16, the
+  paraphrase/n-gram findings) is not built yet.
 - `agent_pipeline/assemble.py`: outputs, review sheet, run summary; release state.
 - `document_formatter/formatting.py`: final markdown assembly. Protected, unchanged.
-- `report_eval/`: eval runner, expected-facts schema, extraction scoring, judge rubric, results files,
-  mutations, synthetic client generator (`synth/`).
+- `report_eval/`: eval runner, expected-facts schema (`expected.py`), the deterministic stub writer
+  (`reference.py`, T9: builds a client's reference bundle straight from its expected facts, no LLM),
+  extraction scoring, judge rubric, results files, mutations, synthetic client generator (`synth/`).
 
 ## Data flow
 1. `generate.py` loads the report config and the client folder.
@@ -69,7 +72,9 @@ starter path (`agent_pipeline/generate.py` + `document_formatter/`) is what runs
 <!-- The verifier checks diffs against these. Promote each to a check where you can. -->
 - Static regulatory text (FCA line, risk warning) is never model-generated: it is template text, never a
   slot. [check_repo.py checks it is present verbatim; the config contract keeps it out of slots]
-- No client-specific values in `src/` or `config/`. [check_repo.py]
+- No client-specific values in `src/agent_pipeline/` or `config/` (the pipeline must generalise to
+  unseen clients). `src/report_eval/` is exempt: eval/test tooling exists to encode known facts about
+  specific hand-written clients, same category as `eval/expected/*.json` (D17). [check_repo.py]
 - `formatting.py` unchanged [check_repo.py]; `data/` read-only except `data/synthetic/`
   [guard_protected.sh].
 - CGT and fee figures are never produced by a model; they are adviser-review markers.
