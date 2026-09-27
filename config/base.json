@@ -1,0 +1,50 @@
+{
+  "document_title": "Investment Advice Report",
+  "global_instructions": "You are writing sections of a financial advice report addressed to the client. Write in clear British English, in the first person ('we'). Output only the text for the section itself, with no extra headings or commentary.",
+  "stages": {
+    "classify": { "model": "gpt-6-luna", "reasoning_effort": "none" },
+    "extract": { "model": "gpt-6-luna", "reasoning_effort": "medium" },
+    "investigate": { "model": "gpt-6-luna", "reasoning_effort": "medium" },
+    "plan": { "model": "gpt-6-luna", "reasoning_effort": "low" },
+    "write": { "model": "gpt-6-luna", "reasoning_effort": "low" },
+    "release_judge": { "model": "gpt-6-luna", "reasoning_effort": "high" }
+  },
+  "sections": [
+    {
+      "id": "introduction",
+      "title": "Introduction",
+      "use_if": "always",
+      "template": "Further to our recent discussions, we are writing to set out our advice in relation to <<scope>>. This advice is based on the information currently available to us.\n\nThis firm is authorised and regulated by the Financial Conduct Authority.",
+      "placeholders": {
+        "scope": {
+          "kind": "generated",
+          "prompt": "Say which of the client's accounts this report relates to."
+        }
+      }
+    },
+    {
+      "id": "fees_charges",
+      "title": "Fees & Charges",
+      "use_if": "always",
+      "template": "<<fees>>",
+      "placeholders": {
+        "fees": {
+          "kind": "generated",
+          "prompt": "Set out the ongoing fees and charges that apply to the client's investments."
+        }
+      }
+    },
+    {
+      "id": "conclusion",
+      "title": "Conclusion",
+      "use_if": "always",
+      "template": "The value of investments can fall as well as rise and you may get back less than you invest. Past performance is not a guide to future returns.\n\n<<closing>>",
+      "placeholders": {
+        "closing": {
+          "kind": "generated",
+          "prompt": "Write a brief closing line inviting the client to proceed with the recommendation."
+        }
+      }
+    }
+  ]
+}

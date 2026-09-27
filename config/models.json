@@ -1,0 +1,8 @@
+{
+  "source": "DECISIONS.md D2",
+  "retrieved": "2026-09-27",
+  "prices_per_1m_tokens": {
+    "gpt-6-luna": { "input": 0.10, "output": 0.50 },
+    "gpt-6-sol": { "input": 2.00, "output": 10.00 }
+  }
+}
