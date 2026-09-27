@@ -6,9 +6,15 @@ slice (M1), then widening rule by rule as clients 02–04 and the hand-written c
 
 **Conventions for every task**
 - One task = one or more small commits, one concern each, message = what + why, citing decisions.
-- Deterministic code: the failing test is written and committed first (CLAUDE.md "tests are the spec"),
-  in M2 as much as in M0b. Model behaviour is measured by the eval, not unit tests.
+- Deterministic code: the test is written and run first, and seen failing, then committed together
+  with the code that makes it pass (CLAUDE.md "tests are the spec"; a red test is never committed
+  alone, because every commit keeps check.sh green), in M2 as much as in M0b. Model behaviour is measured by the eval, not unit tests.
 - `bash scripts/check.sh` green before every commit.
+- **Prompt or stage-config changes carry their evidence:** a commit that changes a prompt file or a
+  stage's config (model, reasoning effort, schema, prompt reference) also includes the refreshed
+  `cache/llm/` entries and `outputs/` files for every client whose calls it affects, so the offline
+  replay test (T16) stays green and the committed outputs always match the committed code. Superseded
+  cache entries are removed in the same commit.
 - "Gates moved": the SCOPING gates, rules or policies the task makes checkable or makes pass.
 - **Live runs:** every live batch prints its cost estimate first (`--estimate`). I ask before running
   only when the estimate exceeds $1 or it is a `--fresh` batch; otherwise I run it and report the
@@ -266,12 +272,23 @@ run (S2).
 
 ---
 
-## M2. Widen: clients 02–04, then the hand-written cases
+## M2. Widen: images, clients 02–04, investigation, then the hand-written cases
 
-Each task below adds the rules and gates a client or case group needs, **failing test first**, then
-runs the eval across everything built so far (a change for one client must not regress another).
+Images come first because clients 02–04 all have a statement image; the investigation agent comes
+before the hand-written cases because cases 2, 16 and 17 need it. Each task adds the rules and gates a
+client or case group needs, **failing test first**, then runs the eval across everything built so far
+(a change for one client must not regress another).
 
-### T18. Client 02: joint accounts, live values, disposals, limits ⛳
+### T18. Statement images ⛳ (prompt)
+- **Files:** `src/agent_pipeline/sources/adapters/image.py`, `extract/image.py`,
+  `config/prompts/extract_image.md`; P10 in `reconcile/values.py`.
+- **Tests (first):** image observations never select; currency mismatch always a review item, labelled
+  a possible read error when the account data says GBP; unreadable image degrades.
+- **Live (est. ≈$0.01).**
+- **Done:** the image reads for clients 02–04 match their account data (scored against the fixtures'
+  extraction expectations), so T19–T21 run with images from the start; case 1 is covered in T23.
+
+### T19. Client 02: joint accounts, live values, disposals, limits ⛳
 - **Rules and gates, tests first:** R9 (dedupe by `account_id`, copies agreeing), R3 with a later viewed
   value and superseded footnote, the `disposal extent` label and its default, G5 with a taxable disposal
   and CGT marker (P7), P4 prior-use trigger and the limit marker restricting the writer's facts (DESIGN
@@ -281,7 +298,7 @@ runs the eval across everything built so far (a change for one client must not r
 - **Live (est. ≈$0.02 per pass):** client 02, plus clients 01 for regression.
 - **Done:** client 02 passes every hard gate; client 01 still does.
 
-### T19. Client 03: new accounts, nulls, exact vs approximate, guidance ⛳
+### T20. Client 03: new accounts, nulls, exact vs approximate, guidance ⛳
 - **Rules and gates, tests first:** new accounts "To be opened" with Type wording (P9) and their charges
   marker; R6 out-of-scope null → review only; R5 same stated amount → exact; blocking open actions (P2);
   derived approximate totals; guidance directives (D8, P8) with the person resolved against the people
@@ -290,7 +307,7 @@ runs the eval across everything built so far (a change for one client must not r
 - **Live (est. ≈$0.03 per pass).**
 - **Done:** client 03 passes every hard gate; clients 01–02 still do.
 
-### T20. Client 04: several platforms, closed accounts, money classes, bond ⛳
+### T21. Client 04: several platforms, closed accounts, money classes, bond ⛳
 - **Rules and gates, tests first:** R6 closed out of scope ignored; P5 received/committed/external with
   the available calculation and the excluded earnout; per-platform charge markers; pension contributions
   always markers (P4); agreed non-actions (G8); bond present with no action; `money class` label
@@ -298,15 +315,17 @@ runs the eval across everything built so far (a change for one client must not r
 - **Live (est. ≈$0.04 per pass).**
 - **Done:** client 04 passes every hard gate; clients 01–03 still do.
 
-### T21. Statement images ⛳ (prompt)
-- **Files:** `src/agent_pipeline/sources/adapters/image.py`, `extract/image.py`,
-  `config/prompts/extract_image.md`; P10 in `reconcile/values.py`.
-- **Tests (first):** image observations never select; currency mismatch always a review item, labelled
-  a possible read error when the account data says GBP; unreadable image degrades.
-- **Live (est. ≈$0.01).**
-- **Done:** images confirm the account data for clients 02–04.
+### T22. Conflict investigation agent ⛳ (prompt, invariant)
+- **Files:** `src/agent_pipeline/investigate/{agent,tools,accept}.py`,
+  `src/agent_pipeline/reconcile/questions.py`, `config/prompts/investigate.md`; `pipeline.py` (stage 3a,
+  one re-run).
+- **Tests (first):** tools are read-only; acceptance: same-paragraph label evidence, exactly one account
+  candidate, R8 multi-match stays flagged; "changed by investigation" review entries show default, new
+  value and quote; ordering and ≤5 × ≤6 limits; a model failure leaves defaults and never fails the run.
+- **Live (est. ≈$0.02):** cases 2, 16, 17 and client 03.
+- **Done:** cases 16 and 17 behave as expected; accepted-and-wrong = 0.
 
-### T22. Hand-written cases: remaining rules and failure policy ⛳
+### T23. Hand-written cases: remaining rules and failure policy ⛳
 - **Rules and gates, tests first, driven by the cases:** R3 image later than account data (1) and
   recalled figures (2); R9 disagreeing copies and same-date disagreement (3, 4); R6 closed and null in
   scope (5, 6); R4 decision mismatch → G5 case b (7); R5 any difference → conflict (8); P5 commitment
@@ -318,16 +337,6 @@ runs the eval across everything built so far (a change for one client must not r
 - **Live (est. ≈$0.20 per pass over 20 cases).**
 - **Done:** every case reaches its expected release state and, if issued, passes every hard gate;
   wrongly issued = 0.
-
-### T23. Conflict investigation agent ⛳ (prompt, invariant)
-- **Files:** `src/agent_pipeline/investigate/{agent,tools,accept}.py`,
-  `src/agent_pipeline/reconcile/questions.py`, `config/prompts/investigate.md`; `pipeline.py` (stage 3a,
-  one re-run).
-- **Tests (first):** tools are read-only; acceptance: same-paragraph label evidence, exactly one account
-  candidate, R8 multi-match stays flagged; "changed by investigation" review entries show default, new
-  value and quote; ordering and ≤5 × ≤6 limits; a model failure leaves defaults and never fails the run.
-- **Live (est. ≈$0.02):** cases 2, 16, 17 and client 03.
-- **Done:** cases 16 and 17 behave as expected; accepted-and-wrong = 0.
 
 ### T24. Full gate coverage: remaining mutations and judge mutations
 - **Files:** `tests/test_gate_mutations.py` (every gate and mutation in DESIGN §10.5, across all four
@@ -416,6 +425,6 @@ runs the eval across everything built so far (a change for one client must not r
 
 ## Estimated live spend (pre-build; measured spend replaces it)
 
-T11 ≈$0.001 · T12–T15 ≈$0.015 · T17 ≈$0.36 · T18–T20 ≈$0.10 per pass · T21 ≈$0.01 · T22 ≈$0.20 per
-pass · T23 ≈$0.02 · T24 ≈$0.05 · T25 ≈$1.70 (ask) · T26 ≈$4.60 (ask) · T27 ≈$0.20 · T28 ≈$0.25 ·
+T11 ≈$0.001 · T12–T15 ≈$0.015 · T17 ≈$0.36 · T18 ≈$0.01 · T19–T21 ≈$0.10 per pass · T22 ≈$0.02 ·
+T23 ≈$0.20 per pass · T24 ≈$0.05 · T25 ≈$1.70 (ask) · T26 ≈$4.60 (ask) · T27 ≈$0.20 · T28 ≈$0.25 ·
 T31 ≈$2.15 (`--fresh`, ask), plus prompt-iteration passes (DESIGN §10.9).
