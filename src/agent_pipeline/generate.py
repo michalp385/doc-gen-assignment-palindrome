@@ -62,7 +62,14 @@ class ReportGenerator:
             model=self._model,
             messages=[{"role": "user", "content": f"{context}\n\n---\n\n{instruction}"}],
         )
-        return response.choices[0].message.content.strip()
+        content = response.choices[0].message.content
+        if content is None:
+            # Fail loudly: an empty section must never reach a report unnoticed.
+            raise RuntimeError(
+                f"Model {self._model} returned no content "
+                f"(finish_reason={response.choices[0].finish_reason!r})"
+            )
+        return content.strip()
 
 
 def read_client_context(client_dir: Path, filenames: list[str]) -> str:
