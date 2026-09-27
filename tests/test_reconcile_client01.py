@@ -12,6 +12,8 @@ from datetime import date
 from decimal import Decimal
 from pathlib import Path
 
+import pytest
+
 from agent_pipeline.ledger import Account, ExcludedItem, Value
 from agent_pipeline.reconcile.amounts import reconcile_amounts
 from agent_pipeline.reconcile.limits import check_limits, tax_year_for
@@ -19,7 +21,7 @@ from agent_pipeline.reconcile.markers import required_markers
 from agent_pipeline.reconcile.money import compute_available
 from agent_pipeline.reconcile.ownership import resolve_ownership
 from agent_pipeline.reconcile.predicates import evaluate
-from agent_pipeline.reconcile.review import ReviewItemInput, build_review_items
+from agent_pipeline.reconcile.review import ReviewItemInput, build_review_items, marker_review_items
 from agent_pipeline.reconcile.scope import resolve_scope
 from agent_pipeline.reconcile.sections import Disposal, SectionContext
 from agent_pipeline.reconcile.values import select_values
@@ -383,6 +385,31 @@ def test_g5_tax_exempt_switch_never_triggers_the_section() -> None:
     assert evaluate("taxable_disposal", ctx) is False
 
 
+def test_section_included_reads_the_ledger_field_a_named_predicate_resolves_to() -> None:
+    from agent_pipeline.config import Section
+    from agent_pipeline.ledger import Ledger
+    from agent_pipeline.reconcile.predicates import section_included
+
+    always = Section(id="s", title="S", use_if="always", template="<<x>>")
+    assert section_included(always, Ledger(client="c")) is True
+
+    taxable = Section(
+        id="t",
+        title="T",
+        use_if="Include on disposal.",
+        predicate="taxable_disposal",
+        template="<<x>>",
+    )
+    assert section_included(taxable, Ledger(client="c", tax_section=True)) is True
+    assert section_included(taxable, Ledger(client="c", tax_section=False)) is False
+
+    unknown = Section(
+        id="u", title="U", use_if="always", predicate="not_a_real_predicate", template="<<x>>"
+    )
+    with pytest.raises(KeyError):
+        section_included(unknown, Ledger(client="c"))
+
+
 def test_p6_aspiration_background_only() -> None:
     # Margaret's gifting mention is an aspiration (P6): allowed at most once, in
     # Background, as not covered by this advice, never in Recommendations.
@@ -409,3 +436,18 @@ def test_build_review_items_assigns_stable_ids() -> None:
     )
     assert [item.id for item in items] == ["rv1", "rv2"]
     assert items[0].kind == "p4_note"
+
+
+def test_marker_review_items_one_row_per_marker() -> None:
+    # G15 (SCOPING.md): every report marker needs a matching review-sheet row (P1). Real
+    # code, not a test-only stub, must produce it -- this was the M0b-checkpoint known gap.
+    markers = required_markers(in_scope_platforms={"Holloway"})
+    items = marker_review_items(markers)
+    assert [i.refs for i in items] == [[m.key] for m in markers]
+    for item in items:
+        assert item.kind == "marker_reference"
+        assert item.blocking is False
+
+    numbered = build_review_items(items)
+    all_refs = {ref for item in numbered for ref in item.refs}
+    assert all_refs == {m.key for m in markers}

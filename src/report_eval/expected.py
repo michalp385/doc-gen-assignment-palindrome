@@ -99,6 +99,7 @@ ReviewKind = Literal[
     "unverified",
     "degradation",
     "investigation",
+    "marker_reference",  # one row per report marker (G15, P1); refs names the marker's key
     "ambiguity",  # an unresolved plan detail the sources leave open, not a conflict between them
 ]
 

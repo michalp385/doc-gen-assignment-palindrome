@@ -16,6 +16,7 @@ from agent_pipeline.gates.deterministic import (
     WORD_PERCENT_RE,
 )
 from agent_pipeline.ledger import Ledger
+from agent_pipeline.reconcile.predicates import section_included
 from agent_pipeline.write.schemas import PlanFact, PlanMarker, SectionPlan, WithheldText
 
 
@@ -24,11 +25,10 @@ class PlanningError(Exception):
 
 
 def _section_included(section: Section, ledger: Ledger) -> bool:
-    if section.predicate is None:
-        return True
-    if section.predicate == "taxable_disposal":
-        return ledger.tax_section
-    raise PlanningError(f"no ledger-level resolution for predicate {section.predicate!r}")
+    try:
+        return section_included(section, ledger)
+    except KeyError as exc:
+        raise PlanningError(str(exc)) from exc
 
 
 def _match_any(patterns: list[str], value: str) -> bool:

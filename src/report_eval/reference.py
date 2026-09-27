@@ -14,7 +14,7 @@ from pathlib import Path
 from agent_pipeline.gates.deterministic import FCA_LINE, TABLE_HEADER, ReportBundle, TableRow
 from agent_pipeline.ledger import Account, ExcludedItem, Ledger, Marker, Value, number_markers
 from agent_pipeline.reconcile.markers import required_markers
-from agent_pipeline.reconcile.review import ReviewItemInput, build_review_items
+from agent_pipeline.reconcile.review import ReviewItemInput, build_review_items, marker_review_items
 from agent_pipeline.sources.adapters.docx import read_docx
 from agent_pipeline.sources.adapters.markdown import read_markdown
 from report_eval.expected import ExpectedFacts, load_expected
@@ -81,15 +81,7 @@ def _build_client_01_clean(facts: ExpectedFacts) -> ReportBundle:
                 ),
                 refs=["H-ISA-01"],
             ),
-            *(
-                ReviewItemInput(
-                    kind="marker_reference",
-                    blocking=False,
-                    detail=f"see marker {marker.key}",
-                    refs=[marker.key],
-                )
-                for marker in markers
-            ),
+            *marker_review_items(markers),
         ]
     )
 
