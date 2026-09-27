@@ -34,26 +34,37 @@ So the pipeline has two outputs, for two readers:
 - **The facts ledger** is the pipeline's own record of every fact, its source, date and selecting rule.
   It gives traceability (S5), and on a client with no expected facts (i.e. in production) it is the
   only *correctness* check available: every figure in the report must be a ledger entry marked
-  *reportable*. Gates checked against the sources themselves rather than expected facts (G3, G4, G8,
-  G10–G13) run the same way on every client.
+  *reportable*. Gates checked against the sources themselves rather than expected facts (G3, G4,
+  G10–G13, G16) run the same way on every client.
 
 On a client without expected facts, each fact-dependent gate falls back to a ledger check (the "else"
 in the table). Those checks prove the report is consistent with what the pipeline decided, not that
 the decision was right. Whether the decisions are right is measured on the clients that do have
 expected facts: the four in `data/`, the synthetic clients and the hand-written cases (§9).
 
-### 2.1 Hard gates: any failure means the report cannot go to a client
+### Release states
+
+The pipeline never produces a client-ready report. Its output is one of:
+- **Draft for adviser review:** every hard gate passes. Markers and blocking review-sheet items may
+  remain; the adviser resolves them.
+- **Failed generation:** a hard gate fails. The draft is not issued; the run records which gate failed
+  and why, so it can be fixed or regenerated.
+
+A report becomes **client-ready** only when a person has filled every marker and cleared every
+blocking item. That step is outside the pipeline.
+
+### 2.1 Hard gates: any failure means the draft is not issued for adviser review
 
 | # | Gate | How checked |
 |---|---|---|
-| G1 | Every account in the table is in the report instruction's scope, exists in the account data (or is a new account the instruction creates), and appears once. Joint accounts appear once, owned by both holders by name. | Deterministic: against expected facts; else against the ledger's resolved scope (in scope, deduplicated, existing or new) |
-| G2 | Every money amount and percentage in the report (in digits, with "k", or in words) is a reportable figure for this client (§7), or the instruction's initial charge. No figure from a general document and no out-of-scope value ever appears. A superseded value appears only in the table footnote, next to its date (P9). Other numbers are allowed: dates, the tax year, the risk-profile number, durations ("about three years"), counts ("both ISAs") and marker IDs. | Deterministic: against §7's reportable figures; else against ledger entries marked reportable |
+| G1 | The table contains exactly the in-scope accounts: every one of them, and nothing else. Each exists in the account data or is a new account in the instruction's scope, and appears once. Joint accounts appear once, owned by both holders by name. | Deterministic: against expected facts; else against the ledger's resolved scope (in scope, deduplicated, existing or new) |
+| G2 | Every money amount and percentage in the report (in digits, with "k", or in words) is a reportable figure for this client (§7), or the instruction's initial charge. No figure from a general document and no out-of-scope value ever appears. A superseded value appears only in the table footnote, next to its date (P9). Other numbers are allowed: dates, the tax year, the risk-profile number, durations ("about three years"), counts ("both ISAs") and marker IDs. Each figure is used in its fact's role (a value as a value, the available amount as available). | Deterministic list check (money in digits, "k" and common word forms): against §7's reportable figures, else ledger entries marked reportable; role check by judge |
 | G3 | CGT amounts, CGT rates, platform charge rates and ongoing advice charge rates never appear as figures; each appears as an adviser-review marker. The only charge rate stated is the instruction's initial charge, in a charge context. | Deterministic |
-| G4 | The FCA authorisation line and the risk warning appear verbatim, exactly once each, and no paraphrase of either appears elsewhere. | Deterministic (exact match, plus fuzzy match outside the static slots) |
+| G4 | The FCA authorisation line and the risk warning appear verbatim, exactly once each, and no paraphrase of either appears elsewhere. | Deterministic exact match; paraphrase detection is a heuristic (fuzzy match above a calibrated threshold) backed by the judge |
 | G5 | The Tax Implications section is present if and only if the advice involves selling or disposing of investments held outside a tax-exempt wrapper (e.g. a GIA). Switches inside an ISA or SIPP don't trigger it; a bond encashment raises a marker instead (P7). | Deterministic: against expected facts; else against the ledger's taxable-disposal flag |
 | G6 | Each account shows the value the trust rules select (§3.1 rule 3). Approximate values say so, and the footnote quotes the source's wording. | Deterministic: against expected facts; else against the ledger's selected value per account |
 | G7 | Money that is contingent, not yet received, or already committed is never treated as available to invest. | Deterministic (against expected facts; else the ledger's money classes, P5) + judge |
-| G8 | Nothing is recommended that the client did not agree to. Aspirations and tangents are never actioned. | Judge |
+| G8 | Every agreed action appears in Recommendations, and nothing is recommended that the client did not agree to. Aspirations and tangents are never actioned. | Judge, against the expected actions in §7; else against the ledger's action list |
 | G9 | Background contains no transaction amounts: top-ups, proceeds, the size of any new money (e.g. a sale completion payment or an inheritance), tax figures. Values in the account table are not transaction amounts. | Deterministic: against expected facts; else against the ledger's classification of transaction amounts |
 | G10 | Internal guidance text never appears in the report. | Deterministic screen (n-gram overlap with internal notes, excluding phrases that also occur in the meeting record or spec) + judge for paraphrase |
 | G11 | Each section contains only its own content: no tables, risk warnings, FCA statements or recommendations bleeding into other sections. The account table appears exactly once. | Deterministic |
@@ -61,13 +72,14 @@ expected facts: the four in `data/`, the synthetic clients and the hand-written 
 | G13 | Risk profile and initial charge match the report instruction verbatim; client names match the account data; new accounts show "To be opened". | Deterministic |
 | G14 | Every expected marker is present, and nothing the sources settle carries a marker. Where §7 lists acceptable alternatives for a judgement call, any of them passes. | Deterministic: against expected facts; else every ledger gap classed as a report marker (P2) has a marker, and every marker maps to one |
 | G15 | The review sheet contains every review-sheet item in the expected facts (conflicts with both values, sources, dates and the winning rule; superseded values; out-of-scope accounts with no value; open actions marked blocking or not; P4 notes; scope-resolution flags; currency items), and every report marker has a matching row (P1). | Deterministic: against expected facts; else against every review item in the ledger |
+| G16 | No material claim is unsupported: every statement about the client's money, accounts, tax position or agreed actions is backed by a source. (Q2 scores the rest.) | Judge, claim by claim, calibrated against the hand-written cases |
 
 ### 2.2 Quality: scored, not pass/fail
 
 | # | Criterion | How checked |
 |---|---|---|
 | Q1 | Each section meets its `template_spec.md` requirements. | Judge, per section, against the spec |
-| Q2 | Faithful to the sources: no claim the sources don't support. | Judge, claim by claim against the sources |
+| Q2 | Faithful to the sources in every detail; material claims are gated by G16. | Judge, claim by claim against the sources |
 | Q3 | Per-client instructions are respected (e.g. sensitivity about a bereavement) without being quoted. | Judge |
 | Q4 | Clear, concise, plain English; the client's names used correctly; British spelling. | Judge |
 | Q5 | Markers are specific and actionable: they say exactly what is missing ("ongoing platform charge rate, Holloway"), not "TBC". | Judge |
@@ -104,9 +116,11 @@ logged, never silently fed to a prompt.
 
 ### 3.1 Trust rules
 
-1. **Existence and ownership**: the account data wins, from the `owner` field only, never inferred
-   from an account ID. A new account comes only from the report instruction or meeting record, and is
-   shown as "To be opened".
+1. **Existence and ownership**: the account data wins. Owners come from the `owner` field; where it
+   says "Joint", the owners are the holders whose records contain that same `account_id`. Ownership
+   is never inferred from how an account ID is spelled. A new account must be in the report
+   instruction's scope; one mentioned only in the meeting record is a conflict for the review sheet.
+   New accounts are shown as "To be opened".
 2. **Scope**: the report instruction wins. Accounts outside it don't appear in the table, even if
    they exist and have values.
 3. **Values**: the most recent dated figure wins, among the account data and figures the meeting
@@ -118,14 +132,9 @@ logged, never silently fed to a prompt.
    confirms. If they disagree (e.g. on whether anything is sold), that is a conflict: flag it, don't
    pick silently.
 5. **Exact vs approximate**: where the report instruction gives an exact figure and the meeting an
-   approximate one for the same amount, use the exact one, provided the approximate figure is
-   consistent with it. **Consistent** means the exact figure lies within the approximate figure's
-   precision, taken as the unit of its last non-zero digit (£120,000 → £10,000; £45,000 → £1,000),
-   with the tolerance capped at 5% of X so that round figures stay tight: "around X" allows X ± the
-   smaller of half a unit and 5% of X; "a little over X" allows X up to X + the smaller of one unit and
-   5% of X; "a little under X" mirrors it below X. So "around £120,000" is consistent with £124,000 but
-   not £126,000, and "around £100,000" allows £95,000 to £105,000, not £50,000 to £150,000. Outside the
-   range, it is a conflict under rule 4.
+   approximate one for the same amount, use the exact one only if the approximate figure's stated
+   amount is the same ("around £120,000" and "GBP 120,000"). Any difference is a conflict under rule
+   4 for the adviser to settle: no tolerance is assumed.
 6. **Missing, null or closed**: never given a value. Closed accounts outside scope are ignored; a
    closed account inside scope is a conflict to flag, never silently dropped. Open accounts with no
    value outside scope go to the review sheet only; inside scope, the value cell is a marker and the
@@ -135,7 +144,8 @@ logged, never silently fed to a prompt.
    account in the account data, or to a new account it creates. An unresolved phrase, or one that
    matches more accounts than it names, is flagged, not guessed.
 9. **Joint accounts**: deduplicated by `account_id`. If the copies differ in value or date, that is a
-   conflict for the review sheet, and rule 3 chooses. A joint account whose co-holder isn't in the
+   conflict for the review sheet, and rule 3 chooses; if they differ in value on the same date, it is
+   unresolved: the value cell is a marker. A joint account whose co-holder isn't in the
    account data shows a marker in the Owner cell.
 10. **Several meeting records**: the latest-dated one governs decisions; earlier ones contribute dated
     values only, under rule 3.
@@ -153,7 +163,8 @@ the ledger, never typed by the model, so the prefix can't be malformed or invent
 row in the review sheet, which gives its reason.
 
 **P2. What gets a marker in the report, and what goes to the review sheet**
-- Always a marker: CGT amount on any disposal; platform charge rates; the ongoing advice charge rate.
+- Always a marker: the CGT amount for any disposal that triggers Tax Implications (G5, P7); platform
+  charge rates; the ongoing advice charge rate.
 - A marker: amounts the sources leave unspecified but the report needs (e.g. "a portion" of an account
   to be sold); amounts where the plan may breach a limit (P4).
 - If the sources conflict on whether anything is sold, the Tax Implications section is included with a
@@ -175,14 +186,26 @@ possible breaches and raise a marker. The tax year comes from the meeting date (
 the file has no entry for that year, raise a marker rather than skip detection.
 **Trigger:** a marker when the sources show prior use of an allowance (e.g. "already part-funded") or
 the planned total exceeds the rule figure. A full-allowance subscription with prior use unknown gets a
-review-sheet note, not a report marker, so flagging stays calibrated (Q6).
+review-sheet note, not a report marker, so flagging stays calibrated (Q6). This is screening, not
+proof that a contribution is permitted: pension limits depend on personal circumstances, earlier
+contributions, tapering and carry-forward, so pension contribution amounts are always adviser-review
+markers and the pipeline never attempts a tax calculation.
 
-**P5. Money: received, committed, contingent, expected**
-Every money item is classified, with its source quote, as received, committed, contingent, or expected
-but not received. Only received minus committed is available, calculated in code. Contingent and
-expected money is named in Recommendations as excluded from this plan, with the reason, and never
-allocated. If a commitment has no stated amount, "available to invest" becomes a marker: a guessed
-amount is never subtracted.
+**P5. Money: available, proceeds, committed, external**
+Every money item is classified, with its source quote:
+- **Received:** cash the client already holds (e.g. a completion payment in a solicitor's account).
+- **Committed:** received money already earmarked elsewhere (e.g. a loan repayment). Subtracted from
+  received, in code.
+- **Proceeds of recommended disposals:** money this advice creates by selling an account. It is
+  allocated as part of the plan, at the value rule 3 selects, and described as approximate where that
+  value is: it is gross, before any CGT, and not yet realised.
+- **External and not received:** contingent or expected money from outside the plan (e.g. an earnout).
+  Named in Recommendations as excluded, with the reason, and never allocated.
+
+Money available now is received minus committed. Total funding for the plan is that plus proceeds of
+recommended disposals (e.g. client 03's c. £158,000 is anticipated gross funding, not cash in hand). If
+a commitment has no stated amount, the available amount becomes a marker: a guessed amount is never
+subtracted.
 
 **P6. Aspirations and tangents**
 Each item is classified. **Tangents** (holidays, trips, properties not pursued, family news that "has no
@@ -203,20 +226,23 @@ notes' "the client" can be either holder.
 
 **P9. Account table**
 Columns `Account | Owner | Type | Value`, one row per in-scope account. Joint owners by name
-("David Clarke & Susan Clarke"). A live or approximate value is shown as `c. £45,000`, with a footnote
-under the table quoting the source's wording ("a little over £45,000, viewed live on 14 May 2026") and
-the last statement value and date. The footnote is the only place a superseded value may appear (G2).
-A new account's Type uses the report instruction's wording, falling back to the meeting record's
-(e.g. "New joint account"), and its Value is "To be opened"; its platform, if not stated, goes to the review sheet. Built in code from the
-facts ledger, not by the model.
+("David Clarke & Susan Clarke"). A value selected from the meeting record keeps the source's
+precision: an approximate figure is shown as `c. £45,000`, an exact one as exact. Its footnote gives
+the source and date separately from the quoted wording, plus the last statement value and date, e.g.
+*Meeting note, 14 May 2026: "a little over £45,000". Last statement value: £40,000 at 15 March 2026.*
+The footnote is the only place a superseded value may appear (G2). A new account's Type uses the
+report instruction's wording, falling back to the meeting record's (e.g. "New joint account"), and
+its Value is "To be opened"; its platform, if not stated, goes to the review sheet. The table is built
+in code from the facts ledger, not by the model.
 
 **P10. Statement images**
 Read with a vision model into the same account-value schema, at **low trust**: an image value can
 confirm a value or raise a conflict for the review sheet, but never selects a value. In the current
 clients the images only repeat the account data, so the expected effect is none; the point is that an
-image that *did* disagree would be caught. Where the account data says GBP, a currency-symbol mismatch
-in an image is treated as a likely read error, not a client conflict. Where the account data is not in
-GBP, P12 applies. Cost is small: at most one image per client, and client 01 has none.
+image that *did* disagree would be caught. A currency-symbol mismatch is never dismissed: it goes to
+the review sheet as an unresolved discrepancy, labelled a possible read error where the account data
+says GBP. Where the account data is not in GBP, P12 also applies. Cost is small: at most one image
+per client, and client 01 has none.
 
 **P11. Risk profile and request fields**
 The risk profile is copied from the report instruction verbatim, number and label ("4 (balanced to
@@ -235,7 +261,8 @@ vary them.
 
 1. **Stale vs live values.** The account being sold has an old statement value; the meeting has a
    fresher, approximate one (02: £40k in March vs ~£45k in May; 03: £30k vs ~£38k; 04: £240k vs
-   ~£255k). Accounts not being sold carry the 30 April 2026 snapshot value; only client 04's meeting
+   ~£255k). Accounts not being sold that have a value carry the 30 April 2026 snapshot value (null and
+   closed accounts excepted); only client 04's meeting
    confirms some of them ("in line with the snapshot").
 2. **Joint accounts duplicated.** Recorded under each holder (02: one; 03: one; 04: three). A naive
    sum double-counts.
@@ -264,8 +291,7 @@ From the starter pipeline's reports (`outputs/baseline/`). Each maps to a gate.
 - **G2 / consistency, client 03:** the Conclusion gives the GIA as about £38,000 while its own table
   says £30,000. Independent slot filling produces contradictions.
 - **G3, clients 02, 03, 04:** invented CGT figures (a £5k–7k gain; £3,540; ~£6,600), all using a
-  £12,300 annual exempt amount, which is out of date. Client 04's own stated inputs give £6,540, not
-  ~£6,600.
+  £12,300 annual exempt amount, which is out of date.
 - **G3, clients 01, 03, 04:** invented fee rates (0% platform; 0.5% + 0.5%; 0.5% advice).
 - **G1, clients 01, 03, 04:** out-of-scope accounts in the table (client 01's cash account; client
   03's unconfirmed cash account; client 04 lists all ten accounts in the data, including James's
@@ -273,8 +299,8 @@ From the starter pipeline's reports (`outputs/baseline/`). Each maps to a gate.
   "Joint" (one client 04 table uses first names only).
 - **G6, client 02:** the recommendation uses the March statement value (£40,000) although the meeting
   shows about £45,000 in May. The Tax section even mentions the £45,000.
-- **G7, client 04:** the whole £850,000 treated as available; the bridging loan is not subtracted in
-  the recommendation.
+- **G7, client 04:** the recommendation invests the £850,000 without reserving the £200,000 committed to
+  the bridging loan (the loan is mentioned only in Background and Tax).
 - **G8 / P6, client 02:** the holiday appears twice.
 - **Also:** G4, client 03: the Tax section paraphrases the FCA line (verbatim-once alone would still
   pass). G9: amounts in Background (01 £20,000; 03 £120,000; 04 £850,000 and £200,000). P4: client 04
@@ -338,10 +364,9 @@ alternatives**, and the eval accepts any of them.
 - **Reportable figures:** £70,000; £66,000; c. £38,000; £30,000 (table footnote only); £120,000
   (Recommendations); 0.5%. *Optional:* the combined total, c. £158,000 (a calculation over the two).
 - **Markers:** CGT; platform charge rate; advice charge rate; charges on the new joint account; ISA
-  top-up amounts and the resulting balance for the new account. The balance marker is required. For
-  the ISA amounts: required, no ISA figure in the report; acceptable alternatives: (a) an ISA-amount
-  marker (preferred: the meeting says "fund both ISAs", not "use both allowances", so the amount is
-  unspecified, P2); (b) wording that both ISAs are funded, with a review-sheet note.
+  top-up amounts and the resulting balance for the new account. Both are required under P2: the
+  meeting says "fund both ISAs", not "use both allowances", so the amount is unspecified. (Contrast
+  client 04, where the amount is the full allowance.)
 - **Handling:** the inheritance follows a bereavement: reference it with sensitivity.
 - **Review sheet:** GIA statement value £30,000 (10 March) superseded by c. £38,000 (16 May); Jean's
   cash account, **blocking** ("confirm it before anything is finalised"); the new joint account's type
@@ -428,7 +453,8 @@ Claims about correctness are only as good as the evidence for them. The system p
    image dated later than the account data, a meeting figure recalled rather than viewed, joint-account
    copies that disagree, an in-scope account that is closed or has no value.
 2. **An eval that is itself tested.** Correct reports are deliberately broken, one fault at a time
-   (a joint account double-counted, an invented CGT figure, a missing risk warning, a distractor
+   (a joint account double-counted, an agreed action dropped, an invented CGT figure, a missing
+   risk warning, a distractor
    figure, a stale value, an actioned aspiration), and the eval must catch every one. Each gate has at
    least one such test.
 3. **Results tied to commits.** Every eval run writes a results file with the commit, prompt version,
@@ -436,6 +462,9 @@ Claims about correctness are only as good as the evidence for them. The system p
    generated from these files, never assembled by hand.
 4. **The facts ledger and the review sheet** (sections 1 and 8): every figure traceable, every gap
    visible.
+
+**Build order:** expected facts for the four clients and the hand-written cases come first, because
+they measure correctness from the start. The generator follows, to widen coverage.
 
 ## 10. Open questions for the design
 
