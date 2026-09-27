@@ -292,6 +292,41 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   the model itself to decide when to search, rather than code deciding for it.
 - **Evidence:** none yet.
 
+### D19. Give the writer its own slot-scoped gate checks in `write/writer.py`, reusing T9's regexes/constants rather than faking a `ReportBundle`
+- **Context:** DESIGN §7.2/§8.1 says stage 5 runs "the section-level deterministic gates" on
+  each generated slot, and stage 7 re-runs the full gate set on the assembled draft -- two runs,
+  but DESIGN gives only one function signature (`_check_g4(bundle: ReportBundle, truth: Truth)`
+  etc. in `gates/deterministic.py`, T9), which takes the *whole report* (every section, the
+  table, the full ledger) and a `Truth` (expected-facts or ledger truth) -- shapes a single slot
+  under repair, mid-writing, doesn't have yet (no assembled `report_text`, no `truth` object, no
+  finished `table_rows`).
+- **Decision:** `write/writer.py` gets its own small functions (`_check_g4_paraphrase`,
+  `_check_g9_no_transaction_facts`, `_check_g10_no_guidance_leak`, `_check_g11_no_structure`,
+  `_check_g12_pre`, `_check_g12_post`), each taking just the slot's own text (and `SectionPlan`
+  where relevant) -- importing and reusing T9's already-built regex/constant objects directly
+  (`PARAPHRASE_THRESHOLD`, `FCA_LINE`, `RISK_WARNING_FULL`, `word_ngrams`, `DOUBLE_STOP_RE`,
+  `MIDSENTENCE_CAP_RE`, `TABLE_HEADER`, promoted from private to public in `gates/deterministic.py`
+  for this reuse) instead of retyping them. G9/G11 are structurally scoped to the
+  `background_objectives` section specifically, matching the existing precedent in
+  `gates/deterministic.py`'s own report-level `_check_g9`/`_check_g11` (which already hardcode
+  section ids like `"background_objectives"`/`"introduction"`/`"conclusion"`), not a new
+  config-driven abstraction.
+- **Alternatives:** fake a single-section `ReportBundle` (one section, one table row) and a stub
+  `Truth` just to call T9's existing `_check_g4` etc. unchanged. Rejected: a `ReportBundle` bundles
+  the *whole report's* shape (`table_rows`, `ledger`, every section) that doesn't exist yet
+  mid-writing, so most of it would be empty/fake data threaded through only to satisfy a
+  signature, and `Truth` has no natural single-slot meaning (`table_accounts()`,
+  `required_markers()`) that isn't already answered by the section's own `SectionPlan`.
+- **Consequences / how it generalises:** stage 5 (per-slot) and stage 7 (report-level) gates
+  under the same G-number now live in two places by design, not duplication by accident -- each
+  checks what's actually available at that stage. A new slot-level gate reuses T9's constants the
+  same way; a new report-level gate stays in `gates/deterministic.py` untouched. Revisit only if a
+  future gate genuinely needs the same check to run identically pre- and post-assembly (none do
+  yet: G4/G9/G10/G11 are meaningfully narrower per-slot, and G12 already runs twice on purpose,
+  pre- and post-substitution, per DESIGN §7.2).
+- **Evidence:** `tests/test_write_writer.py` (24 tests, all slot-level gate paths), `bash
+  scripts/check.sh` green (472 offline tests) after the change.
+
 ## What I would do with more time
 <!-- For production: what's missing, what you'd change in the pipeline and the agent setup,
      and the risks you know about. Concrete, not a wish list. -->

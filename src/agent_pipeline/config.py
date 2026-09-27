@@ -45,6 +45,18 @@ class Section(_Strict):
     predicate: str | None = None
     template: str
     placeholders: dict[str, Placeholder] = Field(default_factory=dict)
+    # Glob patterns (DESIGN.md section 6): which ledger facts/markers/excluded-item classes
+    # this section's plan may draw on. Client-general by construction (e.g. "account.*.value",
+    # "platform_charge_*") -- never a specific account id or platform name.
+    facts: list[str] = Field(default_factory=list)
+    markers: list[str] = Field(default_factory=list)
+    excluded: list[str] = Field(default_factory=list)
+    # Which ledger free-text collections this section's plan may digit-free-rewrite (e.g.
+    # "actions"), and which named, plain-language context keys it wants (e.g.
+    # "scope_description") -- config-driven so a new section's needs are a config change,
+    # never a new branch in write/plan.py (S6: one new config, not new code).
+    text_sources: list[str] = Field(default_factory=list)
+    context: list[str] = Field(default_factory=list)
 
 
 class StageConfig(_Strict):

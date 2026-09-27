@@ -12,7 +12,10 @@
           "prompt": "Summarise the client's objectives and circumstances, at a high level. Do not mention transaction amounts here (top-ups, sale proceeds, the size of any new money, tax figures): those belong in Recommendations and Tax Implications."
         },
         "holdings_table": { "kind": "computed" }
-      }
+      },
+      "excluded": ["aspiration"],
+      "text_sources": ["excluded"],
+      "context": ["objectives"]
     },
     {
       "id": "recommendations",
@@ -24,7 +27,9 @@
           "kind": "generated",
           "prompt": "Describe what the client should do with their investments, and why, including the amounts involved."
         }
-      }
+      },
+      "facts": ["action.*.amount"],
+      "text_sources": ["actions"]
     },
     {
       "id": "tax_implications",
@@ -37,7 +42,8 @@
           "kind": "generated",
           "prompt": "State that the disposal may create a capital gains tax liability, assessed against the annual exempt amount. Never state or estimate a CGT amount or rate: that figure is always an adviser-review marker, inserted separately, never a model estimate."
         }
-      }
+      },
+      "markers": ["cgt_*"]
     }
   ]
 }

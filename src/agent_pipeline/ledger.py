@@ -124,6 +124,9 @@ class Ledger(_Strict):
     # read, not a speculative one: G13 is in T9's gate scope and has nothing else to check.
     risk_profile: str | None = None
     initial_charge: str | None = None
+    # A plain, digit-free summary of the client's objectives and circumstances (write/plan.py's
+    # "objectives" context key); None until real extraction/reconciliation populates it (T16).
+    objectives: str | None = None
     # Whether the Tax Implications section applies (G5), set by resolve_sections's
     # `taxable_disposal` predicate (reconcile/sections.py); mirrors that decision so gates
     # don't re-derive it from raw disposal data.

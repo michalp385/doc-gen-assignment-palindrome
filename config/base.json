@@ -20,7 +20,8 @@
           "kind": "generated",
           "prompt": "Say which of the client's accounts this report relates to."
         }
-      }
+      },
+      "context": ["scope_description"]
     },
     {
       "id": "fees_charges",
@@ -32,7 +33,8 @@
           "kind": "generated",
           "prompt": "Set out the ongoing fees and charges that apply to the client's investments."
         }
-      }
+      },
+      "markers": ["platform_charge_*", "advice_charge"]
     },
     {
       "id": "conclusion",

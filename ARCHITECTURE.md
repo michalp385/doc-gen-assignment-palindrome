@@ -35,8 +35,16 @@ starter path (`agent_pipeline/generate.py` + `document_formatter/`) is what runs
   that returns quoted findings per open question, and the code that verifies and accepts or rejects
   them. Must not write to the ledger, select a value or change a rule; accepted evidence goes back
   through `reconcile`.
-- `agent_pipeline/write/`: section plans (fact slices), the writer loop, token substitution, the table.
-  The writer never sees a number.
+- `agent_pipeline/write/` (T14): `plan.py`'s `plan_sections` resolves each included section's
+  config-declared `facts`/`markers`/`excluded` glob selectors (`config.Section`) against the ledger
+  into a `SectionPlan` (`schemas.py`), rewriting every extraction-derived text digit-free first
+  (a matched fact's quote becomes its token; anything else with a figure is withheld and logged).
+  `writer.py`'s `write_slot` makes one model call per generated placeholder (D6), checking in
+  order -- invented tokens, digit-free, required markers exactly once, then its own slot-scoped
+  G4/G9/G10/G11/G12 checks (D19: reuse T9's `gates/deterministic.py` regexes/constants, not a
+  faked `ReportBundle`) -- with ≤2 repair rounds before `WriterStopError`. `tokens.py`'s
+  `fill_tokens` and `table.py`'s `build_table` (P9) substitute from the ledger afterwards. The
+  writer never sees a number.
 - `agent_pipeline/gates/`: `truth.py`'s `Truth` protocol (`ExpectedTruth` wraps expected facts,
   `LedgerTruth` wraps a real run's ledger) and `deterministic.py`'s `run_gates(bundle, truth) ->
   list[GateResult]` (T9: G1-G6, G9-G15, P6). The release judge (G7-judge-part, G8, G16, the

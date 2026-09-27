@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001332",
+  "input_hash": "a540292f6b1898c4cc0c3e44a7c1d03f2c387b24f25a45e37fba3fdae24e9e94",
+  "model": "gpt-6-luna",
+  "prompt_version": "504468ee89696fcaf8b3624d1d31b81fb0edce8faf54a8bffacd6e5373789944",
+  "response": {
+    "paragraphs": [
+      "Margaret is retired, and her circumstances remain unchanged since last year\u2019s review. She remains comfortable with her agreed risk profile."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1132,
+    "output_tokens": 40,
+    "reasoning_tokens": 0
+  }
+}

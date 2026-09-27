@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001473",
+  "input_hash": "8b8c56e0bdd88417cd5a7246ea9686ef1f42ddc31ef109ec2fd9f21727afdbe6",
+  "model": "gpt-6-luna",
+  "prompt_version": "fff94325a38983005e6df88f9aa13a827f3aafeebc83e45f5e060fc3877ba96b",
+  "response": {
+    "paragraphs": [
+      "We have prepared this report to cover your Stocks & Shares ISA held with Holloway."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 963,
+    "output_tokens": 102,
+    "reasoning_tokens": 68
+  }
+}

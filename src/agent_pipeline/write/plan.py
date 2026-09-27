@@ -1,0 +1,163 @@
+"""Section planning (DESIGN.md section 6): resolve each included section's config-declared
+selectors against the ledger into a `SectionPlan` holding only that section's own facts
+(description + role, never a number), its markers, and its extraction-derived text rewritten
+digit-free. Pure code, no model call (stage 4).
+"""
+
+from __future__ import annotations
+
+import fnmatch
+
+from agent_pipeline.config import ReportConfig, Section
+from agent_pipeline.gates.deterministic import (
+    MONEY_RE,
+    PERCENT_RE,
+    WORD_FIGURE_RE,
+    WORD_PERCENT_RE,
+)
+from agent_pipeline.ledger import Ledger
+from agent_pipeline.write.schemas import PlanFact, PlanMarker, SectionPlan, WithheldText
+
+
+class PlanningError(Exception):
+    """A section's predicate has no ledger-level resolution -- never a silent default."""
+
+
+def _section_included(section: Section, ledger: Ledger) -> bool:
+    if section.predicate is None:
+        return True
+    if section.predicate == "taxable_disposal":
+        return ledger.tax_section
+    raise PlanningError(f"no ledger-level resolution for predicate {section.predicate!r}")
+
+
+def _match_any(patterns: list[str], value: str) -> bool:
+    return any(fnmatch.fnmatch(value, pattern) for pattern in patterns)
+
+
+def has_figure(text: str) -> bool:
+    """Any money or percentage figure, in digits or in words."""
+    return bool(
+        MONEY_RE.search(text)
+        or PERCENT_RE.search(text)
+        or WORD_FIGURE_RE.search(text)
+        or WORD_PERCENT_RE.search(text)
+    )
+
+
+def rewrite_digit_free(
+    text: str, facts: list[PlanFact], ledger: Ledger
+) -> tuple[str | None, WithheldText | None]:
+    """A span matching a known fact's quote becomes that fact's token; if a money or
+    percentage figure (digits or words) remains unmatched, the whole text is withheld
+    (DESIGN.md section 6)."""
+    rewritten = text
+    for fact in facts:
+        ledger_fact = ledger.facts.get(fact.id)
+        quote = ledger_fact.value.quote if ledger_fact and ledger_fact.value else ""
+        if quote and quote in rewritten:
+            rewritten = rewritten.replace(quote, f"{{fact:{fact.id}}}")
+    if has_figure(rewritten):
+        return None, WithheldText(
+            original=text,
+            reason="contains a money or percentage figure not matched to a known fact",
+        )
+    return rewritten, None
+
+
+def _describe_scope(ledger: Ledger) -> str:
+    parts = []
+    for account in ledger.accounts:
+        if not account.in_scope:
+            continue
+        parts.append(
+            f"your {account.type} held with {account.platform}"
+            if account.platform
+            else f"your {account.type}"
+        )
+    return " and ".join(parts)
+
+
+def _context_values(ledger: Ledger) -> dict[str, str]:
+    """Every context key `plan_sections` can resolve from the ledger itself, keyed the same
+    way a section's `context` selector names them. A key with nothing to resolve (e.g.
+    `objectives` before real extraction/reconciliation populates `ledger.objectives`, T16) is
+    simply absent, so `extra_context` can still supply it for now."""
+    values = {"scope_description": _describe_scope(ledger)}
+    if ledger.objectives:
+        values["objectives"] = ledger.objectives
+    return values
+
+
+def plan_sections(
+    ledger: Ledger,
+    config: ReportConfig,
+    *,
+    extra_context: dict[str, dict[str, str]] | None = None,
+    spec_text: str = "",
+    meeting_text: str = "",
+) -> list[SectionPlan]:
+    extra_context = extra_context or {}
+    context_values = _context_values(ledger)
+    plans: list[SectionPlan] = []
+
+    for section in config.sections:
+        if not _section_included(section, ledger):
+            continue
+
+        facts = [
+            PlanFact(
+                id=fact_id,
+                description=fact.description,
+                role=fact.role,
+                transaction=fact.transaction,
+            )
+            for fact_id, fact in ledger.facts.items()
+            if _match_any(section.facts, fact_id)
+        ]
+        markers = [
+            PlanMarker(key=marker.key, text=marker.text)
+            for marker in ledger.markers
+            if _match_any(section.markers, marker.key)
+        ]
+
+        rewritten_texts: dict[str, str] = {}
+        withheld: list[WithheldText] = []
+
+        if "actions" in section.text_sources:
+            for action in ledger.actions:
+                rewritten, defect = rewrite_digit_free(action.description, facts, ledger)
+                if defect is not None:
+                    withheld.append(defect)
+                elif rewritten is not None:
+                    rewritten_texts[f"action.{action.id}"] = rewritten
+
+        if "excluded" in section.text_sources:
+            for item in ledger.excluded:
+                if not _match_any(section.excluded, item.item_class):
+                    continue
+                rewritten, defect = rewrite_digit_free(item.description, facts, ledger)
+                if defect is not None:
+                    withheld.append(defect)
+                elif rewritten is not None:
+                    rewritten_texts[f"excluded.{item.id}"] = rewritten
+
+        context: dict[str, str] = {
+            key: context_values[key] for key in section.context if key in context_values
+        }
+        context.update(extra_context.get(section.id, {}))
+
+        plans.append(
+            SectionPlan(
+                section_id=section.id,
+                facts=facts,
+                markers=markers,
+                context=context,
+                spec_text=spec_text,
+                meeting_text=meeting_text,
+                rewritten_texts=rewritten_texts,
+                withheld=withheld,
+            )
+        )
+
+    return plans

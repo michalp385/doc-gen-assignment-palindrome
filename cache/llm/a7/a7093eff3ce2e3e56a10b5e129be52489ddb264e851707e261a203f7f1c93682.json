@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001329",
+  "input_hash": "096c0dabfff752d1c4356c54f2fbe3f0f2ff44d617c8069171b2a0eae55d375f",
+  "model": "gpt-6-luna",
+  "prompt_version": "dd855ff3a9a79c59e791c0aa8f6ee2c311bf90e975e417790b871d4953e846ff",
+  "response": {
+    "paragraphs": [
+      "We recommend moving {fact:action.a1.amount} from the Holloway cash account into the Stocks & Shares ISA."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 909,
+    "output_tokens": 84,
+    "reasoning_tokens": 43
+  }
+}

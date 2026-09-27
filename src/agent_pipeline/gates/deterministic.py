@@ -32,7 +32,7 @@ RISK_WARNING_FULL = f"{RISK_WARNING} {RISK_WARNING_2}"
 
 TABLE_HEADER = "| Account | Owner | Type | Value |"
 
-_PARAPHRASE_THRESHOLD = 0.6  # provisional (DESIGN section 8.1); real calibration is T25's job
+PARAPHRASE_THRESHOLD = 0.6  # provisional (DESIGN section 8.1); real calibration is T25's job
 
 
 @dataclass(frozen=True)
@@ -60,11 +60,11 @@ class ReportBundle:
     spec_text: str = ""
 
 
-def _split_sentences(text: str) -> list[str]:
+def split_sentences(text: str) -> list[str]:
     return re.split(r"(?<=[.!?])\s+", text)
 
 
-def _word_ngrams(text: str, n: int) -> set[tuple[str, ...]]:
+def word_ngrams(text: str, n: int) -> set[tuple[str, ...]]:
     words = re.findall(r"[A-Za-z']+", text.lower())
     return {tuple(words[i : i + n]) for i in range(len(words) - n + 1)}
 
@@ -74,16 +74,21 @@ _QUALIFIER_PREFIXES = ("c. ", "up to ", "around ", "a little over ", "a little u
 # render_prose always emit one of these immediately before the amount -- verifier report,
 # M0b checkpoint, finding #1), so the money figure captured here must too, or a genuinely
 # reportable approximate value never matches the allowed set and G2 false-fails.
-_MONEY_RE = re.compile(
+MONEY_RE = re.compile(
     rf"(?:{'|'.join(re.escape(p) for p in _QUALIFIER_PREFIXES)})?£\s?\d[\d,]*(?:\.\d+)?k?\b"
 )
-_PERCENT_RE = re.compile(r"\b\d+(?:\.\d+)?%")
-_NUMBER_WORDS = (
+PERCENT_RE = re.compile(r"\b\d+(?:\.\d+)?%")
+NUMBER_WORDS = (
     r"(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|"
     r"fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|"
     r"eighty|ninety|hundred|thousand|million)"
 )
-_WORD_FIGURE_RE = re.compile(rf"(?:{_NUMBER_WORDS}[\s-]+)+{_NUMBER_WORDS}\s+pounds", re.IGNORECASE)
+WORD_FIGURE_RE = re.compile(rf"(?:{NUMBER_WORDS}[\s-]+)+{NUMBER_WORDS}\s+pounds", re.IGNORECASE)
+# Word-form percentages (e.g. "fifty per cent") -- T14's writer digit-free check also fails
+# these (DESIGN.md section 7.2: "numbers in words that are money or percentages also fail").
+WORD_PERCENT_RE = re.compile(
+    rf"(?:{NUMBER_WORDS}[\s-]+)*{NUMBER_WORDS}\s+per\s*cent\b", re.IGNORECASE
+)
 
 
 def _check_g1(bundle: ReportBundle, truth: Truth) -> GateResult:
@@ -109,11 +114,11 @@ def _check_g1(bundle: ReportBundle, truth: Truth) -> GateResult:
 
 def _check_g2(bundle: ReportBundle, truth: Truth) -> GateResult:
     """G2: every money/percent figure in the report is a reportable figure for this client."""
-    if m := _WORD_FIGURE_RE.search(bundle.report_text):
+    if m := WORD_FIGURE_RE.search(bundle.report_text):
         return GateResult("G2", False, f"figure written in words: {m.group(0)!r}")
     allowed = truth.reportable_figures()
-    found = {re.sub(r"£\s+", "£", f) for f in _MONEY_RE.findall(bundle.report_text)}
-    found |= set(_PERCENT_RE.findall(bundle.report_text))
+    found = {re.sub(r"£\s+", "£", f) for f in MONEY_RE.findall(bundle.report_text)}
+    found |= set(PERCENT_RE.findall(bundle.report_text))
     extra = sorted(found - allowed)
     if extra:
         return GateResult("G2", False, f"figure(s) not in the reportable set: {extra}")
@@ -131,7 +136,7 @@ def _check_g3(bundle: ReportBundle, truth: Truth) -> GateResult:
     across sentence and section boundaries (e.g. an unrelated "(0%)" landing near the start
     of the next sentence's "platform charge" would otherwise false-fire).
     """
-    for sentence in _split_sentences(bundle.report_text):
+    for sentence in split_sentences(bundle.report_text):
         lowered = sentence.lower()
         if any(keyword in lowered for keyword in _RATE_KEYWORDS) and _FIGURE_NEAR_RE.search(
             sentence
@@ -150,13 +155,13 @@ def _check_g4(bundle: ReportBundle, truth: Truth) -> GateResult:
         return GateResult(
             "G4", False, f"risk warning appears {warning_count} times, expected exactly 1"
         )
-    for sentence in _split_sentences(bundle.report_text):
+    for sentence in split_sentences(bundle.report_text):
         stripped = sentence.strip()
         if not stripped or stripped in (FCA_LINE, RISK_WARNING, RISK_WARNING_2):
             continue
         for target in (FCA_LINE, RISK_WARNING_FULL):
             ratio = difflib.SequenceMatcher(None, stripped, target).ratio()
-            if ratio > _PARAPHRASE_THRESHOLD:
+            if ratio > PARAPHRASE_THRESHOLD:
                 return GateResult("G4", False, f"possible paraphrase of static text: {stripped!r}")
     return GateResult("G4", True)
 
@@ -197,10 +202,10 @@ def _check_g9(bundle: ReportBundle, truth: Truth) -> GateResult:
 
 def _check_g10(bundle: ReportBundle, truth: Truth) -> GateResult:
     """G10: internal guidance text never appears in the report (n-gram screen)."""
-    guidance_grams = _word_ngrams(bundle.internal_guidance_text, 6)
-    excluded = _word_ngrams(bundle.meeting_text, 6) | _word_ngrams(bundle.spec_text, 6)
+    guidance_grams = word_ngrams(bundle.internal_guidance_text, 6)
+    excluded = word_ngrams(bundle.meeting_text, 6) | word_ngrams(bundle.spec_text, 6)
     screened = guidance_grams - excluded
-    overlap = screened & _word_ngrams(bundle.report_text, 6)
+    overlap = screened & word_ngrams(bundle.report_text, 6)
     if overlap:
         sample = " ".join(next(iter(overlap)))
         return GateResult("G10", False, f"internal guidance text found in report: {sample!r}")
@@ -222,16 +227,16 @@ def _check_g11(bundle: ReportBundle, truth: Truth) -> GateResult:
     return GateResult("G11", True)
 
 
-_DOUBLE_STOP_RE = re.compile(r"\.\s*\.")
-_MIDSENTENCE_CAP_RE = re.compile(r"[a-z]\s+(?:This report|That report|The report)\b")
+DOUBLE_STOP_RE = re.compile(r"\.\s*\.")
+MIDSENTENCE_CAP_RE = re.compile(r"[a-z]\s+(?:This report|That report|The report)\b")
 
 
 def _check_g12(bundle: ReportBundle, truth: Truth) -> GateResult:
     """G12 (deterministic slice): a placeholder substitution left ungrammatical text --
     a capitalised sentence starting abruptly mid-sentence, or a double full stop."""
-    if _DOUBLE_STOP_RE.search(bundle.report_text):
+    if DOUBLE_STOP_RE.search(bundle.report_text):
         return GateResult("G12", False, "double full stop found")
-    if m := _MIDSENTENCE_CAP_RE.search(bundle.report_text):
+    if m := MIDSENTENCE_CAP_RE.search(bundle.report_text):
         return GateResult("G12", False, f"capitalised sentence starts mid-sentence: {m.group(0)!r}")
     return GateResult("G12", True)
 
