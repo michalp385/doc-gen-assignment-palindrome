@@ -60,8 +60,9 @@ seen, because new clients arrive all the time.
    to get green; if one looks wrong, say why and let the user decide (hook-enforced for tests).
 4. **Record decisions** between real alternatives with `/decision`, which appends a numbered entry
    (D1, D2, …) to `DECISIONS.md`. Update `ARCHITECTURE.md` when module responsibilities change.
-5. **Verify at stage boundaries**: run the `verifier` subagent when a stage of the plan is complete,
-   and before any change to prompts, source-trust rules or invariants is committed.
+5. **Verify at stage boundaries**: at a stage of the plan being complete, and before any change to
+   prompts, source-trust rules or invariants is committed, stop and flag this to the user explicitly
+   rather than invoking the `verifier` subagent on your own; they decide whether and when to run it.
 6. **Commit per task**, message = what + why ("Make risk warning static: spec requires it verbatim").
    When a commit implements a recorded decision, cite it: "Prefer live meeting value over stale
    snapshot (D3)". Never rewrite, squash or re-date history.

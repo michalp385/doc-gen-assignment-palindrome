@@ -16,12 +16,14 @@ slice (M1), then widening rule by rule as clients 02–04 and the hand-written c
   replay test (T16) stays green and the committed outputs always match the committed code. Superseded
   cache entries are removed in the same commit.
 - "Gates moved": the SCOPING gates, rules or policies the task makes checkable or makes pass.
-- **Live runs:** every live batch prints its cost estimate first (`--estimate`). I ask before running
-  only when the estimate exceeds $1 or it is a `--fresh` batch; otherwise I run it and report the
-  measured cost.
-- ⛳ **Verifier checkpoint**: run the `verifier` subagent on the stage's diff; fix findings before moving
-  on. CLAUDE.md also requires a verifier pass before any prompt, trust-rule or invariant change is
-  committed; those tasks are marked ⛳ too.
+- **Live runs:** every live batch prints its cost estimate first (`--estimate`). A PreToolUse hook
+  (`.claude/hooks/guard_live_api.sh`) requires your explicit approval before any command that could
+  make a live OpenAI call — `pytest -m live`, `agent_pipeline.generate`, `report_eval.run`, `--fresh`,
+  or direct `openai`/`OpenAI(` usage — runs, in every permission mode including auto. This is stricter
+  than the plan's earlier per-task cost estimates: no estimate threshold skips the prompt.
+- ⛳ **Verifier checkpoint**: stop and flag this to you explicitly; I don't invoke the `verifier`
+  subagent on my own. CLAUDE.md also requires a verifier pass before any prompt, trust-rule or
+  invariant change is committed; those tasks are marked ⛳ too, and get the same stop-and-flag.
 
 **Dependencies added** (listed here as CLAUDE.md requires): `pydantic` (T1, runtime; already present
 transitively), `Pillow` (T3, `dev` extra, for rendering statement images).
