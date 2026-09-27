@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 
 import pytest
+
 from agent_pipeline.sources.adapters.docx import read_docx
 from agent_pipeline.sources.adapters.json_accounts import AccountDataError, read_accounts
 from agent_pipeline.sources.adapters.markdown import read_markdown
@@ -108,6 +109,66 @@ def test_read_accounts_ignores_unknown_fields(tmp_path: Path) -> None:
     data = read_accounts(path)  # must not raise
 
     assert data.holders["client"].accounts[0].account_id == "T-ISA-01"
+
+
+def test_read_accounts_tolerates_an_unparseable_value(tmp_path: Path) -> None:
+    # verifier report (T8 checkpoint), finding #1: a placeholder string in a numeric field
+    # must degrade that field to absent, not fail the whole file (DESIGN.md section 8.4
+    # only stops the run for unreadable JSON or no holders).
+    payload = {
+        "snapshot_date": "2026-05-01",
+        "holders": {
+            "client": {
+                "name": "Mildred Sowerby",
+                "accounts": [
+                    {
+                        "account_id": "S-ISA-01",
+                        "type": "Stocks & Shares ISA",
+                        "owner": "Mildred Sowerby",
+                        "status": "open",
+                        "value": "N/A",
+                        "currency": "GBP",
+                        "valuation_date": "2026-05-01",
+                    }
+                ],
+            }
+        },
+    }
+    path = tmp_path / "client_data_db.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    data = read_accounts(path)  # must not raise
+
+    assert data.holders["client"].accounts[0].value is None
+
+
+def test_read_accounts_tolerates_an_unparseable_valuation_date(tmp_path: Path) -> None:
+    # verifier report (T8 checkpoint), finding #1: same for an unparseable date field.
+    payload = {
+        "snapshot_date": "2026-05-01",
+        "holders": {
+            "client": {
+                "name": "Mildred Sowerby",
+                "accounts": [
+                    {
+                        "account_id": "S-ISA-01",
+                        "type": "Stocks & Shares ISA",
+                        "owner": "Mildred Sowerby",
+                        "status": "open",
+                        "value": 29000.0,
+                        "currency": "GBP",
+                        "valuation_date": "unknown",
+                    }
+                ],
+            }
+        },
+    }
+    path = tmp_path / "client_data_db.json"
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    data = read_accounts(path)  # must not raise
+
+    assert data.holders["client"].accounts[0].valuation_date is None
 
 
 def test_read_accounts_raises_on_invalid_json(tmp_path: Path) -> None:
