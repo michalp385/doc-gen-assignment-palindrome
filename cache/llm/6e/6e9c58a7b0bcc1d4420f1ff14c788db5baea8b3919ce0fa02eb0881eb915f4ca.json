@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001291",
+  "input_hash": "4b475c29794a751de62c93c7759771a795ef412a1dc7661c59e62a73a2bde5ba",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 1.0,
+    "evidence_quote": "What each section of the report must contain. The same specification applies to every client.",
+    "role": "report_spec"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1091,
+    "output_tokens": 40,
+    "reasoning_tokens": 0
+  }
+}

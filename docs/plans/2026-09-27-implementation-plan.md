@@ -345,6 +345,21 @@ client or case group needs, **failing test first**, then runs the eval across ev
   meeting records (14); classification of renamed and unknown files (15); undated meeting and missing
   optional fields (18); input stops for disagreeing instructions and "TBC" scope (19, 20); the §8.4
   optional-stage degradations.
+- **Case 15's classification assertion must be explicit, not assumed (verifier report, T12
+  pre-commit checkpoint, Q3):** `welcome_pack.docx`'s content ("Welcome to our advice
+  service... explains how our annual review process works... contains no specific investment
+  recommendations") doesn't cleanly fit any of the 8 roles, and is the only real,
+  genuinely-ambiguous document anywhere in the four clients' or hand-written cases' data
+  today -- client 01's live check only ever produced confidence 0.99-1.0, so this is the
+  first real evidence of whether `config/prompts/classify.md`'s calibration ("prefer unknown
+  over a confident guess") actually holds against the live model, not just fabricated stub
+  values in tests/test_classify.py. Case 15's test must assert `welcome_pack.docx` classifies
+  `unknown`, and separately assert *why*: confidence below threshold (genuine model
+  uncertainty), not a confident misclassification into some other role that happens to get
+  excluded some other way. If the live model instead classifies it confidently (into
+  `general_document` or otherwise), that is itself a finding about the threshold or the
+  prompt's calibration to resolve here, not to paper over by asserting whatever the model
+  happens to do.
 - **Live (est. ≈$0.20 per pass over 20 cases).**
 - **Done:** every case reaches its expected release state and, if issued, passes every hard gate;
   wrongly issued = 0.
