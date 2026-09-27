@@ -25,13 +25,14 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   scores Q4 (clarity) low on token-filled sentences.
 - **Evidence:** none yet (design stage).
 
-### D2. Set the model per stage in config; choose extraction and the release judge by measurement
+### D2. Set the model per stage in config; choose the decisive model stages by measurement
 - **Context:** the key can use gpt-6-luna ($0.10 / $0.50 per 1M tokens) and gpt-6-sol ($2 / $10), among
-  others, against a $10 budget. The release judge (G8, G16) runs on every report, so its model decides
-  both cost and which drafts are issued.
+  others; at the time, against a $10 budget (since replaced by cost reporting, D12). The release judge
+  (G8, G16) runs on every report, so its model decides both cost and which drafts are issued.
 - **Decision:** every stage's model is a config setting. Luna is the default for all pipeline stages;
-  Sol is the eval judge. Extraction and the release judge run on both Luna and Sol over the four clients
-  and the hand-written cases; a stage moves to Sol only if Luna measurably misses.
+  Sol is the eval judge. Extraction, the release judge and the investigation agent (D14) run on both
+  Luna and Sol over the four clients and the hand-written cases; a stage moves to Sol only if Luna
+  measurably misses.
 - **Alternatives:** Luna everywhere including the eval judge (a model grading its own output tends to be
   lenient); Sol for both judges (≈$0.14 per report, so two or three full eval runs would use most of the
   budget).
@@ -70,7 +71,9 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   usefully retry are narrow: a quote that doesn't verify, a section that fails a gate.
 - **Decision:** a fixed stage graph in code. Models work inside bounded loops with tools: extraction
   corrects failed quotes with `find_in_source` (≤3 rounds); the writer repairs a section from gate
-  findings (≤2 rounds). Running out of rounds is a failed generation, never a guess.
+  findings (≤2 rounds); the investigation agent (D14) gets ≤6 read-only tool calls per question.
+  Running out of rounds never produces a guess: an unverified fact goes to the review sheet, a question
+  stays unresolved, and only a section still failing a hard gate makes a failed generation (D16).
 - **Alternatives:** an orchestrator agent choosing tool calls (varies per run, costs more, puts ordering
   decisions in the model); single-shot calls with no loops (one fixable quote fails the whole report).
 - **Consequences / how it generalises:** behaviour is reproducible and every step is traceable. Revisit if
@@ -91,9 +94,9 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
 ### D7. Classify sources by content: schema checks for structured files, a model for text documents
 - **Context:** unseen clients may name files differently or add new ones (SCOPING §3); general
   documents (market updates, portfolio packs) must never feed client facts.
-- **Decision:** JSON that validates as account data and images with an account table are classified in
-  code; text documents are classified by Luna with a verified evidence quote. Unknown roles are excluded
-  and logged.
+- **Decision:** JSON that validates as account data is classified in code; an image is a candidate until
+  the vision read confirms it shows an account table; text documents are classified by Luna with a
+  verified evidence quote, and low confidence makes them unknown. Unknown roles are excluded and logged.
 - **Alternatives:** filename mapping (breaks on renamed files); content heuristics alone (brittle on
   unseen phrasing).
 - **Consequences / how it generalises:** ≈$0.001 per report; a hand-written case with renamed files and
@@ -104,8 +107,10 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
 - **Context:** G10 forbids internal guidance text in the report; client 03's notes ("the recent death of
   her mother") must shape tone without being quoted, and call Jean "the client" though the account data
   makes Robert the `client`.
-- **Decision:** extraction reads only the "This client" section into a directive (sections affected,
-  instruction, the person by name). The writer receives the directive, never the notes.
+- **Decision:** extraction reads the whole notes, with the people list from the account data and the
+  meeting record, into directives for client-specific handling only (sections affected, instruction,
+  the person by name with evidence, checked against the people list). The writer receives the
+  directive, never the notes. An unresolved person is a review item, not a guess.
 - **Alternatives:** pass the section to the writer with "never quote this" (leak risk rests on the
   prompt alone).
 - **Consequences / how it generalises:** the G10 screen stays as a backstop. General rules that only some
@@ -133,16 +138,116 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
 - **Consequences / how it generalises:** a failure is always explicit in `outputs/`.
 - **Evidence:** none yet.
 
-### D11. Decide section inclusion in code: `use_if` becomes a ledger predicate
+### D11. Extend the `use_if` contract with an optional code predicate, rather than replacing it
 - **Context:** the baseline asked a model whether each conditional section applies. G5 is deterministic
-  (taxable disposal, or a conflict about one), so inclusion has a right answer.
-- **Decision:** keep the config contract (`template`, `<<slot>>`, `placeholders`, `use_if`), but `use_if`
-  is `"always"` or a reference to a ledger decision. Report configs `extends` a base and reuse section
-  files, so a second report type doesn't duplicate shared parts.
-- **Alternatives:** keep plain-language `use_if` evaluated by a model (non-deterministic inclusion,
-  unexplainable when wrong).
-- **Consequences / how it generalises:** every inclusion decision is explained in the review sheet with
-  its evidence (SCOPING §8).
+  (taxable disposal, or a conflict about one), so inclusion has a right answer. PROJECT_GUIDANCE
+  describes `use_if` as a plain-language condition, and new report types should work from config.
+- **Decision:** `use_if` stays plain language, and a section may add an optional `predicate` naming a
+  ledger decision. With a predicate, inclusion is decided in code and checked by G5; our shipped config
+  sets one for every conditional section. Without one, a model decides from ledger facts only, with its
+  reasoning logged and flagged on the review sheet. An unknown predicate name fails at load. Report
+  configs `extends` a base, with sections merged by id.
+- **Alternatives:** predicates only, with plain `use_if` removed (fully deterministic, but breaks the
+  documented contract and makes every new condition a code change); plain language decided by a model
+  everywhere (the baseline: non-deterministic inclusion, unexplainable when wrong).
+- **Consequences / how it generalises:** we extend the contract rather than replace it. Shipped reports
+  are fully deterministic; a new report type works from config alone, visibly flagged until someone
+  adds a predicate. Every inclusion decision is explained in the review sheet (SCOPING §8).
+- **Evidence:** none yet.
+
+### D12. Report cost as a metric instead of working to a budget cap; keep the default pipeline cheap
+- **Context:** costed in full at the time (the estimate has since grown with the added cases and the
+  investigation agent; DESIGN §10.9 holds the current one), the design's development and eval plan came
+  to ≈$10.25 against the $10 key: the Sol eval judge, the full Luna-vs-Sol experiment over the four clients and 14 hand-written
+  cases, synthetic clients and the final `--fresh` run. A Sol result from the experiment couldn't have
+  been acted on within the cap.
+- **Decision:** I fund development and eval runs separately, and nothing in the plan is cut. Every run
+  records its cost per stage and per report, and cost per report is a reported metric in every results
+  file. The default pipeline stays cheap (Luna unless the experiment proves otherwise, plus the
+  committed cache), so a reviewer's re-run costs cents.
+- **Alternatives:** a Luna eval judge while iterating and Sol only to confirm, with a reduced experiment
+  (≈$5.50, but weaker evidence for D2); dropping the synthetic clients (still tight, no room for a Sol
+  upgrade); skipping the experiment and staying on Luna (reverses D2).
+- **Consequences / how it generalises:** any Sol upgrade is recorded with its cost next to the accuracy
+  it buys. CLAUDE.md is updated to match; the `run-eval` skill's "$10 budget" wording still needs the
+  same change. The `--estimate` step before live batches stays.
+- **Evidence:** none yet; spend is read from run summaries and results files.
+
+### D13. Degrade gracefully on odd or missing inputs, and measure it with an issued rate
+- **Context:** unseen clients will bring sources with extra or missing fields, undated notes and
+  unfamiliar account types. The first draft of the design failed the run on several of these (schema
+  errors, an unparseable meeting date, a figure in a writer input), which would leave an adviser with
+  nothing where a flagged draft is useful.
+- **Decision:** everything that isn't unsafe (D16) degrades: unknown fields are ignored and logged,
+  missing optional fields go through the rules, an unparseable meeting date makes the meeting undated
+  for value selection (a metadata date may only set the tax year), unverifiable facts are dropped or get conservative defaults, each with a review
+  item. The review sheet has a "how this draft degraded" section listing every one.
+- **Alternatives:** fail fast on any schema or parse problem (safe, but brittle on exactly the variation
+  the held-out set brings); degrade silently (a finished run could hide a guess).
+- **Consequences / how it generalises:** on hand-written and synthetic clients the eval reports the
+  issued rate (share reaching "draft for adviser review") next to the release-state match rate, and
+  some hand-written cases are built to fail, so a high issued rate can't hide wrong drafts. Revisit if a
+  degradation turns out to let a wrong figure through.
+- **Evidence:** none yet.
+
+### D14. Add a bounded conflict investigation agent that gathers evidence; code still decides
+- **Context:** single-pass extraction can't settle some questions that need a look across sources:
+  which account client 03's "another small cash account from some years ago" is; whether a meeting
+  figure was viewed or recalled; a scope phrase that failed its checks. Without more evidence these
+  fall back to conservative defaults, which is safe but can over-flag (Q6).
+- **Decision:** reconciliation emits open questions only where more evidence could change the outcome
+  under the rules. For each, an agent with read-only tools (read and search sources, read account data
+  and ledger entries), up to 6 tool calls and 5 questions per report, returns a finding with quotes.
+  Code verifies the quotes, accepts a proposed label only with evidence in the same paragraph as the
+  fact, accepts an account link only if every scope check passes and exactly one account qualifies
+  (several candidates stay flagged, per R8), and re-runs reconciliation once. Accepted evidence may make
+  an outcome less conservative, since it passed the same checks as extraction; each such change is shown
+  on the review sheet as "changed by investigation", with the default it replaced, the new value and the
+  quote. Findings are always shown; the agent itself never selects a value, and investigation can never
+  fail a run.
+- **Alternatives:** none, relying on conservative defaults (simpler, but more markers where the sources
+  do hold the answer); an agent allowed to resolve conflicts itself (puts decisions SCOPING §8 assigns to
+  code into a model).
+- **Consequences / how it generalises:** one more model stage to measure. It is scored on the
+  hand-written ambiguity cases and included in the Luna-vs-Sol experiment; costs nothing when no
+  question is open. Accepted-and-wrong (a finding code accepted that contradicts expected facts) is a
+  headline metric in every results file, reported apart from general accuracy; a non-zero figure is the
+  evidence that would make us restrict the agent to annotating.
+- **Evidence:** none yet.
+
+### D15. Define truth and the deterministic core first, then a thin client 01 slice, then widen
+- **Context:** the design has eight stages, an agent and an eval. Building each stage fully across all
+  clients before anything runs end to end risks late integration surprises. SCOPING §9's build order
+  puts the four clients' expected facts and the hand-written cases first.
+- **Decision:** M0a writes the expected facts for all four clients and the hand-written cases; M0b
+  builds the deterministic core tests-first (parsing, quote verification, the reconcile rules); M1 is
+  client 01 correct end to end through every real stage, scored against its expected facts. Clients
+  02–04, the hand-written cases end to end, the investigation agent, model selection and synthetic
+  clients follow.
+- **Alternatives:** slice first and write the other clients' and hand-written expected facts later
+  (earliest end-to-end run, but breaks SCOPING §9 and leaves the uncertain rules untested for longer);
+  build every stage fully before any end-to-end run (late integration).
+- **Consequences / how it generalises:** SCOPING §9's order holds, and every rule has a unit test before
+  the slice exists. The uncertain rules run end to end only from M2.
+- **Evidence:** none yet.
+
+### D16. Keep a failure hard where continuing is unsafe
+- **Context:** graceful degradation (D13) keeps a draft coming in most cases, but some gaps leave no
+  safe basis for any draft: without account data there is no account table, without a report
+  instruction no scope, without a meeting record nothing the client agreed to. A hard gate still
+  failing after repair means the draft breaks a rule SCOPING forbids issuing (G1–G16).
+- **Decision:** these stop the run as a failed generation with the reason: no readable account data,
+  or two account data sources that disagree; no report instruction, two that disagree, or one whose
+  scope field is missing, "TBC" or resolves to nothing; no meeting record; a hard gate failing after its repair
+  rounds; a model call that still fails in a required stage, or the runaway-cost guard (the same failure in an
+  optional stage degrades). The failure file shows the draft (if
+  any), the failing gate and the offending text (D10).
+- **Alternatives:** degrade these too, e.g. build the table from every account when scope is missing
+  or issue a draft with a known gate failure flagged (an adviser could sign a draft with out-of-scope
+  accounts or an invented figure; the flag would be one item among many).
+- **Consequences / how it generalises:** the list is short and explicit (DESIGN §8.4), so adding to it
+  is a decision, not a drift. The hand-written cases include one failure by design, and the
+  release-state match rate shows whether failures happen where expected and nowhere else.
 - **Evidence:** none yet.
 
 ## What I would do with more time
