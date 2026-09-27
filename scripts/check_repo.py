@@ -1,6 +1,9 @@
 """Repo-level invariants for the pipeline, run by scripts/check.sh (Stop hook + CI).
 
-1. Overfitting: no client-specific names, account IDs or figures in src/ or config/.
+1. Overfitting: no client-specific names, account IDs or figures in src/agent_pipeline/ or
+   config/ -- the pipeline package, which must generalise to clients it has never seen
+   (CLAUDE.md). src/report_eval/ (eval and test tooling) is exempt: like eval/expected/*.json,
+   its whole job is to encode known facts about specific hand-written clients (D<DECISION>).
    The denylist is derived from data/ at run time, so it grows automatically as clients
    (including synthetic ones) are added.
 2. Secrets: no OpenAI-style keys in tracked files.
@@ -8,11 +11,11 @@
 4. Protected file: src/document_formatter/formatting.py unchanged from the upstream commit.
 
 Allowlist genuinely general values in scripts/overfit_allowlist.txt, one per line, with a
-reason after a '#'. A bare value is allowed everywhere in src/ and config/, e.g.
+reason after a '#'. A bare value is allowed everywhere in the overfitting scan, e.g.
 `20000  # UK ISA annual allowance, a general rule`. Prefer scoping it to the one file that
 needs it, `path/relative/to/repo: value  # reason`, e.g.
 `config/tax_rules.json: 20000  # ISA allowance, a general rule` -- the exemption then
-doesn't also cover that value showing up unexplained anywhere else in src/ or config/.
+doesn't also cover that value showing up unexplained anywhere else in the scan.
 """
 
 from __future__ import annotations
@@ -27,6 +30,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 SCAN_DIRS = [ROOT / "src", ROOT / "config"]
+# Overfitting only: src/report_eval/ is deliberately excluded (module docstring, point 1).
+OVERFIT_EXCLUDE_PREFIX = "src/report_eval/"
 SCAN_SUFFIXES = {".py", ".json", ".yaml", ".yml", ".md", ".txt", ".j2", ".jinja", ".toml"}
 ALLOWLIST_FILE = ROOT / "scripts" / "overfit_allowlist.txt"
 
@@ -126,6 +131,8 @@ def check_overfitting(global_allow: set[str], per_file_allow: dict[str, set[str]
     for path in scan_files():
         rel = path.relative_to(ROOT)
         rel_str = rel.as_posix()
+        if rel_str.startswith(OVERFIT_EXCLUDE_PREFIX):
+            continue
         file_allow = per_file_allow.get(rel_str, set())
         for lineno, line in enumerate(
             path.read_text(encoding="utf-8", errors="ignore").splitlines(), 1

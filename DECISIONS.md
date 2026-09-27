@@ -250,6 +250,27 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   release-state match rate shows whether failures happen where expected and nowhere else.
 - **Evidence:** none yet.
 
+### D17. Exempt `src/report_eval/` from the overfitting scan
+- **Context:** T9's deterministic stub writer (`src/report_eval/reference.py`, DESIGN §10.5) builds
+  client 01's reference bundle by hand-rendering its known report text, so it necessarily hardcodes
+  Margaret Hughes's name, her account ID and her account's figures. `check_repo.py`'s overfitting scan
+  covered all of `src/`, so it flagged every one of them, even though CLAUDE.md's rule exists to keep
+  the *pipeline* generalising to unseen clients, not to forbid test/eval fixtures from encoding known
+  facts about known clients (`eval/expected/*.json` already does exactly that, outside the scan).
+- **Decision:** `check_overfitting` now skips any path under `src/report_eval/`
+  (`OVERFIT_EXCLUDE_PREFIX`), while `src/agent_pipeline/` and `config/` stay fully scanned. Static-text
+  and secrets checks are unaffected: they still cover all of `src/`.
+- **Alternatives:** allowlist every client-01 value individually (the allowlist header itself says to
+  keep that list short and justified; one client's name, account ID and figures is neither); move all
+  hand-authored client-01 prose out of `reference.py` into a new per-client data file under `eval/`,
+  keeping `reference.py` fully generic (more faithful to the check's current scope, but real extra
+  work and duplicates facts `ExpectedFacts` already encodes, for no functional benefit).
+- **Consequences / how it generalises:** `src/agent_pipeline/` (the pipeline) still can never carry a
+  client-specific value; `src/report_eval/` (eval/test tooling) now explicitly may, matching
+  `eval/expected/*.json`'s existing exemption. Revisit if `report_eval/` ever grows a module that
+  *is* part of a real run's pipeline path rather than eval/test tooling only.
+- **Evidence:** `bash scripts/check.sh` green (350 tests, all repo checks pass) after the change.
+
 ## What I would do with more time
 <!-- For production: what's missing, what you'd change in the pipeline and the agent setup,
      and the risks you know about. Concrete, not a wish list. -->
