@@ -97,6 +97,7 @@ ReviewKind = Literal[
     "unverified",
     "degradation",
     "investigation",
+    "ambiguity",  # an unresolved plan detail the sources leave open, not a conflict between them
 ]
 
 

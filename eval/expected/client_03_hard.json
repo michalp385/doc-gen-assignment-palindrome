@@ -1,0 +1,153 @@
+{
+  "client": "client_03_hard",
+  "meeting_date": "2026-05-16",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0.5%",
+  "release": { "state": "draft" },
+  "table_rows": [
+    {
+      "account": "H-ISA-R",
+      "owners": ["Robert Fletcher"],
+      "type": "Stocks & Shares ISA",
+      "value": "£70,000"
+    },
+    {
+      "account": "H-ISA-JE",
+      "owners": ["Jean Fletcher"],
+      "type": "Stocks & Shares ISA",
+      "value": "£66,000"
+    },
+    {
+      "account": "H-GIA-JF",
+      "owners": ["Robert Fletcher", "Jean Fletcher"],
+      "type": "General Investment Account",
+      "value": "c. £38,000",
+      "footnote": "Meeting note, 16 May 2026: \"around £38,000\". Last statement value: £30,000 at 10 March 2026."
+    },
+    {
+      "account": "new:joint_investment_account",
+      "owners": ["Robert Fletcher", "Jean Fletcher"],
+      "type": "New joint account",
+      "value": "To be opened"
+    }
+  ],
+  "not_in_table": [
+    { "account": "H-CASH-JE", "reason": "no_value" }
+  ],
+  "reportable_figures": [
+    { "value": "£70,000", "placement": "any" },
+    { "value": "£66,000", "placement": "any" },
+    { "value": "c. £38,000", "placement": "any" },
+    { "value": "£30,000", "placement": "footnote_only" },
+    { "value": "£120,000", "placement": "any" },
+    { "value": "0.5%", "placement": "any" },
+    {
+      "value": "c. £158,000",
+      "placement": "any",
+      "optional": true,
+      "derived_from": ["£120,000", "c. £38,000"]
+    }
+  ],
+  "markers": [
+    { "key": "cgt", "description": "capital gains tax on the disposal of the joint GIA" },
+    { "key": "platform_charge_holloway", "description": "ongoing platform charge rate, Holloway" },
+    { "key": "advice_charge", "description": "ongoing advice charge rate" },
+    { "key": "new_account_charges", "description": "charges on the new joint account" },
+    {
+      "key": "isa_amounts",
+      "description": "ISA top-up amounts and the resulting balance for the new joint account"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "gia_superseded_value",
+      "kind": "superseded",
+      "blocking": false,
+      "must_mention": ["£30,000", "10 March", "c. £38,000", "16 May"]
+    },
+    {
+      "key": "jean_cash_account",
+      "kind": "open_action",
+      "blocking": true,
+      "must_mention": ["cash account", "confirm"]
+    },
+    {
+      "key": "new_account_type_platform",
+      "kind": "scope_flag",
+      "blocking": false,
+      "must_mention": ["new", "joint", "account"]
+    }
+  ],
+  "sections": { "tax_implications": true },
+  "actions": [
+    {
+      "description": "Disinvest the joint GIA and, with the inheritance, fund both ISAs for the new tax year, with the balance into the new joint account",
+      "kind": "action",
+      "accounts": ["H-GIA-JF", "H-ISA-R", "H-ISA-JE"]
+    }
+  ],
+  "excluded_items": [
+    {
+      "class": "tangent",
+      "subject": "their grandchildren and a trip they have planned later in the year"
+    }
+  ],
+  "must_not_appear": [
+    "Marlow Multi-Asset Fund",
+    "£515,000",
+    "Tavener Income Fund",
+    "£525,000"
+  ],
+  "material_claims": [
+    {
+      "claim": "Jean received an inheritance of around £120,000 from her late mother's estate, which has cleared",
+      "source_quote": "Jean has received an inheritance of around £120,000 from her late mother's estate, which has now cleared."
+    },
+    {
+      "claim": "Their objectives are unchanged: long-term growth with no income required",
+      "source_quote": "Their objectives are unchanged from the last review: long-term growth, with no income required from the portfolio for the foreseeable future."
+    }
+  ],
+  "extraction": {
+    "value_observations": [
+      {
+        "account": "H-GIA-JF",
+        "amount_quote": "around £38,000",
+        "basis": "viewed_in_meeting",
+        "evidence_quote": "Pulling it up during the meeting, it was showing around £38,000, a little higher than the figure on the last statement they had to hand."
+      }
+    ],
+    "money_items": [
+      {
+        "class": "proceeds",
+        "amount_quote": "around £38,000",
+        "evidence_quote": "The plan we agreed: disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year and open a new jointly-held investment account for the balance."
+      },
+      {
+        "class": "received",
+        "amount_quote": "around £120,000",
+        "evidence_quote": "Jean has received an inheritance of around £120,000 from her late mother's estate, which has now cleared."
+      }
+    ],
+    "disposals": [
+      {
+        "account": "H-GIA-JF",
+        "extent": "full",
+        "evidence_quote": "disinvest the joint GIA"
+      }
+    ],
+    "open_actions": [
+      {
+        "description": "confirm Jean's old cash account balance before anything is finalised",
+        "blocking": true,
+        "evidence_quote": "She will dig out the paperwork and we will confirm it before anything is finalised."
+      },
+      {
+        "description": "confirm charges on the new joint account",
+        "blocking": false,
+        "evidence_quote": "I said the report would set those out once verified."
+      }
+    ]
+  },
+  "investigation": []
+}

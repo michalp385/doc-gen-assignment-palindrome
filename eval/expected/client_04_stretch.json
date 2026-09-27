@@ -1,0 +1,273 @@
+{
+  "client": "client_04_stretch",
+  "meeting_date": "2026-05-20",
+  "risk_profile": "4 (balanced to moderate)",
+  "initial_charge": "0.5%",
+  "release": { "state": "draft" },
+  "table_rows": [
+    {
+      "account": "H4-ISA-J",
+      "owners": ["James Whitmore"],
+      "type": "Stocks & Shares ISA",
+      "value": "£85,000"
+    },
+    {
+      "account": "H4-ISA-C",
+      "owners": ["Caroline Whitmore"],
+      "type": "Stocks & Shares ISA",
+      "value": "£82,000"
+    },
+    {
+      "account": "B4-SIPP-J",
+      "owners": ["James Whitmore"],
+      "type": "SIPP",
+      "value": "£610,000"
+    },
+    {
+      "account": "B4-SIPP-C",
+      "owners": ["Caroline Whitmore"],
+      "type": "SIPP",
+      "value": "£430,000"
+    },
+    {
+      "account": "H4-GIA-HJ",
+      "owners": ["James Whitmore", "Caroline Whitmore"],
+      "type": "General Investment Account",
+      "value": "c. £255,000",
+      "footnote": "Meeting note, 20 May 2026: \"around £255,000\". Last statement value: £240,000 at 28 February 2026."
+    },
+    {
+      "account": "B4-GIA-J",
+      "owners": ["James Whitmore", "Caroline Whitmore"],
+      "type": "General Investment Account",
+      "value": "£95,000"
+    },
+    {
+      "account": "M4-BOND-J",
+      "owners": ["James Whitmore", "Caroline Whitmore"],
+      "type": "Offshore Investment Bond",
+      "value": "£180,000"
+    },
+    {
+      "account": "new:joint_investment_account",
+      "owners": ["James Whitmore", "Caroline Whitmore"],
+      "type": "New joint account",
+      "value": "To be opened"
+    }
+  ],
+  "not_in_table": [
+    { "account": "M4-CASH-J", "reason": "out_of_scope" },
+    { "account": "M4-CASH-C", "reason": "no_value" },
+    { "account": "M4-OLD-C", "reason": "closed" }
+  ],
+  "reportable_figures": [
+    { "value": "£85,000", "placement": "any" },
+    { "value": "£82,000", "placement": "any" },
+    { "value": "£610,000", "placement": "any" },
+    { "value": "£430,000", "placement": "any" },
+    { "value": "c. £255,000", "placement": "any" },
+    { "value": "£240,000", "placement": "footnote_only" },
+    { "value": "£95,000", "placement": "any" },
+    { "value": "£180,000", "placement": "any" },
+    { "value": "0.5%", "placement": "any" },
+    { "value": "£850,000", "placement": "any" },
+    { "value": "£200,000", "placement": "any" },
+    {
+      "value": "£650,000",
+      "placement": "any",
+      "derived_from": ["£850,000", "£200,000"]
+    },
+    { "value": "up to £400,000", "placement": "any" }
+  ],
+  "markers": [
+    { "key": "cgt", "description": "capital gains tax on the partial disposal of the Holloway joint GIA" },
+    { "key": "platform_charge_holloway", "description": "ongoing platform charge rate, Holloway" },
+    { "key": "platform_charge_brightwell", "description": "ongoing platform charge rate, Brightwell" },
+    { "key": "platform_charge_meridian", "description": "ongoing platform charge rate, Meridian" },
+    { "key": "advice_charge", "description": "ongoing advice charge rate" },
+    { "key": "sipp_contribution_amounts", "description": "SIPP contribution amounts for both James and Caroline" },
+    { "key": "gia_addition_amount", "description": "the amount added to the Holloway joint GIA" },
+    { "key": "gia_portion_sold", "description": "the portion of the Holloway joint GIA sold" },
+    { "key": "new_account_balance", "description": "the balance placed into the new joint account" }
+  ],
+  "judgement_calls": [
+    {
+      "id": "isa_subscriptions",
+      "description": "use both ISA allowances for the new tax year, prior use unstated",
+      "alternatives": [
+        {
+          "label": "note",
+          "markers": [],
+          "review_items": ["isa_prior_use_note"]
+        },
+        {
+          "label": "marker",
+          "markers": ["isa_amounts"],
+          "review_items": []
+        }
+      ]
+    }
+  ],
+  "review_items": [
+    {
+      "key": "gia_superseded_value",
+      "kind": "superseded",
+      "blocking": false,
+      "must_mention": ["£240,000", "28 February", "c. £255,000", "20 May"]
+    },
+    {
+      "key": "caroline_cash_balance",
+      "kind": "open_action",
+      "blocking": false,
+      "must_mention": ["Caroline", "Meridian", "cash"]
+    },
+    {
+      "key": "bridging_loan_timing",
+      "kind": "open_action",
+      "blocking": false,
+      "must_mention": ["bridging", "loan", "timing"]
+    },
+    {
+      "key": "gia_portion_destination",
+      "kind": "ambiguity",
+      "blocking": false,
+      "must_mention": ["portion", "GIA", "£650,000"]
+    },
+    {
+      "key": "new_account_type_platform",
+      "kind": "scope_flag",
+      "blocking": false,
+      "must_mention": ["new", "joint", "account"]
+    }
+  ],
+  "sections": { "tax_implications": true },
+  "actions": [
+    {
+      "description": "Use both ISA allowances for the new tax year",
+      "kind": "action",
+      "accounts": ["H4-ISA-J", "H4-ISA-C"]
+    },
+    {
+      "description": "Make pension contributions into both SIPPs up to the appropriate level",
+      "kind": "action",
+      "accounts": ["B4-SIPP-J", "B4-SIPP-C"]
+    },
+    {
+      "description": "Add to the Holloway joint GIA",
+      "kind": "action",
+      "accounts": ["H4-GIA-HJ"]
+    },
+    {
+      "description": "Disinvest and rebalance a portion of the Holloway joint GIA",
+      "kind": "action",
+      "accounts": ["H4-GIA-HJ"]
+    },
+    {
+      "description": "Place the remaining balance into a new joint investment account",
+      "kind": "action",
+      "accounts": ["new:joint_investment_account"]
+    },
+    {
+      "description": "Leave the offshore bond as it is for now",
+      "kind": "non_action",
+      "accounts": ["M4-BOND-J"]
+    }
+  ],
+  "excluded_items": [
+    {
+      "class": "aspiration",
+      "subject": "help with school fees for their grandchildren and possibly make a charitable donation"
+    },
+    {
+      "class": "tangent",
+      "subject": "a property in France they had once considered buying"
+    },
+    {
+      "class": "circumstance",
+      "subject": "James may do some consultancy work but nothing is settled"
+    }
+  ],
+  "must_not_appear": [
+    "Pendle Global Fund",
+    "£775,000",
+    "Sutton Strategic Fund",
+    "£785,000"
+  ],
+  "material_claims": [
+    {
+      "claim": "James completed the sale of his company in April",
+      "source_quote": "James completed the sale of his company in April."
+    },
+    {
+      "claim": "A completion payment of £850,000 was received and is sitting in a solicitor's client account",
+      "source_quote": "a completion payment of £850,000 was received on completion and is currently sitting in a solicitor's client account ready to be moved."
+    },
+    {
+      "claim": "£200,000 of the completion payment is already committed to repaying a bridging loan",
+      "source_quote": "£200,000 of the £850,000 is already committed to repaying a bridging loan James took out last year against the business."
+    },
+    {
+      "claim": "The earnout of up to £400,000 is contingent and not guaranteed",
+      "source_quote": "None of the earnout has been received yet, and James was clear it is not guaranteed"
+    }
+  ],
+  "extraction": {
+    "value_observations": [
+      {
+        "account": "H4-GIA-HJ",
+        "amount_quote": "around £255,000",
+        "basis": "viewed_in_meeting",
+        "evidence_quote": "pulling it up live, it was showing around £255,000."
+      },
+      {
+        "account": "B4-SIPP-J",
+        "amount_quote": "£610,000",
+        "basis": "confirmed_unchanged",
+        "evidence_quote": "These were all in line with the snapshot and we did not see any need to revise them."
+      },
+      {
+        "account": "B4-GIA-J",
+        "amount_quote": "£95,000",
+        "basis": "confirmed_unchanged",
+        "evidence_quote": "These were all in line with the snapshot and we did not see any need to revise them."
+      }
+    ],
+    "money_items": [
+      {
+        "class": "received",
+        "amount_quote": "£850,000",
+        "evidence_quote": "a completion payment of £850,000 was received on completion and is currently sitting in a solicitor's client account ready to be moved."
+      },
+      {
+        "class": "committed",
+        "amount_quote": "£200,000",
+        "evidence_quote": "£200,000 of the £850,000 is already committed to repaying a bridging loan James took out last year against the business."
+      },
+      {
+        "class": "external",
+        "amount_quote": "up to £400,000",
+        "evidence_quote": "a deferred earnout of up to £400,000, payable over the next two years and contingent on the business hitting agreed revenue targets."
+      }
+    ],
+    "disposals": [
+      {
+        "account": "H4-GIA-HJ",
+        "extent": "portion",
+        "evidence_quote": "we agreed to disinvest a portion of the Holloway joint GIA and rebalance it"
+      }
+    ],
+    "open_actions": [
+      {
+        "description": "confirm Caroline's Meridian cash balance",
+        "blocking": false,
+        "evidence_quote": "confirm Caroline's Meridian cash balance"
+      },
+      {
+        "description": "confirm the timing of the bridging-loan repayment",
+        "blocking": false,
+        "evidence_quote": "confirm the timing of the bridging-loan repayment"
+      }
+    ]
+  },
+  "investigation": []
+}

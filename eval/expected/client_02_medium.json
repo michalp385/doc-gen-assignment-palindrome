@@ -1,0 +1,113 @@
+{
+  "client": "client_02_medium",
+  "meeting_date": "2026-05-14",
+  "risk_profile": "5 (balanced)",
+  "initial_charge": "0%",
+  "release": { "state": "draft" },
+  "table_rows": [
+    {
+      "account": "H-ISA-D",
+      "owners": ["David Clarke"],
+      "type": "Stocks & Shares ISA",
+      "value": "£61,000"
+    },
+    {
+      "account": "H-ISA-S",
+      "owners": ["Susan Clarke"],
+      "type": "Stocks & Shares ISA",
+      "value": "£58,500"
+    },
+    {
+      "account": "H-GIA-J",
+      "owners": ["David Clarke", "Susan Clarke"],
+      "type": "General Investment Account",
+      "value": "c. £45,000",
+      "footnote": "Meeting note, 14 May 2026: \"a little over £45,000\". Last statement value: £40,000 at 15 March 2026."
+    }
+  ],
+  "not_in_table": [],
+  "reportable_figures": [
+    { "value": "£61,000", "placement": "any" },
+    { "value": "£58,500", "placement": "any" },
+    { "value": "c. £45,000", "placement": "any" },
+    { "value": "£40,000", "placement": "footnote_only" },
+    { "value": "0%", "placement": "any" }
+  ],
+  "markers": [
+    { "key": "cgt", "description": "capital gains tax on the disposal of the joint GIA" },
+    { "key": "platform_charge_holloway", "description": "ongoing platform charge rate, Holloway" },
+    { "key": "advice_charge", "description": "ongoing advice charge rate" },
+    {
+      "key": "isa_amounts",
+      "description": "ISA top-up amounts within the remaining allowances, and where any excess goes"
+    }
+  ],
+  "review_items": [
+    {
+      "key": "gia_superseded_value",
+      "kind": "superseded",
+      "blocking": false,
+      "must_mention": ["£40,000", "15 March", "c. £45,000", "14 May"]
+    },
+    {
+      "key": "isa_excess_destination",
+      "kind": "p4_note",
+      "blocking": false,
+      "must_mention": ["ISA allowance", "excess"]
+    }
+  ],
+  "sections": { "tax_implications": true },
+  "actions": [
+    {
+      "description": "Disinvest the joint GIA in full and split the proceeds equally to top up both ISAs",
+      "kind": "action",
+      "accounts": ["H-GIA-J", "H-ISA-D", "H-ISA-S"]
+    }
+  ],
+  "excluded_items": [
+    { "class": "tangent", "subject": "a holiday they are planning for the autumn" }
+  ],
+  "must_not_appear": ["Kestrel Balanced Portfolio", "£505,000"],
+  "material_claims": [
+    {
+      "claim": "Both are retired and their objectives and circumstances are unchanged",
+      "source_quote": "Both are now retired. They confirmed their objectives and circumstances are unchanged since the last review, and both remain comfortable with the balanced approach to risk we agreed."
+    },
+    {
+      "claim": "They agreed to disinvest the joint GIA in full and split proceeds equally between the ISAs",
+      "source_quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs."
+    }
+  ],
+  "extraction": {
+    "value_observations": [
+      {
+        "account": "H-GIA-J",
+        "amount_quote": "a little over £45,000",
+        "basis": "viewed_in_meeting",
+        "evidence_quote": "I pulled the account up live during the meeting. It was showing a little over £45,000"
+      }
+    ],
+    "money_items": [
+      {
+        "class": "proceeds",
+        "amount_quote": "a little over £45,000",
+        "evidence_quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs"
+      }
+    ],
+    "disposals": [
+      {
+        "account": "H-GIA-J",
+        "extent": "full",
+        "evidence_quote": "We agreed to disinvest the joint GIA in full"
+      }
+    ],
+    "open_actions": [
+      {
+        "description": "confirm the exact ongoing charges in the report",
+        "blocking": false,
+        "evidence_quote": "I said I would confirm the exact figures in the report rather than quote them from memory in the meeting."
+      }
+    ]
+  },
+  "investigation": []
+}

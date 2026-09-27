@@ -1,0 +1,70 @@
+{
+  "client": "client_01_clean",
+  "meeting_date": "2026-05-12",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "release": { "state": "draft" },
+  "table_rows": [
+    {
+      "account": "H-ISA-01",
+      "owners": ["Margaret Hughes"],
+      "type": "Stocks & Shares ISA",
+      "value": "£52,000"
+    }
+  ],
+  "not_in_table": [
+    { "account": "H-CASH-01", "reason": "out_of_scope" }
+  ],
+  "reportable_figures": [
+    { "value": "£52,000", "placement": "table" },
+    { "value": "£20,000", "placement": "any" },
+    { "value": "0%", "placement": "any" }
+  ],
+  "markers": [
+    { "key": "platform_charge_holloway", "description": "ongoing platform charge rate, Holloway" },
+    { "key": "advice_charge", "description": "ongoing advice charge rate" }
+  ],
+  "review_items": [
+    {
+      "key": "isa_allowance_prior_use",
+      "kind": "p4_note",
+      "blocking": false,
+      "must_mention": ["£20,000", "ISA allowance"]
+    }
+  ],
+  "sections": { "tax_implications": false },
+  "actions": [
+    {
+      "description": "Move £20,000 from the Holloway cash account into the Stocks & Shares ISA",
+      "kind": "action",
+      "accounts": ["H-CASH-01", "H-ISA-01"]
+    }
+  ],
+  "excluded_items": [
+    { "class": "aspiration", "subject": "gifting to her grandchildren" }
+  ],
+  "must_not_appear": ["Aldgate Growth Portfolio", "£312,000"],
+  "material_claims": [
+    {
+      "claim": "Margaret is retired and her circumstances are unchanged since last year's review",
+      "source_quote": "Margaret is retired and confirmed there have been no changes to her circumstances or objectives since last year's review."
+    },
+    {
+      "claim": "Margaret agreed to move £20,000 from the cash account into the ISA",
+      "source_quote": "We agreed she would move £20,000 from the cash account into the Stocks & Shares ISA."
+    }
+  ],
+  "extraction": {
+    "value_observations": [],
+    "money_items": [],
+    "disposals": [],
+    "open_actions": [
+      {
+        "description": "confirm the ongoing charges with her once the report is issued",
+        "blocking": false,
+        "evidence_quote": "confirm the ongoing charges with her once the report is issued"
+      }
+    ]
+  },
+  "investigation": []
+}
