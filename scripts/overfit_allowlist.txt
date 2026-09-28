@@ -4,3 +4,5 @@
 # anywhere else. Keep this list short and justified.
 
 config/tax_rules.json: 20000  # UK ISA annual allowance for 2025/26 and 2026/27, a general rule
+# Prompt-overlap check (T29): a run of words shared with a source document, lower-case, no punctuation.
+config/prompts/write_scope.md: stocks shares isa and general investment account  # standard account-type wording (config/account_types.json), general vocabulary
