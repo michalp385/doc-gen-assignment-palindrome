@@ -12,8 +12,15 @@ is a draft for adviser review or a failed generation. Out come the report, a rev
 and a run summary.
 
 ## Code map
-Status: proposed in DESIGN.md §12; modules are created by the implementation plan. Until then the
-starter path (`agent_pipeline/generate.py` + `document_formatter/`) is what runs.
+Status: built, per the implementation plan (`docs/plans/2026-09-27-implementation-plan.md`) through
+T19, plus the deterministic rule code, mutation coverage, synthetic generator and repo checks of
+T20/T21, T24, T27 and T29. `generate.py` runs the new pipeline; the starter path is gone except
+`document_formatter/`. **Not built yet:** `extract/guidance.py` (the handling-directive extractor,
+T20), `investigate/` and `reconcile/questions.py` (the conflict investigation agent, T22), the
+per-stage record folder `outputs/<client>.run/` (only `runs/<run_id>/trace.jsonl` is written), and
+the frozen synthetic clients under `data/synthetic/generated/` (the generator exists; the live
+one-off generation has not been run). Clients 03 and 04 have their rule code but no committed
+outputs: their prompts and live verification are still to do.
 
 - `agent_pipeline/generate.py`: CLI. Parses arguments, builds the run, calls `pipeline.run`. Must not
   hold pipeline logic.
@@ -25,13 +32,21 @@ starter path (`agent_pipeline/generate.py` + `document_formatter/`) is what runs
   versions, stage model settings.
 - `agent_pipeline/sources/`: role classification and one adapter per file format. Must not extract
   client facts.
-- `agent_pipeline/extract/`: one extractor per role (meeting, instruction with scope mapping, guidance,
-  image, and a proposed scope mapping), with quote/date/label verification. Returns verified raw facts;
-  never selects between sources and never decides scope (the scope checks run in `reconcile/scope.py`).
+- `agent_pipeline/extract/`: one extractor per role (meeting, instruction with scope mapping, image,
+  and a proposed scope mapping; guidance is not built yet), with quote/date/label verification
+  (`quotes.py`, `parsing.py`). Returns verified raw facts; never selects between sources and never
+  decides scope (the scope checks run in `reconcile/scope.py`).
 - `agent_pipeline/ledger.py`: ledger models and value rendering. No I/O beyond (de)serialising.
 - `agent_pipeline/reconcile/`: the trust rules and policies, one function per rule. Pure code, no model
-  calls. Emits open questions where more evidence could change an outcome.
-- `agent_pipeline/investigate/`: the conflict investigation agent. A bounded loop with read-only tools
+  calls. `ownership.py` (R1, R9), `scope.py` and `refs.py` (R2, R8, matching a free-text account
+  reference), `values.py` (R3, P10), `amounts.py` (R5), `account_state.py` (R6, P12: null, closed and
+  non-GBP accounts), `money.py` (P5: available now, money items, proceeds), `limits.py` (P4: ISA
+  allowance screening, pension contributions always markers), `sections.py` and `predicates.py`
+  (G5, P7: inclusion decided in code), `markers.py` (the markers built in code), `facts.py` (the
+  ledger's fact IDs and roles), `wrappers.py` (account-type wording to wrapper class),
+  `review.py`. `resolve_amount` (R5) is built and tested but not wired into the stage graph yet
+  (plan T23). Open questions for the investigation agent are not emitted yet.
+- `agent_pipeline/investigate/` (not built yet, T22): the conflict investigation agent. A bounded loop with read-only tools
   that returns quoted findings per open question, and the code that verifies and accepts or rejects
   them. Must not write to the ledger, select a value or change a rule; accepted evidence goes back
   through `reconcile`.
@@ -46,21 +61,29 @@ starter path (`agent_pipeline/generate.py` + `document_formatter/`) is what runs
   `fill_tokens` and `table.py`'s `build_table` (P9) substitute from the ledger afterwards. The
   writer never sees a number.
 - `agent_pipeline/gates/`: `truth.py`'s `Truth` protocol (`ExpectedTruth` wraps expected facts,
-  `LedgerTruth` wraps a real run's ledger); `deterministic.py`'s `run_gates(bundle, truth) ->
-  list[GateResult]` (T9: G1-G6, G9-G15, P6); `judge.py`'s `release_judge` (T15: G7-judge-part,
+  `LedgerTruth` wraps a real run's ledger; `tangent_subjects` and `footnote_only_figures` are
+  optional capabilities the gates read with `getattr`); `deterministic.py`'s `run_gates(bundle,
+  truth) -> list[GateResult]` (T9: G1-G6, G9-G15, P6; G2 also rejects a superseded value anywhere
+  but the table's footnote); `judge.py`'s `release_judge` (T15: G7-judge-part,
   G8, G16 with its coverage re-ask, the paraphrase/n-gram findings), the pipeline's own stage-7
   check, Luna by default; `release.py`'s `decide_release`.
 - `agent_pipeline/assemble.py`: outputs, review sheet, run summary; release state.
 - `document_formatter/formatting.py`: final markdown assembly. Protected, unchanged.
-- `report_eval/`: `expected.py` (expected-facts schema), `reference.py` (T9: the deterministic
-  stub writer -- a client's reference bundle straight from its expected facts, no LLM),
+- `report_eval/`: `expected.py` (expected-facts schema), `reference.py` (T9, T24: the deterministic
+  stub writer -- a client's reference bundle straight from its expected facts, no LLM; client 01's is
+  hand-written, clients 02-04 come from one generic `_build_from_expected`),
   `extraction_score.py` (precision/recall + per-label accuracy against `MeetingExtraction`),
   `judge_rubric.py` + `config/prompts/eval_judge.md` (T17: Q1-Q5 on Sol, one call per report; Q6
   is read off G14, never a judge call), `results.py` (the results-file schema), `run.py` (the
   `report_eval.run` CLI -- scores whatever is already on disk under `--outputs-dir` against a
   client's expected facts, never imports `agent_pipeline.pipeline`; one path for the baseline,
-  which fails G14/G15 by construction, and a real run). Mutations (T24) and the synthetic client
-  generator (`synth/`, T27) aren't built yet.
+  which fails G14/G15 by construction, and a real run). `synth/` (T27, D4) is the synthetic client
+  generator: `scenario.py` (a seeded sampler over the SCOPING section 5 patterns, deriving the
+  account JSON, instruction, required phrases and expected facts), `phrases.py` (the phrase bank and
+  its six-word overlap check against `data/`), `prose.py` (the check that a meeting note carries every
+  required phrase verbatim and no unplanned figure, around an injected prose model) and `writers.py`
+  (byte-reproducible client folders). Gate mutation tests live in `tests/test_gate_mutations.py`
+  and `tests/test_gate_mutations_m2.py` (all four clients' reference bundles), not in `report_eval/`.
 
 ## Data flow
 1. `generate.py` loads the report config and the client folder.
@@ -105,7 +128,7 @@ starter path (`agent_pipeline/generate.py` + `document_formatter/`) is what runs
   verification and the rules. [investigate/accept.py]
 - A run stops only where continuing is unsafe (DESIGN.md §8.4); every other input problem degrades to
   a marker, a review item or a conservative default, and the review sheet lists each one.
-- `openai` is imported only in `agent_pipeline/llm.py`. [check_repo.py, to add]
+- `openai` is imported only in `agent_pipeline/llm.py`. [check_repo.py]
 - Every decision with a right answer (selection, reconciliation, arithmetic, inclusion where a
   `predicate` is set, which the shipped config does for every conditional section, markers) is in
   `reconcile/`, one function per rule, not in a prompt.
