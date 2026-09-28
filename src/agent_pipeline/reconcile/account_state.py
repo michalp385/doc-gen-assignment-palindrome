@@ -26,7 +26,7 @@ from dataclasses import dataclass, field
 
 from agent_pipeline.ledger import Account, Marker
 from agent_pipeline.reconcile.review import ReviewItemInput
-from agent_pipeline.reconcile.wrappers import type_aliases
+from agent_pipeline.reconcile.wrappers import type_slug
 
 _NEVER_ESTIMATED = "never estimated or converted (CLAUDE.md non-negotiable)"
 
@@ -44,14 +44,6 @@ class AccountState:
 
 def _slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "_", text.lower()).strip("_")
-
-
-def _type_slug(account_type: str) -> str:
-    """A marker-key stem from the account's own type wording: its standard abbreviation when
-    `config/account_types.json` has one ("GIA"), otherwise the wording itself. General
-    vocabulary only -- never an account ID or a client name."""
-    aliases = type_aliases(account_type)
-    return _slug(aliases[0] if aliases else account_type) or "account"
 
 
 def _label(account: Account) -> str:
@@ -112,7 +104,7 @@ def _null_value_state(account: Account, taken: set[str]) -> AccountState:
         )
     marker = Marker(
         id="",
-        key=_unique_key(f"{_type_slug(account.type)}_value", taken),
+        key=_unique_key(f"{type_slug(account.type)}_value", taken),
         text=f"current value of {_label(account)}",
         reason=f"no value in the account data (R6); {_NEVER_ESTIMATED}",
         section="account_table",
@@ -138,7 +130,7 @@ def _foreign_currency_state(account: Account, currency: str, taken: set[str]) ->
     code = currency.strip().upper()
     marker = Marker(
         id="",
-        key=_unique_key(f"{_type_slug(account.type)}_currency_{_slug(code) or 'other'}", taken),
+        key=_unique_key(f"{type_slug(account.type)}_currency_{_slug(code) or 'other'}", taken),
         text=f"sterling value of {_label(account)}, held in {code}",
         reason=f"value is not in GBP (P12); {_NEVER_ESTIMATED}",
         section="account_table",

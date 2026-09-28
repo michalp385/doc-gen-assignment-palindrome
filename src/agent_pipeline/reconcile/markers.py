@@ -42,17 +42,43 @@ def cgt_marker(disposals: list[Disposal]) -> list[Marker]:
     (CLAUDE.md non-negotiable), same rule as the charge markers above. Key is a bare
     "cgt" for the single-disposal case every current client has; a second taxable
     disposal in the same advice (none yet) would need a disambiguating key, not built
-    until a client actually has two."""
+    until a client actually has two. A disposal from an `unknown` wrapper (G5 case b) also
+    gets the marker, worded as a possible disposal unless a definite taxable one shares
+    the advice."""
     taxable = [d for d in disposals if d.wrapper_class == "taxable"]
-    if not taxable:
+    unknown = [d for d in disposals if d.wrapper_class == "unknown"]
+    if not taxable and not unknown:
         return []
+    text = (
+        "capital gains tax on the disposal"
+        if taxable
+        else "capital gains tax on the possible disposal, pending confirmation of the "
+        "account's tax treatment"
+    )
     return [
         Marker(
             id="",
             key="cgt",
-            text="capital gains tax on the disposal",
+            text=text,
             reason=_NEVER_ESTIMATED,
             section="tax_implications",
+        )
+    ]
+
+
+def bond_marker(disposals: list[Disposal]) -> list[Marker]:
+    """P7: a bond encashment never creates a CGT section; it gets a "chargeable-event gain
+    to be assessed" marker in Recommendations, next to the encashment. One marker however
+    many bonds are encashed. Never states a gain."""
+    if not any(d.wrapper_class == "bond" for d in disposals):
+        return []
+    return [
+        Marker(
+            id="",
+            key="bond_chargeable_gain",
+            text="chargeable-event gain on the bond encashment, to be assessed",
+            reason=_NEVER_ESTIMATED,
+            section="recommendations",
         )
     ]
 

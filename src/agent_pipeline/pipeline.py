@@ -49,9 +49,17 @@ from agent_pipeline.reconcile.limits import (
     check_limits,
     limit_marker,
     limit_review_item,
+    pension_contribution_accounts,
+    pension_contribution_markers,
+    pension_review_item,
     resolve_prior_use,
 )
-from agent_pipeline.reconcile.markers import available_marker, cgt_marker, required_markers
+from agent_pipeline.reconcile.markers import (
+    available_marker,
+    bond_marker,
+    cgt_marker,
+    required_markers,
+)
 from agent_pipeline.reconcile.money import available_now, build_money_items, classify_money
 from agent_pipeline.reconcile.ownership import resolve_ownership
 from agent_pipeline.reconcile.predicates import evaluate
@@ -59,7 +67,7 @@ from agent_pipeline.reconcile.refs import accounts_matching_reference
 from agent_pipeline.reconcile.review import ReviewItemInput, build_review_items, marker_review_items
 from agent_pipeline.reconcile.scope import resolve_scope
 from agent_pipeline.reconcile.sections import Disposal as SectionDisposal
-from agent_pipeline.reconcile.sections import SectionContext
+from agent_pipeline.reconcile.sections import SectionContext, unknown_wrapper_review_items
 from agent_pipeline.reconcile.values import (
     check_image_row,
     match_image_row,
@@ -215,16 +223,23 @@ def _classify_disposals(
     always the disposed account's own R3-selected value, never a second re-extracted
     figure). Returns the disposed accounts' counted proceeds by account id, for
     `_apply_proceeds_to_actions` to fund an action's fact from."""
-    matches = [
-        (d, m[0])
-        for d in disposals
-        for m in [accounts_matching_reference(d.account_reference, accounts)]
-        if len(m) == 1
-    ]
+    matches = []
+    unmatched = 0
+    for d in disposals:
+        found = accounts_matching_reference(d.account_reference, accounts)
+        if len(found) == 1:
+            matches.append((d, found[0]))
+        else:
+            unmatched += 1
     section_disposals = [
-        SectionDisposal(wrapper_class=classify_wrapper(account.type).wrapper_class)
+        SectionDisposal(
+            wrapper_class=classify_wrapper(account.type).wrapper_class, account_id=account.id
+        )
         for _, account in matches
     ]
+    # G5 case b: a disposal that matches no single account is never silently dropped -- it
+    # is a possible taxable disposal pending confirmation (an "unknown" wrapper).
+    section_disposals += [SectionDisposal(wrapper_class="unknown") for _ in range(unmatched)]
     destination_known = any(mi.money_class == "proceeds" for mi in meeting_money_items)
     money_items: list[MoneyItem] = []
     proceeds_by_account: dict[str, Value] = {}
@@ -358,6 +373,18 @@ def _apply_values(
     return accounts, review_items
 
 
+def _pension_markers(
+    actions: list[Action], accounts: list[Account]
+) -> tuple[list[Marker], list[ReviewItemInput]]:
+    """P4: pension contribution amounts are always adviser-review markers, whether or not
+    the sources state an amount (client 04's "SIPP contributions for both, sized within
+    allowances" states none). Triggered by an agreed action naming an in-scope pension
+    account; the review row states no limit."""
+    pensions = pension_contribution_accounts(actions, accounts)
+    item = pension_review_item(pensions)
+    return pension_contribution_markers(pensions), [item] if item is not None else []
+
+
 def _apply_money(
     extracted, source_id: str, start_index: int
 ) -> tuple[list[MoneyItem], Value | None, list[Marker], list[ReviewItemInput]]:
@@ -449,8 +476,12 @@ def _limit_groups(
             ref_matches = accounts_matching_reference(ref, in_scope_accounts)
             if len(ref_matches) == 1:
                 matches.append(ref_matches[0])
+        # Pensions take their own path (`_pension_markers`): a pension amount is always a
+        # marker, stated or not, never an ISA-shaped allowance question.
         allowance_families = {
-            af for a in matches if (af := classify_wrapper(a.type).allowance_family) is not None
+            af
+            for a in matches
+            if (af := classify_wrapper(a.type).allowance_family) not in (None, "pension")
         }
         for allowance_family in allowance_families:
             family_accounts = [
@@ -750,6 +781,7 @@ def _run_stages(
         meeting_source.path.name,
     )
     tax_section = evaluate("taxable_disposal", SectionContext(disposals=disposals))
+    disposal_review_items = unknown_wrapper_review_items(disposals)
 
     other_money_items, available, available_markers, money_review_items = _apply_money(
         meeting_extraction.money_items, meeting_source.path.name, len(money_items) + 1
@@ -768,10 +800,13 @@ def _run_stages(
     in_scope_platforms = {a.platform for a in resolved_accounts if a.in_scope and a.platform}
     # Value-cell markers (R6, P12) sit in the account table, which opens the report, so
     # they come first in the order number_markers numbers them by (P1).
+    pension_markers, pension_review_items = _pension_markers(actions, resolved_accounts)
     markers = [
         *state_markers,
         *required_markers(in_scope_platforms),
         *cgt_marker(disposals),
+        *bond_marker(disposals),
+        *pension_markers,
         *available_markers,
     ]
 
@@ -811,6 +846,8 @@ def _run_stages(
             for oa in meeting_extraction.open_actions
         ),
         *money_review_items,
+        *disposal_review_items,
+        *pension_review_items,
         *marker_review_items(markers),
         *limit_items,
         *image_items,

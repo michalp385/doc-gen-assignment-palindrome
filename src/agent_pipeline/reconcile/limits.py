@@ -23,8 +23,10 @@ from pathlib import Path
 from typing import Literal
 
 from agent_pipeline.extract.schemas import LimitSignal
-from agent_pipeline.ledger import Marker, Value, render_table
+from agent_pipeline.ledger import Account, Action, Marker, Value, render_table
+from agent_pipeline.reconcile.refs import accounts_matching_reference
 from agent_pipeline.reconcile.review import ReviewItemInput
+from agent_pipeline.reconcile.wrappers import classify_wrapper, type_slug
 
 PriorUse = Literal["confirmed", "denied", "unknown"]
 
@@ -63,6 +65,15 @@ def check_limits(
     prior_use: PriorUse,
     meeting_date: date,
 ) -> LimitCheck:
+    if allowance_family == "pension":
+        # P4: pension limits depend on personal circumstances, earlier contributions,
+        # tapering and carry-forward, so a pension amount is always a marker and the
+        # pipeline never attempts the calculation, whatever the amount or prior use.
+        return LimitCheck(
+            marker=True,
+            note=False,
+            reason="pension contribution amounts are always adviser-review markers",
+        )
     year = tax_year_for(meeting_date)
     allowance = _ALLOWANCES.get(allowance_family, {}).get(year)
 
@@ -164,3 +175,57 @@ def limit_review_item(
             refs=account_ids,
         )
     return None
+
+
+def pension_contribution_accounts(actions: list[Action], accounts: list[Account]) -> list[Account]:
+    """P4 (T21, client 04's "SIPP contributions for both, sized within allowances"): every
+    in-scope pension-family account an agreed action names, each once, in the order first
+    named. No amount is needed -- a pension contribution is a marker whether or not the
+    sources state a figure. An agreed non-action never selects one (nothing is contributed),
+    and a reference matching several pensions selects all of them rather than none, since
+    dropping an ambiguous one would silently lose its marker."""
+    in_scope = [a for a in accounts if a.in_scope]
+    selected: dict[str, Account] = {}
+    for action in actions:
+        if action.kind == "non_action":
+            continue
+        for reference in action.accounts:
+            for account in accounts_matching_reference(reference, in_scope):
+                if classify_wrapper(account.type).allowance_family == "pension":
+                    selected.setdefault(account.id, account)
+    return list(selected.values())
+
+
+def pension_contribution_markers(accounts: list[Account]) -> list[Marker]:
+    """One marker per distinct pension type, keyed by the type's own wording
+    (`sipp_contribution_amounts`), so it generalises to any pension type in
+    `config/account_types.json`. Never states a figure."""
+    markers: dict[str, Marker] = {}
+    for account in accounts:
+        key = f"{type_slug(account.type)}_contribution_amounts"
+        if key not in markers:
+            markers[key] = Marker(
+                id="",
+                key=key,
+                text=f"{account.type} contribution amounts",
+                reason="pension contribution amounts are always adviser-review markers (P4); "
+                "never estimated",
+                section="recommendations",
+            )
+    return list(markers.values())
+
+
+def pension_review_item(accounts: list[Account]) -> ReviewItemInput | None:
+    """P4: the review-sheet context for `pension_contribution_markers`. States no limit."""
+    if not accounts:
+        return None
+    return ReviewItemInput(
+        kind="p4_note",
+        blocking=False,
+        detail=(
+            "Pension contribution amounts are adviser-review markers: pension limits depend "
+            "on personal circumstances, earlier contributions, tapering and carry-forward, "
+            "so no figure is stated."
+        ),
+        refs=[a.id for a in accounts],
+    )

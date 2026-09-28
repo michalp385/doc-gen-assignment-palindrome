@@ -9,6 +9,7 @@ flagged -- rather than assumed to be one thing or another.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -54,3 +55,13 @@ def classify_wrapper(type_text: str) -> WrapperInfo:
 
 def type_aliases(type_text: str) -> list[str]:
     return _ALIASES.get(type_text, [])
+
+
+def type_slug(type_text: str) -> str:
+    """A marker-key stem from an account's own type wording: its standard abbreviation when
+    `config/account_types.json` has one ("GIA"), otherwise the wording itself, lower-cased
+    and joined with underscores. General vocabulary only -- never an account id or a client
+    name."""
+    aliases = type_aliases(type_text)
+    stem = aliases[0] if aliases else type_text
+    return re.sub(r"[^a-z0-9]+", "_", stem.lower()).strip("_") or "account"
