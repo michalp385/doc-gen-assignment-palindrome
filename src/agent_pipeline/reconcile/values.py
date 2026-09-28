@@ -31,6 +31,12 @@ from agent_pipeline.reconcile.review import ReviewItemInput
 UNKNOWN_CURRENCY = "UNKNOWN"
 
 
+def is_stated_gbp(currency: str | None) -> bool:
+    """Whether the account data states sterling (case-insensitively). Anything else, a missing
+    or blank currency included, is not-GBP (P12)."""
+    return currency is not None and currency.strip().upper() == "GBP"
+
+
 def _candidates(
     db_value: Decimal | None,
     db_date: _date | None,
@@ -42,7 +48,9 @@ def _candidates(
         candidates.append(
             Value(
                 amount=db_value,
-                currency=currency.strip() if currency and currency.strip() else UNKNOWN_CURRENCY,
+                currency=currency.strip().upper()
+                if currency and currency.strip()
+                else UNKNOWN_CURRENCY,
                 precision="exact",
                 qualifier="exact",
                 date=db_date,

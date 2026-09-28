@@ -70,6 +70,7 @@ from agent_pipeline.reconcile.sections import Disposal as SectionDisposal
 from agent_pipeline.reconcile.sections import SectionContext, unknown_wrapper_review_items
 from agent_pipeline.reconcile.values import (
     check_image_row,
+    is_stated_gbp,
     match_image_row,
     select_values,
     superseded_values,
@@ -352,7 +353,14 @@ def _apply_values(
             record.value, record.valuation_date, record.currency, viewed, value
         )
         accounts[account_id] = account.model_copy(update={"value": value, "superseded": superseded})
-        if superseded and value is not None and value.date is not None:
+        # A value withheld for its currency (P12) never reaches the review sheet as an
+        # unlabelled figure: the account's own currency item covers it.
+        if (
+            superseded
+            and value is not None
+            and value.date is not None
+            and is_stated_gbp(record.currency)
+        ):
             superseded_text = "; ".join(
                 f"superseded value {render_table(s)} ({s.source_id}, {render_date(s.date)})"
                 if s.date is not None
