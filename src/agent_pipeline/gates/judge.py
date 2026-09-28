@@ -12,7 +12,7 @@ from __future__ import annotations
 
 import json
 import re
-from collections.abc import Mapping
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Literal, Protocol
 
@@ -123,9 +123,10 @@ class JudgeModel(Protocol):
 class LLMJudgeModel:
     """The real `JudgeModel`, wrapping T11's `LLMClient` and `config/prompts/release_judge.md`."""
 
-    def __init__(self, llm_client: LLMClient, prompt: PromptSpec) -> None:
+    def __init__(self, llm_client: LLMClient, prompt: PromptSpec, sample: int = 0) -> None:
         self._llm = llm_client
         self._prompt = prompt
+        self._sample = sample
 
     def judge(
         self,
@@ -134,10 +135,15 @@ class LLMJudgeModel:
         sources: Mapping[str, SourceDoc],
         corrections: list[str],
     ) -> RawJudgeVerdict:
+        # Sample 0 keeps the cache key a single-sample run already has; a later sample is a
+        # separate model call, so it gets its own key (one more input) instead of replaying
+        # sample 0's cached answer.
+        extra = {"sample": self._sample} if self._sample > 0 else {}
         result = self._llm.structured(
             stage="release_judge",
             prompt=self._prompt,
             inputs={
+                **extra,
                 "report_text": redact_standard_wording(bundle.report_text, ledger),
                 "actions": [
                     {"id": a.id, "description": a.description, "kind": a.kind}
@@ -440,3 +446,48 @@ def release_judge(
     raw = model.judge(bundle, ledger, sources, [])
     g16, raw = _check_g16(raw, model, bundle, ledger, sources)
     return [g16, _check_g8(raw, bundle, ledger), *_check_simple_gates(raw)]
+
+
+def judge_models(llm_client: LLMClient, prompt: PromptSpec, samples: int) -> list[JudgeModel]:
+    """One `LLMJudgeModel` per sample, each with its own cache key."""
+    return [LLMJudgeModel(llm_client, prompt, sample=i) for i in range(samples)]
+
+
+def majority_release_judge(
+    bundle: ReportBundle,
+    ledger: Ledger,
+    sources: Mapping[str, SourceDoc],
+    models: Sequence[JudgeModel],
+) -> list[GateResult]:
+    """D22: the judge model rejects `temperature`, so one sample can fail a correct report.
+    Run an odd number of independent `release_judge` passes (each with its own coverage
+    re-ask) and let each gate pass or fail by the majority of them; code does the vote. G7,
+    G8 and G16 stay hard gates -- one dissenting sample no longer decides -- and a dissent is
+    kept in a passing gate's detail so the run summary shows it. A single model is exactly
+    `release_judge`."""
+    count = len(models)
+    if count < 1 or count % 2 == 0:
+        raise ValueError(f"the number of judge samples must be odd and at least 1, got {count}")
+    runs = [release_judge(bundle, ledger, sources, model) for model in models]
+    if count == 1:
+        return runs[0]
+    voted: list[GateResult] = []
+    for position, first in enumerate(runs[0]):
+        failing = [run[position] for run in runs if not run[position].passed]
+        if len(failing) * 2 > count:
+            voted.append(
+                GateResult(
+                    first.gate,
+                    False,
+                    f"{len(failing)} of {count} judge samples failed this gate: "
+                    f"{failing[0].detail}",
+                )
+            )
+        else:
+            note = (
+                f"{len(failing)} of {count} judge samples disagreed: {failing[0].detail}"
+                if failing
+                else ""
+            )
+            voted.append(GateResult(first.gate, True, note))
+    return voted

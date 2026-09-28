@@ -15,7 +15,7 @@ import json
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from agent_pipeline.reconcile.predicates import PREDICATES
 
@@ -68,6 +68,16 @@ class Section(_Strict):
 class StageConfig(_Strict):
     model: str
     reasoning_effort: Literal["none", "low", "medium", "high"]
+    # Independent runs of a stage whose verdicts are combined by majority (only the release
+    # judge uses this, D22): odd, so a vote always has a winner. 1 is a single run.
+    samples: int = 1
+
+    @field_validator("samples")
+    @classmethod
+    def _samples_odd(cls, value: int) -> int:
+        if value < 1 or value % 2 == 0:
+            raise ValueError("samples must be a positive odd number")
+        return value
 
 
 class ReportConfig(_Strict):

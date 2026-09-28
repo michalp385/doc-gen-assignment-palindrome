@@ -27,7 +27,7 @@ from agent_pipeline.extract.instruction import LLMInstructionModel, extract_inst
 from agent_pipeline.extract.meeting import LLMMeetingModel, extract_meeting
 from agent_pipeline.extract.parsing import parse_amount, parse_date
 from agent_pipeline.gates.deterministic import ReportBundle, TableRow, run_gates
-from agent_pipeline.gates.judge import LLMJudgeModel, release_judge
+from agent_pipeline.gates.judge import judge_models, majority_release_judge
 from agent_pipeline.gates.release import ReleaseState, decide_release
 from agent_pipeline.gates.truth import LedgerTruth
 from agent_pipeline.ledger import (
@@ -949,7 +949,15 @@ def _run_stages(
     deterministic_results = run_gates(bundle, LedgerTruth(ledger))
     judge_sources: dict[str, SourceDoc] = {meeting_source.path.name: meeting_doc}
     judge_sources[instruction_source.path.name] = instruction_doc
-    judge_model = LLMJudgeModel(llm, load_prompt(PROMPTS_DIR / "release_judge.md"))
-    judge_results = release_judge(bundle, ledger, judge_sources, judge_model)
+    judge_results = majority_release_judge(
+        bundle,
+        ledger,
+        judge_sources,
+        judge_models(
+            llm,
+            load_prompt(PROMPTS_DIR / "release_judge.md"),
+            config.stages["release_judge"].samples,
+        ),
+    )
 
     return bundle, ledger, [*deterministic_results, *judge_results]

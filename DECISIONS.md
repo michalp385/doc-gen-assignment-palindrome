@@ -414,11 +414,18 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   `gpt-6-sol` (checked 2026-09-27), and they are the only two on this key. The release judge runs
   `gpt-6-luna` at high reasoning effort (Sol is the eval judge), so no available model gives a stable
   verdict through `temperature=0`. No new live call was spent on this.
-- **Next options, none built yet:** (a) take a majority of an odd number of judge samples per report,
-  which keeps G7, G8 and G16 hard gates but multiplies the judge's cost; (b) make judge-only findings
-  review-sheet flags instead of hard gates, which weakens SCOPING's hard gates and is a decision for
-  the user; (c) lower the judge's reasoning effort or move it to Sol, untested and needing a measured
-  pass. The introduction-scope, filename and standard-wording checks stay in code either way.
+- **Options:** (a) take a majority of an odd number of judge samples per report, which keeps G7, G8
+  and G16 hard gates but multiplies the judge's cost; (b) make judge-only findings review-sheet flags
+  instead of hard gates, which weakens SCOPING's hard gates; (c) lower the judge's reasoning effort
+  or move it to Sol, untested. The user chose (a). The introduction-scope, filename and
+  standard-wording checks stay in code either way.
+- **Built (a):** `majority_release_judge` runs `stages.release_judge.samples` independent
+  `release_judge` passes, each with its own coverage re-ask, and each gate passes or fails by the
+  majority, decided in code; a dissent is kept in a passing gate's detail. Each later sample has its
+  own cache key. The setting defaults to 1, and the shipped config is not switched to 3 yet: that
+  change carries a live refresh of clients 01 and 02's judge cache, at roughly three times the
+  judge stage's cost, so it waits for the user's go-ahead. Samples run one after another, so a
+  report's judge latency grows with the count.
 - **Evidence:** `tests/test_g16_intro_scope.py`, `tests/test_g10_internal_filenames.py`; the parked
   run artefacts are in the session scratchpad, not the repo, and no results file exists for this.
 
