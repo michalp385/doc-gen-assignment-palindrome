@@ -144,8 +144,11 @@ def render(pattern: str, variant: int, **fields: str) -> str:
 
 
 def _words(text: str) -> list[str]:
-    # Curly apostrophes are the same word as straight ones (see scripts/check_repo.py).
-    return re.findall(r"[a-z0-9']+", text.lower().replace("\u2019", "'").replace("\u2018", "'"))
+    # Curly apostrophes are the same word as straight ones, and a token keeps an apostrophe
+    # only inside a word: a leading or trailing quote mark ("'cash'", "clients'") is not part
+    # of it, or a quoted run would never match plain text.
+    folded = text.lower().replace("\u2019", "'").replace("\u2018", "'")
+    return [t for t in (w.strip("'") for w in re.findall(r"[a-z0-9']+", folded)) if t]
 
 
 def _ngrams(words: list[str], n: int) -> set[tuple[str, ...]]:
