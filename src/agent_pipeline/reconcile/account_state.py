@@ -8,11 +8,9 @@ review sheet records it; outside scope it goes to the review sheet only.
 
 P12: a value not in GBP is never converted -- the value cell is a marker and the review sheet
 records it; the value is withheld from the ledger whether or not the account is in scope, so
-it can never reach a fact as if it were sterling. Only an *explicit* non-GBP `currency` is
-handled here. A *missing* `currency` is left as `values.py::select_values` already treats it
-(labelled GBP): DESIGN.md section 3.3 says a missing currency is treated as not-GBP, which
-contradicts that existing default, so which is right is an open question for the user
-(recorded in the T20/T21 handover), not decided in this module.
+it can never reach a fact as if it were sterling. A missing or blank `currency` is not-GBP too
+(DESIGN.md section 3.3): a number with no stated unit has no safe reading, and a held-out
+client whose records omit the field must not have its values rendered as sterling.
 
 Runs once per account, after `resolve_scope` (which sets `in_scope`) and `_apply_values`
 (which sets `value`); the caller (`pipeline.py`) applies the result to the ledger. Pure code,
@@ -63,8 +61,8 @@ def _unique_key(stem: str, taken: set[str]) -> str:
     return key
 
 
-def _is_explicit_non_gbp(currency: str | None) -> bool:
-    return currency is not None and currency.strip().upper() != "GBP"
+def _is_not_gbp(currency: str | None) -> bool:
+    return currency is None or currency.strip().upper() != "GBP"
 
 
 def _closed_state(account: Account) -> AccountState:
@@ -126,12 +124,15 @@ def _null_value_state(account: Account, taken: set[str]) -> AccountState:
     )
 
 
-def _foreign_currency_state(account: Account, currency: str, taken: set[str]) -> AccountState:
-    code = currency.strip().upper()
+def _foreign_currency_state(
+    account: Account, currency: str | None, taken: set[str]
+) -> AccountState:
+    code = (currency or "").strip().upper()
     marker = Marker(
         id="",
-        key=_unique_key(f"{type_slug(account.type)}_currency_{_slug(code) or 'other'}", taken),
-        text=f"sterling value of {_label(account)}, held in {code}",
+        key=_unique_key(f"{type_slug(account.type)}_currency_{_slug(code) or 'unknown'}", taken),
+        text=f"sterling value of {_label(account)}, "
+        + (f"held in {code}" if code else "currency not stated"),
         reason=f"value is not in GBP (P12); {_NEVER_ESTIMATED}",
         section="account_table",
     )
@@ -144,8 +145,9 @@ def _foreign_currency_state(account: Account, currency: str, taken: set[str]) ->
                 kind="currency",
                 blocking=False,
                 detail=(
-                    f"{_where(account)}: the account data's currency is {code}, not GBP; the "
-                    "value is not converted and the table's value cell is a marker."
+                    f"{_where(account)}: the account data's currency is "
+                    f"{code or 'not stated'}, not GBP; the value is not converted and the "
+                    "table's value cell is a marker."
                 ),
                 refs=[account.id],
             )
@@ -157,9 +159,8 @@ def check_account_states(
     accounts: list[Account], currency_by_id: dict[str, str | None]
 ) -> dict[str, AccountState]:
     """One `AccountState` per account, keyed by id. `currency_by_id` is the account data's
-    own, possibly-missing `currency` field (not `Value.currency`, which `select_values`
-    already defaults to "GBP" when the record is silent). Marker keys are unique across the
-    call, so two same-type accounts never share one."""
+    own, possibly-missing `currency` field; a missing or blank one is not-GBP. Marker keys
+    are unique across the call, so two same-type accounts never share one."""
     taken: set[str] = set()
     states: dict[str, AccountState] = {}
     for account in accounts:
@@ -168,7 +169,7 @@ def check_account_states(
             states[account.id] = _closed_state(account)
         elif account.value is None:
             states[account.id] = _null_value_state(account, taken)
-        elif currency is not None and _is_explicit_non_gbp(currency):
+        elif _is_not_gbp(currency):
             if account.in_scope:
                 states[account.id] = _foreign_currency_state(account, currency, taken)
             else:

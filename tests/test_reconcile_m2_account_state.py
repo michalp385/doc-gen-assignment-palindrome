@@ -161,19 +161,20 @@ def test_p12_currency_code_is_case_insensitive() -> None:
     assert state.value_marker is None
 
 
-def test_p12_missing_currency_is_left_as_select_values_treats_it_interim() -> None:
-    # OPEN QUESTION for the user, deliberately not decided here: DESIGN.md section 3.3 says a
-    # missing currency is treated as not-GBP, but values.py::select_values labels it GBP.
-    # Until that is settled this module handles only an *explicit* non-GBP currency, so a
-    # missing one raises no P12 marker. If the user rules for DESIGN's reading, this test
-    # and account_state._is_explicit_non_gbp change together.
+def test_p12_missing_currency_is_not_gbp() -> None:
+    # DESIGN.md section 3.3: "a missing currency is treated as not-GBP under P12". The user
+    # ruled for the spec, replacing the earlier interim test that pinned the opposite: the
+    # value is withheld, the value cell is a marker and the review sheet says the currency
+    # is not stated.
     account = _with_value(_account("X-ISA"))
     cases: list[dict[str, str | None]] = [{"X-ISA": None}, {}]
     for currency_by_id in cases:
         state = check_account_states([account], currency_by_id)["X-ISA"]
-        assert state.value_marker is None
-        assert state.withhold_value is False
-        assert state.review_items == []
+        assert state.value_marker is not None
+        assert state.withhold_value is True
+        (item,) = state.review_items
+        assert item.kind == "currency"
+        assert "not stated" in item.detail
 
 
 def test_p12_out_of_scope_non_gbp_is_withheld_but_raises_no_marker_or_item() -> None:

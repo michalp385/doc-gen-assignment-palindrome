@@ -26,6 +26,10 @@ from agent_pipeline.extract.parsing import parse_amount
 from agent_pipeline.ledger import Account, Value
 from agent_pipeline.reconcile.review import ReviewItemInput
 
+# A record with no stated currency is not treated as sterling (P12, DESIGN.md section 3.3):
+# its value is withheld and marked downstream (`account_state.py`), never rendered as GBP.
+UNKNOWN_CURRENCY = "UNKNOWN"
+
 
 def _candidates(
     db_value: Decimal | None,
@@ -38,7 +42,7 @@ def _candidates(
         candidates.append(
             Value(
                 amount=db_value,
-                currency=currency or "GBP",
+                currency=currency.strip() if currency and currency.strip() else UNKNOWN_CURRENCY,
                 precision="exact",
                 qualifier="exact",
                 date=db_date,
