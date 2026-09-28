@@ -175,7 +175,10 @@ def _check_g2(bundle: ReportBundle, truth: Truth) -> GateResult:
         outside = _outside_the_footnote(bundle)
         for figure in sorted(footnote_only):
             core = figure_core(figure)
-            if re.search(re.escape(core) + r"(?![\d,])", outside):
+            # Not followed by more of the same number: a digit, or a thousands separator or
+            # decimal point with a digit after it. A bare comma or full stop is just
+            # punctuation ("worth £X, which ...").
+            if re.search(re.escape(core) + r"(?!\d|[,.]\d)", outside):
                 return GateResult(
                     "G2", False, f"superseded figure {core!r} appears outside the table footnote"
                 )
