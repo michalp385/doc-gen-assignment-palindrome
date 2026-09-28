@@ -327,6 +327,26 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
 - **Evidence:** `tests/test_write_writer.py` (24 tests, all slot-level gate paths), `bash
   scripts/check.sh` green (472 offline tests) after the change.
 
+### D20. Treat a missing currency as not-GBP, and don't let a meeting figure rescue it
+- **Context:** DESIGN §3.3 says a missing currency is treated as not-GBP (P12), but `select_values`
+  labelled it GBP, so a record with no `currency` would have had its value rendered as sterling.
+  Every account in the four real clients states GBP, so nothing in `data/` exercised it; a held-out
+  client whose records omit the field would have. A dated meeting figure (`£…`) can win under R3
+  for the same account.
+- **Decision:** a missing or blank `currency`, or an account absent from the currency map, is
+  not-GBP: the value is withheld from the ledger, the table's value cell is a marker, and the review
+  sheet says the currency is not stated. A meeting figure that would win under R3 does not override
+  this: the account's own currency being unstated is what decides.
+- **Alternatives:** let the meeting's £ figure rescue the account. Fewer markers, but it takes the
+  meeting note's currency on trust for an account whose own data is silent, and I'd rather ask the
+  adviser than guess a unit.
+- **Consequences / how it generalises:** it can over-withhold, which fails safe: a visible marker and a
+  review item, never a wrong figure reaching the client. Under-withholding is the failure that
+  matters. Revisit if the held-out or synthetic runs show many accounts withheld for a missing
+  currency where the meeting states the figure clearly.
+- **Evidence:** commits `04da7a3` and `212bfcd`; `tests/test_missing_currency_p12.py`,
+  `tests/test_currency_render_leaks.py`.
+
 ## What I would do with more time
 <!-- For production: what's missing, what you'd change in the pipeline and the agent setup,
      and the risks you know about. Concrete, not a wish list. -->

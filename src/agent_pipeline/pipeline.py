@@ -421,9 +421,10 @@ def _apply_money(
 def _apply_account_states(
     accounts: list[Account], currency_by_id: dict[str, str | None]
 ) -> tuple[list[Account], list[Marker], list[ReviewItemInput]]:
-    """R6, P12: applies `check_account_states` to the ledger's accounts -- a null or foreign-
-    currency in-scope value becomes a value-cell marker (a foreign value is also cleared, so
-    it can never reach a fact or the superseded footnote as if it were sterling), and a
+    """R6, P12: applies `check_account_states` to the ledger's accounts -- a null value, or a
+    value whose currency is not GBP or not stated (a missing currency is not-GBP, DESIGN.md
+    section 3.3), becomes a value-cell marker in scope (the value is also cleared, so it can
+    never reach a fact or the superseded footnote as if it were sterling), and a
     closed account the scope names leaves the table with a blocking conflict. Returns the
     markers and review items for the caller to add to the ledger; a closed or valueless
     out-of-scope account is left as it was."""
@@ -565,11 +566,11 @@ def _image_review_items(
 
     `account_currency_by_id` is the account data's own, possibly-missing `currency` field
     (`record.currency`, the same value `select_values` reads) -- not `account.value.currency`,
-    which `select_values` already defaults to "GBP" when the record is silent (DESIGN.md
-    section 3.3). Reading the defaulted value here would mean a genuinely-unknown currency
-    could never take `check_image_row`'s "unknown, skip" branch, and a real non-GBP image
-    would be mislabelled a "possible read error" instead of "we never knew this account's
-    currency" (verifier checkpoint, T18)."""
+    which is `UNKNOWN` when the record is silent (P12, DESIGN.md section 3.3: a missing
+    currency is not-GBP; `_apply_account_states` has already withheld such a value and
+    marked it). The record's own field is used here so a genuinely-unknown currency takes
+    `check_image_row`'s "unknown, skip" branch instead of being mislabelled a "possible read
+    error" (verifier checkpoint, T18)."""
     if image_source is None:
         return []
     in_scope_accounts = [a for a in accounts if a.in_scope]

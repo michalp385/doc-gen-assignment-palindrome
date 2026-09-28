@@ -164,6 +164,8 @@ def check_account_states(
     taken: set[str] = set()
     states: dict[str, AccountState] = {}
     for account in accounts:
+        # An account absent from the map is a missing currency, hence not-GBP: withheld and
+        # marked, never assumed to be sterling. Do not "simplify" this to a GBP default.
         currency = currency_by_id.get(account.id)
         if account.status == "closed":
             states[account.id] = _closed_state(account)
