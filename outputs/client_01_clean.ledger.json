@@ -123,6 +123,15 @@
       "refs": [
         "advice_charge"
       ]
+    },
+    {
+      "id": "rv4",
+      "kind": "p4_note",
+      "blocking": false,
+      "detail": "The £20,000 top-up uses this tax year's full ISA allowance; prior use this tax year is unstated.",
+      "refs": [
+        "H-ISA-01"
+      ]
     }
   ],
   "questions": [],

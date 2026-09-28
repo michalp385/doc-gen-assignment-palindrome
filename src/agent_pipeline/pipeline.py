@@ -40,6 +40,7 @@ from agent_pipeline.ledger import (
 )
 from agent_pipeline.llm import LLMClient, OpenAITransport, Transport
 from agent_pipeline.reconcile.facts import build_facts
+from agent_pipeline.reconcile.limits import limit_review_item
 from agent_pipeline.reconcile.markers import required_markers
 from agent_pipeline.reconcile.ownership import resolve_ownership
 from agent_pipeline.reconcile.predicates import evaluate
@@ -206,6 +207,47 @@ def _resolve_viewed_values(
             )
         )
     return by_account
+
+
+def _limit_review_items(
+    actions: list[Action],
+    action_amounts: dict[str, Value],
+    accounts: list[Account],
+    meeting_date,
+) -> list[ReviewItemInput]:
+    """P4's note case. An action's `accounts` are free text as extracted (e.g. "the cash
+    account"), matched to a real account by type wording -- the same convention as R3's
+    viewed-value matching and the disposal matching above -- so only an account whose
+    wrapper actually carries an allowance (`classify_wrapper`) is ever checked; a cash
+    account or GIA referenced by the same action has no `allowance_family` and is silently
+    skipped, no config or per-client branching needed.
+
+    Prior use is always "unknown" here, never inferred "confirmed" from the presence of a
+    `limit_signals` quote: client 01's own meeting mentions the ISA allowance only for the
+    top-up being agreed today, not any earlier use, and an early version of this function
+    that treated any limit-signal quote as a confirmation silently swallowed the note it was
+    meant to add (live run, T17 checkpoint). Distinguishing a genuine prior-use confirmation
+    from an unrelated mention needs real labeled-evidence resolution (DESIGN.md section 4.2),
+    not built until T20 widens P4 with client 03's real signals -- until then this never
+    triggers `check_limits`' marker case."""
+    items: list[ReviewItemInput] = []
+    for action in actions:
+        amount = action_amounts.get(action.id)
+        if amount is None:
+            continue
+        for ref in action.accounts:
+            matches = [a for a in accounts if ref.lower() in a.type.lower()]
+            if len(matches) != 1:
+                continue
+            allowance_family = classify_wrapper(matches[0].type).allowance_family
+            if allowance_family is None:
+                continue
+            item = limit_review_item(
+                amount, allowance_family, "unknown", meeting_date, matches[0].id
+            )
+            if item is not None:
+                items.append(item)
+    return items
 
 
 def _computed_placeholder(name: str, ledger: Ledger) -> str:
@@ -388,15 +430,6 @@ def _run_stages(
     in_scope_platforms = {a.platform for a in resolved_accounts if a.in_scope and a.platform}
     markers = required_markers(in_scope_platforms)
 
-    review_inputs: list[ReviewItemInput] = [
-        *ownership.set_aside,
-        *(
-            ReviewItemInput(kind="open_action", blocking=oa.blocking, detail=oa.text.text, refs=[])
-            for oa in meeting_extraction.open_actions
-        ),
-        *marker_review_items(markers),
-    ]
-
     facts = build_facts(resolved_accounts, action_amounts)
     objectives = " ".join(o.text.text for o in meeting_extraction.objectives_and_circumstances)
     meeting_date = (
@@ -404,6 +437,21 @@ def _run_stages(
         if meeting_extraction.meeting_date
         else None
     )
+    limit_items = (
+        _limit_review_items(actions, action_amounts, resolved_accounts, meeting_date)
+        if meeting_date is not None
+        else []
+    )
+
+    review_inputs: list[ReviewItemInput] = [
+        *ownership.set_aside,
+        *(
+            ReviewItemInput(kind="open_action", blocking=oa.blocking, detail=oa.text.text, refs=[])
+            for oa in meeting_extraction.open_actions
+        ),
+        *marker_review_items(markers),
+        *limit_items,
+    ]
 
     def _field_value(canonical: str) -> str | None:
         field = fields_by_canonical.get(canonical)

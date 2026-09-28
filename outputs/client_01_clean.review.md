@@ -37,7 +37,7 @@ None.
 
 ## Notes
 
-None.
+- The £20,000 top-up uses this tax year's full ISA allowance; prior use this tax year is unstated.
 
 ## How this draft degraded
 

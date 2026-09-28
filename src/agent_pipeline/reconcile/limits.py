@@ -22,6 +22,9 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Literal
 
+from agent_pipeline.ledger import Value, render_table
+from agent_pipeline.reconcile.review import ReviewItemInput
+
 PriorUse = Literal["confirmed", "denied", "unknown"]
 
 CONFIG_PATH = Path("config/tax_rules.json")
@@ -81,3 +84,31 @@ def check_limits(
             reason="full-allowance subscription; prior use this tax year is unstated",
         )
     return LimitCheck(marker=False, note=False, reason="")
+
+
+def limit_review_item(
+    amount: Value,
+    allowance_family: str,
+    prior_use: PriorUse,
+    meeting_date: date,
+    account_id: str,
+) -> ReviewItemInput | None:
+    """P4's note case only (DESIGN.md section 6): a full-allowance subscription whose prior
+    use this tax year the sources don't state. `check_limits`' marker case (a breach, or
+    confirmed prior use) needs report-marker wiring -- `ledger.markers`, a writer-facing
+    token, a place in the template -- not built until T20 widens P4 with client 03's real
+    breach cases; this only ever returns the review-sheet note, never a marker, so a breach
+    reaches no review item at all yet (a known, deliberate gap, not silently dropped: T20's
+    own plan entry is where it closes)."""
+    result = check_limits(amount.amount, allowance_family, prior_use, meeting_date)
+    if not result.note:
+        return None
+    return ReviewItemInput(
+        kind="p4_note",
+        blocking=False,
+        detail=(
+            f"The {render_table(amount)} top-up uses this tax year's full "
+            f"{allowance_family.upper()} allowance; prior use this tax year is unstated."
+        ),
+        refs=[account_id],
+    )
