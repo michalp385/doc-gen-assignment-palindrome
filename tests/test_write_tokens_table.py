@@ -197,7 +197,11 @@ def test_build_table_footnotes_a_superseded_value_never_the_cell():
     assert "| H-ISA-01 | Margaret Hughes | Stocks & Shares ISA | £52,000 |" in table
     assert "£48,000" not in table.split("\n\n")[0]
     footnote_block = table.split("\n\n", 1)[1]
-    assert "annual_statement_2025.png" in footnote_block
+    # The footnote names the source in client terms, never its internal filename (P9): an
+    # image is "your statement". The earlier assertion pinned the raw filename, which the
+    # release judge flags as system information (G10).
+    assert "your statement" in footnote_block
+    assert "annual_statement_2025.png" not in footnote_block
     assert "c. £48,000" in footnote_block
 
 

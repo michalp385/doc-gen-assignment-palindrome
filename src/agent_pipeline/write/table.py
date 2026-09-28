@@ -37,20 +37,16 @@ def _account_label(account: Account) -> str:
 
 
 def _source_label(source_id: str) -> str:
-    """TODO(T20): a live release-judge run on client 02 flagged this footnote's raw
-    filename ("...shown in client_data_db.json...") as reading like internal system
-    information rather than client-facing text (G10, a hard gate) -- verified by generating
-    a real report and running `report_eval.run --judge` against it. Humanising by file
-    *format* (general vocabulary: "our records" for .json, "our meeting note" for .docx,
-    "your statement" for an image -- never a per-client filename) fixed it, confirmed the
-    same way. That fix is reverted here only because `tests/test_write_tokens_table.py`'s
-    committed `test_build_table_footnotes_a_superseded_value_never_the_cell` still asserts
-    the raw filename appears verbatim, and this repo's own guard requires the user to
-    approve changing a committed test, which wasn't obtained this session. Whoever picks
-    this up next: update that one assertion (it should check for the humanised label, e.g.
-    "our records", not the filename), then restore the mapping below -- both the fix and
-    the corrected test assertion are already written up in the session's own handover."""
-    return source_id
+    """Where a superseded value came from, in client terms (P9): never an internal filename,
+    which the release judge flags as system information (G10). Chosen by file format, general
+    vocabulary rather than any per-client name -- account data ("our records"), the meeting
+    record ("our meeting note"), a statement image ("your statement")."""
+    suffix = source_id.rsplit(".", 1)[-1].lower() if "." in source_id else ""
+    if suffix == "docx":
+        return "our meeting note"
+    if suffix in {"png", "jpg", "jpeg"}:
+        return "your statement"
+    return "our records"
 
 
 def build_table(ledger: Ledger) -> str:
