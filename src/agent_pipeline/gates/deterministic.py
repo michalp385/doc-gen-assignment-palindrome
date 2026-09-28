@@ -263,7 +263,8 @@ def _check_g9(bundle: ReportBundle, truth: Truth) -> GateResult:
 # An internal file name ("client_data_db.json", "meeting_notes.docx"): system information, never
 # client-facing text. Whether one is present has a plain answer, so it is checked in code.
 INTERNAL_FILE_NAME_RE = re.compile(
-    r"\b[\w-]+\.(?:json|docx|md|png|jpe?g|pdf|csv|xlsx?)\b", re.IGNORECASE
+    r"\b[\w-]+\.(?:json|docx?|md|png|jpe?g|pdf|csv|xlsx?|txt|html?|ya?ml|xml|pptx?|tsv)\b",
+    re.IGNORECASE,
 )
 
 

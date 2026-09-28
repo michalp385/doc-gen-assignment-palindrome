@@ -241,6 +241,12 @@ def _coverage_scan_text(bundle: ReportBundle) -> str:
     return "\n\n".join(bundle.sections.values())
 
 
+def _word_pattern(term: str) -> re.Pattern[str]:
+    """A whole-word match for an account type or alias, with an optional plural: "ISA" is not
+    found inside "visa", and "ISAs" is found."""
+    return re.compile(rf"(?<![a-z0-9]){re.escape(term.lower())}s?(?![a-z0-9])")
+
+
 def intro_scope_problems(intro_text: str, ledger: Ledger) -> list[str]:
     """The Introduction's scope sentence, checked against the ledger in code (R2, R8): when it
     names account types at all, it must name every in-scope type (a standard abbreviation
@@ -248,28 +254,41 @@ def intro_scope_problems(intro_text: str, ledger: Ledger) -> list[str]:
     code and handed to the writer, so this has a right answer -- the judge is not asked to
     source it, a quote from the request's scope field that rarely matched the Introduction's
     own wording. An introduction naming no account type states no scope to get wrong. A new
-    account has no type wording to find. Nothing to check without an Introduction."""
+    account has no type wording to find. Nothing to check without an Introduction.
+
+    Types match as whole words (plural allowed), longest in-scope type first, and the words an
+    in-scope type matched are masked before the out-of-scope types are looked for, so a short
+    type inside a longer in-scope one ("ISA" in "Cash ISA") is not a false mention."""
     if not intro_text.strip():
         return []
-    lowered = intro_text.lower()
-    words = set(re.findall(r"[a-z0-9']+", lowered))
+    working = intro_text.lower()
 
-    def names(account_type: str) -> bool:
-        if account_type.lower() in lowered:
-            return True
-        return any(alias.lower() in words for alias in type_aliases(account_type))
+    def find(account_type: str, text: str) -> list[re.Match[str]]:
+        terms = [account_type, *type_aliases(account_type)]
+        return [m for term in terms for m in _word_pattern(term).finditer(text)]
 
     in_scope = {a.type for a in ledger.accounts if a.in_scope and not a.is_new}
     out_of_scope = {a.type for a in ledger.accounts if not a.in_scope} - in_scope
-    if not any(names(t) for t in in_scope | out_of_scope):
+
+    named_in_scope: set[str] = set()
+    for account_type in sorted(in_scope, key=len, reverse=True):
+        for match in find(account_type, working):
+            named_in_scope.add(account_type)
+            working = (
+                working[: match.start()]
+                + " " * (match.end() - match.start())
+                + working[match.end() :]
+            )
+    named_out_of_scope = {t for t in out_of_scope if find(t, working)}
+
+    if not named_in_scope and not named_out_of_scope:
         return []
     problems = [
-        f"the introduction does not name the in-scope {t}" for t in sorted(in_scope) if not names(t)
+        f"the introduction does not name the in-scope {t}"
+        for t in sorted(in_scope - named_in_scope)
     ]
     problems += [
-        f"the introduction names {t}, which is out of scope"
-        for t in sorted(out_of_scope)
-        if names(t)
+        f"the introduction names {t}, which is out of scope" for t in sorted(named_out_of_scope)
     ]
     return problems
 
