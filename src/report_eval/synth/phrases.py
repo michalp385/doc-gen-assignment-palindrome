@@ -67,6 +67,12 @@ PHRASE_BANK: dict[str, tuple[str, ...]] = {
         "the allowance is what is left.",
         "The ISAs were partly funded earlier in the tax year, and the remaining room is limited.",
     ),
+    "part_funded_single": (
+        "The ISA has already received money this tax year, so only part of the allowance remains.",
+        "Money has already gone into the ISA during the current tax year; the unused part of "
+        "the allowance is what is left.",
+        "The ISA was partly funded earlier in the tax year, and the remaining room is limited.",
+    ),
     "received": (
         "{amount} from {origin} has now arrived in the client's bank account.",
         "A payment of {amount} from {origin} has been received and is sitting in cash.",
@@ -118,11 +124,6 @@ PHRASE_BANK: dict[str, tuple[str, ...]] = {
         "in the names of {names}.",
         "A new joint investment account for {names} will receive the balance.",
     ),
-    "risk": (
-        "{names} confirmed they remain content with the level of risk already agreed.",
-        "The agreed attitude to risk was reviewed and {names} are happy to keep it.",
-        "{names} reconfirmed that the existing risk approach still suits them.",
-    ),
 }
 
 
@@ -150,38 +151,81 @@ def _ngrams(words: list[str], n: int) -> set[tuple[str, ...]]:
     return {tuple(words[i : i + n]) for i in range(len(words) - n + 1)}
 
 
-def _template_runs(template: str) -> list[list[str]]:
-    """The literal word runs of a template, split at each placeholder: a run never spans a
-    `{field}`, since the field's value is sampled, not fixed text."""
-    return [_words(part) for part in re.split(r"\{[^}]*\}", template)]
+_MAX_FILL = 4  # a placeholder stands for one to four words
+_WINDOW = 6
+_MIN_FIXED = 4  # a window of mostly placeholders would match anything
+
+
+def _template_tokens(template: str) -> list[str | None]:
+    """A wording as words, with `None` for each `{field}` (its value is sampled)."""
+    tokens: list[str | None] = []
+    for part in re.split(r"(\{[^}]*\})", template):
+        if part.startswith("{") and part.endswith("}"):
+            tokens.append(None)
+        else:
+            tokens.extend(_words(part))
+    return tokens
+
+
+def _matches_at(window: list[str | None], words: list[str], pos: int) -> bool:
+    if not window:
+        return True
+    head, rest = window[0], window[1:]
+    if head is None:
+        return any(
+            _matches_at(rest, words, pos + k)
+            for k in range(1, _MAX_FILL + 1)
+            if pos + k <= len(words)
+        )
+    return pos < len(words) and words[pos] == head and _matches_at(rest, words, pos + 1)
 
 
 def bank_overlap(corpus: list[str], n: int = 6) -> list[tuple[str, tuple[str, ...]]]:
-    """Every (pattern, n-gram) where a bank wording's fixed text shares an n-word run with a
-    corpus document. Empty means the bank is clear of the corpus."""
+    """Every (pattern, run) where a bank wording shares an n-word run with a corpus document.
+    A run may span a placeholder: it counts as one to four words of anything, so a wording
+    whose fixed text is broken up by its fields is still compared against the real documents
+    as it will read once rendered. Empty means the bank is clear of the corpus."""
+    corpus_words = [_words(text) for text in corpus]
     corpus_grams: set[tuple[str, ...]] = set()
-    for text in corpus:
-        corpus_grams |= _ngrams(_words(text), n)
+    for words in corpus_words:
+        corpus_grams |= _ngrams(words, n)
     found: list[tuple[str, tuple[str, ...]]] = []
     for pattern, wordings in PHRASE_BANK.items():
         for wording in wordings:
-            for run in _template_runs(wording):
-                for gram in sorted(_ngrams(run, n) & corpus_grams):
-                    found.append((pattern, gram))
+            tokens = _template_tokens(wording)
+            for start in range(len(tokens) - n + 1):
+                window = tokens[start : start + n]
+                fixed = [t for t in window if t is not None]
+                if window[0] is None or len(fixed) < _MIN_FIXED:
+                    continue
+                shown = tuple(t if t is not None else "*" for t in window)
+                if len(fixed) == n:
+                    hit = tuple(fixed) in corpus_grams
+                else:
+                    hit = any(
+                        _matches_at(window, words, pos)
+                        for words in corpus_words
+                        for pos in range(len(words))
+                        if words[pos] == window[0]
+                    )
+                if hit:
+                    found.append((pattern, shown))
     return found
 
 
 def corpus_texts(data_root: Path) -> list[str]:
-    """The text of every real client document under `data_root` (the four clients' notes,
-    requests, guidance, specs and general documents), not the synthetic folders."""
+    """The text of every source document under `data_root` -- the real clients' notes,
+    requests, guidance and general documents, and the hand-written cases' -- except the report
+    spec, which is the requirement the phrases serve, not a client source."""
     texts: list[str] = []
-    for client_dir in sorted(data_root.glob("client_*")):
-        for path in sorted(client_dir.iterdir()):
-            if path.suffix == ".docx":
-                doc = read_docx(path)
-                texts.append(" ".join(doc.paragraphs.values()))
-                for table in doc.tables:
-                    texts.append(" ".join(" ".join(row) for row in table))
-            elif path.suffix == ".md":
-                texts.append(" ".join(read_markdown(path).paragraphs.values()))
+    for path in sorted(data_root.rglob("*")):
+        if path.name == "template_spec.md":
+            continue
+        if path.suffix == ".docx":
+            doc = read_docx(path)
+            texts.append(" ".join(doc.paragraphs.values()))
+            for table in doc.tables:
+                texts.append(" ".join(" ".join(row) for row in table))
+        elif path.suffix == ".md":
+            texts.append(" ".join(read_markdown(path).paragraphs.values()))
     return texts

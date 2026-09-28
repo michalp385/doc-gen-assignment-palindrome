@@ -33,13 +33,13 @@ SNAPSHOT_DATE = date(2026, 4, 30)
 TAX_YEAR = "2026/27"  # every sampled meeting date falls in May 2026
 
 FIRST_NAMES = (
-    "Alan Beatrice Colin Dorothy Edwin Frances Gordon Helen Ian Joyce Kenneth Lorna Malcolm "
-    "Nora Oliver Patricia Quentin Rosalind Stuart Thelma Ursula Victor Wendy Xavier Yvonne Zachary"
+    "Alan Beatrice Colin Dorothy Edwin Frances Gordon Hamish Ivor Joyce Kenneth Lorna Malcolm "
+    "Norman Oliver Percival Quentin Rupert Stuart Thelma Ursula Victor Wendy Xavier Yolanda Zachary"
 ).split()
 SURNAMES = (
-    "Ashworth Bellamy Cartwright Denholm Ellery Fairbrother Garrick Hollis Ingram Jessop Kerr "
-    "Lambourn Marchant Norcott Oakden Pelham Quayle Rowntree Sedgwick Thackeray Umfreville "
-    "Vickery Wadsworth Yardley"
+    "Ravenscroft Bellamy Cartwright Denholm Ellery Fairbrother Garrick Hollis Ingram Jessop "
+    "Kingdon Lambourn Marchant Norcott Oakden Pelham Quayle Rowntree Sedgwick Thackeray "
+    "Umfreville Vickery Wadsworth Yardley"
 ).split()
 ADVISERS = ("Priya Nandakumar", "Owen Trelawney", "Imogen Ashby", "Callum Dresner")
 PLATFORMS = ("Ashgrove", "Tallowmere", "Wexcombe", "Pennington")
@@ -236,10 +236,13 @@ def sample_scenario(seed: int) -> Scenario:
     null_cash = rng.random() < 0.35
     null_cash_blocking = rng.random() < 0.5
     if null_cash:
+        # On another platform, so "the cash account" in the top-up instruction stays unambiguous
+        # (SCOPING R8 flags a reference matching more accounts than it names).
+        dormant_platform = rng.choice([p for p in PLATFORMS if p != platform])
         accounts.append(
             SynthAccount(
-                id=f"{prefix}-DORM-{initials[-1]}",
-                platform=platform,
+                id=f"{dormant_platform[0]}{seed % 9 + 1}-DORM-{initials[-1]}",
+                platform=dormant_platform,
                 type="Cash Account",
                 owners=(holders[-1],),
                 status="open",
@@ -490,7 +493,8 @@ def required_phrases(scenario: Scenario) -> list[RequiredPhrase]:
                 render("sale_full", v, account=gia, names=names, destination=isa_destination),
             )
         )
-        phrases.append(RequiredPhrase("part_funded", render("part_funded", v)))
+        part_funded = "part_funded" if couple else "part_funded_single"
+        phrases.append(RequiredPhrase(part_funded, render(part_funded, v)))
         if scenario.new_account:
             phrases.append(RequiredPhrase("new_account", render("new_account", v, names=names)))
     if scenario.money is not None:

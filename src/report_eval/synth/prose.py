@@ -22,6 +22,16 @@ from agent_pipeline.gates.deterministic import (
 from agent_pipeline.gates.truth import figure_core
 from report_eval.synth.phrases import RequiredPhrase
 
+# Other ways to write an amount that the pipeline gate's regexes don't cover: "GBP 45,000",
+# "45,000 pounds", "5 per cent", "45k", "2 million", "45 grand". A note states money only in
+# the planned "£" form, so any of these is a problem.
+_OTHER_FIGURE_FORMS = (
+    re.compile(r"\bGBP\s?\d[\d,]*(?:\.\d+)?", re.IGNORECASE),
+    re.compile(r"\b\d[\d,]*(?:\.\d+)?\s*(?:pounds|quid)\b", re.IGNORECASE),
+    re.compile(r"\b\d+(?:\.\d+)?\s*per\s*cent\b", re.IGNORECASE),
+    re.compile(r"\b\d[\d,]*(?:\.\d+)?\s*(?:k|grand|thousand|million)\b", re.IGNORECASE),
+)
+
 
 class ProseModel(Protocol):
     def write(self, brief: str, required: list[str], feedback: str | None) -> str: ...
@@ -48,6 +58,9 @@ def check_prose(
             problems.append(f"unplanned figure: {figure}")
     for percent in sorted(set(PERCENT_RE.findall(text))):
         problems.append(f"unplanned figure: {percent}")
+    for pattern in _OTHER_FIGURE_FORMS:
+        for match in pattern.finditer(text):
+            problems.append(f"unplanned figure: {match.group(0)}")
     for pattern in (WORD_FIGURE_RE, WORD_PERCENT_RE):
         if match := pattern.search(text):
             problems.append(f"unplanned figure written in words: {match.group(0)!r}")
