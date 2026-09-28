@@ -32,7 +32,16 @@ deterministic check can't make on its own.
    semicolon) and each states its own fact, give a separate claim for each clause, even when
    they share the same figure or sit right next to each other** -- one clause's claim never
    covers a different clause, and an oversized quote spanning more than one clause covers
-   neither.
+   neither. **Never give a claim for an adviser-review marker's own bracket text (`[ADVISER
+   TO CONFIRM #n: ...]`) or for the account table**: both are inserted by code straight from
+   the ledger, never a model claim, and no source document could ever back either one's
+   exact wording -- do not try, and do not claim anything *about* what a marker names (e.g.
+   that an allowance or a rate applies) just because the marker's own sentence mentions it.
+   The Introduction's own sentence naming which accounts the report covers (it names each
+   account, so it needs a claim) is backed by the report instruction document's own scope
+   field (e.g. "Accounts covered") -- find that field's own paragraph and quote it, even
+   though its wording won't match the Introduction's own phrasing verbatim; that's still the
+   right source, not the meeting record.
 2. **Action coverage.** For every entry in `actions`, say whether the Recommendations section
    covers it: `action_id` and, if covered, the exact quote from Recommendations that covers
    it (`report_quote: null` if you can't find it covered). Two different actions can never

@@ -32,7 +32,8 @@
         }
       },
       "facts": ["action.*.amount"],
-      "text_sources": ["actions"]
+      "text_sources": ["actions"],
+      "markers": ["*_amounts"]
     },
     {
       "id": "tax_implications",
@@ -47,7 +48,7 @@
           "prompt": "State that the disposal may create a capital gains tax liability, assessed against the annual exempt amount. Never state or estimate a CGT amount or rate: that figure is always an adviser-review marker, inserted separately, never a model estimate."
         }
       },
-      "markers": ["cgt_*"]
+      "markers": ["cgt*"]
     }
   ]
 }

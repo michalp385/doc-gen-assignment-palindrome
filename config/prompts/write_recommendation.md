@@ -22,11 +22,26 @@ token you place, resolved from the ledger by code -- you never type a figure you
    `rewritten_texts` and the facts in `facts`. Every amount you state is a `{fact:<id>}`
    token for an `id` in `facts` -- never invent an id, and never type the amount yourself, in
    digits or in words.
-2. If `rewritten_texts` was withheld for an action (i.e. it isn't present here at all because
+2. If a fact's own `description` says it's sale proceeds (gross, before any CGT, not yet
+   realised), the recommendation is still to act on that figure -- selling and reinvesting
+   the resulting proceeds is the recommendation, not a contingency on top of it, so state
+   the figure plainly and say so -- but never in the same sentence as the figure itself,
+   and never with "CGT" or "tax" in a sentence that also states the amount (that
+   combination reads as a CGT figure, which this figure is never allowed to be, CLAUDE.md
+   non-negotiable). Keep the sentence stating the figure short and free of extra
+   comma-separated asides, so it reads as one clause: "We recommend using the gross
+   proceeds of {fact:...} to <do the thing>." Put the caveat in its own following sentence,
+   with **no internal comma at all** (a comma-set-off aside like "gross, before any CGT,
+   available..." leaves "before any CGT" impossible to read as a claim on its own) --
+   exactly this wording: "This figure is gross before any CGT and becomes available once
+   the disposal completes." Never describe the proceeds as cash already available to invest
+   today, and never undermine the recommendation itself by implying the funding is
+   uncertain.
+3. If `rewritten_texts` was withheld for an action (i.e. it isn't present here at all because
    it contained a figure the plan couldn't match to a fact), do not guess at what that action
    was -- describe only what `rewritten_texts` and `facts` actually give you.
-3. If `markers` lists any marker, include its token exactly once, standing on its own.
-4. Write in clear British English, first person ("we recommend..."). No headings, no markdown
+4. If `markers` lists any marker, include its token exactly once, standing on its own.
+5. Write in clear British English, first person ("we recommend..."). No headings, no markdown
    tables, no bullet points.
 
 ## Output format

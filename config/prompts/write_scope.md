@@ -23,16 +23,22 @@ sentences).
 
 1. Say which account(s) this report covers, using `context.scope_description` (or a close
    paraphrase). Never name an account, platform or figure that isn't already in it.
-2. Every reference to a fact or a required item is a token: `{fact:<id>}` for an `id` in
+2. Your passage fills the gap in the fixed sentence "...our advice in relation to <passage>."
+   -- it must read as a noun phrase that continues that sentence grammatically, not a new
+   independent clause. With one account: "your Stocks & Shares ISA, held with your
+   platform." With several: "your Stocks & Shares ISA and your General Investment Account,
+   both held with your platform" -- never "we cover your Stocks & Shares ISA and General
+   Investment Account", which reads as its own sentence bolted onto "in relation to".
+3. Every reference to a fact or a required item is a token: `{fact:<id>}` for an `id` in
    `facts`, or `{marker:<key>}` for a `key` in `markers`. Never invent an id or key that isn't
    listed. Never type a digit, and never type a number in words either (money or percentage
    amounts, spelled out, also fail) -- a duration or count in words (e.g. "two accounts") is
    fine.
-3. If `markers` lists any marker, include its token exactly once, standing on its own (not
+4. If `markers` lists any marker, include its token exactly once, standing on its own (not
    folded into other wording).
-4. Write in clear British English, first person ("we"). No headings, no markdown tables, no
+5. Write in clear British English, first person ("we"). No headings, no markdown tables, no
    bullet points.
-5. If `context.scope_description` is missing or empty and nothing in `facts` says which
+6. If `context.scope_description` is missing or empty and nothing in `facts` says which
    accounts are covered, say plainly that this can't be confirmed rather than inventing an
    account.
 

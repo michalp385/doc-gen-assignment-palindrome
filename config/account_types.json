@@ -5,7 +5,7 @@
     "Cash ISA": { "class": "tax_exempt", "allowance_family": "isa" },
     "SIPP": { "class": "tax_exempt", "allowance_family": "pension" },
     "Personal Pension": { "class": "tax_exempt", "allowance_family": "pension" },
-    "General Investment Account": { "class": "taxable" },
+    "General Investment Account": { "class": "taxable", "aliases": ["GIA"] },
     "Cash Account": { "class": "cash" },
     "Offshore Investment Bond": { "class": "bond" },
     "Onshore Investment Bond": { "class": "bond" }
