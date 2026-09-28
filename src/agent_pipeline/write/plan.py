@@ -15,7 +15,7 @@ from agent_pipeline.gates.deterministic import (
     WORD_FIGURE_RE,
     WORD_PERCENT_RE,
 )
-from agent_pipeline.ledger import Ledger
+from agent_pipeline.ledger import Account, Ledger
 from agent_pipeline.reconcile.predicates import section_included
 from agent_pipeline.write.schemas import PlanFact, PlanMarker, SectionPlan, WithheldText
 
@@ -65,17 +65,44 @@ def rewrite_digit_free(
     return rewritten, None
 
 
+def _join(items: list[str]) -> str:
+    if len(items) <= 2:
+        return " and ".join(items)
+    return ", ".join(items[:-1]) + f" and {items[-1]}"
+
+
 def _describe_scope(ledger: Ledger) -> str:
-    parts = []
-    for account in ledger.accounts:
-        if not account.in_scope:
-            continue
-        parts.append(
-            f"your {account.type} held with {account.platform}"
-            if account.platform
-            else f"your {account.type}"
+    """T19, client 02's three in-scope accounts: naming every one as "your <type>" and
+    joining with "and" repeats "held with <platform>" once per account and can't tell two
+    same-type accounts apart (client 02's own two ISAs) -- fine for client 01's one account,
+    unusable past it. Same-type accounts with a single owner are named by that owner's
+    first name instead (never for a genuinely joint account, which already reads as
+    "your"); every in-scope account sharing one platform states it once, trailing."""
+    in_scope = [a for a in ledger.accounts if a.in_scope]
+    if not in_scope:
+        return ""
+    type_counts: dict[str, int] = {}
+    for account in in_scope:
+        type_counts[account.type] = type_counts.get(account.type, 0) + 1
+
+    def _label(account: Account) -> str:
+        if type_counts[account.type] > 1 and len(account.owners) == 1:
+            return f"{account.owners[0].split()[0]}'s {account.type}"
+        return f"your {account.type}"
+
+    labels = [_label(a) for a in in_scope]
+    platforms = {a.platform for a in in_scope if a.platform}
+    if len(platforms) != 1:
+        return _join(
+            [
+                f"{label} held with {a.platform}" if a.platform else label
+                for label, a in zip(labels, in_scope, strict=True)
+            ]
         )
-    return " and ".join(parts)
+    platform = next(iter(platforms))
+    if len(labels) == 1:
+        return f"{labels[0]} held with {platform}"
+    return f"{_join(labels)}, held with {platform}"
 
 
 def _context_values(ledger: Ledger) -> dict[str, str]:
