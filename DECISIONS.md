@@ -399,10 +399,26 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   would pass G16 unsourced. A word-list to catch it would be brittle and bring back the false
   failures this change removed, so I did not build one. The real fix is to build the scope sentence
   from the ledger in code and remove the model-written scope slot, so that sentence cannot arise.
-- **Model check:** `config/models.json` records `temperature_accepted: false` for both `gpt-6-luna`
-  and `gpt-6-sol` (checked 2026-09-27), so no model available on this key accepts `temperature=0`.
-  I did not spend a live call re-checking it. Reducing reasoning effort on the judge stage is the
-  untested alternative; it would need a measured pass.
+- **Three samples, three different false positives:** after D21 and the code-side fixes (the
+  standard-wording whitelist, the introduction-scope check, the footnote wording and the G10
+  file-name check), each fresh judge pass failed a different gate on a correct report: CGT wording
+  (G16), then a filename in the footnote (G10) and an introduction sentence (G16), then G7 on
+  client 02 saying the gross proceeds of a not-yet-completed disposal "are not established as
+  available to invest". That last one contradicts SCOPING P5 (full-disposal proceeds count once the
+  amount and destination are known, described as gross, before CGT, not yet realised), and the report
+  says exactly that. The code fixes held (G16's whitelist and G10 did not recur); the residue is the
+  non-repeatable judge. I stopped adding carve-outs: each one fixes the last sample and the next
+  sample finds a new one.
+- **Model check:** the T11 live probe (`tests/test_llm_live.py`) found that neither model accepts
+  `temperature`; `config/models.json` records `temperature_accepted: false` for both `gpt-6-luna` and
+  `gpt-6-sol` (checked 2026-09-27), and they are the only two on this key. The release judge runs
+  `gpt-6-luna` at high reasoning effort (Sol is the eval judge), so no available model gives a stable
+  verdict through `temperature=0`. No new live call was spent on this.
+- **Next options, none built yet:** (a) take a majority of an odd number of judge samples per report,
+  which keeps G7, G8 and G16 hard gates but multiplies the judge's cost; (b) make judge-only findings
+  review-sheet flags instead of hard gates, which weakens SCOPING's hard gates and is a decision for
+  the user; (c) lower the judge's reasoning effort or move it to Sol, untested and needing a measured
+  pass. The introduction-scope, filename and standard-wording checks stay in code either way.
 - **Evidence:** `tests/test_g16_intro_scope.py`, `tests/test_g10_internal_filenames.py`; the parked
   run artefacts are in the session scratchpad, not the repo, and no results file exists for this.
 
