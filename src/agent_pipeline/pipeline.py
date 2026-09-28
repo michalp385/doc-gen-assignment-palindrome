@@ -35,6 +35,7 @@ from agent_pipeline.ledger import (
     Action,
     ExcludedItem,
     Ledger,
+    Marker,
     MoneyItem,
     Value,
     number_markers,
@@ -42,6 +43,7 @@ from agent_pipeline.ledger import (
     render_table,
 )
 from agent_pipeline.llm import LLMClient, OpenAITransport, Transport
+from agent_pipeline.reconcile.account_state import check_account_states
 from agent_pipeline.reconcile.facts import build_facts
 from agent_pipeline.reconcile.limits import (
     check_limits,
@@ -354,6 +356,36 @@ def _apply_values(
                 )
             )
     return accounts, review_items
+
+
+def _apply_account_states(
+    accounts: list[Account], currency_by_id: dict[str, str | None]
+) -> tuple[list[Account], list[Marker], list[ReviewItemInput]]:
+    """R6, P12: applies `check_account_states` to the ledger's accounts -- a null or foreign-
+    currency in-scope value becomes a value-cell marker (a foreign value is also cleared, so
+    it can never reach a fact or the superseded footnote as if it were sterling), and a
+    closed account the scope names leaves the table with a blocking conflict. Returns the
+    markers and review items for the caller to add to the ledger; a closed or valueless
+    out-of-scope account is left as it was."""
+    states = check_account_states(accounts, currency_by_id)
+    updated: list[Account] = []
+    markers: list[Marker] = []
+    review_items: list[ReviewItemInput] = []
+    for account in accounts:
+        state = states[account.id]
+        update: dict[str, object] = {}
+        if state.value_marker is not None:
+            update["value_marker"] = state.value_marker.key
+            markers.append(state.value_marker)
+        if state.withhold_value:
+            update["value"] = None
+            update["superseded"] = []
+        if account.in_scope and not state.in_table:
+            update["in_scope"] = False
+            update["scope_reason"] = "closed in the account data (R6)"
+        updated.append(account.model_copy(update=update) if update else account)
+        review_items.extend(state.review_items)
+    return updated, markers, review_items
 
 
 @dataclass(frozen=True)
@@ -676,11 +708,15 @@ def _run_stages(
     account_by_id, superseded_review_items = _apply_values(
         account_by_id, records_by_id, observations_by_account
     )
-    resolved_accounts = list(account_by_id.values())
+    account_currency_by_id = {aid: r.currency for aid, r in records_by_id.items()}
+    resolved_accounts, state_markers, state_review_items = _apply_account_states(
+        list(account_by_id.values()), account_currency_by_id
+    )
 
     # R1/R9: two copies of the same account_id may disagree on value or date -- always a
     # review-sheet conflict (which one wins is R3's job above).
     superseded_review_items.extend(ownership.conflicts)
+    superseded_review_items.extend(state_review_items)
 
     disposals, money_items, disposal_proceeds_by_account = _classify_disposals(
         meeting_extraction.disposals,
@@ -700,7 +736,9 @@ def _run_stages(
     excluded = _build_excluded(meeting_extraction.excluded_items, meeting_source.path.name)
 
     in_scope_platforms = {a.platform for a in resolved_accounts if a.in_scope and a.platform}
-    markers = [*required_markers(in_scope_platforms), *cgt_marker(disposals)]
+    # Value-cell markers (R6, P12) sit in the account table, which opens the report, so
+    # they come first in the order number_markers numbers them by (P1).
+    markers = [*state_markers, *required_markers(in_scope_platforms), *cgt_marker(disposals)]
 
     facts = build_facts(resolved_accounts, action_amounts, proceeds_action_ids)
     objectives = " ".join(o.text.text for o in meeting_extraction.objectives_and_circumstances)
@@ -722,7 +760,6 @@ def _run_stages(
     else:
         limit_items = []
 
-    account_currency_by_id = {aid: r.currency for aid, r in records_by_id.items()}
     image_items = _image_review_items(image_source, resolved_accounts, account_currency_by_id, llm)
 
     review_inputs: list[ReviewItemInput] = [
