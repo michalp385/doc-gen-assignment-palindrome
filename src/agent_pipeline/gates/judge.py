@@ -10,8 +10,10 @@ judge re-run once") needs real stage orchestration and is `pipeline.py`'s job (T
 
 from __future__ import annotations
 
+import json
 import re
 from collections.abc import Mapping
+from pathlib import Path
 from typing import Literal, Protocol
 
 from pydantic import BaseModel
@@ -31,6 +33,45 @@ from agent_pipeline.sources.document import SourceDoc
 from agent_pipeline.write.table import build_table
 
 _SIMPLE_GATES = ("G2", "G4", "G7", "G10", "G12", "P6")
+
+STANDARD_WORDING_PATH = Path("config/standard_wording.json")
+STANDARD_WORDING_PLACEHOLDER = "[standard wording]"
+
+
+def _load_standard_wording() -> list[re.Pattern[str]]:
+    raw = json.loads(STANDARD_WORDING_PATH.read_text(encoding="utf-8"))
+    return [re.compile(entry["pattern"]) for entry in raw["sentences"]]
+
+
+_STANDARD_WORDING = _load_standard_wording()
+
+
+def _normalise_sentence(sentence: str) -> str:
+    lowered = sentence.lower().replace(",", " ").strip().rstrip(".!?;:").strip()
+    return re.sub(r"\s+", " ", lowered)
+
+
+def is_standard_wording(sentence: str, ledger: Ledger) -> bool:
+    """Required standard wording (P7's CGT-liability statement, P5's gross-proceeds
+    qualifier): spec text with no client source by design, so G16 asks for no claim for it.
+    A concrete whitelist (`config/standard_wording.json`), matched in code -- not a judge
+    instruction. Never true for a sentence with a digit or figure, or naming an account or
+    its type: that is a client-specific claim and must still earn a source."""
+    if re.search(r"\d", sentence) or MONEY_RE.search(sentence) or PERCENT_RE.search(sentence):
+        return False
+    if any(a.id in sentence or a.type in sentence for a in ledger.accounts):
+        return False
+    normalised = _normalise_sentence(sentence)
+    return any(pattern.fullmatch(normalised) for pattern in _STANDARD_WORDING)
+
+
+def redact_standard_wording(text: str, ledger: Ledger) -> str:
+    """The report with each standard sentence replaced by a placeholder, so the release judge
+    is never shown wording it must not claim about."""
+    for sentence in split_sentences(text):
+        if sentence.strip() and is_standard_wording(sentence, ledger):
+            text = text.replace(sentence.strip(), STANDARD_WORDING_PLACEHOLDER, 1)
+    return text
 
 
 class JudgeMaterialClaim(BaseModel):
@@ -96,7 +137,7 @@ class LLMJudgeModel:
             stage="release_judge",
             prompt=self._prompt,
             inputs={
-                "report_text": bundle.report_text,
+                "report_text": redact_standard_wording(bundle.report_text, ledger),
                 "actions": [
                     {"id": a.id, "description": a.description, "kind": a.kind}
                     for a in ledger.actions
@@ -205,6 +246,7 @@ def _uncovered_clauses(
     return [
         clause.strip()
         for sentence in split_sentences(report_text)
+        if not is_standard_wording(sentence, ledger)
         for clause in _clauses(sentence)
         if _requires_coverage(clause, ledger) and not _clause_covered(clause, claims)
     ]
@@ -228,7 +270,16 @@ def _check_g16(
         verified = _verify_claims(raw.material_claims, sources, bundle.report_text)
         uncovered = _uncovered_clauses(_coverage_scan_text(bundle), ledger, verified)
 
-    unsupported = [c for c in raw.material_claims if c not in verified]
+    # A claim the judge gives for required standard wording is ignored, not failed: that
+    # wording has no source by design (`is_standard_wording`).
+    standard = [
+        s.strip() for s in split_sentences(bundle.report_text) if is_standard_wording(s, ledger)
+    ]
+    unsupported = [
+        c
+        for c in raw.material_claims
+        if c not in verified and not any(c.report_quote in s for s in standard)
+    ]
     if unsupported:
         return (
             GateResult("G16", False, f"unsupported claim(s): {[c.claim for c in unsupported]}"),

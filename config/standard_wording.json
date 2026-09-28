@@ -1,0 +1,15 @@
+{
+  "_comment": "Required standard wording that has no client source by design (P7 spec wording, P5 proceeds qualifiers), so G16 asks for no claim for it and the release judge is not shown it -- the same category as the FCA line and risk warning that G4 checks exactly. Each pattern is matched with fullmatch against a sentence lower-cased, with commas and edge punctuation removed and spaces collapsed. The exemption never applies to a sentence containing a digit, a money or percentage figure, or an account name or type: an invented client claim must still earn a source. General vocabulary, not client data.",
+  "sentences": [
+    {
+      "id": "cgt_liability",
+      "source": "P7: 'that it may create a CGT liability assessed against the annual exempt amount (the spec's wording)'",
+      "pattern": "(?:we note that )?the (?:disposal|sale) may create a capital gains tax liability assessed against the annual exempt amount(?: for the relevant tax year)?"
+    },
+    {
+      "id": "proceeds_gross",
+      "source": "P5: proceeds are 'gross, before any CGT, not yet realised'",
+      "pattern": "(?:we note that )?the (?:stated |sale )?proceeds (?:are|is) gross (?:and )?before (?:any )?(?:capital gains tax|cgt)(?: and not yet realised)?"
+    }
+  ]
+}

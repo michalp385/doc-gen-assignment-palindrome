@@ -66,7 +66,8 @@ outputs: their prompts and live verification are still to do.
   truth) -> list[GateResult]` (T9: G1-G6, G9-G15, P6; G2 also rejects a superseded value anywhere
   but the table's footnote); `judge.py`'s `release_judge` (T15: G7-judge-part,
   G8, G16 with its coverage re-ask, the paraphrase/n-gram findings), the pipeline's own stage-7
-  check, Luna by default; `release.py`'s `decide_release`.
+  check, Luna by default (required standard wording from `config/standard_wording.json` needs no
+  G16 claim and is redacted from what the judge sees, D21); `release.py`'s `decide_release`.
 - `agent_pipeline/assemble.py`: outputs, review sheet, run summary; release state.
 - `document_formatter/formatting.py`: final markdown assembly. Protected, unchanged.
 - `report_eval/`: `expected.py` (expected-facts schema), `reference.py` (T9, T24: the deterministic

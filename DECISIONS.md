@@ -347,6 +347,50 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
 - **Evidence:** commits `04da7a3` and `212bfcd`; `tests/test_missing_currency_p12.py`,
   `tests/test_currency_render_leaks.py`.
 
+### D21. Exempt required standard wording from G16 in code, with a whitelist, not in the judge's prompt
+- **Context:** the release judge saw the whole report, and G16's coverage scan in code demanded a
+  verified source claim for every clause with a tax term, a figure or an account name. Client 02's
+  Tax Implications states, as spec wording (P7), that a disposal may create a CGT liability
+  assessed against the annual exempt amount, and a recommendation says the proceeds are gross
+  before CGT (P5). Neither has a client source by design, like the FCA line G4 already checks
+  exactly, so the judge could only invent a source quote, which failed verification and failed a
+  correct report.
+- **Decision:** `config/standard_wording.json` lists the standard sentences as patterns.
+  `is_standard_wording` matches a sentence in code and never when it has a digit, a figure or an
+  account name or type. Such a sentence needs no claim, any claim the judge gives for one is
+  ignored, and the judge is shown `[standard wording]` in its place. The prompt only describes this;
+  the code enforces it whether or not the judge obeys.
+- **Alternatives:** tell the judge in the prompt to ignore the sentences. It is a loose instruction,
+  and the code would still send the clause back for an uncovered claim. Exempt every tax sentence:
+  it would let an invented client tax claim through.
+- **Consequences / how it generalises:** G16 stays strict for anything client-specific. The whitelist
+  covers the wording the writer prompts are told to produce; a differently worded standard sentence
+  falls back to needing a claim, so the list grows as new wording appears. A sentence with a figure
+  is never exempt.
+- **Evidence:** `tests/test_g16_standard_wording.py`. Live passes on clients 01 and 02 after this
+  did not stabilise (see D22), so no results file is quoted.
+
+### D22. The release judge's verdicts are not repeatable, so a fresh judge run can fail a good report
+- **Context:** the judge runs on `gpt-6-luna`, which rejects `temperature` (`config/models.json`), so
+  the same input can return different verdicts. Re-running client 02's judge once failed G16 on
+  standard CGT wording. After D21 and a revised prompt, two more live passes failed different hard
+  gates: client 01 on G16 for an introduction sentence its claim did not verify, and client 02 on G10
+  for the table footnote naming `client_data_db.json`, a known defect (`write/table.py`
+  `_source_label`). The committed client 02 draft passed only under an earlier verdict, and it does
+  not replay offline because its judge cache entry is stale.
+- **Decision:** I did not resample until a run passed, and I did not commit a failed draft as the
+  client 02 output. The offline replay guarantee (S4) holds for client 01 only until the judge is
+  made repeatable.
+- **Alternatives:** keep re-running the judge (cherry-picks a verdict and proves nothing); accept
+  failed generations as the committed outputs (hides the flaky component).
+- **Consequences / how it generalises:** on a held-out client the same flakiness would produce failed
+  generations that are not real failures. Follow-ups for "more time": a judge model that accepts
+  `temperature=0`; moving more of the judge's work into code or the gate design (D21 moves the
+  standard wording; the introduction-sentence coverage and the footnote wording are next); fixing the
+  footnote's raw filename in code, which needs a committed test updated.
+- **Evidence:** the parked run artefacts are in the session scratchpad, not the repo; no results file
+  exists for this yet.
+
 ## What I would do with more time
 <!-- For production: what's missing, what you'd change in the pipeline and the agent setup,
      and the risks you know about. Concrete, not a wish list. -->
