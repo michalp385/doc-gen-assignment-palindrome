@@ -96,6 +96,10 @@ class ClientResult(_Strict):
     cost_usd: str = "0"
     cache_hits: int = 0
     live_calls: int = 0
+    # Freeform, e.g. "G10 not checked: source classification failed for the eval re-run" --
+    # a gate that couldn't be evaluated is dropped from gate_results and explained here,
+    # never left in as a false pass (verifier checkpoint, T17).
+    notes: list[str] = Field(default_factory=list)
 
     @property
     def issued(self) -> bool:
@@ -141,6 +145,16 @@ def summarize_group(group: str, clients: list[ClientResult]) -> GroupSummary:
     )
 
 
+class SkippedClient(_Strict):
+    """A requested client that was never scored at all, distinct from one that was scored
+    and failed -- e.g. no `eval/expected/<client>.json` on disk yet. Recorded here rather
+    than just printed, so a skip is traceable from the results file itself (CLAUDE.md: every
+    metric quoted in docs is read from an eval output file)."""
+
+    client: str
+    reason: str
+
+
 class ResultsFile(_Strict):
     generated_at: str  # UTC, ISO 8601
     commit: str
@@ -149,6 +163,7 @@ class ResultsFile(_Strict):
     prompt_versions: dict[str, str] = Field(default_factory=dict)
     stage_models: dict[str, str] = Field(default_factory=dict)
     clients: list[ClientResult] = Field(default_factory=list)
+    skipped_clients: list[SkippedClient] = Field(default_factory=list)
     group_summaries: dict[str, GroupSummary] = Field(default_factory=dict)
     total_cost_usd: str = "0"
 
