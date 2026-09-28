@@ -17,7 +17,7 @@ import re
 from collections.abc import Callable
 from dataclasses import dataclass, field
 
-from agent_pipeline.gates.truth import Truth
+from agent_pipeline.gates.truth import QUALIFIER_PREFIXES, Truth, figure_core
 from agent_pipeline.ledger import Ledger
 
 # Must match scripts/check_repo.py's copies exactly; duplicated intentionally, since that
@@ -87,13 +87,12 @@ def word_ngrams(text: str, n: int) -> set[tuple[str, ...]]:
     return {tuple(words[i : i + n]) for i in range(len(words) - n + 1)}
 
 
-_QUALIFIER_PREFIXES = ("c. ", "up to ", "around ", "a little over ", "a little under ")
 # Truth's reportable figures keep any qualifier prefix verbatim (ledger.py's render_table/
 # render_prose always emit one of these immediately before the amount -- verifier report,
 # M0b checkpoint, finding #1), so the money figure captured here must too, or a genuinely
 # reportable approximate value never matches the allowed set and G2 false-fails.
 MONEY_RE = re.compile(
-    rf"(?:{'|'.join(re.escape(p) for p in _QUALIFIER_PREFIXES)})?£\s?\d[\d,]*(?:\.\d+)?k?\b"
+    rf"(?:{'|'.join(re.escape(p) for p in QUALIFIER_PREFIXES)})?£\s?\d[\d,]*(?:\.\d+)?k?\b"
 )
 PERCENT_RE = re.compile(r"\b\d+(?:\.\d+)?%")
 NUMBER_WORDS = (
@@ -130,8 +129,37 @@ def _check_g1(bundle: ReportBundle, truth: Truth) -> GateResult:
     return GateResult("G1", True)
 
 
+def _footnote_text(text: str) -> str:
+    """The lines after the account table's last row: the table's own footnote, the only
+    place a superseded value may appear (SCOPING P9)."""
+    lines = text.split("\n")
+    if TABLE_HEADER not in lines:
+        return ""
+    end = lines.index(TABLE_HEADER)
+    while end < len(lines) and lines[end].startswith("|"):
+        end += 1
+    return "\n".join(lines[end:])
+
+
+def _outside_the_footnote(bundle: ReportBundle) -> str:
+    """The report with its table footnote removed. Uses the Background section when the
+    bundle has sections; otherwise the text after the table up to the next heading."""
+    background = bundle.sections.get("background_objectives")
+    if background is not None:
+        footnote = _footnote_text(background)
+    else:
+        start = bundle.report_text.find(TABLE_HEADER)
+        tail = bundle.report_text[start:] if start != -1 else ""
+        heading = tail.find("\n## ")
+        footnote = _footnote_text(tail if heading == -1 else tail[:heading])
+    if not footnote:
+        return bundle.report_text
+    return bundle.report_text.replace(footnote, "", 1)
+
+
 def _check_g2(bundle: ReportBundle, truth: Truth) -> GateResult:
-    """G2: every money/percent figure in the report is a reportable figure for this client."""
+    """G2: every money/percent figure in the report is a reportable figure for this client,
+    and a footnote-only (superseded) figure appears nowhere but the table's footnote."""
     if m := WORD_FIGURE_RE.search(bundle.report_text):
         return GateResult("G2", False, f"figure written in words: {m.group(0)!r}")
     allowed = truth.reportable_figures()
@@ -140,6 +168,17 @@ def _check_g2(bundle: ReportBundle, truth: Truth) -> GateResult:
     extra = sorted(found - allowed)
     if extra:
         return GateResult("G2", False, f"figure(s) not in the reportable set: {extra}")
+    # Optional `Truth` capability, read with getattr like P6's tangents: a Truth written
+    # before it has no footnote-only figures to enforce.
+    footnote_only = getattr(truth, "footnote_only_figures", set)()
+    if footnote_only:
+        outside = _outside_the_footnote(bundle)
+        for figure in sorted(footnote_only):
+            core = figure_core(figure)
+            if re.search(re.escape(core) + r"(?![\d,])", outside):
+                return GateResult(
+                    "G2", False, f"superseded figure {core!r} appears outside the table footnote"
+                )
     return GateResult("G2", True)
 
 

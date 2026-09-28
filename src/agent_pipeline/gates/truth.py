@@ -17,6 +17,19 @@ from typing import Protocol
 
 from agent_pipeline.ledger import Ledger, render_prose, render_table
 
+# A qualifier the ledger's renderers put before an amount ("c. " before an approximate one).
+QUALIFIER_PREFIXES = ("c. ", "up to ", "around ", "a little over ", "a little under ")
+
+
+def figure_core(figure: str) -> str:
+    """The bare amount of a rendered figure, qualifier prefix removed ("c. " + amount ->
+    the amount). G2's footnote-only rule matches on this, so a superseded value can't slip
+    out of the footnote just by dropping its qualifier."""
+    for prefix in QUALIFIER_PREFIXES:
+        if figure.startswith(prefix):
+            return figure[len(prefix) :]
+    return figure
+
 
 @dataclass(frozen=True)
 class TableAccount:
@@ -149,3 +162,22 @@ class LedgerTruth:
 
     def tangent_subjects(self) -> set[str]:
         return {item.description for item in self._ledger.excluded if item.item_class == "tangent"}
+
+    def footnote_only_figures(self) -> set[str]:
+        """G2 / SCOPING P9: a superseded value may appear only in the table's footnote. A
+        figure whose bare amount is also a current value, a stated amount or the initial
+        charge somewhere else is not restricted -- it is legitimately stated elsewhere. (An
+        optional `Truth` capability, like `tangent_subjects`: the gate reads it with
+        `getattr`, so a `Truth` written before it still works.)"""
+        restricted: set[str] = set()
+        elsewhere: set[str] = set()
+        for fact in self._ledger.facts.values():
+            if not (fact.reportable and fact.value):
+                continue
+            forms = {render_table(fact.value), render_prose(fact.value)}
+            (restricted if fact.placement == "footnote_only" else elsewhere).update(forms)
+        elsewhere |= {render_table(a.value) for a in self._ledger.accounts if a.value}
+        if self._ledger.initial_charge:
+            elsewhere.add(self._ledger.initial_charge)
+        elsewhere_cores = {figure_core(f) for f in elsewhere}
+        return {f for f in restricted if figure_core(f) not in elsewhere_cores}

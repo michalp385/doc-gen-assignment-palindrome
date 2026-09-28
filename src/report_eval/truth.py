@@ -7,7 +7,7 @@ holding).
 
 from __future__ import annotations
 
-from agent_pipeline.gates.truth import MarkerSpec, ReviewSpec, TableAccount
+from agent_pipeline.gates.truth import MarkerSpec, ReviewSpec, TableAccount, figure_core
 from report_eval.expected import ExpectedFacts
 
 
@@ -87,3 +87,17 @@ class ExpectedTruth:
 
     def tangent_subjects(self) -> set[str]:
         return {item.subject for item in self._facts.excluded_items if item.item_class == "tangent"}
+
+    def footnote_only_figures(self) -> set[str]:
+        """G2 / SCOPING P9: figures the fixture places `footnote_only`. One also listed with
+        another placement, or shown in a table cell, is legitimately stated elsewhere and so
+        not restricted."""
+        elsewhere = {
+            fig.value for fig in self._facts.reportable_figures if fig.placement != "footnote_only"
+        } | {row.value for row in self._facts.table_rows}
+        elsewhere_cores = {figure_core(f) for f in elsewhere}
+        return {
+            fig.value
+            for fig in self._facts.reportable_figures
+            if fig.placement == "footnote_only" and figure_core(fig.value) not in elsewhere_cores
+        }
