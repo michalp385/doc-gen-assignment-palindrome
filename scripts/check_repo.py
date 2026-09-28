@@ -304,7 +304,9 @@ def check_openai_import() -> list[str]:
 
 
 def _words(text: str) -> list[str]:
-    return re.findall(r"[a-z0-9']+", text.lower())
+    # Curly apostrophes are the same word as straight ones: a source document typed in a word
+    # processor must not evade a prompt that quotes it with a plain keyboard, or the reverse.
+    return re.findall(r"[a-z0-9']+", text.lower().replace("\u2019", "'").replace("\u2018", "'"))
 
 
 def _word_runs(words: list[str], n: int) -> set[tuple[str, ...]]:

@@ -144,7 +144,8 @@ def render(pattern: str, variant: int, **fields: str) -> str:
 
 
 def _words(text: str) -> list[str]:
-    return re.findall(r"[a-z0-9']+", text.lower())
+    # Curly apostrophes are the same word as straight ones (see scripts/check_repo.py).
+    return re.findall(r"[a-z0-9']+", text.lower().replace("\u2019", "'").replace("\u2018", "'"))
 
 
 def _ngrams(words: list[str], n: int) -> set[tuple[str, ...]]:
@@ -152,15 +153,15 @@ def _ngrams(words: list[str], n: int) -> set[tuple[str, ...]]:
 
 
 _MAX_FILL = 4  # a placeholder stands for one to four words
-_WINDOW = 6
 _MIN_FIXED = 4  # a window of mostly placeholders would match anything
 
 
 def _template_tokens(template: str) -> list[str | None]:
     """A wording as words, with `None` for each `{field}` (its value is sampled)."""
     tokens: list[str | None] = []
-    for part in re.split(r"(\{[^}]*\})", template):
-        if part.startswith("{") and part.endswith("}"):
+    # A field with a possessive ("{holder}'s") is one token: the value plus its "'s".
+    for part in re.split(r"(\{[^}]*\}(?:'s)?)", template):
+        if part.startswith("{"):
             tokens.append(None)
         else:
             tokens.extend(_words(part))
