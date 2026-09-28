@@ -91,7 +91,7 @@ from agent_pipeline.sources.classify import (
     classify,
 )
 from agent_pipeline.sources.document import SourceDoc
-from agent_pipeline.write.plan import plan_sections
+from agent_pipeline.write.plan import plan_sections, unrouted_markers
 from agent_pipeline.write.table import build_table
 from agent_pipeline.write.writer import LLMWriterModel, WriterStopError, write_slot
 from document_formatter.formatting import format_document
@@ -882,10 +882,12 @@ def _run_stages(
     )
 
     # --- Stage 4: plan ---------------------------------------------------------------------
-    plans_by_section = {
-        p.section_id: p
-        for p in plan_sections(ledger, config, spec_text=spec_text, meeting_text=meeting_text)
-    }
+    plans = plan_sections(ledger, config, spec_text=spec_text, meeting_text=meeting_text)
+    dangling = unrouted_markers(ledger, plans)
+    if dangling:
+        # A marker no section carries would vanish from the report silently; stop instead.
+        raise WriterStopError(f"marker(s) reach no section (add a config selector): {dangling}")
+    plans_by_section = {p.section_id: p for p in plans}
     sections_by_id = {s.id: s for s in config.sections}
 
     # --- Stage 5: write, Stage 6: assemble draft -------------------------------------------
