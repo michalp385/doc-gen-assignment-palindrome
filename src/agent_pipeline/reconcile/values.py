@@ -15,6 +15,7 @@ selection.
 
 from __future__ import annotations
 
+import re
 from datetime import date as _date
 from decimal import Decimal
 
@@ -66,16 +67,20 @@ def match_image_row(row: ImageValueRow, accounts: list[Account]) -> Account | No
     "Account" label (which always names the owner in parens on the current clients) -- the
     gap `reconcile/scope.py` documents
     as deliberately deferred until a client needed it (verifier report, T8 checkpoint,
-    finding #8); client 02's two same-type ISAs are that client (T18). Anything that still
-    isn't exactly one match stays unresolved, never guessed."""
+    finding #8); client 02's two same-type ISAs are that client (T18). A whole-word match,
+    not a raw substring: an owner's first name is checked against the label's own words, so
+    a short name (e.g. "Ann") can't spuriously match inside an unrelated longer word (e.g.
+    "Channel") the way a plain `in` check would (verifier checkpoint, T18). Anything that
+    still isn't exactly one match stays unresolved, never guessed."""
     same_type = [a for a in accounts if a.type.lower() == row.account_type.lower()]
     if len(same_type) == 1:
         return same_type[0]
     if len(same_type) > 1:
+        label_words = set(re.findall(r"[a-z']+", row.account_label.lower()))
         by_owner = [
             a
             for a in same_type
-            if any(owner.split()[0].lower() in row.account_label.lower() for owner in a.owners)
+            if any(owner.split()[0].lower() in label_words for owner in a.owners)
         ]
         if len(by_owner) == 1:
             return by_owner[0]

@@ -13,7 +13,7 @@ from typing import Protocol
 from pydantic import BaseModel, ConfigDict, Field
 
 from agent_pipeline.config import PromptSpec
-from agent_pipeline.llm import EmptyOutputError, ImageInput, LLMClient
+from agent_pipeline.llm import ImageInput, LLMClient
 from agent_pipeline.sources.adapters.image import ImageSource
 
 
@@ -69,6 +69,14 @@ class LLMImageModel:
 def extract_image(image: ImageSource, model: ImageModel) -> ImageExtraction:
     try:
         raw = model.propose(image)
-    except EmptyOutputError:
+    except Exception:
+        # Deliberately broad, not just EmptyOutputError: P10 treats a statement image as
+        # optional and low-trust by design (DESIGN.md section 3.4) -- a refusal, exhausted
+        # retries (TransientAPIError), a schema failure that survives its one re-ask
+        # (SchemaValidationError), or the API rejecting a malformed image file
+        # (BadRequestError, raised by openai -- can't be caught by name here, since llm.py
+        # is the only module allowed to import openai, DESIGN.md section 9) must all degrade
+        # to "unreadable" the same way, never crash or block a report the image only ever
+        # corroborates, never supplies a figure for (verifier checkpoint, T18).
         return ImageExtraction(rows=[], readable=False)
     return ImageExtraction(rows=raw.rows, readable=True)

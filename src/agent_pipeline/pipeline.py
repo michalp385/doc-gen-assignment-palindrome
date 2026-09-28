@@ -22,6 +22,7 @@ from agent_pipeline.assemble import (
     write_input_stop,
 )
 from agent_pipeline.config import ReportConfig, load_prompt
+from agent_pipeline.extract.image import LLMImageModel, extract_image
 from agent_pipeline.extract.instruction import LLMInstructionModel, extract_instruction
 from agent_pipeline.extract.meeting import LLMMeetingModel, extract_meeting
 from agent_pipeline.extract.parsing import parse_amount, parse_date
@@ -48,9 +49,10 @@ from agent_pipeline.reconcile.review import ReviewItemInput, build_review_items,
 from agent_pipeline.reconcile.scope import resolve_scope
 from agent_pipeline.reconcile.sections import Disposal as SectionDisposal
 from agent_pipeline.reconcile.sections import SectionContext
-from agent_pipeline.reconcile.values import select_values
+from agent_pipeline.reconcile.values import check_image_row, match_image_row, select_values
 from agent_pipeline.reconcile.wrappers import classify_wrapper
 from agent_pipeline.sources.adapters.docx import read_docx
+from agent_pipeline.sources.adapters.image import read_image
 from agent_pipeline.sources.adapters.json_accounts import AccountDataError, read_accounts
 from agent_pipeline.sources.adapters.markdown import read_markdown
 from agent_pipeline.sources.classify import (
@@ -255,6 +257,64 @@ def _limit_review_items(
     return items
 
 
+def _image_review_items(
+    image_source: ClassifiedSource | None,
+    accounts: list[Account],
+    account_currency_by_id: dict[str, str | None],
+    llm: LLMClient,
+) -> list[ReviewItemInput]:
+    """P10: a statement image never selects a value (`select_values` never sees it) -- this
+    runs after the fact, against whichever value each in-scope account already has, and can
+    only confirm it (silent) or raise a review item. A row that doesn't match any in-scope
+    account (`match_image_row`) is itself a review item, not a silent drop -- flag rather
+    than guess, same principle as everywhere else, even though no current client's image
+    exercises this path (all match cleanly).
+
+    `account_currency_by_id` is the account data's own, possibly-missing `currency` field
+    (`record.currency`, the same value `select_values` reads) -- not `account.value.currency`,
+    which `select_values` already defaults to "GBP" when the record is silent (DESIGN.md
+    section 3.3). Reading the defaulted value here would mean a genuinely-unknown currency
+    could never take `check_image_row`'s "unknown, skip" branch, and a real non-GBP image
+    would be mislabelled a "possible read error" instead of "we never knew this account's
+    currency" (verifier checkpoint, T18)."""
+    if image_source is None:
+        return []
+    in_scope_accounts = [a for a in accounts if a.in_scope]
+    image = read_image(image_source.path)
+    model = LLMImageModel(llm, load_prompt(PROMPTS_DIR / "extract_image.md"))
+    extraction = extract_image(image, model)
+    if not extraction.readable:
+        return [
+            ReviewItemInput(
+                kind="image_discrepancy",
+                blocking=False,
+                detail=f"could not read the statement image: {image_source.path.name}",
+                refs=[],
+            )
+        ]
+    items: list[ReviewItemInput] = []
+    for row in extraction.rows:
+        account = match_image_row(row, in_scope_accounts)
+        if account is None:
+            items.append(
+                ReviewItemInput(
+                    kind="image_discrepancy",
+                    blocking=False,
+                    detail=(
+                        f"statement image row {row.account_label!r} did not match any "
+                        "in-scope account"
+                    ),
+                    refs=[],
+                )
+            )
+            continue
+        account_currency = account_currency_by_id.get(account.id)
+        item = check_image_row(account.value, row, account_currency)
+        if item is not None:
+            items.append(item)
+    return items
+
+
 def _computed_placeholder(name: str, ledger: Ledger) -> str:
     """Every "computed" placeholder: built in code from the ledger, never by the model
     (P9, G13). `risk_profile`/`initial_charge` reach the report this way, not as a fact
@@ -345,6 +405,7 @@ def _run_stages(
     instruction_source = _source_by_role(classification, "report_instruction")
     guidance_source = _source_by_role(classification, "internal_guidance")
     spec_source = _source_by_role(classification, "report_spec")
+    image_source = _source_by_role(classification, "statement_image")
 
     if account_source is None:
         raise _InputStop("no account data classified", classification)
@@ -447,6 +508,8 @@ def _run_stages(
         if meeting_date is not None
         else []
     )
+    account_currency_by_id = {aid: r.currency for aid, r in records_by_id.items()}
+    image_items = _image_review_items(image_source, resolved_accounts, account_currency_by_id, llm)
 
     review_inputs: list[ReviewItemInput] = [
         *ownership.set_aside,
@@ -456,6 +519,7 @@ def _run_stages(
         ),
         *marker_review_items(markers),
         *limit_items,
+        *image_items,
     ]
 
     def _field_value(canonical: str) -> str | None:
