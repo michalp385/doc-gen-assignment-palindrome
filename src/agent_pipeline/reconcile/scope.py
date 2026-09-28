@@ -1,18 +1,29 @@
 """R2, R8: which accounts a report instruction's scope phrase covers.
 
-A phrase is matched in code against each candidate account's own type and platform
-wording -- never guessed. Exactly one match resolves the phrase; zero or more than one is
-unresolved and must never be silently guessed (R8). A model may eventually *propose* a
-mapping (DESIGN.md section 4.3); this function is the check that decides whether to trust
-it, run here directly on the phrase text since M0b has no model stage yet.
+DESIGN.md section 5's own function table: `resolve_scope` "runs the scope checks (§4.3) on
+the model's proposed mapping, in code" -- `extract/instruction.py`'s `propose_scope` (T10)
+already asks a model for a `candidate_account_ids` mapping, since a phrase naming several
+accounts in free language (T19, e.g. "the ISAs held jointly by the two account holders and
+the joint GIA") doesn't literally contain any one account's type wording as a substring the
+way a single-account phrase naming its exact type wording does. Code's job is never to
+re-derive that language judgment -- it only checks the proposal isn't hallucinated (every
+candidate id must be a real account) and never guesses when nothing real was proposed.
 
-TODO(M2): the plan's T8 interface line names a third check, matching an owning holder's
-name in the phrase (needed once two same-type, same-platform accounts held by different
-people can collide, e.g. two co-holders each with their own ISA on the same platform).
-Client 01 has no such case, so this is deliberately not built here -- doing so without a
-real example to test against risks a heuristic that matches the wrong owner's name inside
-unrelated text. A client with that shape is the trigger to add it (verifier report, T8
-checkpoint, finding #8).
+`candidate_account_ids=None` (no model proposal reached this call -- a degraded extraction,
+or a caller that hasn't been given one) falls back to the original phrase/type/platform
+substring match, unchanged from before T19: exactly one match resolves it; zero or more
+than one is unresolved (R8's own "resolves to nothing" / "matches more than it names").
+That fallback is the *only* path that still needs an account's type or platform wording to
+literally appear in the phrase -- once a real candidate list exists, resolving to several
+accounts is the expected, valid outcome for a phrase that names several things, not R8's
+ambiguity case (which is about an accidental substring collision, not genuine plurality).
+
+TODO(M2): the plan's T8 interface line names a third fallback-path check, matching an
+owning holder's name in the phrase (needed once two same-type, same-platform accounts held
+by different people can collide under the *substring* fallback specifically). No client has
+that shape yet -- doing so without a real example to test against risks a heuristic that
+matches the wrong owner's name inside unrelated text (verifier report, T8 checkpoint,
+finding #8).
 """
 
 from __future__ import annotations
@@ -38,7 +49,23 @@ def _phrase_matches(phrase: str, account: Account) -> bool:
     return True
 
 
-def resolve_scope(phrase: str, accounts: list[Account]) -> ScopeResult:
+def resolve_scope(
+    phrase: str, accounts: list[Account], candidate_account_ids: list[str] | None = None
+) -> ScopeResult:
+    if candidate_account_ids is not None:
+        known_ids = {a.id for a in accounts}
+        # Existence is the only check code can make on a language judgment it didn't make
+        # itself -- a hallucinated id is dropped, never trusted; deduped, order kept.
+        seen: set[str] = set()
+        verified = [
+            aid
+            for aid in candidate_account_ids
+            if aid in known_ids and not (aid in seen or seen.add(aid))
+        ]
+        if verified:
+            return ScopeResult(phrase=phrase, resolved_ids=verified, unresolved=False)
+        return ScopeResult(phrase=phrase, resolved_ids=[], unresolved=True)
+
     matches = [a.id for a in accounts if _phrase_matches(phrase, a)]
     if len(matches) == 1:
         return ScopeResult(phrase=phrase, resolved_ids=matches, unresolved=False)
