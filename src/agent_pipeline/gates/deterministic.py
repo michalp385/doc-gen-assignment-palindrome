@@ -67,10 +67,18 @@ def split_sentences(text: str) -> list[str]:
     "sentence" -- G4's paraphrase screen then compares that glued text (heading + the real
     risk warning) against the warning itself, drops well below an exact match, and false-
     flags the report's own correct, single occurrence as a paraphrase (live run, T16
-    checkpoint)."""
+    checkpoint).
+
+    Never splits right after "c." (T19, client 02's checkpoint): `render_table`'s own "c. "
+    prefix for every approximate value (ledger.py) reads as a sentence-ending period to a
+    naive punctuation split, severing "...of c." from the figure right after it mid-sentence
+    -- no client before client 02 had an approximate figure inside a sentence rather than at
+    its start, so this never surfaced. "c." is the one abbreviation this codebase's own
+    rendering ever produces, so excluding it by name is exhaustive, not a guess at a general
+    abbreviation list."""
     sentences = []
     for block in re.split(r"\n\s*\n", text):
-        sentences.extend(re.split(r"(?<=[.!?])\s+", block))
+        sentences.extend(re.split(r"(?<!\bc\.)(?<=[.!?])\s+", block))
     return sentences
 
 
@@ -309,7 +317,21 @@ def _check_g15(bundle: ReportBundle, truth: Truth) -> GateResult:
 
 
 def _check_p6(bundle: ReportBundle, truth: Truth) -> GateResult:
-    """P6: an aspiration's subject appears at most once, and only in Background."""
+    """P6: an aspiration's subject appears at most once, and only in Background; a tangent
+    (T19: client 02's holiday) never appears at all -- SCOPING.md's own wording draws that
+    distinction ("Tangents... never appear" vs. "Future financial aspirations... appear at
+    most once, in Background"), which this gate only checked the weaker half of until now.
+
+    `tangent_subjects` is read with `getattr`, not a plain call: both real `Truth`
+    implementations (`LedgerTruth`, `ExpectedTruth`) have it, but this protocol method is
+    newer than some already-committed test doubles built against it, which this gate must
+    not crash against just because they predate it (no tangent data to check is the correct
+    empty case for those, not a reason to fail the whole gate run)."""
+    tangent_subjects = getattr(truth, "tangent_subjects", set)
+    for subject in sorted(tangent_subjects()):
+        total = sum(text.count(subject) for text in bundle.sections.values())
+        if total:
+            return GateResult("P6", False, f"tangent {subject!r} appears in the report")
     for subject in sorted(truth.excluded_item_subjects()):
         total = sum(text.count(subject) for text in bundle.sections.values())
         if total > 1:

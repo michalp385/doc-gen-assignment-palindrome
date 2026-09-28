@@ -28,6 +28,7 @@ from agent_pipeline.gates.deterministic import (
 from agent_pipeline.ledger import Ledger
 from agent_pipeline.llm import LLMClient
 from agent_pipeline.sources.document import SourceDoc
+from agent_pipeline.write.table import build_table
 
 _SIMPLE_GATES = ("G2", "G4", "G7", "G10", "G12", "P6")
 
@@ -116,7 +117,31 @@ _TAX_TERM_RE = re.compile(r"\btax\b|\bcgt\b|capital gains", re.IGNORECASE)
 
 def _requires_coverage(text: str, ledger: Ledger) -> bool:
     """G16: text containing a filled fact token (now a real figure), an account name or
-    type, or a tax term must map to at least one claim (DESIGN.md section 8.2)."""
+    type, or a tax term must map to at least one claim (DESIGN.md section 8.2).
+
+    Three spans are exempt, all T19, client 02's checkpoint -- none can ever pass coverage
+    by construction, not because a judge missed something: a claim's quote is verified
+    against a *source document* (`verify_quote`), and none of these is drawn from one.
+    - The account table (with its footnote): synthesised straight from the ledger (G1/G6
+      already check it deterministically), never any one source document.
+    - "The initial charge that applies is <value>.": a fixed template sentence
+      (config/base.json), the value inserted by a *computed* placeholder, never the model
+      (G13 already checks it matches the instruction verbatim).
+    - A marker's own bracket text ("[ADVISER TO CONFIRM #n: ...]"): inserted by code from
+      the ledger (P1), never typed by the model (G14 already checks every marker exists and
+      maps to a review row) -- a sentence built around one, like the CGT marker's own
+      sentence in Tax Implications, needing a *claim* makes no sense: there is nothing for
+      a source document to back, the whole point of a marker is that no source states it."""
+    table = build_table(ledger)
+    if text.strip() and text.strip() in table:
+        return False
+    if (
+        ledger.initial_charge
+        and text.strip() == f"The initial charge that applies is {ledger.initial_charge}."
+    ):
+        return False
+    if "[ADVISER TO CONFIRM" in text:
+        return False
     if MONEY_RE.search(text) or PERCENT_RE.search(text):
         return True
     if _TAX_TERM_RE.search(text):
@@ -163,6 +188,17 @@ def _verify_claims(
     return verified
 
 
+def _coverage_scan_text(bundle: ReportBundle) -> str:
+    """G16 scans generated section content, not the fully assembled `report_text` -- a
+    heading never carries a claim of its own, and `bundle.sections` holds each section's
+    own content without the "## <title>" markdown `document_formatter/formatting.py` adds
+    (T19, client 02's checkpoint: a bare "## Tax Implications" heading was being flagged as
+    an uncovered claim, which it structurally can never be). Every section's real content,
+    tax_implications included, still needs real coverage -- a fabricated CGT figure planted
+    there must still be caught (`test_g16_cannot_be_gamed_...`, T15 checkpoint)."""
+    return "\n\n".join(bundle.sections.values())
+
+
 def _uncovered_clauses(
     report_text: str, ledger: Ledger, claims: list[JudgeMaterialClaim]
 ) -> list[str]:
@@ -182,7 +218,7 @@ def _check_g16(
     sources: Mapping[str, SourceDoc],
 ) -> tuple[GateResult, RawJudgeVerdict]:
     verified = _verify_claims(raw.material_claims, sources, bundle.report_text)
-    uncovered = _uncovered_clauses(bundle.report_text, ledger, verified)
+    uncovered = _uncovered_clauses(_coverage_scan_text(bundle), ledger, verified)
 
     if uncovered:
         correction = "these clauses have no supporting claim yet, add one for each: " + "; ".join(
@@ -190,7 +226,7 @@ def _check_g16(
         )
         raw = model.judge(bundle, ledger, sources, [correction])
         verified = _verify_claims(raw.material_claims, sources, bundle.report_text)
-        uncovered = _uncovered_clauses(bundle.report_text, ledger, verified)
+        uncovered = _uncovered_clauses(_coverage_scan_text(bundle), ledger, verified)
 
     unsupported = [c for c in raw.material_claims if c not in verified]
     if unsupported:

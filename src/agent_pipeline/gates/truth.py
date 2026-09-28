@@ -58,6 +58,7 @@ class Truth(Protocol):
     def initial_charge(self) -> str | None: ...  # G13
     def client_names(self) -> set[str]: ...  # G13
     def excluded_item_subjects(self) -> set[str]: ...  # P6 aspirations only (see docstring)
+    def tangent_subjects(self) -> set[str]: ...  # P6: never appears, anywhere (T19)
 
 
 class LedgerTruth:
@@ -105,12 +106,20 @@ class LedgerTruth:
         return figures
 
     def transaction_figures(self) -> set[str]:
+        # G9's own carve-out (SCOPING.md): "values in the account table are not transaction
+        # amounts" -- a disposal's proceeds are P5-rendered at the disposed account's own
+        # R3-selected value, so a full disposal's proceeds figure and its account's table
+        # value are necessarily the same string (T19, client 02's GIA). Excluding table
+        # values here mirrors `report_eval.truth.ExpectedTruth.transaction_figures`, which
+        # already did this (its own docstring cites exactly this reasoning); this ledger-
+        # mode twin didn't, because no client exercised the coincidence until now.
+        table_values = {render_table(a.value) for a in self._ledger.accounts if a.value}
         figures = set()
         for fact in self._ledger.facts.values():
             if fact.transaction and fact.value:
                 figures.add(render_table(fact.value))
                 figures.add(render_prose(fact.value))
-        return figures
+        return figures - table_values
 
     def tax_section_expected(self) -> bool:
         return self._ledger.tax_section
@@ -137,3 +146,6 @@ class LedgerTruth:
         return {
             item.description for item in self._ledger.excluded if item.item_class == "aspiration"
         }
+
+    def tangent_subjects(self) -> set[str]:
+        return {item.description for item in self._ledger.excluded if item.item_class == "tangent"}

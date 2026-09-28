@@ -35,12 +35,22 @@ class ExpectedTruth:
         # ExpectedFacts.ReportableFigure has no explicit "transaction" flag (unlike the real
         # Ledger's Fact.transaction, T6): a table value is never a transaction amount (G9's
         # own wording), and a percentage is a charge/risk figure, not a money movement --
-        # what's left is exactly SCOPING's "top-ups, proceeds, new money, tax figures".
+        # what's left is exactly SCOPING's "top-ups, proceeds, new money, tax figures". A
+        # `footnote_only` figure (T19, client 02's superseded GIA statement value) is a
+        # historical account *value*, not a transaction amount either, the same reasoning
+        # as a current table value -- it just lives in the table's own footnote instead of
+        # its cell (G6, `write/table.py`), still squarely part of the account table, not a
+        # transaction G9 polices.
         table_values = {row.value for row in self._facts.table_rows}
+        footnote_only = {
+            fig.value for fig in self._facts.reportable_figures if fig.placement == "footnote_only"
+        }
         return {
             fig.value
             for fig in self._facts.reportable_figures
-            if fig.value not in table_values and "%" not in fig.value
+            if fig.value not in table_values
+            and fig.value not in footnote_only
+            and "%" not in fig.value
         }
 
     def tax_section_expected(self) -> bool:
@@ -69,8 +79,11 @@ class ExpectedTruth:
         return {owner for row in self._facts.table_rows for owner in row.owners}
 
     def excluded_item_subjects(self) -> set[str]:
-        # P6's at-most-once rule is T9's scope; tangents ("never appear at all") and
-        # circumstances aren't a named T9 gate, so only aspirations are represented here.
+        # Aspirations only: the at-most-once-in-Background rule (P6). Circumstances aren't
+        # a named gate. Tangents have their own, stricter rule -- `tangent_subjects` below.
         return {
             item.subject for item in self._facts.excluded_items if item.item_class == "aspiration"
         }
+
+    def tangent_subjects(self) -> set[str]:
+        return {item.subject for item in self._facts.excluded_items if item.item_class == "tangent"}
