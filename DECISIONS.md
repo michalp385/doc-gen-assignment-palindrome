@@ -393,6 +393,12 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   wrong role (G2), contingent money described as available (G7), a paraphrase of the static text
   (G4), text that reads as lifted internal notes (G10's subjective half), a passage that does not
   read grammatically (G12) and an aspiration presented as a recommendation (P6).
+- **Known gap, and the real fix:** the Introduction is still a model-written slot, and I kept the
+  exemption for its figure-free sentences loose (no digit, figure or tax term, checked against the
+  ledger for account types). So a qualitative invention such as "your ISA has performed well"
+  would pass G16 unsourced. A word-list to catch it would be brittle and bring back the false
+  failures this change removed, so I did not build one. The real fix is to build the scope sentence
+  from the ledger in code and remove the model-written scope slot, so that sentence cannot arise.
 - **Model check:** `config/models.json` records `temperature_accepted: false` for both `gpt-6-luna`
   and `gpt-6-sol` (checked 2026-09-27), so no model available on this key accepts `temperature=0`.
   I did not spend a live call re-checking it. Reducing reasoning effort on the judge stage is the
