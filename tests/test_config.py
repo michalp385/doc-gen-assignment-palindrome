@@ -133,6 +133,39 @@ def test_the_shipped_config_loads_and_resolves() -> None:
     assert config.stages  # base's stage models carried through
 
 
+def test_the_shipped_config_reads_in_a_sensible_document_order() -> None:
+    # base.json's own sections (introduction, fees_charges, conclusion) would otherwise
+    # always sort before every section template_config.json adds, however nonsensical --
+    # the "order" field is what actually decides reading order after merge (T16).
+    config = load_report_config(CONFIG_DIR / "template_config.json")
+    assert [s.id for s in config.sections] == [
+        "introduction",
+        "background_objectives",
+        "recommendations",
+        "tax_implications",
+        "fees_charges",
+        "conclusion",
+    ]
+
+
+def test_merge_by_id_appends_a_child_only_section_with_no_order_after_base_sections(
+    tmp_path: Path,
+) -> None:
+    # A fixture section with no "order" set (0, the default) sorts stably in whatever
+    # position it would have landed in before "order" existed -- old fixtures and tests
+    # that don't care about document order keep working unchanged.
+    base = {
+        "document_title": "Base",
+        "global_instructions": "",
+        "stages": {},
+        "sections": [_section("a")],
+    }
+    child = {"extends": "base.json", "sections": [_section("b")]}
+    child_path = _write_configs(tmp_path, base, child)
+    config = load_report_config(child_path)
+    assert [s.id for s in config.sections] == ["a", "b"]
+
+
 def test_introduction_carries_the_fca_line_as_literal_template_text_not_a_slot() -> None:
     config = load_report_config(CONFIG_DIR / "template_config.json")
     introduction = next(s for s in config.sections if s.id == "introduction")

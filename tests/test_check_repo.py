@@ -86,3 +86,20 @@ def test_check_overfitting_allows_a_value_only_in_its_scoped_file(
     problem_files = {p.split(":")[0] for p in problems}
     assert "config/tax_rules.json" not in problem_files
     assert "src/other.py" in problem_files
+
+
+def test_check_openai_import_flags_any_module_besides_llm_py(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(CHECK_REPO, "ROOT", tmp_path)
+
+    agent_pipeline_dir = tmp_path / "src" / "agent_pipeline"
+    agent_pipeline_dir.mkdir(parents=True)
+    (agent_pipeline_dir / "llm.py").write_text("import openai\n", encoding="utf-8")
+    (agent_pipeline_dir / "generate.py").write_text(
+        "from openai import OpenAI\n\ndef main(): ...\n", encoding="utf-8"
+    )
+    (agent_pipeline_dir / "config.py").write_text("import json\n", encoding="utf-8")
+
+    problems = CHECK_REPO.check_openai_import()
+
+    problem_files = {p.split(":")[0] for p in problems}
+    assert problem_files == {"src/agent_pipeline/generate.py"}

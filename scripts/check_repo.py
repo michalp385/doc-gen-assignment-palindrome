@@ -44,6 +44,10 @@ RISK_WARNING_2 = "Past performance is not a guide to future returns."
 PROTECTED = "src/document_formatter/formatting.py"
 UPSTREAM_COMMIT = "0f7c264"
 
+# DESIGN.md section 9: llm.py is the only module that imports openai.
+OPENAI_IMPORT_ONLY_IN = "src/agent_pipeline/llm.py"
+OPENAI_IMPORT_RE = re.compile(r"^\s*(import\s+openai\b|from\s+openai\b)")
+
 MIN_AMOUNT = 1000  # ignore small numbers: too generic to signal overfitting
 SECRET_RE = re.compile(r"sk-[A-Za-z0-9_\-]{20,}")
 MONEY_RE = re.compile(r"£\s?(\d{1,3}(?:,\d{3})+|\d{4,})(?:\.\d+)?")
@@ -191,6 +195,25 @@ def check_protected() -> list[str]:
     return []  # 0 = unchanged; 128 = commit unknown (e.g. shallow clone): skip rather than fail
 
 
+def check_openai_import() -> list[str]:
+    problems = []
+    src = ROOT / "src"
+    if not src.exists():
+        return problems
+    for path in src.rglob("*.py"):
+        rel = path.relative_to(ROOT).as_posix()
+        if rel == OPENAI_IMPORT_ONLY_IN:
+            continue
+        for lineno, line in enumerate(
+            path.read_text(encoding="utf-8", errors="ignore").splitlines(), 1
+        ):
+            if OPENAI_IMPORT_RE.match(line):
+                problems.append(
+                    f"{rel}:{lineno}: imports openai (only {OPENAI_IMPORT_ONLY_IN} may)"
+                )
+    return problems
+
+
 def main() -> int:
     global_allow, per_file_allow = load_allowlist()
     sections = {
@@ -198,6 +221,7 @@ def main() -> int:
         "secrets": check_secrets(),
         "static text": check_static_text(),
         "protected files": check_protected(),
+        "openai import": check_openai_import(),
     }
     failed = False
     for name, problems in sections.items():

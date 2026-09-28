@@ -43,6 +43,12 @@ class Section(_Strict):
     title: str
     use_if: str
     predicate: str | None = None
+    # Document position after merge: extends (DESIGN.md section 11) always keeps base's own
+    # sections first, then appends whichever new ids a child adds, so relative reading order
+    # can't come from list position alone once a child inserts a section between two of
+    # base's. Sections sharing a value keep their post-merge relative order (a stable sort).
+    # Defaults to 0 so fixtures that don't care about ordering (most tests) don't need one.
+    order: int = 0
     template: str
     placeholders: dict[str, Placeholder] = Field(default_factory=dict)
     # Glob patterns (DESIGN.md section 6): which ledger facts/markers/excluded-item classes
@@ -112,7 +118,8 @@ def load_report_config(path: Path) -> ReportConfig:
 
     config = ReportConfig.model_validate(merged)
     _validate_predicates(config.sections)
-    return config
+    ordered = sorted(config.sections, key=lambda s: s.order)
+    return config.model_copy(update={"sections": ordered})
 
 
 def load_prompt(path: Path, output_schema: str = "") -> PromptSpec:

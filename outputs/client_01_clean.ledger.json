@@ -1,0 +1,188 @@
+{
+  "client": "client_01_clean",
+  "meeting_date": "2026-05-12",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "objectives": "Margaret is retired and confirmed there have been no changes to her circumstances or objectives since last year's review. She remains comfortable with the moderate approach to risk we agreed previously and was happy that the portfolio had performed in line with that. Her main point for the meeting was that she has cash sitting on deposit in her Holloway cash account and would like to use this year's ISA allowance by moving some of it into her Stocks & Shares ISA. Margaret has no income requirement from the portfolio at present and does not expect that to change in the near term.",
+  "tax_section": false,
+  "accounts": [
+    {
+      "id": "H-ISA-01",
+      "owners": [
+        "Margaret Hughes"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "52000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "H-CASH-01",
+      "owners": [
+        "Margaret Hughes"
+      ],
+      "type": "Cash Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": false,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "25000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    }
+  ],
+  "money": [],
+  "actions": [
+    {
+      "id": "a1",
+      "description": "We agreed she would move £20,000 from the cash account into the Stocks & Shares ISA.",
+      "kind": "action",
+      "accounts": [
+        "cash account",
+        "Stocks & Shares ISA"
+      ],
+      "quote": "We agreed she would move £20,000 from the cash account into the Stocks & Shares ISA.",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "e1",
+      "item_class": "aspiration",
+      "description": "She mentioned she may want to discuss gifting to her grandchildren at some point in the future, but was clear that is not for today and nothing should be actioned on it now.",
+      "allowed_in": [
+        "background_objectives"
+      ],
+      "quote": "She mentioned she may want to discuss gifting to her grandchildren at some point in the future, but was clear that is not for today and nothing should be actioned on it now."
+    }
+  ],
+  "markers": [
+    {
+      "id": "#1",
+      "key": "platform_charge_holloway",
+      "text": "ongoing platform charge rate, Holloway",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#2",
+      "key": "advice_charge",
+      "text": "ongoing advice charge rate",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    }
+  ],
+  "review": [
+    {
+      "id": "rv1",
+      "kind": "open_action",
+      "blocking": false,
+      "detail": "confirm the ongoing charges with her once the report is issued.",
+      "refs": []
+    },
+    {
+      "id": "rv2",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_holloway",
+      "refs": [
+        "platform_charge_holloway"
+      ]
+    },
+    {
+      "id": "rv3",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker advice_charge",
+      "refs": [
+        "advice_charge"
+      ]
+    }
+  ],
+  "questions": [],
+  "facts": {
+    "account.H-ISA-01.value": {
+      "id": "account.H-ISA-01.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "52000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.H-CASH-01.value": {
+      "id": "account.H-CASH-01.value",
+      "kind": "money",
+      "description": "the Cash Account's current value",
+      "value": {
+        "amount": "25000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "action.a1.amount": {
+      "id": "action.a1.amount",
+      "kind": "money",
+      "description": "the amount involved in this action",
+      "value": {
+        "amount": "20000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£20,000",
+        "selected_by": "action_amount"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "transaction",
+      "placement": "any"
+    }
+  }
+}

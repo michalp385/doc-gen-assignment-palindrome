@@ -5,12 +5,14 @@
       "id": "background_objectives",
       "title": "Background & Objectives",
       "use_if": "always",
-      "template": "<<summary>>\n\nThe accounts covered by this report are as follows:\n\n<<holdings_table>>",
+      "order": 20,
+      "template": "<<summary>>\n\nYour agreed risk profile is <<risk_profile>>.\n\nThe accounts covered by this report are as follows:\n\n<<holdings_table>>",
       "placeholders": {
         "summary": {
           "kind": "generated",
           "prompt": "Summarise the client's objectives and circumstances, at a high level. Do not mention transaction amounts here (top-ups, sale proceeds, the size of any new money, tax figures): those belong in Recommendations and Tax Implications."
         },
+        "risk_profile": { "kind": "computed" },
         "holdings_table": { "kind": "computed" }
       },
       "excluded": ["aspiration"],
@@ -21,6 +23,7 @@
       "id": "recommendations",
       "title": "Recommendations",
       "use_if": "always",
+      "order": 30,
       "template": "We recommend the following:\n\n<<recommendation>>",
       "placeholders": {
         "recommendation": {
@@ -35,6 +38,7 @@
       "id": "tax_implications",
       "title": "Tax Implications",
       "use_if": "Include when the advice sells or disposes of investments that may create a taxable gain.",
+      "order": 40,
       "predicate": "taxable_disposal",
       "template": "<<cgt_statement>>",
       "placeholders": {

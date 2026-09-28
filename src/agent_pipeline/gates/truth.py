@@ -95,6 +95,13 @@ class LedgerTruth:
             if fact.reportable and fact.value:
                 figures.add(render_table(fact.value))
                 figures.add(render_prose(fact.value))
+        # The initial charge (e.g. "0%") is never a Fact -- it's a plain Ledger field
+        # inserted by a computed placeholder (T16 checkpoint), not the token machinery,
+        # since G13 needs it verbatim and Fact/Value's rendering is money-shaped, not a
+        # percentage label read straight from the instruction. G2 still scans the whole
+        # report text for any percent figure, so it needs to be in the allowed set too.
+        if self._ledger.initial_charge:
+            figures.add(self._ledger.initial_charge)
         return figures
 
     def transaction_figures(self) -> set[str]:

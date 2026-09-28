@@ -57,6 +57,16 @@ def test_g2_allows_a_qualifier_prefixed_figure() -> None:
     assert _results_by_gate(bundle, truth)["G2"].passed is True
 
 
+def test_g2_allows_the_initial_charge_even_though_it_is_never_a_fact() -> None:
+    # T16 checkpoint: the initial charge (e.g. "0%") reaches the report via a computed
+    # placeholder straight from ledger.initial_charge, never a Fact (G13 needs it verbatim;
+    # Fact/Value's rendering is money-shaped, not a fit for a plain percentage label) -- G2
+    # still scans the whole report text for any percent figure, so LedgerTruth must allow it.
+    bundle = ReportBundle(report_text="The initial charge that applies is 0%.")
+    truth = LedgerTruth(Ledger(client="c", initial_charge="0%"))
+    assert _results_by_gate(bundle, truth)["G2"].passed is True
+
+
 # --- G1: the table is exactly the in-scope accounts, each once, owners named -------------
 
 
@@ -163,6 +173,20 @@ def test_g4_paraphrased_warning_added() -> None:
     )
     mutated = dataclasses.replace(BUNDLE, report_text=BUNDLE.report_text + " " + paraphrase)
     assert _results_by_gate(mutated, TRUTH)["G4"].passed is False
+
+
+def test_g4_does_not_false_fire_when_a_heading_glues_onto_the_risk_warning() -> None:
+    # A real assembled report (document_formatter.formatting.format_document) always puts a
+    # "## Conclusion" heading directly before the risk warning, with no sentence-ending
+    # punctuation between them. split_sentences used to treat that as one "sentence", which
+    # read as a paraphrase of the warning rather than an exact match (live run, T16
+    # checkpoint) -- the reference bundle's own hand-built report_text never had a heading at
+    # all, so nothing caught this until a real run actually assembled one.
+    heading_glued = "## Conclusion\n\n" + RISK_WARNING_FULL
+    mutated = dataclasses.replace(
+        BUNDLE, report_text=BUNDLE.report_text.replace(RISK_WARNING_FULL, heading_glued)
+    )
+    assert _results_by_gate(mutated, TRUTH)["G4"].passed is True
 
 
 # --- G5: Tax Implications is present iff a taxable disposal is expected ------------------

@@ -14,6 +14,7 @@
       "id": "introduction",
       "title": "Introduction",
       "use_if": "always",
+      "order": 10,
       "template": "Further to our recent discussions, we are writing to set out our advice in relation to <<scope>>. This advice is based on the information currently available to us.\n\nThis firm is authorised and regulated by the Financial Conduct Authority.",
       "placeholders": {
         "scope": {
@@ -27,12 +28,14 @@
       "id": "fees_charges",
       "title": "Fees & Charges",
       "use_if": "always",
-      "template": "<<fees>>",
+      "order": 50,
+      "template": "<<fees>>\n\nThe initial charge that applies is <<initial_charge>>.",
       "placeholders": {
         "fees": {
           "kind": "generated",
           "prompt": "Set out the ongoing fees and charges that apply to the client's investments."
-        }
+        },
+        "initial_charge": { "kind": "computed" }
       },
       "markers": ["platform_charge_*", "advice_charge"]
     },
@@ -40,6 +43,7 @@
       "id": "conclusion",
       "title": "Conclusion",
       "use_if": "always",
+      "order": 60,
       "template": "The value of investments can fall as well as rise and you may get back less than you invest. Past performance is not a guide to future returns.\n\n<<closing>>",
       "placeholders": {
         "closing": {

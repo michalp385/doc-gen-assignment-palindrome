@@ -61,7 +61,17 @@ class ReportBundle:
 
 
 def split_sentences(text: str) -> list[str]:
-    return re.split(r"(?<=[.!?])\s+", text)
+    """Splits on blank-line/paragraph boundaries first, then on sentence-ending punctuation
+    within each block. A markdown heading (e.g. "## Conclusion") has no trailing punctuation
+    of its own, so without the paragraph split it glues onto whatever follows it as one
+    "sentence" -- G4's paraphrase screen then compares that glued text (heading + the real
+    risk warning) against the warning itself, drops well below an exact match, and false-
+    flags the report's own correct, single occurrence as a paraphrase (live run, T16
+    checkpoint)."""
+    sentences = []
+    for block in re.split(r"\n\s*\n", text):
+        sentences.extend(re.split(r"(?<=[.!?])\s+", block))
+    return sentences
 
 
 def word_ngrams(text: str, n: int) -> set[tuple[str, ...]]:

@@ -1,0 +1,207 @@
+{
+  "client": "client_01_clean",
+  "release_state": "draft",
+  "gate_results": [
+    {
+      "gate": "G1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G2",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G3",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G4",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G5",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G6",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G9",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G10",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G11",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G12",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G13",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G14",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G15",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "P6",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G16",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G8",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G2",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G4",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G7",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G10",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "G12",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "gate": "P6",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "stages": [
+    {
+      "stage": "classify",
+      "calls": 5,
+      "cache_hits": 5,
+      "live_calls": 0,
+      "tokens": {
+        "input": 5162,
+        "cached_input": 0,
+        "output": 199,
+        "reasoning": 0
+      },
+      "cost_usd": "0.0006157",
+      "latency_s": 0.0,
+      "models": [
+        "gpt-6-luna"
+      ],
+      "prompt_versions": [
+        "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9"
+      ]
+    },
+    {
+      "stage": "extract",
+      "calls": 2,
+      "cache_hits": 2,
+      "live_calls": 0,
+      "tokens": {
+        "input": 2888,
+        "cached_input": 0,
+        "output": 1237,
+        "reasoning": 494
+      },
+      "cost_usd": "0.0009073",
+      "latency_s": 0.0,
+      "models": [
+        "gpt-6-luna"
+      ],
+      "prompt_versions": [
+        "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
+        "4e0b34de0d820fdef13e07f584c43f6429642598ee763eab3fa479b60e987ae1"
+      ]
+    },
+    {
+      "stage": "write",
+      "calls": 6,
+      "cache_hits": 6,
+      "live_calls": 0,
+      "tokens": {
+        "input": 5749,
+        "cached_input": 0,
+        "output": 610,
+        "reasoning": 319
+      },
+      "cost_usd": "0.0008799",
+      "latency_s": 0.0,
+      "models": [
+        "gpt-6-luna"
+      ],
+      "prompt_versions": [
+        "504468ee89696fcaf8b3624d1d31b81fb0edce8faf54a8bffacd6e5373789944",
+        "6853b20978571e226ed94b30e6eab663eda7a6195ced94176864e0168f8612de",
+        "ba2848825ed196548bb5567ff22df050679a307bc3566b828246331bb4a11adc",
+        "dd855ff3a9a79c59e791c0aa8f6ee2c311bf90e975e417790b871d4953e846ff",
+        "fff94325a38983005e6df88f9aa13a827f3aafeebc83e45f5e060fc3877ba96b"
+      ]
+    },
+    {
+      "stage": "release_judge",
+      "calls": 1,
+      "cache_hits": 1,
+      "live_calls": 0,
+      "tokens": {
+        "input": 2346,
+        "cached_input": 0,
+        "output": 5752,
+        "reasoning": 4581
+      },
+      "cost_usd": "0.0031106",
+      "latency_s": 0.0,
+      "models": [
+        "gpt-6-luna"
+      ],
+      "prompt_versions": [
+        "d1b1c50c971d892da172bf62dd69073818d02226caba1fa0556d8f709ae6b81f"
+      ]
+    }
+  ],
+  "total_calls": 14,
+  "total_cache_hits": 14,
+  "total_live_calls": 0,
+  "total_cost_usd": "0.0055135"
+}
