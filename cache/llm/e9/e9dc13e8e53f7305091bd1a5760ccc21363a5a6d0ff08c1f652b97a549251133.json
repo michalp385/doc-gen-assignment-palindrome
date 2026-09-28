@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001118",
+  "input_hash": "ccba44d6b6ea555af09bde0724bf0e69ca3003ea0f131dd7d126fd7d0f4dab0e",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.98,
+    "evidence_quote": "Accounts covered | Holloway ISAs (Robert and Jean), the joint GIA, and a new joint account",
+    "role": "report_instruction"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 878,
+    "output_tokens": 48,
+    "reasoning_tokens": 0
+  }
+}

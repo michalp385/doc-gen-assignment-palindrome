@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001068",
+  "input_hash": "2df9f465498fb5ac5b22464f1b200642d168327bf00f21b11621c66e646fc80c",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.98,
+    "evidence_quote": "Accounts covered | Holloway ISAs (David and Susan) and the joint GIA",
+    "role": "report_instruction"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 853,
+    "output_tokens": 43,
+    "reasoning_tokens": 0
+  }
+}

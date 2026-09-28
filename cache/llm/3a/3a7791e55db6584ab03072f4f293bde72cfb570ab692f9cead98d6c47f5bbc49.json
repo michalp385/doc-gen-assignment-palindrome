@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001388",
+  "input_hash": "212bf948882190415ba4660f59700fa10eb4a8a3d22f20abb40ec5419ac0dfea",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "Planning meeting with James and Caroline Whitmore, held 20 May 2026.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1178,
+    "output_tokens": 42,
+    "reasoning_tokens": 0
+  }
+}

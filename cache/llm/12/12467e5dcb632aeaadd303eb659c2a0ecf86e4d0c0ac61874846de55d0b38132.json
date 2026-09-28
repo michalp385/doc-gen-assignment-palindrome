@@ -1,0 +1,271 @@
+{
+  "cost_usd": "0.0021521",
+  "input_hash": "bdd72c70a99002ce27035b9389665708796afc41534888d0d568b3087458e3c7",
+  "model": "gpt-6-luna",
+  "prompt_version": "4e0b34de0d820fdef13e07f584c43f6429642598ee763eab3fa479b60e987ae1",
+  "response": {
+    "accounts_mentioned": [
+      "solicitor's client account",
+      "Stocks & Shares ISA",
+      "jointly-held General Investment Account",
+      "SIPP",
+      "second jointly-held General Investment Account on Brightwell",
+      "jointly-held offshore investment bond",
+      "James holds a cash account there",
+      "Caroline also has a cash account on Meridian",
+      "old Meridian account in her name that was closed last year",
+      "new jointly-held investment account"
+    ],
+    "agreed_actions": [
+      {
+        "accounts_referenced": [
+          "both ISA allowances"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p14",
+          "text": "we agreed to use both ISA allowances for the new tax year"
+        },
+        "is_non_action": false
+      },
+      {
+        "accounts_referenced": [
+          "both SIPPs"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p14",
+          "text": "make pension contributions into both SIPPs up to the appropriate level"
+        },
+        "is_non_action": false
+      },
+      {
+        "accounts_referenced": [
+          "Holloway joint GIA"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p14",
+          "text": "add to the Holloway joint GIA"
+        },
+        "is_non_action": false
+      },
+      {
+        "accounts_referenced": [
+          "new jointly-held investment account"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p14",
+          "text": "place the remaining balance into a new jointly-held investment account"
+        },
+        "is_non_action": false
+      },
+      {
+        "accounts_referenced": [
+          "Holloway joint GIA"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p15",
+          "text": "we agreed to disinvest a portion of the Holloway joint GIA and rebalance it"
+        },
+        "is_non_action": false
+      },
+      {
+        "accounts_referenced": [
+          "offshore bond"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p17",
+          "text": "we agreed to leave it as it is for now and revisit at the next review"
+        },
+        "is_non_action": true
+      }
+    ],
+    "attendees": [
+      "James",
+      "Caroline Whitmore"
+    ],
+    "disposals": [
+      {
+        "account_reference": "Holloway joint GIA",
+        "extent": "portion",
+        "extent_evidence": {
+          "paragraph_id": "p15",
+          "text": "disinvest a portion of the Holloway joint GIA"
+        },
+        "quote": {
+          "paragraph_id": "p15",
+          "text": "As part of tidying up, we agreed to disinvest a portion of the Holloway joint GIA and rebalance it; that sale is a disposal and will have a capital gains position to set out."
+        }
+      }
+    ],
+    "excluded_items": [
+      {
+        "class_evidence": {
+          "paragraph_id": "p8",
+          "text": "Both were clear these are aspirations for the future and nothing should be actioned on them in this report."
+        },
+        "item_class": "aspiration",
+        "text": {
+          "paragraph_id": "p8",
+          "text": "they would like, at some stage, to help with school fees for their grandchildren and possibly make a charitable donation"
+        }
+      },
+      {
+        "class_evidence": {
+          "paragraph_id": "p19",
+          "text": "this is not being pursued and has no bearing on the advice."
+        },
+        "item_class": "tangent",
+        "text": {
+          "paragraph_id": "p19",
+          "text": "There was a tangent about a property in France they had once considered buying"
+        }
+      },
+      {
+        "class_evidence": {
+          "paragraph_id": "p2",
+          "text": "It has been a busy and slightly emotional period for them both, having built the business over many years."
+        },
+        "item_class": "circumstance",
+        "text": {
+          "paragraph_id": "p2",
+          "text": "It has been a busy and slightly emotional period for them both, having built the business over many years."
+        }
+      }
+    ],
+    "limit_signals": [
+      {
+        "text": {
+          "paragraph_id": "p18",
+          "text": "was worried about over-contributing"
+        }
+      }
+    ],
+    "meeting_date": {
+      "paragraph_id": "p1",
+      "text": "held 20 May 2026."
+    },
+    "money_items": [
+      {
+        "amount": {
+          "paragraph_id": "p3",
+          "text": "\u00a3850,000"
+        },
+        "class_evidence": {
+          "paragraph_id": "p3",
+          "text": "was received on completion"
+        },
+        "money_class": "received",
+        "purpose": "Completion payment received and held in a solicitor's client account."
+      },
+      {
+        "amount": {
+          "paragraph_id": "p4",
+          "text": "up to \u00a3400,000"
+        },
+        "class_evidence": {
+          "paragraph_id": "p4",
+          "text": "None of the earnout has been received yet, and James was clear it is not guaranteed; it depends entirely on how the business performs under the new owners."
+        },
+        "money_class": "external",
+        "purpose": "Deferred earnout contingent on business revenue targets."
+      },
+      {
+        "amount": {
+          "paragraph_id": "p5",
+          "text": "\u00a3200,000"
+        },
+        "class_evidence": {
+          "paragraph_id": "p5",
+          "text": "is already committed to repaying a bridging loan"
+        },
+        "money_class": "committed",
+        "purpose": "Repayment of the bridging loan."
+      },
+      {
+        "amount": null,
+        "class_evidence": {
+          "paragraph_id": "p15",
+          "text": "we agreed to disinvest a portion of the Holloway joint GIA"
+        },
+        "money_class": "proceeds",
+        "purpose": "Proceeds from disinvesting a portion of the Holloway joint GIA."
+      }
+    ],
+    "objectives_and_circumstances": [
+      {
+        "text": {
+          "paragraph_id": "p6",
+          "text": "James and Caroline's objectives are long-term growth with a balanced-to-moderate risk appetite."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p6",
+          "text": "They have no income requirement from the portfolio currently; James may do some consultancy work but nothing is settled."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p7",
+          "text": "Their overriding objective for this money is clear: to build a tax-efficient base that can replace James's income when he steps back from full-time work in about three years."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p7",
+          "text": "We agreed everything we recommend should be weighed against that three-year goal."
+        }
+      }
+    ],
+    "open_actions": [
+      {
+        "blocking": false,
+        "blocking_evidence": {
+          "paragraph_id": "p20",
+          "text": "confirm Caroline's Meridian cash balance"
+        },
+        "text": {
+          "paragraph_id": "p20",
+          "text": "confirm Caroline's Meridian cash balance"
+        }
+      },
+      {
+        "blocking": false,
+        "blocking_evidence": {
+          "paragraph_id": "p20",
+          "text": "confirm the timing of the bridging-loan repayment"
+        },
+        "text": {
+          "paragraph_id": "p20",
+          "text": "confirm the timing of the bridging-loan repayment"
+        }
+      }
+    ],
+    "value_observations": [
+      {
+        "account_reference": "Holloway joint GIA",
+        "amount": {
+          "paragraph_id": "p10",
+          "text": "around \u00a3255,000"
+        },
+        "basis": "viewed_in_meeting",
+        "basis_evidence": {
+          "paragraph_id": "p10",
+          "text": "pulling it up live"
+        }
+      }
+    ]
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 2137,
+    "input_tokens": 3176,
+    "output_tokens": 3669,
+    "reasoning_tokens": 1808
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001168",
+  "input_hash": "fe355439604f552b14f26b4591845abd8d3594b3d461bdd8433bd0bf7eb47f8e",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "Product recommended | ISA and SIPP top-ups, contribution to the joint GIA, and a new joint investment account",
+    "role": "report_instruction"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 923,
+    "output_tokens": 49,
+    "reasoning_tokens": 0
+  }
+}

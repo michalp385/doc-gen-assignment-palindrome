@@ -1,0 +1,132 @@
+{
+  "cost_usd": "0.0010604",
+  "input_hash": "b5b56df1fe38a11ccba45b95d0199b80105ecbdaeb177c22948c3ed3883050dc",
+  "model": "gpt-6-luna",
+  "prompt_version": "4e0b34de0d820fdef13e07f584c43f6429642598ee763eab3fa479b60e987ae1",
+  "response": {
+    "accounts_mentioned": [
+      "jointly-held General Investment Account on the Holloway platform",
+      "GIA",
+      "David's Stocks & Shares ISAs",
+      "Susan's Stocks & Shares ISAs",
+      "ISAs"
+    ],
+    "agreed_actions": [
+      {
+        "accounts_referenced": [
+          "joint GIA",
+          "David's Stocks & Shares ISA",
+          "Susan's Stocks & Shares ISA"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p7",
+          "text": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs."
+        },
+        "is_non_action": false
+      }
+    ],
+    "attendees": [
+      "David",
+      "Susan Clarke"
+    ],
+    "disposals": [
+      {
+        "account_reference": "joint GIA",
+        "extent": "full",
+        "extent_evidence": {
+          "paragraph_id": "p7",
+          "text": "disinvest the joint GIA in full"
+        },
+        "quote": {
+          "paragraph_id": "p7",
+          "text": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs."
+        }
+      }
+    ],
+    "excluded_items": [
+      {
+        "class_evidence": {
+          "paragraph_id": "p3",
+          "text": "this has no bearing on the advice"
+        },
+        "item_class": "tangent",
+        "text": {
+          "paragraph_id": "p3",
+          "text": "We talked briefly about a holiday they are planning for the autumn; this has no bearing on the advice but they were keen to mention it."
+        }
+      }
+    ],
+    "limit_signals": [
+      {
+        "text": {
+          "paragraph_id": "p8",
+          "text": "Both ISAs are already part-funded for the year; this top-up uses the remaining allowance across the two of them."
+        }
+      }
+    ],
+    "meeting_date": {
+      "paragraph_id": "p1",
+      "text": "Review meeting with David and Susan Clarke, held 14 May 2026."
+    },
+    "money_items": [
+      {
+        "amount": null,
+        "class_evidence": {
+          "paragraph_id": "p7",
+          "text": "use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year"
+        },
+        "money_class": "proceeds",
+        "purpose": "use the proceeds to top up both David's and Susan's Stocks & Shares ISAs"
+      }
+    ],
+    "objectives_and_circumstances": [
+      {
+        "text": {
+          "paragraph_id": "p2",
+          "text": "Both are now retired."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p2",
+          "text": "They confirmed their objectives and circumstances are unchanged since the last review, and both remain comfortable with the balanced approach to risk we agreed."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p6",
+          "text": "We discussed the trade-offs and they decided they would rather simplify."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p9",
+          "text": "Neither has any income requirement from the portfolio at the moment."
+        }
+      }
+    ],
+    "open_actions": [],
+    "value_observations": [
+      {
+        "account_reference": "jointly-held General Investment Account on the Holloway platform",
+        "amount": {
+          "paragraph_id": "p5",
+          "text": "a little over \u00a345,000"
+        },
+        "basis": "viewed_in_meeting",
+        "basis_evidence": {
+          "paragraph_id": "p5",
+          "text": "I pulled the account up live during the meeting."
+        }
+      }
+    ]
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 2549,
+    "output_tokens": 1611,
+    "reasoning_tokens": 706
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001405",
+  "input_hash": "f0dd6216546e05779ca7bcf7a36a8fa728aadd2ffca31463a87f76cd31b7ac2b",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "The plan we agreed: disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1140,
+    "output_tokens": 53,
+    "reasoning_tokens": 0
+  }
+}

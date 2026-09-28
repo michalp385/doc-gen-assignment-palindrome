@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001318",
+  "input_hash": "b3d2d6f88b515c7f1a3c643edc5809bd520805cd35f8c8110dc4503ccb9224a6",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "It is not specific to any client and contains no individual account information.",
+    "role": "general_document"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1123,
+    "output_tokens": 39,
+    "reasoning_tokens": 0
+  }
+}

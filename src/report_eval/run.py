@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import json
 import re
 import time
@@ -226,6 +227,14 @@ def _client_from_classification(classification: ClassificationResult) -> str:
     return account_source.path.parent.name
 
 
+def _config_hash(config_path: Path) -> str:
+    """A stable fingerprint of the config file used for this run. Python's built-in `hash()`
+    is randomised per process (`PYTHONHASHSEED`), so it changed on every invocation even for
+    an identical config, defeating the point of a fingerprint meant to say "was this the same
+    config" across runs (caught replaying a run twice in a row, T17 checkpoint)."""
+    return hashlib.sha256(config_path.read_bytes()).hexdigest()
+
+
 def _apply_stage_overrides(config: ReportConfig, overrides: str) -> ReportConfig:
     if not overrides:
         return config
@@ -418,7 +427,7 @@ def main() -> None:
         )
 
     commit, dirty = git_commit_info()
-    config_hash = str(hash(args.config.read_text(encoding="utf-8")))
+    config_hash = _config_hash(args.config)
     prompt_versions = {
         name: load_prompt(PROMPTS_DIR / f"{name}.md").version
         for name in ("classify", "extract_meeting", "eval_judge")

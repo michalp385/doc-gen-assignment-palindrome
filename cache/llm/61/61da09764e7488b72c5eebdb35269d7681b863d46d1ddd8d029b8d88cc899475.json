@@ -1,0 +1,60 @@
+{
+  "cost_usd": "0.047330",
+  "input_hash": "11eedf20be168da1b7c0d8aece214e05905e469aac4a0c0a81732809825867bc",
+  "model": "gpt-6-sol",
+  "prompt_version": "f20296886939b866ac7d52f8edfc3e8882390be2fd16c2c83db2b67083169764",
+  "response": {
+    "findings": [
+      {
+        "criterion": "Q1",
+        "detail": "The Fees & Charges section names both required charges but defers their details to future documents rather than setting out the ongoing charges that apply.",
+        "report_quote": [
+          "**Platform Charge**: Your Stocks & Shares ISAs on the Holloway platform are subject to a standard platform charge, which will be confirmed in your next statement.",
+          "**Ongoing Advice Charge**: There will be no initial charge for the transactions we discussed, but please note that ongoing advice charges will apply, details of which will be outlined in your regular reports."
+        ],
+        "score": 2
+      },
+      {
+        "criterion": "Q2",
+        "detail": "The supplied sources provide no acquisition cost or historical valuations from which to estimate a gain, so the reassurance about tax liability goes beyond them. They also do not establish that there is no initial charge. The meeting note says exact ongoing charges would be confirmed in this report, not deferred to regular reports.",
+        "report_quote": [
+          "Assuming this account was originally funded at lower amounts, we can estimate a potential capital gain of about \u00a35,000 - \u00a37,000 based on historical valuations.",
+          "Given the current tax-free capital gains allowance of \u00a312,300 (as per current legislation), it is unlikely that you will incur a tax liability on this gain, but we advise you to keep track of your overall capital gains for the tax year.",
+          "There will be no initial charge for the transactions we discussed, but please note that ongoing advice charges will apply, details of which will be outlined in your regular reports."
+        ],
+        "score": 1
+      },
+      {
+        "criterion": "Q3",
+        "detail": "The report presents \u00a340,000 as current and refers separately to the meeting value without giving either figure a valuation date or explaining their timing. This silently ignores the handling instruction to check dates when using figures from sources produced at different times. It does not leak the internal notes.",
+        "report_quote": [
+          "This account currently has an approximate value of \u00a340,000, which has shown positive recovery over the last few months.",
+          "The joint GIA was approximately valued at about \u00a345,000 during our last discussion"
+        ],
+        "score": 2
+      },
+      {
+        "criterion": "Q4",
+        "detail": "The introduction contains an obvious sentence-joining error and double full stop. The repeated account summaries and recommendations make the report needlessly long and harder to follow.",
+        "report_quote": [
+          "Further to our recent discussions, we are writing to set out our advice in relation to This report relates to David and Susan Clarke's Stocks & Shares ISAs held on the Holloway platform, as well as their jointly-held General Investment Account (GIA) on the same platform..",
+          "The accounts covered by this report are as follows:\n\nThis report covers the Stocks & Shares ISAs held by both David and Susan Clarke, as well as their jointly-held General Investment Account (GIA)."
+        ],
+        "score": 2
+      },
+      {
+        "criterion": "Q5",
+        "detail": "No adviser-review markers were supplied, so there is no marker whose wording fails the specificity test.",
+        "report_quote": [],
+        "score": 5
+      }
+    ]
+  },
+  "stage": "eval_judge",
+  "usage": {
+    "cached_input_tokens": 1124,
+    "input_tokens": 3970,
+    "output_tokens": 3939,
+    "reasoning_tokens": 3317
+  }
+}

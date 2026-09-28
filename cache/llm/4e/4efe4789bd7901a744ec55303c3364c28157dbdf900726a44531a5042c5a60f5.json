@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001387",
+  "input_hash": "b7c54f4cd84398b9625081952fbddd1276c7f962dc81b1dd3cd8a7b3c083b198",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1112,
+    "output_tokens": 55,
+    "reasoning_tokens": 0
+  }
+}

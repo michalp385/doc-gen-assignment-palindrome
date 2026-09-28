@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001278",
+  "input_hash": "571cd8d850c0ae28f929d59dd7571d4e3eec964eb8685956867e2e9d97581ede",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "For whoever configures the report: what each source is, and how they relate.",
+    "role": "internal_guidance"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1063,
+    "output_tokens": 43,
+    "reasoning_tokens": 0
+  }
+}

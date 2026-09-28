@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001172",
+  "input_hash": "e459ecb3f2a878a96e7188d9a41645adf9194fe8ed257c18eacaac7a1ef0a6a7",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "Sent to all advised clients on the Holloway platform.",
+    "role": "general_document"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 992,
+    "output_tokens": 36,
+    "reasoning_tokens": 0
+  }
+}
