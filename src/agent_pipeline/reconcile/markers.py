@@ -55,3 +55,16 @@ def cgt_marker(disposals: list[Disposal]) -> list[Marker]:
             section="tax_implications",
         )
     ]
+
+
+def available_marker(reason: str) -> Marker:
+    """P5 (T21): the available-now amount becomes a marker when it cannot be computed
+    without a guess (a commitment with no stated amount, commitments exceeding receipts,
+    mixed currencies). Never states a figure."""
+    return Marker(
+        id="",
+        key="available_to_invest",
+        text="amount available to invest now, after commitments",
+        reason=f"{reason} (P5); never estimated",
+        section="recommendations",
+    )

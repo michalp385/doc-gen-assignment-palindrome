@@ -6,7 +6,7 @@ order and must not decide facts (ARCHITECTURE.md).
 
 from __future__ import annotations
 
-from agent_pipeline.ledger import Account, Fact, Value
+from agent_pipeline.ledger import Account, Fact, MoneyItem, Value
 
 
 def account_value_fact(account: Account) -> Fact | None:
@@ -64,10 +64,52 @@ def superseded_value_fact(account: Account, index: int, value: Value) -> Fact:
     )
 
 
+def money_amount_fact(item: MoneyItem) -> Fact | None:
+    """`money.<id>.amount` (T21, P5): a received, committed or external money item's stated
+    amount -- `None` for an amountless item (a marker covers it) and for proceeds, whose
+    figure the disposal's `action.<id>.amount` fact already carries. Always
+    `transaction=True` (G9 keeps money figures out of Background). External money's role is
+    "excluded": it is named as not allocated, never as available."""
+    if item.amount is None or item.money_class == "proceeds":
+        return None
+    role, description = {
+        "received": ("received money", "money the client has already received"),
+        "committed": ("committed money", "received money already committed elsewhere"),
+        "external": (
+            "excluded",
+            "contingent money not yet received, excluded from the plan",
+        ),
+    }[item.money_class]
+    return Fact(
+        id=f"money.{item.id}.amount",
+        kind="money",
+        description=description,
+        value=item.amount,
+        reportable=True,
+        transaction=True,
+        role=role,
+    )
+
+
+def available_fact(value: Value) -> Fact:
+    """`money.available` (T21, P5): received minus committed, computed in code."""
+    return Fact(
+        id="money.available",
+        kind="money",
+        description="the money available to invest now, after commitments",
+        value=value,
+        reportable=True,
+        transaction=True,
+        role="available to invest",
+    )
+
+
 def build_facts(
     accounts: list[Account],
     action_amounts: dict[str, Value],
     proceeds_action_ids: set[str] | None = None,
+    money_items: list[MoneyItem] | None = None,
+    available: Value | None = None,
 ) -> dict[str, Fact]:
     """Assembles the `facts{}` dict `plan_sections` reads. Scope filtering (which accounts
     to include) is the caller's decision, not this function's -- it just converts whatever
@@ -86,4 +128,10 @@ def build_facts(
     for action_id, amount in action_amounts.items():
         fact = action_amount_fact(action_id, amount, is_proceeds=action_id in proceeds_action_ids)
         facts[fact.id] = fact
+    for item in money_items or []:
+        money_fact = money_amount_fact(item)
+        if money_fact is not None:
+            facts[money_fact.id] = money_fact
+    if available is not None:
+        facts["money.available"] = available_fact(available)
     return facts

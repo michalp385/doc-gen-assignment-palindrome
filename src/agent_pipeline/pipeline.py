@@ -51,8 +51,8 @@ from agent_pipeline.reconcile.limits import (
     limit_review_item,
     resolve_prior_use,
 )
-from agent_pipeline.reconcile.markers import cgt_marker, required_markers
-from agent_pipeline.reconcile.money import classify_money
+from agent_pipeline.reconcile.markers import available_marker, cgt_marker, required_markers
+from agent_pipeline.reconcile.money import available_now, build_money_items, classify_money
 from agent_pipeline.reconcile.ownership import resolve_ownership
 from agent_pipeline.reconcile.predicates import evaluate
 from agent_pipeline.reconcile.refs import accounts_matching_reference
@@ -356,6 +356,31 @@ def _apply_values(
                 )
             )
     return accounts, review_items
+
+
+def _apply_money(
+    extracted, source_id: str, start_index: int
+) -> tuple[list[MoneyItem], Value | None, list[Marker], list[ReviewItemInput]]:
+    """P5: the meeting's received, committed and external money items as ledger items, and
+    the available-now value (received minus committed, in code). When it cannot be computed
+    without a guess -- a commitment with no stated amount -- the amount becomes a marker
+    with a review row explaining why, never a subtracted guess. Proceeds are not built here:
+    `_classify_disposals` owns them. `start_index` keeps ids unique against those."""
+    build = build_money_items(extracted, source_id, start_index)
+    result = available_now(build.items)
+    markers: list[Marker] = []
+    review_items = list(build.review_items)
+    if result.marker_reason is not None:
+        markers.append(available_marker(result.marker_reason))
+        review_items.append(
+            ReviewItemInput(
+                kind="ambiguity",
+                blocking=False,
+                detail=(f"the amount available to invest is a marker: {result.marker_reason}."),
+                refs=[],
+            )
+        )
+    return build.items, result.value, markers, review_items
 
 
 def _apply_account_states(
@@ -726,6 +751,11 @@ def _run_stages(
     )
     tax_section = evaluate("taxable_disposal", SectionContext(disposals=disposals))
 
+    other_money_items, available, available_markers, money_review_items = _apply_money(
+        meeting_extraction.money_items, meeting_source.path.name, len(money_items) + 1
+    )
+    money_items = [*money_items, *other_money_items]
+
     actions, action_amounts = _build_actions(
         meeting_extraction.agreed_actions, meeting_source.path.name
     )
@@ -738,9 +768,20 @@ def _run_stages(
     in_scope_platforms = {a.platform for a in resolved_accounts if a.in_scope and a.platform}
     # Value-cell markers (R6, P12) sit in the account table, which opens the report, so
     # they come first in the order number_markers numbers them by (P1).
-    markers = [*state_markers, *required_markers(in_scope_platforms), *cgt_marker(disposals)]
+    markers = [
+        *state_markers,
+        *required_markers(in_scope_platforms),
+        *cgt_marker(disposals),
+        *available_markers,
+    ]
 
-    facts = build_facts(resolved_accounts, action_amounts, proceeds_action_ids)
+    facts = build_facts(
+        resolved_accounts,
+        action_amounts,
+        proceeds_action_ids,
+        money_items=other_money_items,
+        available=available,
+    )
     objectives = " ".join(o.text.text for o in meeting_extraction.objectives_and_circumstances)
     if meeting_date is not None:
         limit_items = _limit_review_items(
@@ -769,6 +810,7 @@ def _run_stages(
             ReviewItemInput(kind="open_action", blocking=oa.blocking, detail=oa.text.text, refs=[])
             for oa in meeting_extraction.open_actions
         ),
+        *money_review_items,
         *marker_review_items(markers),
         *limit_items,
         *image_items,
