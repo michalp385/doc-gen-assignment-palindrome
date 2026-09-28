@@ -8,7 +8,10 @@ deterministic check can't make on its own.
 
 ## Input
 
-- `report_text`: the whole assembled report.
+- `report_text`: the whole assembled report, except that required standard wording (spec
+  sentences with no client source by design, such as the general statement that a disposal may
+  create a capital gains tax liability) is replaced by the placeholder `[standard wording]`.
+  Code has already checked that wording; it is not yours to check.
 - `actions`: every action the client agreed to (or agreed *not* to do), each `{id,
   description, kind}`. `kind: "non_action"` means "leave it as it is" -- that still counts as
   agreed.
@@ -20,8 +23,11 @@ deterministic check can't make on its own.
 
 ## Rules
 
-1. **Material claims.** List every material claim the report makes about the client's
-   money, accounts, tax position or agreed actions. For each: `claim` (plain description),
+1. **Material claims.** List every material claim the report makes about *this client's*
+   money, accounts, tax position or agreed actions -- a claim is a client-specific fact,
+   figure or action that a source document states. **Never give a claim for a
+   `[standard wording]` placeholder.** Every other clause that states such a fact still needs
+   its own claim with a real, verbatim source quote. For each: `claim` (plain description),
    `report_quote` (copied verbatim from `report_text`, and never longer than **one clause**
    of it -- a claim covers only the single clause its quote sits inside, not the whole
    sentence and never the whole report), `source_id` (which document backs it),
@@ -37,11 +43,8 @@ deterministic check can't make on its own.
    the ledger, never a model claim, and no source document could ever back either one's
    exact wording -- do not try, and do not claim anything *about* what a marker names (e.g.
    that an allowance or a rate applies) just because the marker's own sentence mentions it.
-   The Introduction's own sentence naming which accounts the report covers (it names each
-   account, so it needs a claim) is backed by the report instruction document's own scope
-   field (e.g. "Accounts covered") -- find that field's own paragraph and quote it, even
-   though its wording won't match the Introduction's own phrasing verbatim; that's still the
-   right source, not the meeting record.
+   **Never give a claim for the Introduction's sentence naming which accounts the report
+   covers**: code checks it against the ledger's scope, so it needs no source quote.
 2. **Action coverage.** For every entry in `actions`, say whether the Recommendations section
    covers it: `action_id` and, if covered, the exact quote from Recommendations that covers
    it (`report_quote: null` if you can't find it covered). Two different actions can never

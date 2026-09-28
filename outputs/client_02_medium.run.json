@@ -80,7 +80,7 @@
     {
       "gate": "G8",
       "passed": true,
-      "detail": ""
+      "detail": "1 of 3 judge samples disagreed: agreed action not covered: a1"
     },
     {
       "gate": "G2",
@@ -159,8 +159,8 @@
     {
       "stage": "write",
       "calls": 7,
-      "cache_hits": 6,
-      "live_calls": 1,
+      "cache_hits": 7,
+      "live_calls": 0,
       "tokens": {
         "input": 7112,
         "cached_input": 0,
@@ -168,7 +168,7 @@
         "reasoning": 472
       },
       "cost_usd": "0.0011332",
-      "latency_s": 5.839298625010997,
+      "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
       ],
@@ -183,27 +183,27 @@
     },
     {
       "stage": "release_judge",
-      "calls": 2,
-      "cache_hits": 0,
-      "live_calls": 2,
+      "calls": 3,
+      "cache_hits": 3,
+      "live_calls": 0,
       "tokens": {
-        "input": 5712,
-        "cached_input": 3522,
-        "output": 15008,
-        "reasoning": 12800
+        "input": 8648,
+        "cached_input": 6537,
+        "output": 26221,
+        "reasoning": 23926
       },
-      "cost_usd": "0.0080752",
-      "latency_s": 192.53378041717224,
+      "cost_usd": "0.0139753",
+      "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
-        "7d35c2380c7fe82862524cad71729ff4ff20e90d11118db40797b56d72004341"
+        "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db"
       ]
     }
   ],
-  "total_calls": 17,
-  "total_cache_hits": 14,
-  "total_live_calls": 3,
-  "total_cost_usd": "0.0113850"
+  "total_calls": 18,
+  "total_cache_hits": 18,
+  "total_live_calls": 0,
+  "total_cost_usd": "0.0172851"
 }

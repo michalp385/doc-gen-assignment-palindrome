@@ -181,27 +181,27 @@
     },
     {
       "stage": "release_judge",
-      "calls": 1,
-      "cache_hits": 1,
+      "calls": 4,
+      "cache_hits": 4,
       "live_calls": 0,
       "tokens": {
-        "input": 2554,
-        "cached_input": 1761,
-        "output": 4740,
-        "reasoning": 3940
+        "input": 10540,
+        "cached_input": 8110,
+        "output": 18916,
+        "reasoning": 15829
       },
-      "cost_usd": "0.0026254",
+      "cost_usd": "0.0105120",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
-        "7d35c2380c7fe82862524cad71729ff4ff20e90d11118db40797b56d72004341"
+        "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db"
       ]
     }
   ],
-  "total_calls": 13,
-  "total_cache_hits": 13,
+  "total_calls": 16,
+  "total_cache_hits": 16,
   "total_live_calls": 0,
-  "total_cost_usd": "0.0049742"
+  "total_cost_usd": "0.0128608"
 }

@@ -1,0 +1,65 @@
+{
+  "cost_usd": "0.0049819",
+  "input_hash": "c9cc1d4db72b227474fad84c16b4e8fe4125869754bea3397e6ad2ca7ec51250",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a345,000 to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "The amount used for the proposed top-up is approximately \u00a345,000.",
+        "paragraph_id": "p5",
+        "quote": "It was showing a little over \u00a345,000",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a345,000 to top up both David's and Susan's Stocks & Shares ISAs for the new tax year",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds are to be used to top up David's and Susan's Stocks & Shares ISAs for the new tax year.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a345,000 to top up both David's and Susan's Stocks & Shares ISAs for the new tax year",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The top-up is to be split equally between the two ISAs.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "split equally between the two ISAs.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The stated gross figure is before any capital gains tax.",
+        "paragraph_id": "p11",
+        "quote": "We noted that selling down the GIA is a disposal and may have a capital gains position to consider; I will set that out in the report for them.",
+        "report_quote": "This figure is gross before any CGT",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds become available once the disposal completes.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "becomes available once the disposal completes.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a345,000 to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2884,
+    "output_tokens": 9387,
+    "reasoning_tokens": 8804
+  }
+}

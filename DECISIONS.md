@@ -422,10 +422,13 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
 - **Built (a):** `majority_release_judge` runs `stages.release_judge.samples` independent
   `release_judge` passes, each with its own coverage re-ask, and each gate passes or fails by the
   majority, decided in code; a dissent is kept in a passing gate's detail. Each later sample has its
-  own cache key. The setting defaults to 1, and the shipped config is not switched to 3 yet: that
-  change carries a live refresh of clients 01 and 02's judge cache, at roughly three times the
-  judge stage's cost, so it waits for the user's go-ahead. Samples run one after another, so a
-  report's judge latency grows with the count.
+  own cache key. The setting defaults to 1; the shipped config now sets `release_judge.samples`
+  to 3, with the parked v2 judge prompt (the standard-wording and stale introduction rules), and
+  clients 01 and 02's judge cache was refreshed in one live run each. Both came out as drafts, and
+  client 02's replay now needs no live call (`tests/test_pipeline_replay_client_02.py`). A dissent
+  was outvoted and is recorded in `outputs/client_02_medium.run.json`. One sample per client is
+  thin evidence: the vote shrinks the judge's variance, it does not remove it. Samples run one
+  after another, so a report's judge latency grows with the count.
 - **Evidence:** `tests/test_g16_intro_scope.py`, `tests/test_g10_internal_filenames.py`; the parked
   run artefacts are in the session scratchpad, not the repo, and no results file exists for this.
 

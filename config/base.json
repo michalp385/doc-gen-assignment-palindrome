@@ -7,7 +7,7 @@
     "investigate": { "model": "gpt-6-luna", "reasoning_effort": "medium" },
     "plan": { "model": "gpt-6-luna", "reasoning_effort": "low" },
     "write": { "model": "gpt-6-luna", "reasoning_effort": "low" },
-    "release_judge": { "model": "gpt-6-luna", "reasoning_effort": "high" },
+    "release_judge": { "model": "gpt-6-luna", "reasoning_effort": "high", "samples": 3 },
     "eval_judge": { "model": "gpt-6-sol", "reasoning_effort": "high" }
   },
   "sections": [
