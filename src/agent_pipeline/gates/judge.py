@@ -29,6 +29,7 @@ from agent_pipeline.gates.deterministic import (
 )
 from agent_pipeline.ledger import Ledger
 from agent_pipeline.llm import LLMClient
+from agent_pipeline.reconcile.wrappers import type_aliases
 from agent_pipeline.sources.document import SourceDoc
 from agent_pipeline.write.table import build_table
 
@@ -240,13 +241,64 @@ def _coverage_scan_text(bundle: ReportBundle) -> str:
     return "\n\n".join(bundle.sections.values())
 
 
+def intro_scope_problems(intro_text: str, ledger: Ledger) -> list[str]:
+    """The Introduction's scope sentence, checked against the ledger in code (R2, R8): when it
+    names account types at all, it must name every in-scope type (a standard abbreviation
+    counts) and no type that is out of scope. Which accounts a report covers is decided in
+    code and handed to the writer, so this has a right answer -- the judge is not asked to
+    source it, a quote from the request's scope field that rarely matched the Introduction's
+    own wording. An introduction naming no account type states no scope to get wrong. A new
+    account has no type wording to find. Nothing to check without an Introduction."""
+    if not intro_text.strip():
+        return []
+    lowered = intro_text.lower()
+    words = set(re.findall(r"[a-z0-9']+", lowered))
+
+    def names(account_type: str) -> bool:
+        if account_type.lower() in lowered:
+            return True
+        return any(alias.lower() in words for alias in type_aliases(account_type))
+
+    in_scope = {a.type for a in ledger.accounts if a.in_scope and not a.is_new}
+    out_of_scope = {a.type for a in ledger.accounts if not a.in_scope} - in_scope
+    if not any(names(t) for t in in_scope | out_of_scope):
+        return []
+    problems = [
+        f"the introduction does not name the in-scope {t}" for t in sorted(in_scope) if not names(t)
+    ]
+    problems += [
+        f"the introduction names {t}, which is out of scope"
+        for t in sorted(out_of_scope)
+        if names(t)
+    ]
+    return problems
+
+
+def _scope_sentences(bundle: ReportBundle, ledger: Ledger) -> list[str]:
+    """The Introduction's sentences that only name accounts: no digit, figure or tax term. Their
+    accuracy is checked by `intro_scope_problems`, so they need no claim; one carrying a figure
+    or a tax term still does."""
+    return [
+        sentence.strip()
+        for sentence in split_sentences(bundle.sections.get("introduction", ""))
+        if sentence.strip()
+        and not re.search(r"\d", sentence)
+        and not MONEY_RE.search(sentence)
+        and not PERCENT_RE.search(sentence)
+        and not _TAX_TERM_RE.search(sentence)
+    ]
+
+
 def _uncovered_clauses(
-    report_text: str, ledger: Ledger, claims: list[JudgeMaterialClaim]
+    report_text: str,
+    ledger: Ledger,
+    claims: list[JudgeMaterialClaim],
+    exempt_sentences: frozenset[str] = frozenset(),
 ) -> list[str]:
     return [
         clause.strip()
         for sentence in split_sentences(report_text)
-        if not is_standard_wording(sentence, ledger)
+        if sentence.strip() not in exempt_sentences and not is_standard_wording(sentence, ledger)
         for clause in _clauses(sentence)
         if _requires_coverage(clause, ledger) and not _clause_covered(clause, claims)
     ]
@@ -259,8 +311,9 @@ def _check_g16(
     ledger: Ledger,
     sources: Mapping[str, SourceDoc],
 ) -> tuple[GateResult, RawJudgeVerdict]:
+    scope_sentences = frozenset(_scope_sentences(bundle, ledger))
     verified = _verify_claims(raw.material_claims, sources, bundle.report_text)
-    uncovered = _uncovered_clauses(_coverage_scan_text(bundle), ledger, verified)
+    uncovered = _uncovered_clauses(_coverage_scan_text(bundle), ledger, verified, scope_sentences)
 
     if uncovered:
         correction = "these clauses have no supporting claim yet, add one for each: " + "; ".join(
@@ -268,13 +321,15 @@ def _check_g16(
         )
         raw = model.judge(bundle, ledger, sources, [correction])
         verified = _verify_claims(raw.material_claims, sources, bundle.report_text)
-        uncovered = _uncovered_clauses(_coverage_scan_text(bundle), ledger, verified)
+        uncovered = _uncovered_clauses(
+            _coverage_scan_text(bundle), ledger, verified, scope_sentences
+        )
 
     # A claim the judge gives for required standard wording is ignored, not failed: that
     # wording has no source by design (`is_standard_wording`).
     standard = [
         s.strip() for s in split_sentences(bundle.report_text) if is_standard_wording(s, ledger)
-    ]
+    ] + sorted(scope_sentences)
     unsupported = [
         c
         for c in raw.material_claims
@@ -285,6 +340,9 @@ def _check_g16(
             GateResult("G16", False, f"unsupported claim(s): {[c.claim for c in unsupported]}"),
             raw,
         )
+    scope_problems = intro_scope_problems(bundle.sections.get("introduction", ""), ledger)
+    if scope_problems:
+        return GateResult("G16", False, f"introduction scope: {scope_problems}"), raw
     if uncovered:
         return GateResult("G16", False, f"uncovered clause(s): {uncovered}"), raw
     return GateResult("G16", True), raw

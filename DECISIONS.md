@@ -384,12 +384,21 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
 - **Alternatives:** keep re-running the judge (cherry-picks a verdict and proves nothing); accept
   failed generations as the committed outputs (hides the flaky component).
 - **Consequences / how it generalises:** on a held-out client the same flakiness would produce failed
-  generations that are not real failures. Follow-ups for "more time": a judge model that accepts
-  `temperature=0`; moving more of the judge's work into code or the gate design (D21 moves the
-  standard wording; the introduction-sentence coverage and the footnote wording are next); fixing the
-  footnote's raw filename in code, which needs a committed test updated.
-- **Evidence:** the parked run artefacts are in the session scratchpad, not the repo; no results file
-  exists for this yet.
+  generations that are not real failures. I am shrinking the judge's surface code-first, since any
+  decision with a right answer belongs in code: D21 moved the standard wording; the Introduction's
+  scope sentence is now checked against the ledger (`intro_scope_problems`) and needs no claim; and
+  G10 rejects an internal file name deterministically. What stays with the model is what has no
+  deterministic answer: whether a material claim about the client is supported by a source
+  paragraph (G16), which recommendation implements which agreed action (G8), a figure used in the
+  wrong role (G2), contingent money described as available (G7), a paraphrase of the static text
+  (G4), text that reads as lifted internal notes (G10's subjective half), a passage that does not
+  read grammatically (G12) and an aspiration presented as a recommendation (P6).
+- **Model check:** `config/models.json` records `temperature_accepted: false` for both `gpt-6-luna`
+  and `gpt-6-sol` (checked 2026-09-27), so no model available on this key accepts `temperature=0`.
+  I did not spend a live call re-checking it. Reducing reasoning effort on the judge stage is the
+  untested alternative; it would need a measured pass.
+- **Evidence:** `tests/test_g16_intro_scope.py`, `tests/test_g10_internal_filenames.py`; the parked
+  run artefacts are in the session scratchpad, not the repo, and no results file exists for this.
 
 ## What I would do with more time
 <!-- For production: what's missing, what you'd change in the pipeline and the agent setup,

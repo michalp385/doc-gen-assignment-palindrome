@@ -260,8 +260,17 @@ def _check_g9(bundle: ReportBundle, truth: Truth) -> GateResult:
     return GateResult("G9", True)
 
 
+# An internal file name ("client_data_db.json", "meeting_notes.docx"): system information, never
+# client-facing text. Whether one is present has a plain answer, so it is checked in code.
+INTERNAL_FILE_NAME_RE = re.compile(
+    r"\b[\w-]+\.(?:json|docx|md|png|jpe?g|pdf|csv|xlsx?)\b", re.IGNORECASE
+)
+
+
 def _check_g10(bundle: ReportBundle, truth: Truth) -> GateResult:
     """G10: internal guidance text never appears in the report (n-gram screen)."""
+    if match := INTERNAL_FILE_NAME_RE.search(bundle.report_text):
+        return GateResult("G10", False, f"internal file name in the report: {match.group(0)!r}")
     guidance_grams = word_ngrams(bundle.internal_guidance_text, 6)
     excluded = word_ngrams(bundle.meeting_text, 6) | word_ngrams(bundle.spec_text, 6)
     screened = guidance_grams - excluded
