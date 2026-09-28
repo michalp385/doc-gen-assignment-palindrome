@@ -86,6 +86,32 @@ def test_fill_tokens_keeps_the_qualifier_wording_in_prose():
     assert fill_tokens(text, ledger) == "Your ISA is currently worth c. £52,000."
 
 
+def test_fill_tokens_normalises_a_divergent_qualifier_to_c():
+    # T19, client 02's worked example: an approximate disposal value reads "c." in report
+    # prose too, same as the table (`render_table`), never the source's own qualifier
+    # wording ("a little over ..."), which only the account table's own footnote keeps
+    # (`write/table.py`, which calls `render_prose` directly). "circa" (above) happens to
+    # render "c." either way, which is why this only showed up once a genuinely divergent
+    # qualifier existed.
+    ledger = _ledger(
+        facts={
+            "action.a1.amount": Fact(
+                id="action.a1.amount",
+                kind="money",
+                description="the disposal proceeds",
+                value=_value(
+                    "a little over £45,000", amount=Decimal("45000"), qualifier="a_little_over"
+                ),
+                reportable=True,
+                transaction=True,
+                role="transaction",
+            )
+        }
+    )
+    text = "We will use {fact:action.a1.amount} to fund the top-up."
+    assert fill_tokens(text, ledger) == "We will use c. £45,000 to fund the top-up."
+
+
 def test_fill_tokens_raises_on_an_unknown_fact_id():
     ledger = _ledger()
     with pytest.raises(TokenError):
