@@ -46,14 +46,21 @@ starter path (`agent_pipeline/generate.py` + `document_formatter/`) is what runs
   `fill_tokens` and `table.py`'s `build_table` (P9) substitute from the ledger afterwards. The
   writer never sees a number.
 - `agent_pipeline/gates/`: `truth.py`'s `Truth` protocol (`ExpectedTruth` wraps expected facts,
-  `LedgerTruth` wraps a real run's ledger) and `deterministic.py`'s `run_gates(bundle, truth) ->
-  list[GateResult]` (T9: G1-G6, G9-G15, P6). The release judge (G7-judge-part, G8, G16, the
-  paraphrase/n-gram findings) is not built yet.
+  `LedgerTruth` wraps a real run's ledger); `deterministic.py`'s `run_gates(bundle, truth) ->
+  list[GateResult]` (T9: G1-G6, G9-G15, P6); `judge.py`'s `release_judge` (T15: G7-judge-part,
+  G8, G16 with its coverage re-ask, the paraphrase/n-gram findings), the pipeline's own stage-7
+  check, Luna by default; `release.py`'s `decide_release`.
 - `agent_pipeline/assemble.py`: outputs, review sheet, run summary; release state.
 - `document_formatter/formatting.py`: final markdown assembly. Protected, unchanged.
-- `report_eval/`: eval runner, expected-facts schema (`expected.py`), the deterministic stub writer
-  (`reference.py`, T9: builds a client's reference bundle straight from its expected facts, no LLM),
-  extraction scoring, judge rubric, results files, mutations, synthetic client generator (`synth/`).
+- `report_eval/`: `expected.py` (expected-facts schema), `reference.py` (T9: the deterministic
+  stub writer -- a client's reference bundle straight from its expected facts, no LLM),
+  `extraction_score.py` (precision/recall + per-label accuracy against `MeetingExtraction`),
+  `judge_rubric.py` + `config/prompts/eval_judge.md` (T17: Q1-Q5 on Sol, one call per report; Q6
+  is read off G14, never a judge call), `results.py` (the results-file schema), `run.py` (the
+  `report_eval.run` CLI -- scores whatever is already on disk under `--outputs-dir` against a
+  client's expected facts, never imports `agent_pipeline.pipeline`; one path for the baseline,
+  which fails G14/G15 by construction, and a real run). Mutations (T24) and the synthetic client
+  generator (`synth/`, T27) aren't built yet.
 
 ## Data flow
 1. `generate.py` loads the report config and the client folder.

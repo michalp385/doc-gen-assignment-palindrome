@@ -26,7 +26,9 @@ seen, because new clients arrive all the time.
 - Full gate: `bash scripts/check.sh` (format, lint, types, repo checks, offline tests). Same as CI.
 - Offline tests: `uv run pytest -q`. Live API tests: `uv run pytest -m live` (costs money; ask first).
 - Inspect a client's sources: `uv run python scripts/dump_client.py <client>`
-- Eval: <add once built>
+- Eval: `uv run python -m report_eval.run --clients <list|all> [--judge] [--fresh] [--stage-models
+  stage=model,…] [--outputs-dir <dir>]` — scores a client's report (from `outputs/` or a baseline
+  dir) against `eval/expected/<client>.json`; writes `eval/results/<timestamp>_<sha>.json`.
 
 ## Non-negotiables (mechanically checked where possible)
 - Every figure in the report is a source value or a deterministic calculation over source values,
