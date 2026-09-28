@@ -10,7 +10,7 @@
   },
   "stage": "classify",
   "usage": {
-    "cached_input_tokens": 0,
+    "cached_input_tokens": 1200,
     "input_tokens": 1203,
     "output_tokens": 43,
     "reasoning_tokens": 0

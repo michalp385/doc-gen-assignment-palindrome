@@ -1,15 +1,16 @@
 {
-  "cost_usd": "0.0010604",
+  "cost_usd": "0.0012424",
   "input_hash": "b5b56df1fe38a11ccba45b95d0199b80105ecbdaeb177c22948c3ed3883050dc",
   "model": "gpt-6-luna",
   "prompt_version": "4e0b34de0d820fdef13e07f584c43f6429642598ee763eab3fa479b60e987ae1",
   "response": {
     "accounts_mentioned": [
-      "jointly-held General Investment Account on the Holloway platform",
-      "GIA",
-      "David's Stocks & Shares ISAs",
-      "Susan's Stocks & Shares ISAs",
-      "ISAs"
+      "jointly-held General Investment Account",
+      "joint GIA",
+      "David's and Susan's Stocks & Shares ISAs",
+      "both ISAs",
+      "their ISAs",
+      "portfolio"
     ],
     "agreed_actions": [
       {
@@ -36,7 +37,7 @@
         "extent": "full",
         "extent_evidence": {
           "paragraph_id": "p7",
-          "text": "disinvest the joint GIA in full"
+          "text": "in full"
         },
         "quote": {
           "paragraph_id": "p7",
@@ -74,10 +75,10 @@
         "amount": null,
         "class_evidence": {
           "paragraph_id": "p7",
-          "text": "use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year"
+          "text": "use the proceeds"
         },
         "money_class": "proceeds",
-        "purpose": "use the proceeds to top up both David's and Susan's Stocks & Shares ISAs"
+        "purpose": "Top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs."
       }
     ],
     "objectives_and_circumstances": [
@@ -95,18 +96,24 @@
       },
       {
         "text": {
-          "paragraph_id": "p6",
-          "text": "We discussed the trade-offs and they decided they would rather simplify."
-        }
-      },
-      {
-        "text": {
           "paragraph_id": "p9",
           "text": "Neither has any income requirement from the portfolio at the moment."
         }
       }
     ],
-    "open_actions": [],
+    "open_actions": [
+      {
+        "blocking": false,
+        "blocking_evidence": {
+          "paragraph_id": "p10",
+          "text": "in the report rather than quote them from memory in the meeting."
+        },
+        "text": {
+          "paragraph_id": "p10",
+          "text": "I said I would confirm the exact figures in the report rather than quote them from memory in the meeting."
+        }
+      }
+    ],
     "value_observations": [
       {
         "account_reference": "jointly-held General Investment Account on the Holloway platform",
@@ -124,9 +131,9 @@
   },
   "stage": "extract",
   "usage": {
-    "cached_input_tokens": 0,
+    "cached_input_tokens": 2137,
     "input_tokens": 2549,
-    "output_tokens": 1611,
-    "reasoning_tokens": 706
+    "output_tokens": 1975,
+    "reasoning_tokens": 1034
   }
 }

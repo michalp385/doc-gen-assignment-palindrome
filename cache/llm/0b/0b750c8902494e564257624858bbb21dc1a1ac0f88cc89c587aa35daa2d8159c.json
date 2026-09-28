@@ -1,0 +1,21 @@
+{
+  "cost_usd": "0.0003084",
+  "input_hash": "18fbe932c8a1e62b4f5c8a79baa8da7d6653e55d7d6df00393d9f2d72fb04042",
+  "model": "gpt-6-luna",
+  "prompt_version": "eec587f16be966ed0c00ddb7b07ff8fc0c6894e5ef8efaba83db040e9f073f69",
+  "response": {
+    "paragraphs": [
+      "We recommend disinvesting the joint GIA in full.",
+      "We recommend using the gross proceeds of {fact:action.a1.amount} to top up David's and Susan's Stocks & Shares ISAs for the new tax year, split equally.",
+      "This figure is gross and becomes available, before any CGT, once the disposal completes.",
+      "ISA top-up amounts within the remaining allowances, and where any excess goes"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1224,
+    "output_tokens": 372,
+    "reasoning_tokens": 274
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "cost_usd": "0.0030517",
+  "input_hash": "904952f02a4a3d3a264c9ad85316349fcb8a39751e5d3ca325291ba8c14398f5",
+  "model": "gpt-6-luna",
+  "prompt_version": "d1b1c50c971d892da172bf62dd69073818d02226caba1fa0556d8f709ae6b81f",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA in full and using the gross proceeds of c. \u00a345,000 to top up David\u2019s and Susan\u2019s Stocks & Shares ISAs for the new tax year, split equally between them."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "The joint GIA was showing a value of approximately \u00a345,000.",
+        "paragraph_id": "p5",
+        "quote": "It was showing a little over \u00a345,000, which is up from where it had been earlier in the year when we last looked at the statements.",
+        "report_quote": "c. \u00a345,000",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report recommends disinvesting the joint GIA in full.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "disinvesting the joint GIA in full",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report recommends using the proceeds to top up both ISAs for the new tax year.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "using the gross proceeds of c. \u00a345,000 to top up David\u2019s and Susan\u2019s Stocks & Shares ISAs for the new tax year",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The ISA top-up is to be split equally.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "split equally between them",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The disposal may create a capital gains tax liability.",
+        "paragraph_id": "p11",
+        "quote": "We noted that selling down the GIA is a disposal and may have a capital gains position to consider; I will set that out in the report for them.",
+        "report_quote": "the disposal may create a capital gains tax liability",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA in full and using the gross proceeds of c. \u00a345,000 to top up David\u2019s and Susan\u2019s Stocks & Shares ISAs for the new tax year, split equally between them."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1566,
+    "input_tokens": 2612,
+    "output_tokens": 5581,
+    "reasoning_tokens": 4881
+  }
+}

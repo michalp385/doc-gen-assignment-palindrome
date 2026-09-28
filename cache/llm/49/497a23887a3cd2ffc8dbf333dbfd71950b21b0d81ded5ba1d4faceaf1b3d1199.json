@@ -1,0 +1,57 @@
+{
+  "cost_usd": "0.030414",
+  "input_hash": "7ab0368115516d2feb30adecbc022c17a35d1798bfb79f37b7b99eaff4227d5a",
+  "model": "gpt-6-sol",
+  "prompt_version": "f20296886939b866ac7d52f8edfc3e8882390be2fd16c2c83db2b67083169764",
+  "response": {
+    "findings": [
+      {
+        "criterion": "Q1",
+        "detail": "The Recommendations section says what to do but omits why the clients want the change: to simplify their holdings. The additional historical value also makes the Background & Objectives section less high-level than the specification asks.",
+        "report_quote": [
+          "We recommend disinvesting the joint GIA in full. We recommend using the gross proceeds of c. \u00a345,000 to top up David\u2019s and Susan\u2019s Stocks & Shares ISAs equally for the new tax year.",
+          "your joint General Investment Account: previously shown in our records (15 March) at \u00a340,000."
+        ],
+        "score": 2
+      },
+      {
+        "criterion": "Q2",
+        "detail": "The meeting note records an indicative value seen during the meeting, not a confirmed sale price. Saying that this figure becomes available on disposal is more definite than the source warrants, although the preceding \u2018c.\u2019 signals that the amount is approximate.",
+        "report_quote": [
+          "This figure is gross and becomes available, before any CGT, once the disposal completes."
+        ],
+        "score": 3
+      },
+      {
+        "criterion": "Q3",
+        "detail": "The report treats the GIA as jointly held, uses the meeting discussion for the proposed action and does not reproduce the internal handling notes.",
+        "report_quote": [],
+        "score": 5
+      },
+      {
+        "criterion": "Q4",
+        "detail": "The lower-case sentence fragment interrupts the background section, and the repeated \u2018We recommend\u2019 is needless. The rest is generally understandable.",
+        "report_quote": [
+          "your joint General Investment Account: previously shown in our records (15 March) at \u00a340,000.",
+          "We recommend the following:\n\nWe recommend disinvesting the joint GIA in full."
+        ],
+        "score": 3
+      },
+      {
+        "criterion": "Q5",
+        "detail": "The tax marker identifies the missing item but should name the joint Holloway GIA disposal so it is specific on its own. The two charge-rate markers identify what needs confirming.",
+        "report_quote": [
+          "[ADVISER TO CONFIRM #3: capital gains tax on the disposal]"
+        ],
+        "score": 4
+      }
+    ]
+  },
+  "stage": "eval_judge",
+  "usage": {
+    "cached_input_tokens": 1124,
+    "input_tokens": 2772,
+    "output_tokens": 2487,
+    "reasoning_tokens": 2070
+  }
+}

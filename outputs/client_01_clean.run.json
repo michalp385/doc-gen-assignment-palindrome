@@ -121,11 +121,11 @@
       "live_calls": 0,
       "tokens": {
         "input": 5162,
-        "cached_input": 0,
-        "output": 199,
+        "cached_input": 3318,
+        "output": 206,
         "reasoning": 0
       },
-      "cost_usd": "0.0006157",
+      "cost_usd": "0.0006192",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -141,11 +141,11 @@
       "live_calls": 0,
       "tokens": {
         "input": 2888,
-        "cached_input": 0,
-        "output": 1237,
-        "reasoning": 494
+        "cached_input": 2453,
+        "output": 1326,
+        "reasoning": 607
       },
-      "cost_usd": "0.0009073",
+      "cost_usd": "0.0009518",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -157,26 +157,26 @@
     },
     {
       "stage": "write",
-      "calls": 6,
-      "cache_hits": 6,
+      "calls": 5,
+      "cache_hits": 5,
       "live_calls": 0,
       "tokens": {
-        "input": 5749,
-        "cached_input": 0,
-        "output": 610,
-        "reasoning": 319
+        "input": 5163,
+        "cached_input": 2275,
+        "output": 523,
+        "reasoning": 255
       },
-      "cost_usd": "0.0008799",
+      "cost_usd": "0.0007778",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
         "504468ee89696fcaf8b3624d1d31b81fb0edce8faf54a8bffacd6e5373789944",
+        "5b6572803a7b9f8b6043d7bd4a43c1ca5f2678dbf237aa6e2de6ade291aa0775",
         "6853b20978571e226ed94b30e6eab663eda7a6195ced94176864e0168f8612de",
-        "ba2848825ed196548bb5567ff22df050679a307bc3566b828246331bb4a11adc",
-        "dd855ff3a9a79c59e791c0aa8f6ee2c311bf90e975e417790b871d4953e846ff",
-        "fff94325a38983005e6df88f9aa13a827f3aafeebc83e45f5e060fc3877ba96b"
+        "710aacb251745659106594df4ec6f0e4956cf31fbbd8fb194fabbf8a5f099351",
+        "ba2848825ed196548bb5567ff22df050679a307bc3566b828246331bb4a11adc"
       ]
     },
     {
@@ -185,23 +185,23 @@
       "cache_hits": 1,
       "live_calls": 0,
       "tokens": {
-        "input": 2346,
-        "cached_input": 0,
-        "output": 5752,
-        "reasoning": 4581
+        "input": 2554,
+        "cached_input": 1761,
+        "output": 4740,
+        "reasoning": 3940
       },
-      "cost_usd": "0.0031106",
+      "cost_usd": "0.0026254",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
-        "d1b1c50c971d892da172bf62dd69073818d02226caba1fa0556d8f709ae6b81f"
+        "7d35c2380c7fe82862524cad71729ff4ff20e90d11118db40797b56d72004341"
       ]
     }
   ],
-  "total_calls": 14,
-  "total_cache_hits": 14,
+  "total_calls": 13,
+  "total_cache_hits": 13,
   "total_live_calls": 0,
-  "total_cost_usd": "0.0055135"
+  "total_cost_usd": "0.0049742"
 }

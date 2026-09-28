@@ -1,18 +1,18 @@
 {
-  "cost_usd": "0.0001171",
+  "cost_usd": "0.0001206",
   "input_hash": "14a0dccecbd4ee427052d06275db0c3d34e6a7bbbde871cabf7ec20564e50037",
   "model": "gpt-6-luna",
   "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
   "response": {
     "confidence": 0.99,
-    "evidence_quote": "Sent to all advised clients on the Holloway platform.",
+    "evidence_quote": "Sent to all advised clients on the Holloway platform. This note is general market commentary",
     "role": "general_document"
   },
   "stage": "classify",
   "usage": {
     "cached_input_tokens": 0,
     "input_tokens": 991,
-    "output_tokens": 36,
+    "output_tokens": 43,
     "reasoning_tokens": 0
   }
 }

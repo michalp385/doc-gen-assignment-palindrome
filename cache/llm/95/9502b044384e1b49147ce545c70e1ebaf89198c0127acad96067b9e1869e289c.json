@@ -1,0 +1,60 @@
+{
+  "cost_usd": "0.031604",
+  "input_hash": "cae2fe58c990607d8b1fdbe3991e8b7b765239d9ca86a806783d396b3faf1525",
+  "model": "gpt-6-sol",
+  "prompt_version": "f20296886939b866ac7d52f8edfc3e8882390be2fd16c2c83db2b67083169764",
+  "response": {
+    "findings": [
+      {
+        "criterion": "Q1",
+        "detail": "The recommendation does not explicitly tell the clients to sell the joint GIA in full or explain that they wanted to simplify their holdings. The historical valuation also adds unnecessary detail to a section the specification says to keep high-level.",
+        "report_quote": [
+          "We recommend using the gross proceeds of c. \u00a345,000 to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+          "Your joint General Investment Account was previously shown in our records (15 March) as \u00a340,000."
+        ],
+        "score": 2
+      },
+      {
+        "criterion": "Q2",
+        "detail": "The meeting note describes a live account value of a little over \u00a345,000, not confirmed disposal proceeds. Calling that figure the gross proceeds gives it slightly more certainty than the source warrants.",
+        "report_quote": [
+          "We recommend using the gross proceeds of c. \u00a345,000 to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs. This figure is gross before any CGT and becomes available once the disposal completes."
+        ],
+        "score": 3
+      },
+      {
+        "criterion": "Q3",
+        "detail": "The report appears to use the more recent meeting figure rather than the older recorded value, but does not date the approximate \u00a345,000 valuation. The handling notes call for attention to the dates of figures drawn from sources produced at different times. No internal guidance wording is leaked.",
+        "report_quote": [
+          "| H-GIA-J | David Clarke & Susan Clarke | General Investment Account | c. \u00a345,000 |"
+        ],
+        "score": 4
+      },
+      {
+        "criterion": "Q4",
+        "detail": "The repeated opening is unnecessary, and \u2018CGT\u2019 appears before the report spells out capital gains tax. Otherwise the language is largely clear.",
+        "report_quote": [
+          "We recommend the following:\n\nWe recommend using the gross proceeds of c. \u00a345,000",
+          "This figure is gross before any CGT"
+        ],
+        "score": 4
+      },
+      {
+        "criterion": "Q5",
+        "detail": "Both markers identify the topic but could be more actionable: #3 should identify the joint Holloway GIA disposal, and #4 should name David\u2019s and Susan\u2019s respective ISAs so the amounts to confirm are unambiguous.",
+        "report_quote": [
+          "[ADVISER TO CONFIRM #3: capital gains tax on the disposal]",
+          "[ADVISER TO CONFIRM #4: ISA top-up amounts within the remaining allowances, and where any excess goes]"
+        ],
+        "score": 4
+      }
+    ]
+  },
+  "stage": "eval_judge",
+  "usage": {
+    "cached_input_tokens": 1124,
+    "input_tokens": 2817,
+    "output_tokens": 2597,
+    "reasoning_tokens": 2070
+  }
+}

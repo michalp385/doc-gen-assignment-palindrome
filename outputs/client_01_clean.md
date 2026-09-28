@@ -8,7 +8,7 @@ This firm is authorised and regulated by the Financial Conduct Authority.
 
 ## Background & Objectives
 
-Margaret is retired and confirmed that her circumstances and objectives remain unchanged since her previous review. She remains comfortable with the agreed moderate approach to risk and is satisfied with the portfolio’s performance. She would like to use her ISA allowance by moving cash held on deposit into her Stocks & Shares ISA. She does not currently require income from her portfolio and does not expect this to change in the near term.
+Margaret is retired and confirmed that her circumstances and objectives are unchanged since her last review. She remains comfortable with the previously agreed moderate approach to risk and is happy with the portfolio’s performance. She would like to use her ISA allowance by moving some cash from her Holloway cash account into her Stocks & Shares ISA. She has no current income requirement from the portfolio and does not expect this to change in the near term.
 
 Your agreed risk profile is 4 (moderate).
 
@@ -26,7 +26,9 @@ We recommend moving £20,000 from the cash account into the Stocks & Shares ISA,
 
 ## Fees & Charges
 
-An ongoing platform charge and an ongoing advice charge apply to your investments. The platform charge rate for Holloway is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway]. The ongoing advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate].
+An ongoing platform charge applies to your investments. The platform charge rate for Holloway is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
+
+An ongoing advice charge also applies to your investments. The ongoing advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate].
 
 The initial charge that applies is 0%.
 

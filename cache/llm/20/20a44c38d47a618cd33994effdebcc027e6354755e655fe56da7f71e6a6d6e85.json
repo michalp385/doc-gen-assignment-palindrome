@@ -1,5 +1,5 @@
 {
-  "cost_usd": "0.0008336",
+  "cost_usd": "0.0008771",
   "input_hash": "680b64a63a915040e63fe6312617e61c04ba2c0650d1028f73f129951ebf1f00",
   "model": "gpt-6-luna",
   "prompt_version": "4e0b34de0d820fdef13e07f584c43f6429642598ee763eab3fa479b60e987ae1",
@@ -72,7 +72,7 @@
       {
         "text": {
           "paragraph_id": "p4",
-          "text": "Her main point for the meeting was that she has cash sitting on deposit in her Holloway cash account and would like to use this year's ISA allowance by moving some of it into her Stocks & Shares ISA."
+          "text": "her Holloway cash account and would like to use this year's ISA allowance by moving some of it into her Stocks & Shares ISA."
         }
       },
       {
@@ -87,7 +87,7 @@
         "blocking": false,
         "blocking_evidence": {
           "paragraph_id": "p8",
-          "text": "once the report is issued."
+          "text": "once the report is issued"
         },
         "text": {
           "paragraph_id": "p8",
@@ -99,9 +99,9 @@
   },
   "stage": "extract",
   "usage": {
-    "cached_input_tokens": 0,
+    "cached_input_tokens": 2453,
     "input_tokens": 2456,
-    "output_tokens": 1176,
-    "reasoning_tokens": 480
+    "output_tokens": 1263,
+    "reasoning_tokens": 591
   }
 }

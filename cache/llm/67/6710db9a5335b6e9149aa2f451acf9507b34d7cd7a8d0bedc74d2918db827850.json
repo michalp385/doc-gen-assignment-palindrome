@@ -1,0 +1,134 @@
+{
+  "cost_usd": "0.0040250",
+  "input_hash": "40ca4aa8ee27d24d8fe5b37850941066d466a7a6367917b7b9d7b543a5511850",
+  "model": "gpt-6-luna",
+  "prompt_version": "d1b1c50c971d892da172bf62dd69073818d02226caba1fa0556d8f709ae6b81f",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA in full and, once the disposal completes, using the gross proceeds of c. \u00a345,000, before any CGT, to top up David\u2019s and Susan\u2019s Stocks & Shares ISAs for the new tax year, split equally between them."
+      }
+    ],
+    "findings": [
+      {
+        "detail": "The client-data filename and raw dated value read like internal data or adviser-facing metadata rather than client-facing report text.",
+        "gate": "G10",
+        "quote": "H-GIA-J: client_data_db.json, 2026-03-15: \u00a340,000."
+      }
+    ],
+    "material_claims": [
+      {
+        "claim": "The report concerns David's Stocks & Shares ISA.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "David's Stocks & Shares ISA",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report concerns the clients' General Investment Account.",
+        "paragraph_id": "p4",
+        "quote": "The main item was their jointly-held General Investment Account on the Holloway platform. David had been watching it and noted it had recovered well over the spring.",
+        "report_quote": "your General Investment Account",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report concerns Susan's Stocks & Shares ISA.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "Susan's Stocks & Shares ISA",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The clients remain comfortable with a balanced approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Both are now retired. They confirmed their objectives and circumstances are unchanged since the last review, and both remain comfortable with the balanced approach to risk we agreed.",
+        "report_quote": "balanced approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The joint GIA is valued at approximately \u00a345,000.",
+        "paragraph_id": "p5",
+        "quote": "I pulled the account up live during the meeting. It was showing a little over \u00a345,000, which is up from where it had been earlier in the year when we last looked at the statements.",
+        "report_quote": "c. \u00a345,000",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The clients do not currently need income from the portfolio.",
+        "paragraph_id": "p9",
+        "quote": "Neither has any income requirement from the portfolio at the moment.",
+        "report_quote": "They do not currently need income from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The recommendation is to disinvest the joint GIA in full.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "We recommend disinvesting the joint GIA in full",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The recommendation is to use approximately \u00a345,000 of gross proceeds after the disposal completes.",
+        "paragraph_id": "p5",
+        "quote": "I pulled the account up live during the meeting. It was showing a little over \u00a345,000, which is up from where it had been earlier in the year when we last looked at the statements.",
+        "report_quote": "using the gross proceeds of c. \u00a345,000",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report says the proceeds are before any CGT.",
+        "paragraph_id": "p11",
+        "quote": "We noted that selling down the GIA is a disposal and may have a capital gains position to consider; I will set that out in the report for them.",
+        "report_quote": "before any CGT",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds are to top up David's and Susan's Stocks & Shares ISAs for the new tax year.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "to top up David\u2019s and Susan\u2019s Stocks & Shares ISAs for the new tax year",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The ISA top-up is to be split equally between them.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "split equally between them",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The disposal may create a capital gains tax liability.",
+        "paragraph_id": "p11",
+        "quote": "We noted that selling down the GIA is a disposal and may have a capital gains position to consider; I will set that out in the report for them.",
+        "report_quote": "the disposal may create a capital gains tax liability",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report mentions confirming the ongoing charges.",
+        "paragraph_id": "p10",
+        "quote": "Susan asked what the ongoing charges would look like after the change. I said I would confirm the exact figures in the report rather than quote them from memory in the meeting.",
+        "report_quote": "An ongoing platform charge and an ongoing advice charge apply to your investments.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The adviser is to confirm the capital gains tax position on the disposal.",
+        "paragraph_id": "p11",
+        "quote": "We noted that selling down the GIA is a disposal and may have a capital gains position to consider; I will set that out in the report for them.",
+        "report_quote": "[ADVISER TO CONFIRM #3: capital gains tax on the disposal]",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA in full and, once the disposal completes, using the gross proceeds of c. \u00a345,000, before any CGT, to top up David\u2019s and Susan\u2019s Stocks & Shares ISAs for the new tax year, split equally between them."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1566,
+    "input_tokens": 2740,
+    "output_tokens": 7502,
+    "reasoning_tokens": 6154
+  }
+}

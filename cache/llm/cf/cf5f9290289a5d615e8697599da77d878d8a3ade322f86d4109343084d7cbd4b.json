@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001891",
+  "input_hash": "8c68ebc8ceeb33a1c32adf3c09a1b7b33423ab58688ee0742336b184087bc213",
+  "model": "gpt-6-luna",
+  "prompt_version": "504468ee89696fcaf8b3624d1d31b81fb0edce8faf54a8bffacd6e5373789944",
+  "response": {
+    "paragraphs": [
+      "They are retired and confirmed that their objectives and circumstances remain unchanged since the last review. They remain comfortable with the agreed balanced approach to risk, but have decided they would prefer to simplify their arrangements. They do not currently need income from the portfolio."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1156,
+    "output_tokens": 147,
+    "reasoning_tokens": 81
+  }
+}

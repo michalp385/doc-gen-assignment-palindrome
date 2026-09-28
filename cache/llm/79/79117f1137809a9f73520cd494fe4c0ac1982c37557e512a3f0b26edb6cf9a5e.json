@@ -1,0 +1,55 @@
+{
+  "cost_usd": "0.016228",
+  "input_hash": "a48c9219d910f167c710c490f66ccd3e7eb472e892633d8156abf17ba2f68f48",
+  "model": "gpt-6-sol",
+  "prompt_version": "f20296886939b866ac7d52f8edfc3e8882390be2fd16c2c83db2b67083169764",
+  "response": {
+    "findings": [
+      {
+        "criterion": "Q1",
+        "detail": "The recommendation gives the action and amount but does not explain why it is suitable. The ISA-allowance objective appears in the background, so the reader is unlikely to be misled, but the Recommendations section does not fully meet its brief.",
+        "report_quote": [
+          "We recommend moving \u00a320,000 from the cash account into the Stocks & Shares ISA, as agreed."
+        ],
+        "score": 3
+      },
+      {
+        "criterion": "Q2",
+        "detail": "The meeting note says Margaret was happy that the portfolio had performed in line with the agreed approach. The report broadens this slightly into satisfaction with its performance generally.",
+        "report_quote": [
+          "She remains comfortable with the previously agreed moderate approach to risk and is happy with the portfolio\u2019s performance."
+        ],
+        "score": 4
+      },
+      {
+        "criterion": "Q3",
+        "detail": "The report leaves the ongoing charge rates for adviser confirmation, does not expose the internal handling notes, and retains the FCA line.",
+        "report_quote": [],
+        "score": 5
+      },
+      {
+        "criterion": "Q4",
+        "detail": "The background switches from describing Margaret in the third person to addressing her directly. The recommendation also repeats its introductory wording unnecessarily.",
+        "report_quote": [
+          "Margaret is retired and confirmed that her circumstances and objectives are unchanged since her last review.",
+          "Your agreed risk profile is 4 (moderate).",
+          "We recommend the following:\n\nWe recommend moving \u00a320,000 from the cash account into the Stocks & Shares ISA, as agreed."
+        ],
+        "score": 4
+      },
+      {
+        "criterion": "Q5",
+        "detail": "Both markers name the specific ongoing charge rate needing confirmation; the platform marker also names Holloway.",
+        "report_quote": [],
+        "score": 5
+      }
+    ]
+  },
+  "stage": "eval_judge",
+  "usage": {
+    "cached_input_tokens": 1124,
+    "input_tokens": 2719,
+    "output_tokens": 1079,
+    "reasoning_tokens": 733
+  }
+}

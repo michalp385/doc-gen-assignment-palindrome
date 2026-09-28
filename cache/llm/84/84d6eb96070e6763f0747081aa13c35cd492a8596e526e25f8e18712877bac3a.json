@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001750",
+  "input_hash": "225d452da7bd5ae0f24fd82360625ac4ea31658d55ac4044ca077aaebd5f3dc2",
+  "model": "gpt-6-luna",
+  "prompt_version": "fff94325a38983005e6df88f9aa13a827f3aafeebc83e45f5e060fc3877ba96b",
+  "response": {
+    "paragraphs": [
+      "we cover your Stocks & Shares ISA and General Investment Account held with Holloway"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 995,
+    "output_tokens": 151,
+    "reasoning_tokens": 119
+  }
+}

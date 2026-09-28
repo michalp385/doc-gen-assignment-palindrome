@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001732",
+  "input_hash": "04247d57073990497b1c64fcba627d815290cad3a5ae6587c918b0922b8b6e9a",
+  "model": "gpt-6-luna",
+  "prompt_version": "dd855ff3a9a79c59e791c0aa8f6ee2c311bf90e975e417790b871d4953e846ff",
+  "response": {
+    "paragraphs": [
+      "We recommend disinvesting the joint GIA in full and using the proceeds, {fact:action.a1.amount}, to top up David\u2019s and Susan\u2019s Stocks & Shares ISAs for the new tax year, split equally between them."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 932,
+    "output_tokens": 160,
+    "reasoning_tokens": 95
+  }
+}
