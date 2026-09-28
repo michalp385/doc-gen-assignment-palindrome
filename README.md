@@ -24,9 +24,14 @@ Options: `--data-dir`, `--config` (default `config/template_config.json`), `--ou
 
 **The committed cache.** Every model call is cached under `cache/llm/`, keyed on the model, stage
 settings, prompt text, output schema and inputs, and the cache is committed. So a default run of a
-client that already has cache entries is a **replay**: it makes no API call, costs nothing, and
-reproduces the committed outputs exactly. Every run prints and records how many calls were cache
-hits and how many were live, so a replay is never mistaken for a fresh generation.
+client that already has cache entries is a **replay**: it makes no API call and adds nothing to
+your bill, and it reaches the same decisions and the same report text as the committed run. The
+cost it prints is the *recorded* cost of the original calls, not a new charge. Every run prints
+and records how many calls were cache hits and how many were live, so a replay is never mistaken
+for a fresh generation; a committed run that was partly live shows that split in its own
+`review.md` and `run.json`, which a full replay would report as all cache hits. Any change to a
+prompt, schema, stage setting or input changes the cache key, so the run goes live and costs
+money until its entries are refreshed.
 
 **`--fresh`** bypasses the cache, calls the API and rewrites the cache entries. It costs money;
 check the model prices in `config/models.json` first and ask before a batch. `--estimate` is
@@ -61,11 +66,14 @@ uv run python -m report_eval.run --clients all --outputs-dir outputs/baseline   
 ```
 
 The eval scores the reports already on disk against each client's hand-derived expected facts in
-`eval/expected/<client>.json` (the deterministic gates G1-G16 and the quality criteria); it does
-not run the pipeline. `--judge` adds a model judge (paid). `--stage-models stage=model,...`
-overrides a stage's model for an experiment.
+`eval/expected/<client>.json` (the deterministic gates G1-G6, G9-G15 and P6; the release judge's
+gates G7, G8 and G16 run inside the pipeline, not here); it does not run the pipeline. It does
+re-run the source classification and meeting extraction to score extraction, through the cache,
+so a run without `--judge` can still make paid calls on a cache miss. `--judge` adds the quality
+judge (paid). `--stage-models stage=model,...` overrides a stage's model for an experiment.
 
-Each run writes `eval/results/<timestamp>_<commit>.json`, which records the commit, config and
+Each run writes `eval/results/<timestamp>_<commit>.json` (`-dirty` is appended to the commit when
+the tree has uncommitted changes), which records the commit, config and
 prompt versions, models, per-client gate outcomes, judge scores, extraction scores, token usage,
 cache hits, live calls, cost per client and the group summaries (issued rate, release-state match
 rate, wrongly issued, cost per report). **Any number quoted in the docs is read from a results
@@ -87,6 +95,11 @@ For a client `<client>`, `outputs/` holds:
 | `<client>.ledger.json` | The **facts ledger**: every fact with its source, date and the rule that selected it, plus accounts, money items, actions, markers, review items and section decisions. The table, the figures and the markers in the report are all read from it. |
 | `<client>.run.json` | The **run summary**: release state, every gate result, per-stage calls, cache hits vs live calls, and cost. |
 | `outputs/baseline/` | The starter pipeline's reports, kept as the baseline the eval measures progress against. |
+
+When a run stops before reconciliation (no readable account data, no report instruction, a scope
+that is missing or "TBC", and similar), only the failure file, a minimal review sheet and a minimal
+run summary are written, and any earlier draft *and ledger* are removed. A failure after a draft
+exists shows that draft and the failing gates in `<client>.failed.md`.
 
 A per-call trace is written to `runs/<run_id>/trace.jsonl` (not committed). The design also calls
 for a per-stage record folder next to the outputs; it is not written yet.

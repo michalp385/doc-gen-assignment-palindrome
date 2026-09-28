@@ -60,8 +60,8 @@ outputs: their prompts and live verification are still to do.
   faked `ReportBundle`) -- with ≤2 repair rounds before `WriterStopError`. `tokens.py`'s
   `fill_tokens` and `table.py`'s `build_table` (P9) substitute from the ledger afterwards. The
   writer never sees a number.
-- `agent_pipeline/gates/`: `truth.py`'s `Truth` protocol (`ExpectedTruth` wraps expected facts,
-  `LedgerTruth` wraps a real run's ledger; `tangent_subjects` and `footnote_only_figures` are
+- `agent_pipeline/gates/`: `truth.py`'s `Truth` protocol (`LedgerTruth` wraps a real run's ledger;
+  `report_eval/truth.py`'s `ExpectedTruth` wraps a client's expected facts; `tangent_subjects` and `footnote_only_figures` are
   optional capabilities the gates read with `getattr`); `deterministic.py`'s `run_gates(bundle,
   truth) -> list[GateResult]` (T9: G1-G6, G9-G15, P6; G2 also rejects a superseded value anywhere
   but the table's footnote); `judge.py`'s `release_judge` (T15: G7-judge-part,
