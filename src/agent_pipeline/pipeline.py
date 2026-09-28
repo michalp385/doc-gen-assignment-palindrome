@@ -35,25 +35,43 @@ from agent_pipeline.ledger import (
     Action,
     ExcludedItem,
     Ledger,
+    MoneyItem,
     Value,
     number_markers,
+    render_date,
     render_table,
 )
 from agent_pipeline.llm import LLMClient, OpenAITransport, Transport
 from agent_pipeline.reconcile.facts import build_facts
-from agent_pipeline.reconcile.limits import limit_review_item
-from agent_pipeline.reconcile.markers import required_markers
+from agent_pipeline.reconcile.limits import (
+    check_limits,
+    limit_marker,
+    limit_review_item,
+    resolve_prior_use,
+)
+from agent_pipeline.reconcile.markers import cgt_marker, required_markers
+from agent_pipeline.reconcile.money import classify_money
 from agent_pipeline.reconcile.ownership import resolve_ownership
 from agent_pipeline.reconcile.predicates import evaluate
+from agent_pipeline.reconcile.refs import accounts_matching_reference
 from agent_pipeline.reconcile.review import ReviewItemInput, build_review_items, marker_review_items
 from agent_pipeline.reconcile.scope import resolve_scope
 from agent_pipeline.reconcile.sections import Disposal as SectionDisposal
 from agent_pipeline.reconcile.sections import SectionContext
-from agent_pipeline.reconcile.values import check_image_row, match_image_row, select_values
+from agent_pipeline.reconcile.values import (
+    check_image_row,
+    match_image_row,
+    select_values,
+    superseded_values,
+)
 from agent_pipeline.reconcile.wrappers import classify_wrapper
 from agent_pipeline.sources.adapters.docx import read_docx
 from agent_pipeline.sources.adapters.image import read_image
-from agent_pipeline.sources.adapters.json_accounts import AccountDataError, read_accounts
+from agent_pipeline.sources.adapters.json_accounts import (
+    AccountDataError,
+    AccountRecord,
+    read_accounts,
+)
 from agent_pipeline.sources.adapters.markdown import read_markdown
 from agent_pipeline.sources.classify import (
     ClassificationResult,
@@ -181,11 +199,96 @@ def _build_excluded(excluded_items, meeting_source_id: str) -> list[ExcludedItem
     ]
 
 
+def _classify_disposals(
+    disposals,
+    meeting_money_items,
+    accounts: list[Account],
+    meeting_source_id: str,
+) -> tuple[list[SectionDisposal], list[MoneyItem], dict[str, Value]]:
+    """P5, G5/P7: matches each meeting disposal to one account by type wording (R3's own
+    convention), builds its `SectionDisposal` (G5's predicate reads only the wrapper class)
+    and its proceeds `MoneyItem` (`classify_money`, counted only when the disposal is full
+    and a "proceeds"-classified money item shows the sources state where the money goes --
+    that's what "destination known" means here, distinct from the *amount sold*, which is
+    always the disposed account's own R3-selected value, never a second re-extracted
+    figure). Returns the disposed accounts' counted proceeds by account id, for
+    `_apply_proceeds_to_actions` to fund an action's fact from."""
+    matches = [
+        (d, m[0])
+        for d in disposals
+        for m in [accounts_matching_reference(d.account_reference, accounts)]
+        if len(m) == 1
+    ]
+    section_disposals = [
+        SectionDisposal(wrapper_class=classify_wrapper(account.type).wrapper_class)
+        for _, account in matches
+    ]
+    destination_known = any(mi.money_class == "proceeds" for mi in meeting_money_items)
+    money_items: list[MoneyItem] = []
+    proceeds_by_account: dict[str, Value] = {}
+    for disposal, account in matches:
+        if account.value is None:
+            continue
+        result = classify_money(account.value, disposal.extent, destination_known)
+        money_items.append(
+            MoneyItem.model_validate(
+                {
+                    "id": f"m{len(money_items) + 1}",
+                    "class": "proceeds",
+                    "amount": result.amount,
+                    "counted": result.counted,
+                    "reason": result.reason,
+                    "quote": disposal.quote.text,
+                    "source_id": meeting_source_id,
+                }
+            )
+        )
+        if result.counted and result.amount is not None:
+            proceeds_by_account[account.id] = result.amount
+    return section_disposals, money_items, proceeds_by_account
+
+
+def _apply_proceeds_to_actions(
+    actions: list[Action],
+    action_amounts: dict[str, Value],
+    accounts: list[Account],
+    proceeds_by_account: dict[str, Value],
+) -> set[str]:
+    """P5: funds an action's fact from a disposal's own counted proceeds, never a
+    separately re-extracted quote -- the agreed-action sentence often states no figure at
+    all (client 02's doesn't). Mutates `action_amounts` in place (matching `_build_actions`'
+    own dict, which the caller already owns); only fills an action with no amount yet, and
+    only when it matches exactly one disposed, counted account. Returns the action ids it
+    filled, so the caller (`build_facts`) can carry P5's proceeds qualifiers into that
+    fact's own description -- gross, before any CGT, not yet realised -- distinct from a
+    plain internal transfer's generic one."""
+    filled: set[str] = set()
+    for action in actions:
+        if action.id in action_amounts:
+            continue
+        matched_ids = {
+            a.id for ref in action.accounts for a in accounts_matching_reference(ref, accounts)
+        }
+        proceeds = [proceeds_by_account[i] for i in matched_ids if i in proceeds_by_account]
+        if len(proceeds) == 1:
+            action_amounts[action.id] = proceeds[0]
+            filled.add(action.id)
+    return filled
+
+
 def _resolve_viewed_values(
-    value_observations, accounts: list[Account], source_id: str
+    value_observations,
+    accounts: list[Account],
+    source_id: str,
+    meeting_date,
 ) -> dict[str, list[Value]]:
     """R3: a meeting figure the model marked as actually viewed, matched to one account by
-    type wording (`resolve_scope`'s own approach) -- ambiguous or unmatched never selects."""
+    reference text (`reconcile/refs.py`) -- ambiguous or unmatched never selects. Dated with
+    the meeting's own date, not `None`: `select_values`' "latest date wins" comparison
+    (`v.date or date.min`) otherwise always loses a genuinely later live-viewed figure to
+    the account data's own dated snapshot, whatever that date is -- a real bug no client
+    before client 02 exercised (T19 checkpoint: the GIA's live-viewed figure was silently
+    losing to the stale statement value until this was found and fixed)."""
     by_account: dict[str, list[Value]] = {}
     for obs in value_observations:
         if obs.basis != "viewed_in_meeting":
@@ -193,7 +296,7 @@ def _resolve_viewed_values(
         parsed = parse_amount(obs.amount.text)
         if parsed is None:
             continue
-        matches = [a for a in accounts if obs.account_reference.lower() in a.type.lower()]
+        matches = accounts_matching_reference(obs.account_reference, accounts)
         if len(matches) != 1:
             continue
         by_account.setdefault(matches[0].id, []).append(
@@ -202,7 +305,7 @@ def _resolve_viewed_values(
                 currency=parsed.currency,
                 precision=parsed.precision,
                 qualifier=parsed.qualifier,
-                date=None,
+                date=meeting_date,
                 source_id=source_id,
                 quote=obs.amount.text,
                 selected_by="R3",
@@ -211,50 +314,144 @@ def _resolve_viewed_values(
     return by_account
 
 
+def _apply_values(
+    account_by_id: dict[str, Account],
+    records_by_id: dict[str, AccountRecord],
+    observations_by_account: dict[str, list[Value]],
+) -> tuple[dict[str, Account], list[ReviewItemInput]]:
+    """R3, R9, G15: selects each account's value (the account data plus any live-viewed
+    meeting figure) and, wherever a candidate lost, records it in `Account.superseded`
+    (the table's own footnote, `write/table.py`) and builds a review-sheet item quoting
+    both the superseded and the current value with their dates -- T19, client 02's GIA."""
+    accounts = dict(account_by_id)
+    review_items: list[ReviewItemInput] = []
+    for account_id, account in account_by_id.items():
+        record = records_by_id.get(account_id)
+        if record is None:
+            continue
+        viewed = observations_by_account.get(account_id, [])
+        value = select_values(record.value, record.valuation_date, record.currency, viewed)
+        superseded = superseded_values(
+            record.value, record.valuation_date, record.currency, viewed, value
+        )
+        accounts[account_id] = account.model_copy(update={"value": value, "superseded": superseded})
+        if superseded and value is not None and value.date is not None:
+            superseded_text = "; ".join(
+                f"superseded value {render_table(s)} ({s.source_id}, {render_date(s.date)})"
+                if s.date is not None
+                else f"superseded value {render_table(s)} ({s.source_id})"
+                for s in superseded
+            )
+            review_items.append(
+                ReviewItemInput(
+                    kind="superseded",
+                    blocking=False,
+                    detail=(
+                        f"{account_id}: {superseded_text}; current value {render_table(value)} "
+                        f"({value.source_id}, {render_date(value.date)})."
+                    ),
+                    refs=[account_id],
+                )
+            )
+    return accounts, review_items
+
+
+@dataclass(frozen=True)
+class _LimitGroup:
+    action_amount: Value
+    allowance_family: str
+    account_ids: list[str]
+
+
+def _limit_groups(
+    actions: list[Action], action_amounts: dict[str, Value], accounts: list[Account]
+) -> list[_LimitGroup]:
+    """P4: an action's `accounts` are free text as extracted (e.g. "the cash account"),
+    matched to a real account by type wording -- the same convention as R3's viewed-value
+    matching and the disposal matching below -- so only an account whose wrapper actually
+    carries an allowance (`classify_wrapper`) is ever checked; a cash account or GIA
+    referenced by the same action has no `allowance_family` and is silently skipped, no
+    config or per-client branching needed. Matching is scoped to in-scope accounts only --
+    an out-of-scope account with matching type wording (e.g. a second ISA this report
+    doesn't cover) must never receive a note that points at an account absent from the
+    table, and must never silently steal the match from an in-scope account with the same
+    wording (verifier checkpoint, T17: an earlier version matched every account).
+
+    Every allowance-bearing account an action references is grouped together (T19: client
+    02's top-up touches both ISAs at once), not one group per account -- so one note or
+    marker covers the whole family, not a near-duplicate per account. Shared by
+    `_limit_review_items` and `_limit_markers` so the matching logic lives in one place."""
+    in_scope_accounts = [a for a in accounts if a.in_scope]
+    groups: list[_LimitGroup] = []
+    for action in actions:
+        amount = action_amounts.get(action.id)
+        if amount is None:
+            continue
+        matches = []
+        for ref in action.accounts:
+            ref_matches = accounts_matching_reference(ref, in_scope_accounts)
+            if len(ref_matches) == 1:
+                matches.append(ref_matches[0])
+        allowance_families = {
+            af for a in matches if (af := classify_wrapper(a.type).allowance_family) is not None
+        }
+        for allowance_family in allowance_families:
+            family_accounts = [
+                a for a in matches if classify_wrapper(a.type).allowance_family == allowance_family
+            ]
+            groups.append(
+                _LimitGroup(
+                    action_amount=amount,
+                    allowance_family=allowance_family,
+                    account_ids=[a.id for a in family_accounts],
+                )
+            )
+    return groups
+
+
 def _limit_review_items(
     actions: list[Action],
     action_amounts: dict[str, Value],
     accounts: list[Account],
     meeting_date,
+    limit_signals: list | None = None,
 ) -> list[ReviewItemInput]:
-    """P4's note case. An action's `accounts` are free text as extracted (e.g. "the cash
-    account"), matched to a real account by type wording -- the same convention as R3's
-    viewed-value matching and the disposal matching above -- so only an account whose
-    wrapper actually carries an allowance (`classify_wrapper`) is ever checked; a cash
-    account or GIA referenced by the same action has no `allowance_family` and is silently
-    skipped, no config or per-client branching needed. Matching is scoped to in-scope
-    accounts only -- an out-of-scope account with matching type wording (e.g. a second ISA
-    this report doesn't cover) must never receive a note that points at an account absent
-    from the table, and must never silently steal the match from an in-scope account with
-    the same wording (verifier checkpoint, T17: an earlier version matched every account).
-
-    Prior use is always "unknown" here, never inferred "confirmed" from the presence of a
-    `limit_signals` quote: client 01's own meeting mentions the ISA allowance only for the
-    top-up being agreed today, not any earlier use, and an early version of this function
-    that treated any limit-signal quote as a confirmation silently swallowed the note it was
-    meant to add (live run, T17 checkpoint). Distinguishing a genuine prior-use confirmation
-    from an unrelated mention needs real labeled-evidence resolution (DESIGN.md section 4.2),
-    not built until T20 widens P4 with client 03's real signals -- until then this never
-    triggers `check_limits`' marker case."""
-    in_scope_accounts = [a for a in accounts if a.in_scope]
+    """P4's review-sheet side: one note or marker-context row per `_limit_groups` group.
+    `resolve_prior_use` (T19) resolves prior use from the meeting's verified
+    `limit_signals` -- omitted (client 01's own call sites), it stays "unknown", same as
+    before T19 widened this."""
     items: list[ReviewItemInput] = []
-    for action in actions:
-        amount = action_amounts.get(action.id)
-        if amount is None:
-            continue
-        for ref in action.accounts:
-            matches = [a for a in in_scope_accounts if ref.lower() in a.type.lower()]
-            if len(matches) != 1:
-                continue
-            allowance_family = classify_wrapper(matches[0].type).allowance_family
-            if allowance_family is None:
-                continue
-            item = limit_review_item(
-                amount, allowance_family, "unknown", meeting_date, matches[0].id
-            )
-            if item is not None:
-                items.append(item)
+    for group in _limit_groups(actions, action_amounts, accounts):
+        prior_use = resolve_prior_use(limit_signals or [], group.allowance_family)
+        item = limit_review_item(
+            group.action_amount, group.allowance_family, prior_use, meeting_date, group.account_ids
+        )
+        if item is not None:
+            items.append(item)
     return items
+
+
+def _limit_markers(
+    actions: list[Action],
+    action_amounts: dict[str, Value],
+    accounts: list[Account],
+    meeting_date,
+    limit_signals: list,
+):
+    """P2, P4 (T19): `check_limits`' marker case (a breach, or confirmed prior use) builds a
+    report marker, one per allowance family across every action that hits it -- not built
+    until T19 needed it (client 01 never triggers the marker branch)."""
+    marker_by_family = {}
+    for group in _limit_groups(actions, action_amounts, accounts):
+        prior_use = resolve_prior_use(limit_signals, group.allowance_family)
+        result = check_limits(
+            group.action_amount.amount, group.allowance_family, prior_use, meeting_date
+        )
+        if result.marker and group.allowance_family not in marker_by_family:
+            marker_by_family[group.allowance_family] = limit_marker(
+                group.allowance_family, group.account_ids
+            )
+    return list(marker_by_family.values())
 
 
 def _image_review_items(
@@ -445,10 +642,16 @@ def _run_stages(
     if scope_field is None or scope_field.is_tbc:
         raise _InputStop("the report instruction's scope is missing or TBC", classification)
 
-    scope_result = resolve_scope(scope_field.value, accounts)
+    scope_mapping = instruction_extraction.scope_mapping
+    candidate_account_ids = (
+        scope_mapping.candidate_account_ids
+        if scope_mapping is not None and scope_mapping.phrase == scope_field.value
+        else None
+    )
+    scope_result = resolve_scope(scope_field.value, accounts, candidate_account_ids)
     if scope_result.unresolved:
         raise _InputStop(
-            f"scope phrase {scope_field.value!r} did not resolve to exactly one account",
+            f"scope phrase {scope_field.value!r} did not resolve to any account",
             classification,
         )
 
@@ -456,8 +659,13 @@ def _run_stages(
     for account_id in scope_result.resolved_ids:
         account_by_id[account_id] = account_by_id[account_id].model_copy(update={"in_scope": True})
 
+    meeting_date = (
+        parse_date(meeting_extraction.meeting_date.text)
+        if meeting_extraction.meeting_date
+        else None
+    )
     observations_by_account = _resolve_viewed_values(
-        meeting_extraction.value_observations, accounts, meeting_source.path.name
+        meeting_extraction.value_observations, accounts, meeting_source.path.name, meeting_date
     )
     records_by_id = {
         r.account_id: r
@@ -465,54 +673,61 @@ def _run_stages(
         for r in holder.accounts
         if r.account_id
     }
-    for account_id, account in list(account_by_id.items()):
-        record = records_by_id.get(account_id)
-        if record is None:
-            continue
-        value = select_values(
-            record.value,
-            record.valuation_date,
-            record.currency,
-            observations_by_account.get(account_id, []),
-        )
-        account_by_id[account_id] = account.model_copy(update={"value": value})
+    account_by_id, superseded_review_items = _apply_values(
+        account_by_id, records_by_id, observations_by_account
+    )
     resolved_accounts = list(account_by_id.values())
+
+    # R1/R9: two copies of the same account_id may disagree on value or date -- always a
+    # review-sheet conflict (which one wins is R3's job above).
+    superseded_review_items.extend(ownership.conflicts)
+
+    disposals, money_items, disposal_proceeds_by_account = _classify_disposals(
+        meeting_extraction.disposals,
+        meeting_extraction.money_items,
+        resolved_accounts,
+        meeting_source.path.name,
+    )
+    tax_section = evaluate("taxable_disposal", SectionContext(disposals=disposals))
 
     actions, action_amounts = _build_actions(
         meeting_extraction.agreed_actions, meeting_source.path.name
     )
+    proceeds_action_ids = _apply_proceeds_to_actions(
+        actions, action_amounts, resolved_accounts, disposal_proceeds_by_account
+    )
+
     excluded = _build_excluded(meeting_extraction.excluded_items, meeting_source.path.name)
 
-    disposals = [
-        SectionDisposal(wrapper_class=classify_wrapper(matches[0].type).wrapper_class)
-        for d in meeting_extraction.disposals
-        for matches in [
-            [a for a in resolved_accounts if d.account_reference.lower() in a.type.lower()]
-        ]
-        if matches
-    ]
-    tax_section = evaluate("taxable_disposal", SectionContext(disposals=disposals))
-
     in_scope_platforms = {a.platform for a in resolved_accounts if a.in_scope and a.platform}
-    markers = required_markers(in_scope_platforms)
+    markers = [*required_markers(in_scope_platforms), *cgt_marker(disposals)]
 
-    facts = build_facts(resolved_accounts, action_amounts)
+    facts = build_facts(resolved_accounts, action_amounts, proceeds_action_ids)
     objectives = " ".join(o.text.text for o in meeting_extraction.objectives_and_circumstances)
-    meeting_date = (
-        parse_date(meeting_extraction.meeting_date.text)
-        if meeting_extraction.meeting_date
-        else None
-    )
-    limit_items = (
-        _limit_review_items(actions, action_amounts, resolved_accounts, meeting_date)
-        if meeting_date is not None
-        else []
-    )
+    if meeting_date is not None:
+        limit_items = _limit_review_items(
+            actions,
+            action_amounts,
+            resolved_accounts,
+            meeting_date,
+            meeting_extraction.limit_signals,
+        )
+        markers += _limit_markers(
+            actions,
+            action_amounts,
+            resolved_accounts,
+            meeting_date,
+            meeting_extraction.limit_signals,
+        )
+    else:
+        limit_items = []
+
     account_currency_by_id = {aid: r.currency for aid, r in records_by_id.items()}
     image_items = _image_review_items(image_source, resolved_accounts, account_currency_by_id, llm)
 
     review_inputs: list[ReviewItemInput] = [
         *ownership.set_aside,
+        *superseded_review_items,
         *(
             ReviewItemInput(kind="open_action", blocking=oa.blocking, detail=oa.text.text, refs=[])
             for oa in meeting_extraction.open_actions
@@ -535,6 +750,7 @@ def _run_stages(
             objectives=objectives or None,
             tax_section=tax_section,
             accounts=resolved_accounts,
+            money=money_items,
             actions=actions,
             excluded=excluded,
             markers=markers,

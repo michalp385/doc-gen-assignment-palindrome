@@ -174,6 +174,13 @@ def render_prose(value: Value) -> str:
     return f"{_PROSE_PREFIX[value.qualifier]}{_format_amount(value)}"
 
 
+def render_date(d: _date) -> str:
+    """ "day Month" (e.g. "15 March"), for review-sheet text (G15's superseded-value item
+    quotes both dates this way, not ISO). Never `%-d`: that flag isn't portable across
+    platforms, unlike building the string from `d.day` directly."""
+    return f"{d.day} {d.strftime('%B')}"
+
+
 def number_markers(ledger: Ledger, report_order: list[str]) -> Ledger:
     """Assign '#1', '#2', ... to markers by order of first appearance in the assembled
     report (P1), not the order they were created in. A marker whose key never appears in
