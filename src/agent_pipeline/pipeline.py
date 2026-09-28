@@ -220,7 +220,11 @@ def _limit_review_items(
     viewed-value matching and the disposal matching above -- so only an account whose
     wrapper actually carries an allowance (`classify_wrapper`) is ever checked; a cash
     account or GIA referenced by the same action has no `allowance_family` and is silently
-    skipped, no config or per-client branching needed.
+    skipped, no config or per-client branching needed. Matching is scoped to in-scope
+    accounts only -- an out-of-scope account with matching type wording (e.g. a second ISA
+    this report doesn't cover) must never receive a note that points at an account absent
+    from the table, and must never silently steal the match from an in-scope account with
+    the same wording (verifier checkpoint, T17: an earlier version matched every account).
 
     Prior use is always "unknown" here, never inferred "confirmed" from the presence of a
     `limit_signals` quote: client 01's own meeting mentions the ISA allowance only for the
@@ -230,13 +234,14 @@ def _limit_review_items(
     from an unrelated mention needs real labeled-evidence resolution (DESIGN.md section 4.2),
     not built until T20 widens P4 with client 03's real signals -- until then this never
     triggers `check_limits`' marker case."""
+    in_scope_accounts = [a for a in accounts if a.in_scope]
     items: list[ReviewItemInput] = []
     for action in actions:
         amount = action_amounts.get(action.id)
         if amount is None:
             continue
         for ref in action.accounts:
-            matches = [a for a in accounts if ref.lower() in a.type.lower()]
+            matches = [a for a in in_scope_accounts if ref.lower() in a.type.lower()]
             if len(matches) != 1:
                 continue
             allowance_family = classify_wrapper(matches[0].type).allowance_family
