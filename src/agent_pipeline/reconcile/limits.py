@@ -22,7 +22,8 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Literal
 
-from agent_pipeline.ledger import Value, render_table
+from agent_pipeline.extract.schemas import LimitSignal
+from agent_pipeline.ledger import Marker, Value, render_table
 from agent_pipeline.reconcile.review import ReviewItemInput
 
 PriorUse = Literal["confirmed", "denied", "unknown"]
@@ -86,29 +87,80 @@ def check_limits(
     return LimitCheck(marker=False, note=False, reason="")
 
 
+_PRIOR_USE_INDICATORS = ("already", "part-funded", "part funded", "used up", "so far this year")
+
+
+def resolve_prior_use(signals: list[LimitSignal], allowance_family: str) -> PriorUse:
+    """P4 (T19, client 02's "already part-funded"): a verified `limit_signals` quote
+    confirms prior use only when it names the allowance family *and* reads as an existing-
+    use statement, never on family-name presence alone -- client 01's own cached extraction
+    (`cache/llm/20/20a44c38...json`) has a genuine `limit_signals` entry, "would like to use
+    this year's ISA allowance", for the top-up being agreed *today*, not any earlier use; a
+    bare family-substring match would misclassify it as confirmed prior use and wrongly
+    marker client 01 (exactly the "early version...silently swallowed" regression this
+    module's own history already records, T17 checkpoint, for the opposite failure mode).
+    `_PRIOR_USE_INDICATORS` is general vocabulary distinguishing "already/part-funded/used
+    up" from forward-looking "would like to/plan to", not client data. Sources silent on it
+    stay "unknown" (never guessed "denied" -- nothing here ever produces "denied": that
+    reading needs a signal explicitly ruling prior use out, which no client has yet,
+    DESIGN.md section 4.2's conservative-default principle applied to a three-way label)."""
+    for signal in signals:
+        text = signal.text.text.lower()
+        if allowance_family.lower() in text and any(ind in text for ind in _PRIOR_USE_INDICATORS):
+            return "confirmed"
+    return "unknown"
+
+
+def limit_marker(allowance_family: str, account_ids: list[str]) -> Marker:
+    """P2, P4 (T19): built once per allowance family a breach or confirmed prior use is
+    detected for, never once per account -- multiple accounts share the same allowance
+    question (e.g. both of client 02's ISAs). Never states a figure: the allowance figure
+    is P4's internal screening input, not report text."""
+    return Marker(
+        id="",
+        key=f"{allowance_family}_amounts",
+        text=(
+            f"{allowance_family.upper()} top-up amounts within the remaining allowances, "
+            "and where any excess goes"
+        ),
+        reason="a possible allowance breach or confirmed prior use (P4); never estimated",
+        section="recommendations",
+    )
+
+
 def limit_review_item(
     amount: Value,
     allowance_family: str,
     prior_use: PriorUse,
     meeting_date: date,
-    account_id: str,
+    account_ids: list[str],
 ) -> ReviewItemInput | None:
-    """P4's note case only (DESIGN.md section 6): a full-allowance subscription whose prior
-    use this tax year the sources don't state. `check_limits`' marker case (a breach, or
-    confirmed prior use) needs report-marker wiring -- `ledger.markers`, a writer-facing
-    token, a place in the template -- not built until T20 widens P4 with client 03's real
-    breach cases; this only ever returns the review-sheet note, never a marker, so a breach
-    reaches no review item at all yet (a known, deliberate gap, not silently dropped: T20's
-    own plan entry is where it closes)."""
+    """P4 (DESIGN.md section 6): every `check_limits` flag gets a review-sheet row so the
+    adviser has context either way -- the unstated-prior-use note (unchanged), and (T19) a
+    genuine breach or confirmed prior use, which additionally gets a report marker
+    (`limit_marker`, the caller's job, once per allowance family). Neither case ever states
+    a figure: the plan's own top-up amount is never precise enough to quote once split
+    across destinations, and the allowance figure itself is P4's screening input only."""
     result = check_limits(amount.amount, allowance_family, prior_use, meeting_date)
-    if not result.note:
-        return None
-    return ReviewItemInput(
-        kind="p4_note",
-        blocking=False,
-        detail=(
-            f"The {render_table(amount)} top-up uses this tax year's full "
-            f"{allowance_family.upper()} allowance; prior use this tax year is unstated."
-        ),
-        refs=[account_id],
-    )
+    if result.note:
+        return ReviewItemInput(
+            kind="p4_note",
+            blocking=False,
+            detail=(
+                f"The {render_table(amount)} top-up uses this tax year's full "
+                f"{allowance_family.upper()} allowance; prior use this tax year is unstated."
+            ),
+            refs=account_ids,
+        )
+    if result.marker:
+        return ReviewItemInput(
+            kind="p4_note",
+            blocking=False,
+            detail=(
+                f"Possible {allowance_family.upper()} allowance breach: {result.reason}. "
+                "The adviser must confirm how much each account can take and where any "
+                "excess goes."
+            ),
+            refs=account_ids,
+        )
+    return None

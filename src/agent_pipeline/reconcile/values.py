@@ -3,9 +3,11 @@
 The most recent dated candidate wins, among the account data and any meeting figure the
 meeting record says was actually viewed during the meeting -- a recalled or paperwork
 figure, or a statement-image value, never selects (verify_label's conservative default,
-T5, already keeps those out of `viewed_observations`). The superseded value and both
-dates go to the review sheet; that assembly step lives with reconciliation's caller in M2,
-once there is more than one candidate to choose between (client 01 never has one).
+T5, already keeps those out of `viewed_observations`). `superseded_values` (T19, client
+02's joint GIA: a later live-viewed figure beats the snapshot) shares `select_values`'
+own candidate-building and returns everything that wasn't picked, for the account table's
+footnote and the review sheet's superseded-value item; wiring those in is
+reconciliation's caller's job (`pipeline.py`).
 
 P10 (T18): a statement image never reaches `select_values` at all -- `match_image_row` and
 `check_image_row` below run afterward, against the value `select_values` already chose, and
@@ -25,12 +27,12 @@ from agent_pipeline.ledger import Account, Value
 from agent_pipeline.reconcile.review import ReviewItemInput
 
 
-def select_values(
+def _candidates(
     db_value: Decimal | None,
     db_date: _date | None,
     currency: str | None,
     viewed_observations: list[Value],
-) -> Value | None:
+) -> list[Value]:
     candidates: list[Value] = []
     if db_value is not None:
         candidates.append(
@@ -46,9 +48,50 @@ def select_values(
             )
         )
     candidates.extend(viewed_observations)
+    return candidates
+
+
+def select_values(
+    db_value: Decimal | None,
+    db_date: _date | None,
+    currency: str | None,
+    viewed_observations: list[Value],
+) -> Value | None:
+    candidates = _candidates(db_value, db_date, currency, viewed_observations)
     if not candidates:
         return None
     return max(candidates, key=lambda v: v.date or _date.min)
+
+
+def superseded_values(
+    db_value: Decimal | None,
+    db_date: _date | None,
+    currency: str | None,
+    viewed_observations: list[Value],
+    selected: Value | None,
+) -> list[Value]:
+    """R3, R6: every candidate `select_values` didn't pick -- the account table's footnote
+    (P9, `write/table.py`) and the review sheet's superseded-value item are built from
+    this, never from re-deriving "the other one" ad hoc at the call site. `selected` is
+    matched by identity-equivalent fields (amount, date, source_id), not object identity,
+    so a caller that reselects the same winning candidate (as `select_values` itself does)
+    still excludes exactly one match, not zero."""
+    if selected is None:
+        return []
+    candidates = _candidates(db_value, db_date, currency, viewed_observations)
+    superseded: list[Value] = []
+    already_excluded = False
+    for candidate in candidates:
+        if (
+            not already_excluded
+            and candidate.amount == selected.amount
+            and candidate.date == selected.date
+            and candidate.source_id == selected.source_id
+        ):
+            already_excluded = True
+            continue
+        superseded.append(candidate)
+    return superseded
 
 
 # The symbol -> currency-code direction of parsing.py's own map, kept local rather than

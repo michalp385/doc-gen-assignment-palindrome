@@ -31,9 +31,26 @@ def _load_wrappers() -> dict[str, WrapperInfo]:
     }
 
 
+def _load_aliases() -> dict[str, list[str]]:
+    """T19: a handful of standard industry abbreviations ("GIA") that never appear as a
+    substring of their own canonical type wording -- general vocabulary
+    (config/account_types.json), not client data."""
+    raw = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+    return {
+        type_text: entry["aliases"]
+        for type_text, entry in raw["wrappers"].items()
+        if "aliases" in entry
+    }
+
+
 _WRAPPERS = _load_wrappers()
+_ALIASES = _load_aliases()
 _UNKNOWN = WrapperInfo(wrapper_class="unknown", allowance_family=None)
 
 
 def classify_wrapper(type_text: str) -> WrapperInfo:
     return _WRAPPERS.get(type_text, _UNKNOWN)
+
+
+def type_aliases(type_text: str) -> list[str]:
+    return _ALIASES.get(type_text, [])
