@@ -113,7 +113,12 @@ def check_image_row(
 
     if selected is None:
         return None
-    parsed = parse_amount(row.amount_text)
+    # parse_amount needs a currency symbol or code to recognise an amount at all -- the
+    # model reports the symbol separately (currency_symbol), not folded into amount_text
+    # (confirmed against the real vision model, T18 live check: it prints the digits alone),
+    # so it's put back before parsing rather than trusting amount_text alone, or every real
+    # read would silently fail to parse and never flag a genuine disagreement.
+    parsed = parse_amount(f"{row.currency_symbol}{row.amount_text}")
     if parsed is None or parsed.amount == selected.amount:
         return None
     return ReviewItemInput(

@@ -1,0 +1,38 @@
+{
+  "cost_usd": "0.0001893",
+  "input_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "model": "gpt-6-luna",
+  "prompt_version": "e0813be56c9191a38d231963dab9178fec42114d55a8a68ea72ef3850232cb9d",
+  "response": {
+    "rows": [
+      {
+        "account_label": "Holloway ISA (Robert)",
+        "account_type": "Stocks & Shares ISA",
+        "amount_text": "70,000",
+        "currency_symbol": "\u00a3",
+        "valued_on_text": "30 Apr 2026"
+      },
+      {
+        "account_label": "Holloway ISA (Jean)",
+        "account_type": "Stocks & Shares ISA",
+        "amount_text": "66,000",
+        "currency_symbol": "\u00a3",
+        "valued_on_text": "30 Apr 2026"
+      },
+      {
+        "account_label": "Holloway GIA (Joint)",
+        "account_type": "General Investment Account",
+        "amount_text": "30,000",
+        "currency_symbol": "\u00a3",
+        "valued_on_text": "10 Mar 2026"
+      }
+    ]
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1028,
+    "output_tokens": 173,
+    "reasoning_tokens": 31
+  }
+}
