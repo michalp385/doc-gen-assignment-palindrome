@@ -199,6 +199,13 @@ def _requires_coverage(text: str, ledger: Ledger) -> bool:
 
 _CLAUSE_SPLIT_RE = re.compile(r"\s*(?<!\d),(?!\d)\s*|\s*;\s*")
 
+# A marker's whole bracket text is one atomic span: masked before a sentence is split into
+# clauses, so a comma inside it cannot cut the text (its second half would lose the opening
+# bracket that exempts it, mention tax, and demand a claim). The clause holding the mask stays
+# exempt, exactly as one holding the full marker text always was.
+_MARKER_SPAN_RE = re.compile(r"\[ADVISER TO CONFIRM[^\]]*\]")
+_MARKER_MASK = "[ADVISER TO CONFIRM]"
+
 
 def _clauses(sentence: str) -> list[str]:
     """Coverage is checked per clause, not per whole sentence: checking only that *some*
@@ -324,7 +331,7 @@ def _uncovered_clauses(
         clause.strip()
         for sentence in split_sentences(report_text)
         if sentence.strip() not in exempt_sentences and not is_standard_wording(sentence, ledger)
-        for clause in _clauses(sentence)
+        for clause in _clauses(_MARKER_SPAN_RE.sub(_MARKER_MASK, sentence))
         if _requires_coverage(clause, ledger) and not _clause_covered(clause, claims)
     ]
 

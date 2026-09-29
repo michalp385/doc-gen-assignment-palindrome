@@ -45,8 +45,21 @@ def accounts_matching_reference(reference: str, accounts: list[Account]) -> list
     matches = [a for a in accounts if account_matches_reference(reference, a)]
     if len(matches) <= 1:
         return matches
+    # A platform named in the reference narrows two same-type accounts on different
+    # platforms; whole-word match, and only when it narrows at all.
+    lowered = reference.lower()
+    by_platform = [
+        a
+        for a in matches
+        if a.platform
+        and re.search(rf"(?<![a-z0-9]){re.escape(a.platform.lower())}(?![a-z0-9])", lowered)
+    ]
+    if by_platform and len(by_platform) < len(matches):
+        matches = by_platform
+        if len(matches) == 1:
+            return matches
     # No apostrophe in the character class: a possessive ("Name's") must tokenise to the
     # plain name, not "name's" as one glued word that never equals an owner's own name.
-    ref_words = set(re.findall(r"[a-z]+", reference.lower()))
+    ref_words = set(re.findall(r"[a-z]+", lowered))
     by_owner = [a for a in matches if any(o.split()[0].lower() in ref_words for o in a.owners)]
     return by_owner if len(by_owner) == 1 else matches
