@@ -16,7 +16,7 @@ client 04's extraction matched 1 of 3 expected value observations and
 judge is not repeatable, because neither model on this key accepts `temperature`, so a fresh run can
 fail a correct report (a clause in client 03 that matches the meeting note was flagged in a fresh
 batch). Everything above replays offline from the committed cache; that is the state I chose to
-ship, not the outcome of a resample.
+ship, not the outcome of a resample. On the 20 hand-written cases, each aimed at one rule, `eval/results/20260929T162142Z_3ce9edb.json` (commit `3ce9edb`, clean tree) shows 19 of 20 matching their expected state with no failing deterministic gate, 0 wrongly issued and 0 accepted-and-wrong; the one that does not (case_13) is the release judge's G16 sample vote (D22).
 
 ## Decisions
 <!-- Entries added with /decision. Keep the ones that matter; cut the ones that don't. -->
@@ -626,11 +626,7 @@ ship, not the outcome of a resample.
   `test_task_b_review_fixes.py`, `test_eval_checks_approved_fixes.py`.
 
 ## What I would do with more time
-- **The investigation agent (T22, D14).** Designed and not built: a conflict becomes a review-sheet item
-  and an amount marker, and the results file shows 0 questions raised across the 4 clients.
-  A bounded agent with read-only tools, whose findings code verifies and accepts or rejects, would settle
-  the conflicts the sources can settle and leave the rest flagged. Measure it with the investigation score
-  the eval already computes.
+- **Widen the investigation agent (T22, D14, D27).** Built, with one question kind (an ambiguous account mention). On the hand-written cases (`20260929T162142Z_3ce9edb.json`) it raised 4 questions: 2 in the cases built to raise one, both handled as expected, and 2 that no case expects, both left unresolved. 0 were accepted-and-wrong. Not yet opened: label questions (a viewed-versus-recalled basis), whose acceptance rule and tests exist, and a mention that maps to no account. A broader trigger needs the real clients' cache refreshed, since each new question is a model call.
 - **The guidance extractor (D8).** Also unbuilt: the internal guidance text is used only to check that the
   report does not leak it (G10). The writer is given no handling instructions at all, such as treating an
   inheritance sensitively, and the lowest "respects handling instructions" score (Q3) in the results file
@@ -648,15 +644,8 @@ ship, not the outcome of a resample.
   writer prompt's fixed timing caveat follows it. A reworded caveat loses the exemption and fails safe
   into a false G7 failure. Rendering that sentence and its caveat from a code template would remove the
   dependence.
-- **R4 is not wired.** `resolve_amount` exists and is tested, but the pipeline never calls it. R5 prefers
-  the instruction's exact figure only when it states the same amount as the meeting's approximate one;
-  a genuine difference between the two is not flagged. Wiring it should raise a blocking conflict and
-  an amount marker.
-- **Run the synthetic clients.** The generator, the phrase bank and 20 hand-written cases exist and are
-  covered by offline tests, but none has been run through the live pipeline and scored. So behaviour on
-  unseen shapes is unmeasured: the funding-verb list (D24) may over-mark, and the new-account scope
-  check depends on the instruction's wording. A scored synthetic run is the direct evidence for
-  "correct reports for clients the pipeline has never seen".
+- **R4/R5 pair by count, not by meaning.** The instruction-versus-meeting rules are wired (D28). R5 compares the instruction's one exact figure with the one funding action that states an amount, and cannot tell a total from one part of it, so it can raise a false blocking conflict that the adviser then settles. Pairing them by the account the money goes to would fix that.
+- **Run the generated synthetic clients.** The 20 hand-written cases are run and scored (D28). The generator and phrase bank (D4) exist and are covered by offline tests, but no generated client has been run through the live pipeline and scored, so behaviour on unseen shapes beyond the hand-written ones is unmeasured: the funding-word list (D24) may over-mark, and the new-account scope check depends on the instruction's wording.
 
 ## How I worked
 - **AI assistance.** I built this with Claude Code (Anthropic's CLI) working in the repo under the rules in
