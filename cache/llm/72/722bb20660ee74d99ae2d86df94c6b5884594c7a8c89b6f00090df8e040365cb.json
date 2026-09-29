@@ -1,0 +1,24 @@
+{
+  "cost_usd": "0.0001378",
+  "input_hash": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+  "model": "gpt-6-luna",
+  "prompt_version": "e0813be56c9191a38d231963dab9178fec42114d55a8a68ea72ef3850232cb9d",
+  "response": {
+    "rows": [
+      {
+        "account_label": "Holloway ISA (Helen)",
+        "account_type": "Stocks & Shares ISA",
+        "amount_text": "34,000",
+        "currency_symbol": "GBP",
+        "valued_on_text": "10 Jun 2026"
+      }
+    ]
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 783,
+    "output_tokens": 119,
+    "reasoning_tokens": 61
+  }
+}

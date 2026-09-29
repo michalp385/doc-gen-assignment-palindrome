@@ -164,7 +164,10 @@ def _render_statement_image(path: Path, title: str, rows: list[tuple[str, str, s
     draw_row(top, header, header_row=True)
     for i, row in enumerate(rows):
         draw_row(top + row_height * (i + 1), row, header_row=False)
-    img.save(path, format="PNG")
+    # compress_level=0: the pixels are identical on every platform, but zlib's compressed output is
+    # not (macOS and the Linux CI runner gave different bytes for the same image), and the rebuild
+    # test compares bytes. Stored (uncompressed) blocks are byte-identical everywhere.
+    img.save(path, format="PNG", compress_level=0, optimize=False)
 
 
 def build_case(src_path: Path, out_root: Path = OUT_DIR) -> Path:

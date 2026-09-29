@@ -137,16 +137,16 @@
     {
       "stage": "extract",
       "calls": 3,
-      "cache_hits": 3,
-      "live_calls": 0,
+      "cache_hits": 2,
+      "live_calls": 1,
       "tokens": {
         "input": 3960,
         "cached_input": 0,
-        "output": 967,
-        "reasoning": 494
+        "output": 978,
+        "reasoning": 505
       },
-      "cost_usd": "0.0008795",
-      "latency_s": 0.0,
+      "cost_usd": "0.0008850",
+      "latency_s": 3.4196065419819206,
       "models": [
         "gpt-6-luna"
       ],
@@ -202,7 +202,7 @@
     }
   ],
   "total_calls": 13,
-  "total_cache_hits": 13,
-  "total_live_calls": 0,
-  "total_cost_usd": "0.0078652"
+  "total_cache_hits": 12,
+  "total_live_calls": 1,
+  "total_cost_usd": "0.0078707"
 }
