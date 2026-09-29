@@ -32,6 +32,8 @@ from agent_pipeline.gates.deterministic import ReportBundle, TableRow, run_gates
 from agent_pipeline.gates.judge import judge_models, majority_release_judge
 from agent_pipeline.gates.release import ReleaseState, decide_release
 from agent_pipeline.gates.truth import LedgerTruth
+from agent_pipeline.investigate.model import LLMInvestigationModel
+from agent_pipeline.investigate.stage import run_investigation
 from agent_pipeline.ledger import (
     Account,
     Action,
@@ -880,6 +882,16 @@ def _run_stages(
     )
     resolved_accounts = [*resolved_accounts, *new_accounts]
 
+    # Stage 3a (D14): open questions where more evidence could change the outcome. A client
+    # whose mentions all resolve opens none, so the model is never called for it.
+    investigation = run_investigation(
+        meeting_extraction.accounts_mentioned,
+        resolved_accounts,
+        {meeting_source.path.name: meeting_doc, instruction_source.path.name: instruction_doc},
+        meeting_source.path.name,
+        LLMInvestigationModel(llm, load_prompt(PROMPTS_DIR / "investigate.md")),
+    )
+
     # R1/R9: two copies of the same account_id may disagree on value or date -- always a
     # review-sheet conflict (which one wins is R3's job above).
     superseded_review_items.extend(ownership.conflicts)
@@ -977,6 +989,7 @@ def _run_stages(
         *(_open_action_item(oa, meeting_doc) for oa in meeting_extraction.open_actions),
         *money_review_items,
         *new_account_review_items,
+        *investigation.review_items,
         *disposal_review_items,
         *unspecified.review_items,
         *pension_review_items,
@@ -1003,6 +1016,7 @@ def _run_stages(
             excluded=excluded,
             markers=markers,
             review=build_review_items(review_inputs),
+            questions=investigation.questions,
             facts=facts,
         ),
         # number_markers wants marker keys in order of first appearance in the assembled

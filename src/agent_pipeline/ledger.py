@@ -114,6 +114,7 @@ class Question(_Strict):
     status: Literal["resolved", "unresolved"] = "unresolved"
     accepted: bool = False
     reason: str = ""
+    resolved_to: str | None = None  # the account an accepted investigation finding linked
 
 
 class Ledger(_Strict):

@@ -16,7 +16,7 @@ Status: built, per the implementation plan (`docs/plans/2026-09-27-implementatio
 T19, plus the deterministic rule code, mutation coverage, synthetic generator and repo checks of
 T20/T21, T24, T27 and T29. `generate.py` runs the new pipeline; the starter path is gone except
 `document_formatter/`. **Not built yet:** `extract/guidance.py` (the handling-directive extractor,
-T20), `investigate/` and `reconcile/questions.py` (the conflict investigation agent, T22), the
+T20), the
 per-stage record folder `outputs/<client>.run/` (only `runs/<run_id>/trace.jsonl` is written), and
 the frozen synthetic clients under `data/synthetic/generated/` (the generator exists; the live
 one-off generation has not been run). Clients 03 and 04 have their rule code but no committed
@@ -48,11 +48,18 @@ outputs: their prompts and live verification are still to do.
   (G5, P7: inclusion decided in code), `markers.py` (the markers built in code), `facts.py` (the
   ledger's fact IDs and roles), `wrappers.py` (account-type wording to wrapper class),
   `review.py`. `resolve_amount` (R5) is built and tested but not wired into the stage graph yet
-  (plan T23). Open questions for the investigation agent are not emitted yet.
-- `agent_pipeline/investigate/` (not built yet, T22): the conflict investigation agent. A bounded loop with read-only tools
-  that returns quoted findings per open question, and the code that verifies and accepts or rejects
-  them. Must not write to the ledger, select a value or change a rule; accepted evidence goes back
-  through `reconcile`.
+  (plan T23). `questions.py` (D14, D27) opens an `account_link` question for a singular meeting
+  mention that identifies two or more in-scope accounts.
+- `agent_pipeline/investigate/` (T22, D14): the conflict investigation agent. `agent.py` is a
+  bounded loop (at most 5 questions, 6 tool calls each) over `tools.py`, five read-only tools; the
+  model returns one structured step at a time and code runs the tool. `accept.py` verifies every
+  quote and accepts a proposed account only if exactly one candidate passes (R8), or a label only
+  with same-paragraph evidence. `stage.py` turns outcomes into review-sheet items ("changed by
+  investigation" with the default it replaced, or an ambiguity item carrying the note's
+  paragraph) and the ledger's `questions`. It never writes a fact, selects a value or changes a
+  rule, and a model failure leaves the defaults. Only account-link questions are wired; label
+  questions (accepting a viewed-versus-recalled label) have their acceptance rule and tests but
+  nothing opens them yet.
 - `agent_pipeline/write/` (T14): `plan.py`'s `plan_sections` resolves each included section's
   config-declared `facts`/`markers`/`excluded` glob selectors (`config.Section`) against the ledger
   into a `SectionPlan` (`schemas.py`), rewriting every extraction-derived text digit-free first

@@ -49,10 +49,12 @@ from agent_pipeline.sources.classify import (
 from agent_pipeline.sources.document import SourceDoc
 from report_eval.expected import ExpectedFacts, load_expected
 from report_eval.extraction_score import score_extraction
+from report_eval.investigation_score import score_investigation
 from report_eval.judge_rubric import LLMEvalJudgeModel, MarkerSummary, derive_q6, score_q1_to_q5
 from report_eval.results import (
     ClientResult,
     GateOutcome,
+    InvestigationScore,
     ReleaseState,
     ResultsFile,
     SkippedClient,
@@ -336,6 +338,7 @@ def score_client(
     gate_results: list[GateResult] = []
     q_scores = []
     extraction_score = None
+    investigation_score = InvestigationScore()
     notes: list[str] = []
     if bundle is not None:
         guidance_text, meeting_text, spec_text, sources, classification, classified_ok = (
@@ -363,6 +366,7 @@ def score_client(
                 "(ClassificationStopError)"
             )
         extraction_score = _score_extraction(classification, llm)
+        investigation_score = score_investigation(bundle.ledger.questions, expected.investigation)
 
         if judge:
             markers = [MarkerSummary(key=m.key, description=m.text) for m in bundle.ledger.markers]
@@ -382,6 +386,7 @@ def score_client(
         ],
         q_scores=q_scores,
         extraction_score=extraction_score,
+        investigation_score=investigation_score,
         notes=notes,
         input_tokens=totals.input_tokens,
         cached_input_tokens=totals.cached_input_tokens,

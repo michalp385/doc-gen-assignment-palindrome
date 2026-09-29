@@ -3,8 +3,20 @@
 The hardest calls in this pipeline, why I made them, and what I would do next.
 
 ## Summary
-<!-- 5–8 lines, written last: the approach in brief, the headline eval result (quoted from the
-     eval output file), and the one decision you would most want to discuss. -->
+A fixed, code-driven workflow (D5): sources are classified, facts are extracted with verbatim quotes
+that code verifies (D9), and a ledger of reconciled facts and adviser-review markers is built in code
+by one function per trust rule. The writer fills each slot from fact IDs and never types a figure (D1),
+gate checks (14 per client in the results file) verify the result, and a release judge (a majority of
+samples) covers the parts that need reading. Result, from `eval/results/20260929T113522Z_d73dd7b.json` (commit `d73dd7b`, clean tree): 4 of 4
+clients are drafts with 0 failing deterministic gates, an issued rate of 1.0, a
+release-state match rate of 1.0, 0 wrongly issued, and
+$0.0355 per report. The weak spots are in the same file: the lowest rubric score is 2 out of 5, and
+client 04's extraction matched 1 of 3 expected value observations and
+1 of 2 open actions. The decision most worth discussing is D22/D26: the release
+judge is not repeatable, because neither model on this key accepts `temperature`, so a fresh run can
+fail a correct report (a clause in client 03 that matches the meeting note was flagged in a fresh
+batch). Everything above replays offline from the committed cache; that is the state I chose to
+ship, not the outcome of a resample.
 
 ## Decisions
 <!-- Entries added with /decision. Keep the ones that matter; cut the ones that don't. -->
@@ -213,7 +225,8 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   question is open. Accepted-and-wrong (a finding code accepted that contradicts expected facts) is a
   headline metric in every results file, reported apart from general accuracy; a non-zero figure is the
   evidence that would make us restrict the agent to annotating.
-- **Evidence:** none yet.
+- **Evidence:** `tests/test_investigate_*.py`, `tests/test_reconcile_questions.py`,
+  `tests/test_report_eval_investigation_score.py`; D27 for what opens a question.
 
 ### D15. Define truth and the deterministic core first, then a thin client 01 slice, then widen
 - **Context:** the design has eight stages, an agent and an eval. Building each stage fully across all
@@ -542,9 +555,82 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
 - **Evidence:** `tests/test_pipeline_replay.py`, `tests/test_pipeline_replay_client_02.py`,
   `tests/test_pipeline_replay_client_03.py`, `tests/test_pipeline_replay_client_04.py`.
 
+### D27. Open a question only for a singular mention that names two or more in-scope accounts
+- **Context:** the design opens a question for a meeting mention that maps to no account or to several.
+  The extraction's `accounts_mentioned` list is loose: it holds new accounts, loans, a solicitor's
+  client account, plural references ("both ISAs") and old accounts outside the report. Matching every
+  one against the account data would open questions on the real clients, each needing a live model
+  call, which their committed cache and replay tests do not contain, and most could not change a
+  report.
+- **Decision:** `reconcile/questions.py` opens an `account_link` question only when the mention is
+  singular (no "both", "all", "their", "and", or a number word) and its wording (type, platform or a
+  holder's first name) leaves two or more open, in-scope accounts. A mention that names nothing an
+  account has opens nothing, and neither does one with at most one in-scope candidate, since a link to
+  an out-of-scope account cannot change the report. The question carries the accounts other mentions
+  already pin down; elimination by those is one of the checks in `accept.py`.
+- **Alternatives:** open a question for every unmatched or multiply matched mention, as the design
+  reads: it fires on the real clients and mostly on things the report never shows. Let the model mark
+  which mentions are accounts: that changes the extraction schema and prompt, and so stales every
+  client's cache.
+- **Consequences / how it generalises:** the four real clients open no question, which their existing
+  replay tests enforce (a question would need a live call). The cost is a narrower trigger than the
+  design: a mention that maps to no account, or an ambiguity only outside scope, is not investigated,
+  and the plural and number-word lists are English wording. Only account links are opened; label
+  questions have their acceptance rule but nothing opens them yet.
+- **Residual risk, accepted:** a link is accepted by elimination (DESIGN.md section 5.2 step 3, "no
+  contradictory mapping"): the one candidate that no other mention already identifies, on a
+  verified quote in or next to the mention's paragraph. Elimination can mislink when the note
+  never names the account, for example if two mentions in different words are one account. I keep
+  it because the case it serves, an "other account on that platform" that the note never names,
+  has no other answer, and because the output cannot become a silent fact change: it is a
+  non-blocking "changed by investigation" review item that shows the default it replaced and the
+  quote, so the adviser sees it and can correct it. Requiring the quote to name the proposed account
+  would be safer and would leave that case unresolved. A quote must also be at least three words,
+  because an empty string is a substring of every paragraph; a short but real quote from the
+  neighbouring paragraph still counts. Revisit if a held-out run reports a non-zero
+  accepted-and-wrong.
+- **Evidence:** `tests/test_reconcile_questions.py`, `tests/test_investigate_stage.py`.
+
 ## What I would do with more time
-<!-- For production: what's missing, what you'd change in the pipeline and the agent setup,
-     and the risks you know about. Concrete, not a wish list. -->
+- **The investigation agent (T22, D14).** Designed and not built: a conflict becomes a review-sheet item
+  and an amount marker, and the results file shows 0 questions raised across the 4 clients.
+  A bounded agent with read-only tools, whose findings code verifies and accepts or rejects, would settle
+  the conflicts the sources can settle and leave the rest flagged. Measure it with the investigation score
+  the eval already computes.
+- **The guidance extractor (D8).** Also unbuilt: the internal guidance text is used only to check that the
+  report does not leak it (G10). The writer is given no handling instructions at all, such as treating an
+  inheritance sensitively, and the lowest "respects handling instructions" score (Q3) in the results file
+  belongs to clients 03 and 04. Turning the guidance into a structured directive, as D8 says, is the first
+  thing I would build.
+- **A money-role rule for the recommendation writer.** Recommendations now receive the received, committed,
+  available and excluded money facts, and the writer prompt has no rule about which role may be stated
+  how. Only G7 and G8 catch a misuse (client 04 carries an outvoted G7 dissent about "the remaining
+  balance"). This is a prompt change, so it needs its own measured pass.
+- **A deterministic judge (D22).** `config/models.json` records `temperature_accepted: false` for
+  both models on this key (`gpt-6-luna` and `gpt-6-sol`), so no available model can give a stable verdict. The fix is a
+  judge on a model that accepts `temperature=0`, or a smaller judge surface still: build the
+  Introduction's scope sentence from the ledger and remove that model-written slot.
+- **The G7 carve-out depends on one caveat wording (D25).** A proceeds sentence is exempt only when the
+  writer prompt's fixed timing caveat follows it. A reworded caveat loses the exemption and fails safe
+  into a false G7 failure. Rendering that sentence and its caveat from a code template would remove the
+  dependence.
+- **R4 is not wired.** `resolve_amount` exists and is tested, but the pipeline never calls it. R5 prefers
+  the instruction's exact figure only when it states the same amount as the meeting's approximate one;
+  a genuine difference between the two is not flagged. Wiring it should raise a blocking conflict and
+  an amount marker.
+- **Run the synthetic clients.** The generator, the phrase bank and 20 hand-written cases exist and are
+  covered by offline tests, but none has been run through the live pipeline and scored. So behaviour on
+  unseen shapes is unmeasured: the funding-verb list (D24) may over-mark, and the new-account scope
+  check depends on the instruction's wording. A scored synthetic run is the direct evidence for
+  "correct reports for clients the pipeline has never seen".
 
 ## How I worked
-<!-- Tools used, including AI assistance; roughly how long it took. -->
+- **AI assistance.** I built this with Claude Code (Anthropic's CLI) working in the repo under the rules in
+  `CLAUDE.md`: plan first, small diffs, tests first for deterministic code, and every decision recorded.
+  Hooks enforced the rules mechanically (protected files, committed tests, live API calls, the
+  quality gate at the end of each turn). An independent `verifier` subagent reviewed each change that
+  touched a prompt or a trust rule, and its findings were fixed or recorded before the commit.
+- **Models in the pipeline.** `gpt-6-luna` for classification, extraction, writing and the release judge, and
+  `gpt-6-sol` for the eval judge only (D2).
+- **Time.** The repository has 94 commits over 4 days (2026-09-26 to 2026-09-29). [Fill in
+  hours worked and how they split between design, code, and evals.]
