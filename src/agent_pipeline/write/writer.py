@@ -183,7 +183,27 @@ def _check_g11_no_structure(text: str) -> str | None:
     return None
 
 
-def _check_g12_pre(section: Section, placeholder_name: str, text: str) -> str | None:
+def _proper_nouns(ledger: Ledger) -> frozenset[str]:
+    """The names a slot may legitimately start with: each account holder's first name and each
+    platform, lower-cased. From the ledger, so no client name lives in code."""
+    names = {o.split()[0].lower() for a in ledger.accounts for o in a.owners if o.split()}
+    names |= {a.platform.lower() for a in ledger.accounts if a.platform}
+    return frozenset(names)
+
+
+def _starts_with_a_name(text: str, proper_nouns: frozenset[str]) -> bool:
+    """Whether the slot's first word is a name it may capitalise: a client's first name or a
+    platform the ledger knows (lower-cased), possessive or not."""
+    first = re.match(r"[\w-]+", text)
+    return first is not None and first.group(0).lower() in proper_nouns
+
+
+def _check_g12_pre(
+    section: Section,
+    placeholder_name: str,
+    text: str,
+    proper_nouns: frozenset[str] = frozenset(),
+) -> str | None:
     """Template-aware, not a general grammar scan: only the placeholder's own immediate
     boundary in `section.template` is inspected. A run of whitespace before the placeholder
     (including a paragraph break) is a same-sentence continuation only if the nearest real
@@ -195,7 +215,7 @@ def _check_g12_pre(section: Section, placeholder_name: str, text: str) -> str | 
         return None
     stripped_before = section.template[:idx].rstrip()
     continues_lowercase = bool(stripped_before) and stripped_before[-1].islower()
-    if continues_lowercase and text[:1].isupper():
+    if continues_lowercase and text[:1].isupper() and not _starts_with_a_name(text, proper_nouns):
         return "slot text starts capitalised where the template continues a lowercase sentence"
     following_idx = idx + len(marker)
     following = section.template[following_idx] if following_idx < len(section.template) else ""
@@ -244,7 +264,14 @@ def write_slot(
             or _check_g9_no_transaction_facts(text, plan, section)
             or _check_g10_no_guidance_leak(text, plan, guidance_text)
             or _check_g11_no_structure(text)
-            or _check_g12_pre(section, placeholder_name, text)
+            or _check_g12_pre(
+                section,
+                placeholder_name,
+                text,
+                # Every round is judged as it always was; a name is accepted only when the
+                # model has used its repair rounds and still starts with one.
+                _proper_nouns(ledger) if attempt == MAX_ROUNDS - 1 else frozenset(),
+            )
         )
         if failure is not None:
             corrections.append(failure)

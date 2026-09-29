@@ -122,10 +122,14 @@ def unrouted_markers(ledger: Ledger, plans: list[SectionPlan]) -> list[str]:
     """The ledger markers that no included section's plan carries, in ledger order: a marker
     that reaches no section would silently vanish from the report while still counting on the
     review sheet (P1 needs each marker in the text). A value-cell marker
-    (`section == "account_table"`) is placed by the table, not a section plan. The pipeline
-    fails the run on any result rather than drop it."""
+    (`section == "account_table"`) is placed by the table, and a marker for a TBC request field
+    (`section == "computed_slot"`) by its computed placeholder, not by a section plan. The
+    pipeline fails the run on any result rather than drop it."""
     routed = {marker.key for plan in plans for marker in plan.markers}
-    return [m.key for m in ledger.markers if m.section != "account_table" and m.key not in routed]
+    placed_elsewhere = {"account_table", "computed_slot"}
+    return [
+        m.key for m in ledger.markers if m.section not in placed_elsewhere and m.key not in routed
+    ]
 
 
 def plan_sections(

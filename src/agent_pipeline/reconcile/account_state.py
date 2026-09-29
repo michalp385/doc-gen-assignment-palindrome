@@ -19,12 +19,30 @@ no model call.
 
 from __future__ import annotations
 
+import json
 import re
 from dataclasses import dataclass, field
+from pathlib import Path
 
 from agent_pipeline.ledger import Account, Marker
 from agent_pipeline.reconcile.review import ReviewItemInput
 from agent_pipeline.reconcile.wrappers import type_slug
+
+_CURRENCY_NAMES_PATH = Path("config/currency_names.json")
+
+
+def _load_currency_names() -> dict[str, str]:
+    return json.loads(_CURRENCY_NAMES_PATH.read_text(encoding="utf-8"))["names"]
+
+
+_CURRENCY_NAMES = _load_currency_names()
+
+
+def _currency_in_words(code: str) -> str:
+    """ "EUR (euros)" for a known code, else the code alone; the adviser needs no lookup."""
+    name = _CURRENCY_NAMES.get(code)
+    return f"{code} ({name})" if name else code
+
 
 _NEVER_ESTIMATED = "never estimated or converted (CLAUDE.md non-negotiable)"
 
@@ -124,6 +142,20 @@ def _null_value_state(account: Account, taken: set[str]) -> AccountState:
     )
 
 
+def _tied_value_state(account: Account, taken: set[str]) -> AccountState:
+    """R9: copies of a joint account disagree on the same date. The value cell is a marker keyed
+    for the conflict; the blocking conflict item (built where the tie is found) already tells
+    the adviser, so no separate "no value" row is added."""
+    marker = Marker(
+        id="",
+        key=_unique_key(f"{type_slug(account.type)}_same_date_conflict_value", taken),
+        text=f"current value of {_label(account)}, whose records disagree",
+        reason=f"records disagree on the same date (R9); {_NEVER_ESTIMATED}",
+        section="account_table",
+    )
+    return AccountState(in_table=True, value_marker=marker)
+
+
 def _foreign_currency_state(
     account: Account, currency: str | None, taken: set[str]
 ) -> AccountState:
@@ -146,8 +178,8 @@ def _foreign_currency_state(
                 blocking=False,
                 detail=(
                     f"{_where(account)}: the account data's currency is "
-                    f"{code or 'not stated'}, not GBP; the value is not converted and the "
-                    "table's value cell is a marker."
+                    f"{_currency_in_words(code) if code else 'not stated'}, not GBP; the value "
+                    "is not converted and the table's value cell is a marker."
                 ),
                 refs=[account.id],
             )
@@ -156,7 +188,9 @@ def _foreign_currency_state(
 
 
 def check_account_states(
-    accounts: list[Account], currency_by_id: dict[str, str | None]
+    accounts: list[Account],
+    currency_by_id: dict[str, str | None],
+    tied_ids: frozenset[str] = frozenset(),
 ) -> dict[str, AccountState]:
     """One `AccountState` per account, keyed by id. `currency_by_id` is the account data's
     own, possibly-missing `currency` field; a missing or blank one is not-GBP. Marker keys
@@ -173,6 +207,8 @@ def check_account_states(
             states[account.id] = AccountState(in_table=True)
         elif account.status == "closed":
             states[account.id] = _closed_state(account)
+        elif account.value is None and account.id in tied_ids and account.in_scope:
+            states[account.id] = _tied_value_state(account, taken)
         elif account.value is None:
             states[account.id] = _null_value_state(account, taken)
         elif _is_not_gbp(currency):

@@ -201,18 +201,71 @@ class ProceedsClassification:
     reason: str
 
 
+def stated_proceeds_amount(items: list[ExtractedMoneyItem], source_id: str) -> Value | None:
+    """The amount the note states for a sale's proceeds, parsed in code from the verified quote
+    (D9), or None. Only when exactly one proceeds item carries a parseable amount: with none
+    or several, which disposal a figure belongs to is not known and nothing is guessed."""
+    stated = [i for i in items if i.money_class == "proceeds" and i.amount is not None]
+    if len(stated) != 1 or stated[0].amount is None:
+        return None
+    parsed = parse_amount(stated[0].amount.text)
+    if parsed is None:
+        return None
+    return Value(
+        amount=parsed.amount,
+        currency=parsed.currency,
+        precision=parsed.precision,
+        qualifier=parsed.qualifier,
+        date=None,
+        source_id=source_id,
+        quote=stated[0].amount.text,
+        selected_by="P5",
+    )
+
+
+def attributable_stated_amount(
+    items: list[ExtractedMoneyItem],
+    source_id: str,
+    *,
+    matched_disposals: int,
+    unmatched: int,
+    account_value: Value | None,
+) -> Value | None:
+    """The stated proceeds amount, only when it can be attributed and is sane: the note's one
+    proceeds figure belongs to the sole disposal only if there is exactly one matched disposal
+    and none unmatched (with several, which sale a figure belongs to is not known); it must be
+    in sterling; and it cannot exceed the account's own value. Otherwise None, and the portion
+    stays an unspecified amount (a marker), never a wrong figure."""
+    if matched_disposals != 1 or unmatched:
+        return None
+    stated = stated_proceeds_amount(items, source_id)
+    if stated is None or stated.currency != "GBP":
+        return None
+    if account_value is not None and stated.amount > account_value.amount:
+        return None
+    return stated
+
+
 def classify_money(
     disposal_value: Value,
     extent: Literal["full", "portion", "unspecified"],
     destination_known: bool,
+    stated_amount: Value | None = None,
 ) -> ProceedsClassification:
-    """P5's proceeds rule: counted only when the disposal is `full` (a stated `portion`
-    amount is a future widening -- no client has one yet) and the destination is known.
-    Otherwise a marker, never a guessed or partial figure."""
+    """P5's proceeds rule: counted only when the amount and the destination are both known.
+    A `full` disposal's amount is the account's value; a `portion` counts only the amount the
+    note states (`stated_amount`), and with none it is a marker. Never a guessed or partial
+    figure."""
     if extent != "full":
-        return ProceedsClassification(
-            counted=False, amount=None, reason=f"disposal extent is {extent!r}, not full"
-        )
+        if stated_amount is None:
+            return ProceedsClassification(
+                counted=False, amount=None, reason=f"disposal extent is {extent!r}, not full"
+            )
+        if not destination_known:
+            return ProceedsClassification(
+                counted=False, amount=None, reason="the destination of the proceeds is unclear"
+            )
+        return ProceedsClassification(counted=True, amount=stated_amount, reason="")
     if not destination_known:
         return ProceedsClassification(
             counted=False, amount=None, reason="the destination of the proceeds is unclear"

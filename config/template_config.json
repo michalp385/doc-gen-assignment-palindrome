@@ -33,7 +33,16 @@
       },
       "facts": ["action.*.amount", "money.*"],
       "text_sources": ["actions"],
-      "markers": ["*_amounts", "*_addition_amount", "*_portion_sold", "new_account_balance"]
+      "markers": [
+        "*_amounts",
+        "*_addition_amount",
+        "*_portion_sold",
+        "new_account_balance",
+        "*_amount_conflict",
+        "available_*",
+        "bond_chargeable_gain",
+        "disposal_pending_confirmation"
+      ]
     },
     {
       "id": "tax_implications",

@@ -23,7 +23,7 @@ from decimal import Decimal
 
 from agent_pipeline.extract.image import ImageValueRow
 from agent_pipeline.extract.parsing import parse_amount
-from agent_pipeline.ledger import Account, Value
+from agent_pipeline.ledger import Account, Value, render_table
 from agent_pipeline.reconcile.review import ReviewItemInput
 
 # A record with no stated currency is not treated as sterling (P12, DESIGN.md section 3.3):
@@ -61,6 +61,15 @@ def _candidates(
         )
     candidates.extend(viewed_observations)
     return candidates
+
+
+def record_candidate(
+    value: Decimal | None, day: _date | None, currency: str | None
+) -> Value | None:
+    """A joint-account copy's own figure as a candidate, for R9: the same shape as the account
+    data's figure in `_candidates`, so two copies compete under R3 like any two dated figures."""
+    candidates = _candidates(value, day, currency, [])
+    return candidates[0] if candidates else None
 
 
 def _latest(candidates: list[Value]) -> list[Value]:
@@ -174,6 +183,10 @@ def match_image_row(row: ImageValueRow, accounts: list[Account]) -> Account | No
     return None
 
 
+def _full_date(day: _date) -> str:
+    return f"{day.day} {day:%B} {day.year}"
+
+
 def check_image_row(
     selected: Value | None,
     row: ImageValueRow,
@@ -205,15 +218,26 @@ def check_image_row(
     # (confirmed against the real vision model, T18 live check: it prints the digits alone),
     # so it's put back before parsing rather than trusting amount_text alone, or every real
     # read would silently fail to parse and never flag a genuine disagreement.
-    parsed = parse_amount(f"{row.currency_symbol}{row.amount_text}")
+    # A currency code ("GBP") needs a separating space to parse; a symbol does not mind one.
+    shown = (
+        f"{row.currency_symbol} {row.amount_text}"
+        if row.currency_symbol.isalpha()
+        else f"{row.currency_symbol}{row.amount_text}"
+    )
+    parsed = parse_amount(shown)
     if parsed is None or parsed.amount == selected.amount:
         return None
-    return ReviewItemInput(
-        kind="image_discrepancy",
-        blocking=False,
-        detail=(
-            f"statement image shows {row.amount_text!r} for {row.account_label!r}; "
-            f"selected value is {selected.amount}"
-        ),
-        refs=[],
+    detail = (
+        f"statement image shows {row.amount_text!r} for {row.account_label!r}; "
+        f"selected value is {selected.amount}"
     )
+    if row.currency_symbol.isalpha():
+        # A row that prints a currency code was never flagged before (it did not parse), so
+        # its item is new and names both figures and the statement date. A symbol row keeps
+        # the wording clients already carry in their committed ledgers.
+        selected_when = f", dated {_full_date(selected.date)}" if selected.date is not None else ""
+        detail += (
+            f". The statement gives {shown}, valued on {row.valued_on_text}; the selected value "
+            f"is {render_table(selected)}{selected_when}. Images never select a value (P10)."
+        )
+    return ReviewItemInput(kind="image_discrepancy", blocking=False, detail=detail, refs=[])

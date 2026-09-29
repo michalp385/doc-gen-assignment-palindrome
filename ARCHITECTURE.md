@@ -44,6 +44,10 @@ outputs: their prompts and live verification are still to do.
   allowance screening, pension contributions always markers), `new_accounts.py` (R1, P9: the
   accounts the advice opens, their charges marker), `unspecified_amounts.py` (P2, P5: markers for
   funding amounts, portions sold and a new account's balance that the sources leave unstated),
+  `decisions.py` (R4: the instruction's selling decision against the meeting's disposals),
+  `meetings.py` (R10: which of several meeting records governs), `scope_parts.py` (R8: a part
+  of the scope phrase that names a type the client does not hold), `degradation.py` (section
+  8.4: a missing platform, an undated meeting),
   `sections.py` and `predicates.py`
   (G5, P7: inclusion decided in code), `markers.py` (the markers built in code), `facts.py` (the
   ledger's fact IDs and roles), `wrappers.py` (account-type wording to wrapper class),

@@ -1,0 +1,15 @@
+{
+  "_comment": "Currency code -> plain-English name, for review-sheet wording (P12). General vocabulary, not client data. A code not listed is shown as the code alone.",
+  "names": {
+    "EUR": "euros",
+    "USD": "US dollars",
+    "CHF": "Swiss francs",
+    "JPY": "yen",
+    "CAD": "Canadian dollars",
+    "AUD": "Australian dollars",
+    "NZD": "New Zealand dollars",
+    "SEK": "Swedish krona",
+    "NOK": "Norwegian krone",
+    "DKK": "Danish krone"
+  }
+}

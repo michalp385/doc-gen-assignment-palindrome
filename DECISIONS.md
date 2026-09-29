@@ -591,6 +591,40 @@ ship, not the outcome of a resample.
   accepted-and-wrong.
 - **Evidence:** `tests/test_reconcile_questions.py`, `tests/test_investigate_stage.py`.
 
+### D28. Build the rules the hand-written cases expose in code, and record where each stops
+- **Context:** the first run of the 17 non-agent hand-written cases (DESIGN 10.6) passed few of
+  them. The failures were mostly missing deterministic rules (R4, R5, R8, R9, R10, P11, section 8.4
+  degradation), not model errors, plus two defects in my own earlier rules: D24's portion-sold
+  marker fired when the note stated the amount, and its funding-word list read the noun "fund" as a
+  verb. A held-out client is exactly a shape like these.
+- **Decision:** each is a pure function with tests first (`reconcile/decisions.py`, `meetings.py`,
+  `scope_parts.py`, `degradation.py`, the R5 and R9 wiring in `pipeline.py`, P5's stated portion in
+  `money.py`). None re-labels anything by model. The four real clients' committed outputs and cache
+  are untouched, and their replay tests enforce it: a rule that changed one of them was reworked
+  (P10's fuller wording applies only to a statement row that prints a currency code, which was
+  previously dropped silently; a leading client name is accepted only after the writer's repair
+  rounds, so a first answer that was corrected keeps the wording it always had).
+- **Alternatives:** tune the extraction or writer prompts until the cases pass: it fits the cases
+  and hides the missing rule. Loosen the eval checks: three eval-side changes were made, each
+  approved before it was made and none loosening what a case must contain: a bracketed marker table
+  cell is read as "marker" (as the pipeline's own truth names it), an expected review item's terms
+  match case-insensitively, and two expected files gained the always-allowed initial charge.
+- **Where each rule stops** (found by an independent review, and recorded rather than hidden): R5
+  compares the instruction's one exact figure with the one funding action that states an amount, and
+  cannot tell a total from one part of it, so it can raise a false blocking conflict; P5 attributes a
+  stated proceeds amount only to a sole disposal, in sterling and no larger than the account; R8
+  knows account types by the wording in `config/account_types.json`; R10 orders records by their
+  extracted date and, on equal dates, by input order; the funding-word and "within" lists are
+  English wording and err towards a marker.
+- **Consequences / how it generalises:** the cases are a measure, not a target: a pass here means a
+  rule exists, not that a client with a different phrasing will pass. The judge's non-repeatability
+  (D22) still fails a case that the rules handle correctly.
+- **Evidence:** `tests/test_p5_stated_portion_amount.py`, `test_r9_joint_copies.py`,
+  `test_r5_instruction_vs_meeting_amount.py`, `test_r4_selling_decision.py`,
+  `test_r8_unresolved_scope_part.py`, `test_r10_meeting_records.py`,
+  `test_p11_tbc_computed_fields.py`, `test_degradation_missing_fields.py`,
+  `test_task_b_review_fixes.py`, `test_eval_checks_approved_fixes.py`.
+
 ## What I would do with more time
 - **The investigation agent (T22, D14).** Designed and not built: a conflict becomes a review-sheet item
   and an amount marker, and the results file shows 0 questions raised across the 4 clients.

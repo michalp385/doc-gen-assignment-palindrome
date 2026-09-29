@@ -19,6 +19,7 @@ Pure code, no model call.
 from __future__ import annotations
 
 import re
+from collections.abc import Collection
 from dataclasses import dataclass, field
 
 from agent_pipeline.ledger import Account, Action, Marker, Value, render_prose
@@ -34,8 +35,15 @@ _NEVER_ESTIMATED = "never estimated (CLAUDE.md non-negotiable)"
 # missing from it. Errs towards a marker, which fails safe, over silence.
 _FUNDING_VERB_RE = re.compile(
     r"\b(add|adding|top[- ]?up|contribut\w*|pay(?:ing)? in|invest(?:ing|ed)?|fund(?:ing|ed)?|"
-    r"deposit\w*|"
+    r"deposit\w*|subscri\w*|"
     r"place|put|transfer\w*|move|moving)\b",
+    re.IGNORECASE,
+)
+# A change made within an account, not money moved into one: switching, rebalancing,
+# reallocating, or anything done "within" a wrapper. Not a funding action even when it
+# mentions funds.
+_INTERNAL_CHANGE_RE = re.compile(
+    r"\b(?:switch\w*|rebalanc\w*|reallocat\w*|within\s+(?:\S+\s+){0,3}?(?:isa|sipp|gia|account|wrapper|portfolio|pension|bond)s?)\b",
     re.IGNORECASE,
 )
 _BALANCE_TEXT = " and the resulting balance for the new account"
@@ -64,7 +72,9 @@ def _unique_key(stem: str, taken: set[str]) -> str:
     return key
 
 
-def _is_funding(action: Action) -> bool:
+def is_funding_action(action: Action) -> bool:
+    if _INTERNAL_CHANGE_RE.search(action.description):
+        return False
     return _FUNDING_VERB_RE.search(action.description) is not None
 
 
@@ -91,6 +101,7 @@ def build_unspecified_amounts(
     other_unspecified: int,
     taken_keys: set[str],
     available: Value | None,
+    skip_action_ids: Collection[str] = frozenset(),
 ) -> UnspecifiedResult:
     """`taken_keys` are marker keys already built (updated in place), so a key is never
     duplicated. `other_unspecified` counts unspecified amounts built elsewhere (pension
@@ -105,13 +116,15 @@ def build_unspecified_amounts(
     for action in actions:
         if action.kind != "action" or action.id in action_amounts:
             continue
+        if action.id in skip_action_ids:
+            continue  # its amount is already a marker for another reason (R5 conflict)
         if _overlaps_a_disposal(action, disposal_quotes):
             continue
         # An agreed action naming a new account with no amount leaves its opening balance
         # unstated, whether or not it says "fund" ("open a new account for the balance").
         if _names_new_account(action) and has_new_account:
             balance_wanted = True
-        if not _is_funding(action):
+        if not is_funding_action(action):
             continue
         matched: dict[str, Account] = {}
         for reference in action.accounts:

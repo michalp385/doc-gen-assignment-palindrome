@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import re
 import time
+from collections.abc import Collection
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -48,7 +49,12 @@ from agent_pipeline.ledger import (
 )
 from agent_pipeline.llm import LLMClient, OpenAITransport, Transport
 from agent_pipeline.reconcile.account_state import check_account_states
-from agent_pipeline.reconcile.amounts import instruction_figures
+from agent_pipeline.reconcile.amounts import instruction_figures, resolve_amount
+from agent_pipeline.reconcile.decisions import DecisionCheck, check_selling_decision
+from agent_pipeline.reconcile.degradation import (
+    missing_platform_review_items,
+    undated_meeting_review_item,
+)
 from agent_pipeline.reconcile.facts import build_facts
 from agent_pipeline.reconcile.limits import (
     check_limits,
@@ -64,24 +70,41 @@ from agent_pipeline.reconcile.markers import (
     bond_marker,
     cgt_marker,
     required_markers,
+    tbc_field_markers,
 )
-from agent_pipeline.reconcile.money import available_now, build_money_items, classify_money
+from agent_pipeline.reconcile.meetings import (
+    govern_meeting_records,
+    several_records_review_item,
+)
+from agent_pipeline.reconcile.money import (
+    attributable_stated_amount,
+    available_now,
+    build_money_items,
+    classify_money,
+)
 from agent_pipeline.reconcile.new_accounts import NewAccountMention, build_new_accounts
 from agent_pipeline.reconcile.ownership import resolve_ownership
 from agent_pipeline.reconcile.predicates import evaluate
 from agent_pipeline.reconcile.refs import accounts_matching_reference
 from agent_pipeline.reconcile.review import ReviewItemInput, build_review_items, marker_review_items
 from agent_pipeline.reconcile.scope import resolve_scope
+from agent_pipeline.reconcile.scope_parts import (
+    UNRESOLVED_ID_PREFIX,
+    build_unresolved_scope,
+    unresolved_scope_parts,
+)
 from agent_pipeline.reconcile.sections import Disposal as SectionDisposal
 from agent_pipeline.reconcile.sections import SectionContext, unknown_wrapper_review_items
 from agent_pipeline.reconcile.unspecified_amounts import (
     PartialDisposal,
     build_unspecified_amounts,
+    is_funding_action,
 )
 from agent_pipeline.reconcile.values import (
     check_image_row,
     is_stated_gbp,
     match_image_row,
+    record_candidate,
     select_values,
     superseded_values,
     tied_candidates,
@@ -281,7 +304,20 @@ def _classify_disposals(
     for disposal, account in matches:
         if account.value is None:
             continue
-        result = classify_money(account.value, disposal.extent, destination_known)
+        # A stated portion amount is attributed only to a sole disposal (see
+        # `attributable_stated_amount`).
+        stated_amount = (
+            attributable_stated_amount(
+                meeting_money_items,
+                meeting_source_id,
+                matched_disposals=len(matches),
+                unmatched=unmatched,
+                account_value=account.value,
+            )
+            if disposal.extent != "full"
+            else None
+        )
+        result = classify_money(account.value, disposal.extent, destination_known, stated_amount)
         money_items.append(
             MoneyItem.model_validate(
                 {
@@ -305,6 +341,7 @@ def _apply_proceeds_to_actions(
     action_amounts: dict[str, Value],
     accounts: list[Account],
     proceeds_by_account: dict[str, Value],
+    skip_ids: Collection[str] = frozenset(),
 ) -> set[str]:
     """P5: funds an action's fact from a disposal's own counted proceeds, never a
     separately re-extracted quote -- the agreed-action sentence often states no figure at
@@ -316,12 +353,19 @@ def _apply_proceeds_to_actions(
     plain internal transfer's generic one."""
     filled: set[str] = set()
     for action in actions:
-        if action.id in action_amounts:
-            continue
+        if action.id in skip_ids:
+            continue  # its amount was dropped for an R5 conflict; never refilled
         matched_ids = {
             a.id for ref in action.accounts for a in accounts_matching_reference(ref, accounts)
         }
         proceeds = [proceeds_by_account[i] for i in matched_ids if i in proceeds_by_account]
+        if action.id in action_amounts:
+            # An action that states its own amount is still proceeds-funded when that amount
+            # is exactly a disposed account's counted proceeds (a stated portion), so it
+            # carries P5's qualifiers too.
+            if any(p.amount == action_amounts[action.id].amount for p in proceeds):
+                filled.add(action.id)
+            continue
         if len(proceeds) == 1:
             action_amounts[action.id] = proceeds[0]
             filled.add(action.id)
@@ -366,10 +410,55 @@ def _resolve_viewed_values(
     return by_account
 
 
+def _full_date(day) -> str:  # type: ignore[no-untyped-def]  # a datetime.date
+    """ "15 April 2026": the day, month and year, so a blocking item names the date exactly."""
+    return f"{day.day} {day:%B} {day.year}"
+
+
+def _candidate_values(
+    account_id: str,
+    record: AccountRecord,
+    observations_by_account: dict[str, list[Value]],
+    other_copies: dict[str, list[AccountRecord]] | None,
+) -> list[Value]:
+    """The figures competing for an account under R3: any live-viewed meeting figure, plus (R9)
+    each other copy of the joint account whose figure or date differs from the record's own.
+    An identical copy is one answer and adds nothing."""
+    extra: list[Value] = []
+    for copy in (other_copies or {}).get(account_id, []):
+        if (copy.value, copy.valuation_date) == (record.value, record.valuation_date):
+            continue
+        candidate = record_candidate(copy.value, copy.valuation_date, copy.currency)
+        if candidate is not None:
+            extra.append(candidate)
+    return [*observations_by_account.get(account_id, []), *extra]
+
+
+def _tied_account_ids(
+    account_by_id: dict[str, Account],
+    records_by_id: dict[str, AccountRecord],
+    observations_by_account: dict[str, list[Value]],
+    other_copies: dict[str, list[AccountRecord]] | None = None,
+) -> set[str]:
+    """The accounts whose latest-dated figures disagree (R3, R9): their value is unresolved."""
+    tied: set[str] = set()
+    for account_id in account_by_id:
+        record = records_by_id.get(account_id)
+        if record is None:
+            continue
+        viewed = _candidate_values(account_id, record, observations_by_account, other_copies)
+        if tied_candidates(record.value, record.valuation_date, record.currency, viewed) and (
+            is_stated_gbp(record.currency)
+        ):
+            tied.add(account_id)
+    return tied
+
+
 def _apply_values(
     account_by_id: dict[str, Account],
     records_by_id: dict[str, AccountRecord],
     observations_by_account: dict[str, list[Value]],
+    other_copies: dict[str, list[AccountRecord]] | None = None,
 ) -> tuple[dict[str, Account], list[ReviewItemInput]]:
     """R3, R9, G15: selects each account's value (the account data plus any live-viewed
     meeting figure) and, wherever a candidate lost, records it in `Account.superseded`
@@ -381,22 +470,31 @@ def _apply_values(
         record = records_by_id.get(account_id)
         if record is None:
             continue
-        viewed = observations_by_account.get(account_id, [])
+        viewed = _candidate_values(account_id, record, observations_by_account, other_copies)
         value = select_values(record.value, record.valuation_date, record.currency, viewed)
         tie = tied_candidates(record.value, record.valuation_date, record.currency, viewed)
         if tie and is_stated_gbp(record.currency):
             # R3 / R9: same-date candidates that disagree select nothing; the account's value
             # cell becomes a marker (`_apply_account_states`) and the adviser sees why.
             tie_date = tie[0].date
-            when = render_date(tie_date) if tie_date is not None else "undated"
+            when = _full_date(tie_date) if tie_date is not None else "undated"
+            # Copies of one joint account disagreeing is R9: the adviser must settle it. A tie
+            # with a live-viewed meeting figure keeps its earlier, non-blocking form.
+            copies_only = all(v.source_id == "client_data_db.json" for v in tie)
             figures = "; ".join(f"{render_table(v)} ({v.source_id})" for v in tie)
             review_items.append(
                 ReviewItemInput(
                     kind="conflict",
-                    blocking=False,
+                    # R9 blocks only for an account the report covers.
+                    blocking=copies_only and account.in_scope,
                     detail=(
                         f"{account_id}: sources give different values on the same date "
-                        f"({when}): {figures}; no value is selected."
+                        f"({when}): {figures}; no value is selected"
+                        + (
+                            "; confirm which is right before anything is finalised."
+                            if copies_only
+                            else "."
+                        )
                     ),
                     refs=[account_id],
                 )
@@ -473,13 +571,54 @@ def _apply_money(
     return build.items, result.value, markers, review_items
 
 
-def _partial_disposals(disposals, accounts: list[Account]) -> list[PartialDisposal]:
+def _reconcile_instruction_amount(
+    actions: list[Action],
+    action_amounts: dict[str, Value],
+    accounts: list[Account],
+    instruction_amounts: list[Value],
+) -> tuple[list[Marker], list[ReviewItemInput]]:
+    """R5 (SCOPING section 3.1 rule 5): the report instruction's exact figure against the one
+    amount the meeting states for an action. The same amount uses the exact figure. Any
+    difference is a blocking conflict and an amount marker, and the action's amount is dropped
+    so that neither figure reaches the report. Made only when it is a single pair: exactly one
+    exact instruction figure and exactly one funding action stating an amount. That does not
+    prove they mean the same money (a total across accounts against one action's part of it
+    would raise a false conflict, which the adviser then sees and settles). Mutates
+    `action_amounts`."""
+    stated = [
+        a for a in actions if a.kind == "action" and a.id in action_amounts and is_funding_action(a)
+    ]
+    if len(instruction_amounts) != 1 or len(stated) != 1:
+        return [], []
+    action = stated[0]
+    matched = [m for ref in action.accounts for m in accounts_matching_reference(ref, accounts)]
+    allowance = any(classify_wrapper(a.type).allowance_family is not None for a in matched)
+    label = "topup_amount" if allowance else "investment_amount"
+    meeting = action_amounts[action.id]
+    resolution = resolve_amount(instruction_amounts[0], meeting, label=label)
+    if resolution.value is not None:
+        # The same amount. Only an approximate meeting figure is replaced by the exact one
+        # (R5); two exact figures need no change and keep the meeting's own value.
+        if meeting.precision != "exact":
+            action_amounts[action.id] = resolution.value
+        return [], []
+    del action_amounts[action.id]
+    return (
+        [resolution.marker] if resolution.marker is not None else [],
+        [resolution.conflict] if resolution.conflict is not None else [],
+    )
+
+
+def _partial_disposals(
+    disposals, accounts: list[Account], counted_account_ids: set[str]
+) -> list[PartialDisposal]:
     """P5: each disposal that matches one account and whose extent is a portion, or is not
     stated -- its amount sold is an unspecified amount, not the account's whole value."""
     partial: list[PartialDisposal] = []
     for disposal in disposals:
         found = accounts_matching_reference(disposal.account_reference, accounts)
-        if len(found) == 1 and disposal.extent != "full":
+        # A portion whose stated amount P5 counted has no unspecified amount.
+        if len(found) == 1 and disposal.extent != "full" and found[0].id not in counted_account_ids:
             partial.append(
                 PartialDisposal(
                     account=found[0], reference=disposal.account_reference, extent=disposal.extent
@@ -519,7 +658,9 @@ def _apply_new_accounts(
 
 
 def _apply_account_states(
-    accounts: list[Account], currency_by_id: dict[str, str | None]
+    accounts: list[Account],
+    currency_by_id: dict[str, str | None],
+    tied_ids: frozenset[str] = frozenset(),
 ) -> tuple[list[Account], list[Marker], list[ReviewItemInput]]:
     """R6, P12: applies `check_account_states` to the ledger's accounts -- a null value, or a
     value whose currency is not GBP or not stated (a missing currency is not-GBP, DESIGN.md
@@ -528,7 +669,7 @@ def _apply_account_states(
     closed account the scope names leaves the table with a blocking conflict. Returns the
     markers and review items for the caller to add to the ledger; a closed or valueless
     out-of-scope account is left as it was."""
-    states = check_account_states(accounts, currency_by_id)
+    states = check_account_states(accounts, currency_by_id, tied_ids)
     updated: list[Account] = []
     markers: list[Marker] = []
     review_items: list[ReviewItemInput] = []
@@ -709,6 +850,13 @@ def _image_review_items(
     return items
 
 
+def _tbc_slot(ledger: Ledger, key: str) -> str | None:
+    """P11: the bracketed marker text for a TBC request field, as the table does for a value
+    cell, or None when the field has no such marker."""
+    marker = next((m for m in ledger.markers if m.key == key), None)
+    return f"[ADVISER TO CONFIRM {marker.id}: {marker.text}]" if marker is not None else None
+
+
 def _computed_placeholder(name: str, ledger: Ledger) -> str:
     """Every "computed" placeholder: built in code from the ledger, never by the model
     (P9, G13). `risk_profile`/`initial_charge` reach the report this way, not as a fact
@@ -718,9 +866,9 @@ def _computed_placeholder(name: str, ledger: Ledger) -> str:
     if name == "holdings_table":
         return build_table(ledger)
     if name == "risk_profile":
-        return ledger.risk_profile or "not stated"
+        return ledger.risk_profile or _tbc_slot(ledger, "risk_profile_tbc") or "not stated"
     if name == "initial_charge":
-        return ledger.initial_charge or "not stated"
+        return ledger.initial_charge or _tbc_slot(ledger, "initial_charge_tbc") or "not stated"
     raise ValueError(f"no computed handling for placeholder {name!r}")
 
 
@@ -796,6 +944,7 @@ def _run_stages(
 
     account_source = _source_by_role(classification, "account_data")
     meeting_source = _source_by_role(classification, "meeting_record")
+    meeting_sources = [s for s in classification.sources if s.role == "meeting_record"]
     instruction_source = _source_by_role(classification, "report_instruction")
     guidance_source = _source_by_role(classification, "internal_guidance")
     spec_source = _source_by_role(classification, "report_spec")
@@ -817,9 +966,18 @@ def _run_stages(
     ownership = resolve_ownership(account_data)
     accounts = ownership.accounts
 
-    meeting_doc = read_docx(meeting_source.path)
     meeting_model = LLMMeetingModel(llm, load_prompt(PROMPTS_DIR / "extract_meeting.md"))
-    meeting_extraction = extract_meeting(meeting_doc, meeting_model)
+    # R10: with several meeting records the latest-dated one governs decisions; earlier ones
+    # contribute dated values only. One record (every real client) takes the same path as ever.
+    meeting_docs = [read_docx(s.path) for s in meeting_sources]
+    meeting_extractions = [extract_meeting(d, meeting_model) for d in meeting_docs]
+    record_dates = [
+        parse_date(e.meeting_date.text) if e.meeting_date else None for e in meeting_extractions
+    ]
+    governing, earlier_records = govern_meeting_records(record_dates)
+    meeting_source = meeting_sources[governing]
+    meeting_doc = meeting_docs[governing]
+    meeting_extraction = meeting_extractions[governing]
 
     instruction_doc = read_docx(instruction_source.path)
     instruction_model = LLMInstructionModel(
@@ -864,23 +1022,50 @@ def _run_stages(
     observations_by_account = _resolve_viewed_values(
         meeting_extraction.value_observations, accounts, meeting_source.path.name, meeting_date
     )
+    for index in earlier_records:
+        # An earlier record adds its own dated figures; R3 decides which is latest.
+        for account_id, values in _resolve_viewed_values(
+            meeting_extractions[index].value_observations,
+            accounts,
+            meeting_sources[index].path.name,
+            record_dates[index],
+        ).items():
+            observations_by_account.setdefault(account_id, []).extend(values)
     records_by_id = {
         r.account_id: r
         for holder in account_data.holders.values()
         for r in holder.accounts
         if r.account_id
     }
+    # R9: every copy of a joint account, so disagreeing copies compete under R3.
+    copies_by_id: dict[str, list[AccountRecord]] = {}
+    for holder in account_data.holders.values():
+        for r in holder.accounts:
+            if r.account_id:
+                copies_by_id.setdefault(r.account_id, []).append(r)
+    tied_ids = frozenset(
+        _tied_account_ids(account_by_id, records_by_id, observations_by_account, copies_by_id)
+    )
     account_by_id, superseded_review_items = _apply_values(
-        account_by_id, records_by_id, observations_by_account
+        account_by_id, records_by_id, observations_by_account, copies_by_id
     )
     account_currency_by_id = {aid: r.currency for aid, r in records_by_id.items()}
     resolved_accounts, state_markers, state_review_items = _apply_account_states(
-        list(account_by_id.values()), account_currency_by_id
+        list(account_by_id.values()), account_currency_by_id, tied_ids
     )
     new_accounts, new_account_markers, new_account_review_items = _apply_new_accounts(
         meeting_extraction.new_accounts, scope_field.value, account_data
     )
     resolved_accounts = [*resolved_accounts, *new_accounts]
+
+    # R8: a part of the scope phrase naming an account type the client does not hold.
+    unresolved_scope = build_unresolved_scope(
+        unresolved_scope_parts(
+            scope_field.value, accounts, [h.name for h in account_data.holders.values()]
+        ),
+        scope_field.label_as_written,
+    )
+    resolved_accounts = [*resolved_accounts, *unresolved_scope.accounts]
 
     # Stage 3a (D14): open questions where more evidence could change the outcome. A client
     # whose mentions all resolve opens none, so the model is never called for it.
@@ -903,26 +1088,56 @@ def _run_stages(
         resolved_accounts,
         meeting_source.path.name,
     )
-    tax_section = evaluate("taxable_disposal", SectionContext(disposals=disposals))
+    # R4 (G5 case b): the instruction's selling decision against the meeting's disposals.
+    selling_field = fields_by_canonical.get("selling_existing_investments")
+    selling_decision = (
+        check_selling_decision(
+            selling_field.label_as_written,
+            selling_field.value,
+            [d.quote.text for d in meeting_extraction.disposals],
+        )
+        if selling_field is not None and not selling_field.is_tbc
+        else DecisionCheck()
+    )
+    # An instruction that says yes with no sale in the meeting is a possible taxable
+    # disposal: the tax section and CGT marker are kept, not omitted.
+    tax_disposals = (
+        [*disposals, SectionDisposal(wrapper_class="unknown")]
+        if selling_decision.add_possible_disposal
+        else disposals
+    )
+    tax_section = evaluate("taxable_disposal", SectionContext(disposals=tax_disposals))
     disposal_review_items = unknown_wrapper_review_items(disposals)
 
     amount_field = fields_by_canonical.get("investment_amount")
+    # R5: the instruction's exact figures, read in code from its amount field.
+    instruction_amounts = (
+        instruction_figures(amount_field.value, instruction_source.path.name)
+        if amount_field is not None and not amount_field.is_tbc
+        else []
+    )
     other_money_items, available, available_markers, money_review_items = _apply_money(
         meeting_extraction.money_items,
         meeting_source.path.name,
         len(money_items) + 1,
-        # R5: the instruction's exact figures, read in code from its amount field.
-        instruction_figures(amount_field.value, instruction_source.path.name)
-        if amount_field is not None and not amount_field.is_tbc
-        else None,
+        instruction_amounts,
     )
     money_items = [*money_items, *other_money_items]
 
     actions, action_amounts = _build_actions(
         meeting_extraction.agreed_actions, meeting_source.path.name
     )
+    amounts_before = set(action_amounts)
+    amount_markers, amount_review_items = _reconcile_instruction_amount(
+        actions, action_amounts, resolved_accounts, instruction_amounts
+    )
+    conflicted_action_ids = amounts_before - set(action_amounts)
     proceeds_action_ids = _apply_proceeds_to_actions(
-        actions, action_amounts, resolved_accounts, disposal_proceeds_by_account
+        actions,
+        action_amounts,
+        resolved_accounts,
+        disposal_proceeds_by_account,
+        skip_ids=conflicted_action_ids,
     )
 
     excluded = _build_excluded(
@@ -930,17 +1145,29 @@ def _run_stages(
     )
 
     in_scope_platforms = {a.platform for a in resolved_accounts if a.in_scope and a.platform}
+    no_platform_types = [
+        a.type
+        for a in resolved_accounts
+        if a.in_scope
+        and not a.is_new
+        and not a.id.startswith(UNRESOLVED_ID_PREFIX)
+        and not a.platform
+    ]
     # Value-cell markers (R6, P12) sit in the account table, which opens the report, so
     # they come first in the order number_markers numbers them by (P1).
     pension_markers, pension_review_items = _pension_markers(actions, resolved_accounts)
     markers = [
         *state_markers,
-        *required_markers(in_scope_platforms),
+        *required_markers(in_scope_platforms, no_platform_types),
         *new_account_markers,
-        *cgt_marker(disposals),
+        *unresolved_scope.markers,
+        *cgt_marker(tax_disposals),
         *bond_marker(disposals),
         *pension_markers,
         *available_markers,
+        *amount_markers,
+        *([selling_decision.marker] if selling_decision.marker else []),
+        *tbc_field_markers(fields_by_canonical),
     ]
 
     facts = build_facts(
@@ -973,11 +1200,14 @@ def _run_stages(
         actions,
         action_amounts,
         resolved_accounts,
-        partial_disposals=_partial_disposals(meeting_extraction.disposals, resolved_accounts),
+        partial_disposals=_partial_disposals(
+            meeting_extraction.disposals, resolved_accounts, set(disposal_proceeds_by_account)
+        ),
         disposal_quotes=[d.quote.text for d in meeting_extraction.disposals],
         other_unspecified=len(pension_markers) + len(available_markers),
         taken_keys={m.key for m in markers},
         available=available,
+        skip_action_ids=conflicted_action_ids,
     )
     markers += unspecified.markers
 
@@ -988,8 +1218,22 @@ def _run_stages(
         *superseded_review_items,
         *(_open_action_item(oa, meeting_doc) for oa in meeting_extraction.open_actions),
         *money_review_items,
+        *amount_review_items,
+        *([selling_decision.review_item] if selling_decision.review_item else []),
         *new_account_review_items,
         *investigation.review_items,
+        *(
+            [several]
+            if (
+                several := several_records_review_item(
+                    [s.path.name for s in meeting_sources], record_dates, governing
+                )
+            )
+            else []
+        ),
+        *unresolved_scope.review_items,
+        *missing_platform_review_items(resolved_accounts),
+        *([undated] if (undated := undated_meeting_review_item(meeting_date)) else []),
         *disposal_review_items,
         *unspecified.review_items,
         *pension_review_items,
@@ -1086,6 +1330,8 @@ def _run_stages(
     deterministic_results = run_gates(bundle, LedgerTruth(ledger))
     judge_sources: dict[str, SourceDoc] = {meeting_source.path.name: meeting_doc}
     judge_sources[instruction_source.path.name] = instruction_doc
+    for index in earlier_records:
+        judge_sources[meeting_sources[index].path.name] = meeting_docs[index]
     judge_results = majority_release_judge(
         bundle,
         ledger,

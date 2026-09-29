@@ -23,6 +23,9 @@ import re
 from agent_pipeline.ledger import Account
 from agent_pipeline.reconcile.wrappers import type_aliases
 
+# Words every account type shares; they say nothing about which type is meant.
+_GENERIC_TYPE_WORDS = {"investment", "account", "the", "and", "of"}
+
 
 def account_matches_reference(reference: str, account: Account) -> bool:
     ref = reference.lower()
@@ -35,7 +38,13 @@ def account_matches_reference(reference: str, account: Account) -> bool:
     # A plural of an acronym the type itself spells in capitals ("ISAs" for "Stocks & Shares
     # ISA"); never a plural of an ordinary word, which would match every account.
     acronyms = re.findall(r"\b[A-Z]{3,}\b", account.type)
-    return any(f"{acronym.lower()}s" in ref_words for acronym in acronyms)
+    if any(f"{acronym.lower()}s" in ref_words for acronym in acronyms):
+        return True
+    # A reference that drops a generic word of the type ("offshore bond" for "Offshore
+    # Investment Bond"): every distinctive word of a type that has at least two. A type
+    # with one ("General Investment Account") is left to the whole-wording rule above.
+    distinctive = [w for w in re.findall(r"[a-z']+", account_type) if w not in _GENERIC_TYPE_WORDS]
+    return len(distinctive) >= 2 and all(w in ref_words for w in distinctive)
 
 
 def accounts_matching_reference(reference: str, accounts: list[Account]) -> list[Account]:

@@ -64,7 +64,8 @@ def resolve_scope(
         ]
         if verified:
             return ScopeResult(phrase=phrase, resolved_ids=verified, unresolved=False)
-        return ScopeResult(phrase=phrase, resolved_ids=[], unresolved=True)
+        # The proposal placed nothing real. Code's own exact match still stands: it needs no
+        # language judgment, and a missing optional field (section 8.4) must not stop a run.
 
     matches = [a.id for a in accounts if _phrase_matches(phrase, a)]
     if len(matches) == 1:
