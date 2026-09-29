@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001199",
+  "input_hash": "f6bf3a62b2156540b769c88928d287215c0fd107a685749c4cc7166f4e15906e",
+  "model": "gpt-6-luna",
+  "prompt_version": "5b6572803a7b9f8b6043d7bd4a43c1ca5f2678dbf237aa6e2de6ade291aa0775",
+  "response": {
+    "paragraphs": [
+      "your Stocks & Shares ISA held with Holloway and your Personal Pension"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 754,
+    "output_tokens": 89,
+    "reasoning_tokens": 59
+  }
+}

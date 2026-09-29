@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001091",
+  "input_hash": "279d938c1ea4b712b5e2f662dbb65e8f55e763d99e50c5361c78eef543af9810",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "Follow-up call with Alistair Grieve, held 20 May 2026.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 876,
+    "output_tokens": 43,
+    "reasoning_tokens": 0
+  }
+}

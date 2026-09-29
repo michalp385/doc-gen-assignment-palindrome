@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0000846",
+  "input_hash": "c75722c0a5f003dba1ef2347b8de3c9fb37122f713c6e604e2eae6ba0d40bb0d",
+  "model": "gpt-6-luna",
+  "prompt_version": "ba2848825ed196548bb5567ff22df050679a307bc3566b828246331bb4a11adc",
+  "response": {
+    "paragraphs": [
+      "An ongoing platform charge and an ongoing advice charge apply to your investments. The platform charge rate is {marker:platform_charge_holloway}. The advice charge rate is {marker:advice_charge}."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 571,
+    "output_tokens": 55,
+    "reasoning_tokens": 0
+  }
+}

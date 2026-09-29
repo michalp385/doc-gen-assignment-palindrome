@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001074",
+  "input_hash": "835070903ecf5d41238a2d306605d0311e3ceade12bc13b16e88ca709f2479a2",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "Annual review meeting with Vera Hopkins, held 12 May 2026.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 874,
+    "output_tokens": 40,
+    "reasoning_tokens": 0
+  }
+}

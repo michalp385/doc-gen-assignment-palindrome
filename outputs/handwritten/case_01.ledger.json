@@ -1,0 +1,178 @@
+{
+  "client": "case_01",
+  "meeting_date": "2026-06-08",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "objectives": "Helen confirmed there have been no changes to her circumstances or objectives since last year's review and remains comfortable with a moderate approach to risk. Helen has no income requirement from the portfolio.",
+  "tax_section": false,
+  "accounts": [
+    {
+      "id": "F-ISA-01",
+      "owners": [
+        "Helen Foster"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "30000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-06-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "F-CASH-01",
+      "owners": [
+        "Helen Foster"
+      ],
+      "type": "Cash Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": false,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "12000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-06-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    }
+  ],
+  "money": [],
+  "actions": [
+    {
+      "id": "a1",
+      "description": "We agreed she would move £8,000 from the cash account into the Stocks & Shares ISA.",
+      "kind": "action",
+      "accounts": [
+        "cash account",
+        "Stocks & Shares ISA"
+      ],
+      "quote": "We agreed she would move £8,000 from the cash account into the Stocks & Shares ISA.",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "excluded": [],
+  "markers": [
+    {
+      "id": "#1",
+      "key": "platform_charge_holloway",
+      "text": "ongoing platform charge rate, Holloway",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#2",
+      "key": "advice_charge",
+      "text": "ongoing advice charge rate",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    }
+  ],
+  "review": [
+    {
+      "id": "rv1",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_holloway",
+      "refs": [
+        "platform_charge_holloway"
+      ]
+    },
+    {
+      "id": "rv2",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker advice_charge",
+      "refs": [
+        "advice_charge"
+      ]
+    },
+    {
+      "id": "rv3",
+      "kind": "image_discrepancy",
+      "blocking": false,
+      "detail": "statement image shows '34,000' for 'Holloway ISA (Helen)'; selected value is 30000.0. The statement gives GBP 34,000, valued on 10 Jun 2026; the selected value is £30,000, dated 1 June 2026. Images never select a value (P10).",
+      "refs": []
+    }
+  ],
+  "questions": [],
+  "facts": {
+    "account.F-ISA-01.value": {
+      "id": "account.F-ISA-01.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "30000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-06-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.F-CASH-01.value": {
+      "id": "account.F-CASH-01.value",
+      "kind": "money",
+      "description": "the Cash Account's current value",
+      "value": {
+        "amount": "12000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-06-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "action.a1.amount": {
+      "id": "action.a1.amount",
+      "kind": "money",
+      "description": "the amount involved in this action",
+      "value": {
+        "amount": "8000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£8,000",
+        "selected_by": "action_amount"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "transaction",
+      "placement": "any"
+    }
+  }
+}

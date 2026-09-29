@@ -1,0 +1,65 @@
+{
+  "cost_usd": "0.0018855",
+  "input_hash": "30de87e5280104939a490e717ac4c8ad921a7d219a14ab7021cabc3cd493a8f8",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving money from the cash account into the Stocks & Shares ISA, as agreed."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Vera's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Vera confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Vera confirmed that her circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Vera remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Vera confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "She remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Vera has no income requirement from the portfolio.",
+        "paragraph_id": "p5",
+        "quote": "Vera has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report recommends moving money from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p4",
+        "quote": "We agreed she would move money from the cash account into the Stocks & Shares ISA; the exact amount would be confirmed in the report.",
+        "report_quote": "We recommend moving money from the cash account into the Stocks & Shares ISA",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The move from the cash account into the Stocks & Shares ISA was agreed.",
+        "paragraph_id": "p4",
+        "quote": "We agreed she would move money from the cash account into the Stocks & Shares ISA; the exact amount would be confirmed in the report.",
+        "report_quote": "as agreed.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving money from the cash account into the Stocks & Shares ISA, as agreed."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2400,
+    "output_tokens": 3291,
+    "reasoning_tokens": 2880
+  }
+}

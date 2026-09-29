@@ -1,0 +1,5 @@
+{
+  "client": "case_19",
+  "release_state": "failed",
+  "reason": "two report_instruction sources disagree: ['data/synthetic/handwritten/case_19/report_request.docx', 'data/synthetic/handwritten/case_19/report_request_2.docx']"
+}

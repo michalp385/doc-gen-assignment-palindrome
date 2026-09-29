@@ -1,0 +1,78 @@
+{
+  "cost_usd": "0.0006680",
+  "input_hash": "f2eb8baeb55cca438f1c2b7b838790be18649e672bd163cf0f2f3ef5bb781db1",
+  "model": "gpt-6-luna",
+  "prompt_version": "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b",
+  "response": {
+    "accounts_mentioned": [
+      "Holloway cash account",
+      "Stocks & Shares ISA",
+      "cash account",
+      "portfolio"
+    ],
+    "agreed_actions": [
+      {
+        "accounts_referenced": [
+          "Holloway cash account",
+          "Stocks & Shares ISA"
+        ],
+        "amount": {
+          "paragraph_id": "p4",
+          "text": "\u00a35,000"
+        },
+        "description": {
+          "paragraph_id": "p4",
+          "text": "We agreed to look into the cash account, and if the funds are available, move \u00a35,000 from it into the Stocks & Shares ISA."
+        },
+        "is_non_action": false
+      }
+    ],
+    "attendees": [
+      "Nora Whitfield"
+    ],
+    "disposals": [],
+    "excluded_items": [],
+    "limit_signals": [],
+    "meeting_date": {
+      "paragraph_id": "p1",
+      "text": "held 12 May 2026."
+    },
+    "money_items": [],
+    "new_accounts": [],
+    "objectives_and_circumstances": [
+      {
+        "text": {
+          "paragraph_id": "p2",
+          "text": "Nora confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p5",
+          "text": "Nora has no income requirement from the portfolio."
+        }
+      }
+    ],
+    "open_actions": [
+      {
+        "blocking": false,
+        "blocking_evidence": {
+          "paragraph_id": "p6",
+          "text": "Next steps: prepare the advice report covering the ISA top-up and check the status of the cash account."
+        },
+        "text": {
+          "paragraph_id": "p6",
+          "text": "check the status of the cash account."
+        }
+      }
+    ],
+    "value_observations": []
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 2577,
+    "input_tokens": 2750,
+    "output_tokens": 786,
+    "reasoning_tokens": 351
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001136",
+  "input_hash": "182cc7984b315ebd3bd52b4ae43c57b59f98611c0652a25b9f67050cc1cec647",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "We agreed to sell \u00a310,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 851,
+    "output_tokens": 57,
+    "reasoning_tokens": 0
+  }
+}

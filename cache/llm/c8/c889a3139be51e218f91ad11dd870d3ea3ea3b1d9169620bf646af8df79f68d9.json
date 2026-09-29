@@ -1,0 +1,17 @@
+{
+  "cost_usd": "0.0001170",
+  "input_hash": "c5d18d899d4cf22a14a7d58b664c417ebccc3269b545f90a06523fc2ba47f10b",
+  "model": "gpt-6-luna",
+  "prompt_version": "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
+  "response": {
+    "candidate_account_ids": [],
+    "reason": "No account matches both parts of the phrase: the Stocks & Shares ISA has no platform listed, and Holloway is a Cash Account."
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 430,
+    "output_tokens": 148,
+    "reasoning_tokens": 100
+  }
+}

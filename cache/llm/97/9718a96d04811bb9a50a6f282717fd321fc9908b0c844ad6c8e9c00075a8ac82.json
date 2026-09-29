@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001071",
+  "input_hash": "1f4b883a4d0b4e840f2d832a74642ebdcf8ef3d54d2ae00caf42cd525fd063ae",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "Annual review meeting with Patricia Nolan, held 9 May 2026.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 871,
+    "output_tokens": 40,
+    "reasoning_tokens": 0
+  }
+}

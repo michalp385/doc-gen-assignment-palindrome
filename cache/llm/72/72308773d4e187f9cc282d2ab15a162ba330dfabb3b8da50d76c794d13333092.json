@@ -1,0 +1,84 @@
+{
+  "cost_usd": "0.0009427",
+  "input_hash": "0bcbf68519f65c65405077596edffcef3d6206f83f6979ed62e1cbe0ad81897b",
+  "model": "gpt-6-luna",
+  "prompt_version": "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b",
+  "response": {
+    "accounts_mentioned": [
+      "matured investment",
+      "current account",
+      "personal loan",
+      "Stocks & Shares ISA"
+    ],
+    "agreed_actions": [],
+    "attendees": [
+      "Trevor Higgs"
+    ],
+    "disposals": [],
+    "excluded_items": [],
+    "limit_signals": [],
+    "meeting_date": {
+      "paragraph_id": "p1",
+      "text": "Planning meeting with Trevor Higgs, held 10 May 2026."
+    },
+    "money_items": [
+      {
+        "amount": {
+          "paragraph_id": "p2",
+          "text": "\u00a340,000"
+        },
+        "class_evidence": {
+          "paragraph_id": "p2",
+          "text": "Trevor recently received \u00a340,000 from a matured investment held elsewhere, which is now sitting in his current account."
+        },
+        "money_class": "received",
+        "purpose": "Cash from a matured investment held elsewhere, now sitting in his current account."
+      },
+      {
+        "amount": null,
+        "class_evidence": {
+          "paragraph_id": "p3",
+          "text": "Some of this money is already committed to repaying a personal loan, though Trevor could not say exactly how much that repayment would be."
+        },
+        "money_class": "committed",
+        "purpose": "Repaying a personal loan."
+      }
+    ],
+    "new_accounts": [],
+    "objectives_and_circumstances": [
+      {
+        "text": {
+          "paragraph_id": "p4",
+          "text": "Trevor would like the remainder invested into his Stocks & Shares ISA for the new tax year."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p5",
+          "text": "Trevor has no income requirement from the portfolio."
+        }
+      }
+    ],
+    "open_actions": [
+      {
+        "blocking": true,
+        "blocking_evidence": {
+          "paragraph_id": "p6",
+          "text": "once the loan repayment amount is confirmed"
+        },
+        "text": {
+          "paragraph_id": "p6",
+          "text": "once the loan repayment amount is confirmed"
+        }
+      }
+    ],
+    "value_observations": []
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 2577,
+    "input_tokens": 2727,
+    "output_tokens": 1340,
+    "reasoning_tokens": 839
+  }
+}

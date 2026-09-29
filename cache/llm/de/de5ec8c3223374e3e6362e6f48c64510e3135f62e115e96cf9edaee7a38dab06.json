@@ -1,0 +1,72 @@
+{
+  "cost_usd": "0.0006818",
+  "input_hash": "185a184d9f0246b21ee2663d6eed67cf467e51126a339545f36d15283737c7dd",
+  "model": "gpt-6-luna",
+  "prompt_version": "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b",
+  "response": {
+    "accounts_mentioned": [
+      "Stocks & Shares ISA",
+      "Holloway cash account",
+      "cash account"
+    ],
+    "agreed_actions": [
+      {
+        "accounts_referenced": [
+          "cash account",
+          "Stocks & Shares ISA"
+        ],
+        "amount": {
+          "paragraph_id": "p5",
+          "text": "\u00a36,000"
+        },
+        "description": {
+          "paragraph_id": "p5",
+          "text": "We agreed he would move \u00a36,000 from the cash account into the Stocks & Shares ISA."
+        },
+        "is_non_action": false
+      }
+    ],
+    "attendees": [
+      "George Ashworth"
+    ],
+    "disposals": [],
+    "excluded_items": [],
+    "limit_signals": [],
+    "meeting_date": {
+      "paragraph_id": "p1",
+      "text": "Annual review meeting with George Ashworth, held 20 May 2026."
+    },
+    "money_items": [],
+    "new_accounts": [],
+    "objectives_and_circumstances": [
+      {
+        "text": {
+          "paragraph_id": "p2",
+          "text": "George confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk."
+        }
+      }
+    ],
+    "open_actions": [],
+    "value_observations": [
+      {
+        "account_reference": "Stocks & Shares ISA",
+        "amount": {
+          "paragraph_id": "p3",
+          "text": "being around \u00a342,000 the last time he checked his statement, though that was some months ago."
+        },
+        "basis": "recalled",
+        "basis_evidence": {
+          "paragraph_id": "p3",
+          "text": "he recalled"
+        }
+      }
+    ]
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 2753,
+    "output_tokens": 813,
+    "reasoning_tokens": 425
+  }
+}

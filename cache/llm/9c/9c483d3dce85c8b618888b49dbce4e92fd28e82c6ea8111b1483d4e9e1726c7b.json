@@ -1,0 +1,20 @@
+{
+  "cost_usd": "0.0000842",
+  "input_hash": "3efe1daac9d7aefce8e872e9b5b68acbfbaf66fd53ed94c1d7cce74268a62529",
+  "model": "gpt-6-luna",
+  "prompt_version": "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
+  "response": {
+    "candidate_account_ids": [
+      "Y-ISA-01",
+      "Y-GIA-01"
+    ],
+    "reason": "\u201cHolloway\u201d matches both accounts\u2019 platform, and the phrase names each account type: Stocks & Shares ISA and General Investment Account."
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 437,
+    "output_tokens": 81,
+    "reasoning_tokens": 20
+  }
+}

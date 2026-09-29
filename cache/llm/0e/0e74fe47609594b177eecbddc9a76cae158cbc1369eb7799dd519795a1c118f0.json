@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001071",
+  "input_hash": "c4b6cfe9894382019b4b71dbe9436eb65dd1977c05413f6642e8e073ada8a964",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "Planning meeting with Trevor Higgs, held 10 May 2026.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 871,
+    "output_tokens": 40,
+    "reasoning_tokens": 0
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001086",
+  "input_hash": "40681266031e6cafd7caef33787ddc51a3d20a9bcc57a4d8e5b09c8f71572da6",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "We agreed to fully encash the Meridian offshore bond, as it no longer suits her plans.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 866,
+    "output_tokens": 44,
+    "reasoning_tokens": 0
+  }
+}

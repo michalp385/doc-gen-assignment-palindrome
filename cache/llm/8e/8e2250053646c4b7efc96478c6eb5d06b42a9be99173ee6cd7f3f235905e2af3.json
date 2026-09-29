@@ -1,0 +1,38 @@
+{
+  "cost_usd": "0.0002838",
+  "input_hash": "4d3fe46b943de44c7887b6740e46f1d4352e0b7a57a9a2431529204160366ee3",
+  "model": "gpt-6-luna",
+  "prompt_version": "b54cb02c66a0b73b8e9b22c9f8039fc30df3d113e7133c37c8f3c70472dfde1c",
+  "response": {
+    "account_type": null,
+    "end": null,
+    "entry_id": null,
+    "finding": {
+      "answer": "inconclusive",
+      "evidence": [
+        {
+          "paragraph_id": "p4",
+          "quote": "Bernard mentioned he still has an old paper share certificate relating to one of his General Investment Accounts on Holloway, but could not recall which one.",
+          "source": "meeting_notes.docx"
+        }
+      ],
+      "explanation": "The note says Bernard could not recall which of the two Holloway General Investment Accounts was meant.",
+      "proposed_account_id": null,
+      "proposed_label": null,
+      "question_id": "q1"
+    },
+    "holder": null,
+    "platform": null,
+    "source": null,
+    "start": null,
+    "text": null,
+    "tool": "finish"
+  },
+  "stage": "investigate",
+  "usage": {
+    "cached_input_tokens": 1303,
+    "input_tokens": 1798,
+    "output_tokens": 208,
+    "reasoning_tokens": 58
+  }
+}

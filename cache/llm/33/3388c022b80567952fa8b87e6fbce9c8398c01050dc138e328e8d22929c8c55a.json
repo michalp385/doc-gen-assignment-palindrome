@@ -1,0 +1,21 @@
+{
+  "cost_usd": "0.0001178",
+  "input_hash": "e45b4344937fe6eb6924ab3f8463e713dcb9793da733aafc17512ca4e5fed6bd",
+  "model": "gpt-6-luna",
+  "prompt_version": "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
+  "response": {
+    "candidate_account_ids": [
+      "W-ISA-01",
+      "W-ISA-02",
+      "W-GIA-01"
+    ],
+    "reason": "\u201cHolloway ISAs\u201d matches both Holloway Stocks & Shares ISAs; \u201cthe joint GIA\u201d matches the General Investment Account."
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 463,
+    "output_tokens": 143,
+    "reasoning_tokens": 75
+  }
+}

@@ -1,0 +1,230 @@
+{
+  "client": "case_17",
+  "meeting_date": "2026-05-19",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "objectives": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk. Bernard has no income requirement from the portfolio.",
+  "tax_section": false,
+  "accounts": [
+    {
+      "id": "O-GIA-01",
+      "owners": [
+        "Bernard Otieno"
+      ],
+      "type": "General Investment Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "21000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "O-GIA-02",
+      "owners": [
+        "Bernard Otieno"
+      ],
+      "type": "General Investment Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "26000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "O-ISA-01",
+      "owners": [
+        "Bernard Otieno"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "30000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    }
+  ],
+  "money": [],
+  "actions": [
+    {
+      "id": "a1",
+      "description": "all are to be left as they are.",
+      "kind": "non_action",
+      "accounts": [
+        "Stocks & Shares ISA",
+        "two General Investment Accounts on the Holloway platform"
+      ],
+      "quote": "all are to be left as they are.",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "a2",
+      "description": "We agreed to leave this for now and revisit if it becomes relevant.",
+      "kind": "non_action",
+      "accounts": [
+        "one of his General Investment Accounts on Holloway"
+      ],
+      "quote": "We agreed to leave this for now and revisit if it becomes relevant.",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "e1",
+      "item_class": "circumstance",
+      "description": "Bernard mentioned he still has an old paper share certificate relating to one of his General Investment Accounts on Holloway, but could not recall which one.",
+      "allowed_in": [],
+      "quote": "Bernard mentioned he still has an old paper share certificate relating to one of his General Investment Accounts on Holloway, but could not recall which one."
+    }
+  ],
+  "markers": [
+    {
+      "id": "#1",
+      "key": "platform_charge_holloway",
+      "text": "ongoing platform charge rate, Holloway",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#2",
+      "key": "advice_charge",
+      "text": "ongoing advice charge rate",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    }
+  ],
+  "review": [
+    {
+      "id": "rv1",
+      "kind": "ambiguity",
+      "blocking": false,
+      "detail": "'one of his General Investment Accounts on Holloway' could mean any of: General Investment Account (Holloway), O-GIA-01; General Investment Account (Holloway), O-GIA-02. The sources do not say which (the finding is 'inconclusive', not 'supports'). Meeting note: Bernard mentioned he still has an old paper share certificate relating to one of his General Investment Accounts on Holloway, but could not recall which one.",
+      "refs": []
+    },
+    {
+      "id": "rv2",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_holloway",
+      "refs": [
+        "platform_charge_holloway"
+      ]
+    },
+    {
+      "id": "rv3",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker advice_charge",
+      "refs": [
+        "advice_charge"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "kind": "account_link",
+      "subject_ref": "one of his General Investment Accounts on Holloway",
+      "status": "unresolved",
+      "accepted": false,
+      "reason": "the finding is 'inconclusive', not 'supports'",
+      "resolved_to": null
+    }
+  ],
+  "facts": {
+    "account.O-GIA-01.value": {
+      "id": "account.O-GIA-01.value",
+      "kind": "money",
+      "description": "the General Investment Account's current value",
+      "value": {
+        "amount": "21000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.O-GIA-02.value": {
+      "id": "account.O-GIA-02.value",
+      "kind": "money",
+      "description": "the General Investment Account's current value",
+      "value": {
+        "amount": "26000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.O-ISA-01.value": {
+      "id": "account.O-ISA-01.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "30000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    }
+  }
+}

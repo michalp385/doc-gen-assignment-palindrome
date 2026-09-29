@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001063",
+  "input_hash": "7915c4d3c5007e8a4a4964b8deb701d6288350fb42b96d2ff4ea836bf0e5296b",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.98,
+    "evidence_quote": "Accounts covered | Holloway ISAs (Ian and Priya) and the joint GIA",
+    "role": "report_instruction"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 843,
+    "output_tokens": 44,
+    "reasoning_tokens": 0
+  }
+}

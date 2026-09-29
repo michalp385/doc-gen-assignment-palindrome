@@ -1,0 +1,69 @@
+{
+  "cost_usd": "0.0029317",
+  "input_hash": "eaa52cefc163d183997664da2a43f1db3e837886586e36f4cd0139414a98f44a",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend selling Diane\u2019s General Investment Account. We recommend using the gross proceeds of \u00a310,000 to top up her Stocks & Shares ISA for the new tax year."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "The recommendation is to sell Diane\u2019s General Investment Account.",
+        "paragraph_id": "p3",
+        "quote": "We agreed to sell \u00a310,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+        "report_quote": "We recommend selling Diane\u2019s General Investment Account.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed proceeds amount is \u00a310,000 and is to top up Diane\u2019s Stocks & Shares ISA for the new tax year.",
+        "paragraph_id": "p3",
+        "quote": "We agreed to sell \u00a310,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+        "report_quote": "We recommend using the gross proceeds of \u00a310,000 to top up her Stocks & Shares ISA for the new tax year.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The figure is described as gross before any CGT.",
+        "paragraph_id": "p3",
+        "quote": "We agreed to sell \u00a310,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+        "report_quote": "This figure is gross before any CGT",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The figure becomes available once the disposal completes.",
+        "paragraph_id": "p3",
+        "quote": "We agreed to sell \u00a310,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+        "report_quote": "becomes available once the disposal completes.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Diane has no income requirement from the portfolio.",
+        "paragraph_id": "p4",
+        "quote": "Diane has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend selling Diane\u2019s General Investment Account."
+      },
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using the gross proceeds of \u00a310,000 to top up her Stocks & Shares ISA for the new tax year."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2532,
+    "output_tokens": 5357,
+    "reasoning_tokens": 4851
+  }
+}

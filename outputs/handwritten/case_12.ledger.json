@@ -1,0 +1,233 @@
+{
+  "client": "case_12",
+  "meeting_date": "2026-05-13",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "objectives": "Klaus confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk. Klaus has no income requirement from the portfolio.",
+  "tax_section": false,
+  "accounts": [
+    {
+      "id": "U-ISA-01",
+      "owners": [
+        "Klaus Under"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "52000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "U-GIA-01",
+      "owners": [
+        "Klaus Under"
+      ],
+      "type": "General Investment Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": null,
+      "superseded": [],
+      "value_marker": "gia_currency_eur"
+    }
+  ],
+  "money": [
+    {
+      "id": "m1",
+      "money_class": "received",
+      "amount": {
+        "amount": "6000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£6,000",
+        "selected_by": "P5"
+      },
+      "counted": true,
+      "reason": "",
+      "quote": "£6,000",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "actions": [
+    {
+      "id": "a1",
+      "description": "We agreed he would pay £6,000 into the Stocks & Shares ISA.",
+      "kind": "action",
+      "accounts": [
+        "Stocks & Shares ISA"
+      ],
+      "quote": "We agreed he would pay £6,000 into the Stocks & Shares ISA.",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "a2",
+      "description": "No investments are being sold.",
+      "kind": "non_action",
+      "accounts": [],
+      "quote": "No investments are being sold.",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "excluded": [],
+  "markers": [
+    {
+      "id": "#1",
+      "key": "gia_currency_eur",
+      "text": "sterling value of Klaus Under's General Investment Account, held in EUR",
+      "reason": "value is not in GBP (P12); never estimated or converted (CLAUDE.md non-negotiable)",
+      "section": "account_table",
+      "fact_ref": null
+    },
+    {
+      "id": "#2",
+      "key": "platform_charge_holloway",
+      "text": "ongoing platform charge rate, Holloway",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#3",
+      "key": "advice_charge",
+      "text": "ongoing advice charge rate",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    }
+  ],
+  "review": [
+    {
+      "id": "rv1",
+      "kind": "currency",
+      "blocking": false,
+      "detail": "General Investment Account (Holloway): the account data's currency is EUR (euros), not GBP; the value is not converted and the table's value cell is a marker.",
+      "refs": [
+        "U-GIA-01"
+      ]
+    },
+    {
+      "id": "rv2",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker gia_currency_eur",
+      "refs": [
+        "gia_currency_eur"
+      ]
+    },
+    {
+      "id": "rv3",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_holloway",
+      "refs": [
+        "platform_charge_holloway"
+      ]
+    },
+    {
+      "id": "rv4",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker advice_charge",
+      "refs": [
+        "advice_charge"
+      ]
+    }
+  ],
+  "questions": [],
+  "facts": {
+    "account.U-ISA-01.value": {
+      "id": "account.U-ISA-01.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "52000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "action.a1.amount": {
+      "id": "action.a1.amount",
+      "kind": "money",
+      "description": "the amount involved in this action",
+      "value": {
+        "amount": "6000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£6,000",
+        "selected_by": "action_amount"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "transaction",
+      "placement": "any"
+    },
+    "money.m1.amount": {
+      "id": "money.m1.amount",
+      "kind": "money",
+      "description": "money the client has already received",
+      "value": {
+        "amount": "6000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£6,000",
+        "selected_by": "P5"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "received money",
+      "placement": "any"
+    },
+    "money.available": {
+      "id": "money.available",
+      "kind": "money",
+      "description": "the money available to invest now, after commitments",
+      "value": {
+        "amount": "6000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "derived",
+        "quote": "",
+        "selected_by": "P5"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "available to invest",
+      "placement": "any"
+    }
+  }
+}

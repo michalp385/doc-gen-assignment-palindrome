@@ -1,0 +1,65 @@
+{
+  "cost_usd": "0.0017578",
+  "input_hash": "5e37411908b63c752231e2934208ba153aaf9b6d690565ef36a38a4b4d3159ca",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving the investment as it is, in line with her preference."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Yvonne's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Yvonne confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Yvonne confirmed that her circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Yvonne confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "She remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Yvonne has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne's risk approach is moderate.",
+        "paragraph_id": "p2",
+        "quote": "Yvonne confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne is happy to leave the investment as it is.",
+        "paragraph_id": "p3",
+        "quote": "We discussed her Stocks & Shares ISA, which she is happy to leave as it is.",
+        "report_quote": "We recommend leaving the investment as it is, in line with her preference.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving the investment as it is, in line with her preference."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 2413,
+    "output_tokens": 3033,
+    "reasoning_tokens": 2647
+  }
+}

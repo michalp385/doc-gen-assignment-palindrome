@@ -1,0 +1,25 @@
+{
+  "cost_usd": "0.0001837",
+  "input_hash": "55132faf663531030d88142a71754644cbac76f7849f1965c04c62d5176f3180",
+  "model": "gpt-6-luna",
+  "prompt_version": "b54cb02c66a0b73b8e9b22c9f8039fc30df3d113e7133c37c8f3c70472dfde1c",
+  "response": {
+    "account_type": null,
+    "end": null,
+    "entry_id": null,
+    "finding": null,
+    "holder": null,
+    "platform": null,
+    "source": "meeting_notes.docx",
+    "start": null,
+    "text": "Stocks & Shares ISAs",
+    "tool": "find_in_source"
+  },
+  "stage": "investigate",
+  "usage": {
+    "cached_input_tokens": 1303,
+    "input_tokens": 1422,
+    "output_tokens": 83,
+    "reasoning_tokens": 21
+  }
+}

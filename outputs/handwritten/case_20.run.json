@@ -1,0 +1,5 @@
+{
+  "client": "case_20",
+  "release_state": "failed",
+  "reason": "the report instruction's scope is missing or TBC"
+}

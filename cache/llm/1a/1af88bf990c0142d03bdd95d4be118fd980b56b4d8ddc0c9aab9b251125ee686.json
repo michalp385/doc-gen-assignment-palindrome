@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001102",
+  "input_hash": "116f51e5f7bb04a185d3cff2baf5d6336b1ce5fd413c764cf9ca5d1b6e593b66",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "We agreed she would move \u00a36,000 from the cash account into the Stocks & Shares ISA.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 877,
+    "output_tokens": 45,
+    "reasoning_tokens": 0
+  }
+}

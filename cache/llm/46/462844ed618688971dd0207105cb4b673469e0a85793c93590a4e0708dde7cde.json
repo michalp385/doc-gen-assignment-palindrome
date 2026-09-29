@@ -1,0 +1,86 @@
+{
+  "cost_usd": "0.0006538",
+  "input_hash": "5dc4ce1615e2f27a80d8482d41f3d9e8c65c7df067a8702a9397f96b38bcaf68",
+  "model": "gpt-6-luna",
+  "prompt_version": "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b",
+  "response": {
+    "accounts_mentioned": [
+      "Stocks & Shares ISA",
+      "General Investment Account",
+      "savings"
+    ],
+    "agreed_actions": [
+      {
+        "accounts_referenced": [
+          "Stocks & Shares ISA"
+        ],
+        "amount": {
+          "paragraph_id": "p5",
+          "text": "\u00a36,000"
+        },
+        "description": {
+          "paragraph_id": "p5",
+          "text": "We agreed he would pay \u00a36,000 into the Stocks & Shares ISA."
+        },
+        "is_non_action": false
+      },
+      {
+        "accounts_referenced": [],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p5",
+          "text": "No investments are being sold."
+        },
+        "is_non_action": true
+      }
+    ],
+    "attendees": [
+      "Klaus Under"
+    ],
+    "disposals": [],
+    "excluded_items": [],
+    "limit_signals": [],
+    "meeting_date": {
+      "paragraph_id": "p1",
+      "text": "held 13 May 2026."
+    },
+    "money_items": [
+      {
+        "amount": {
+          "paragraph_id": "p4",
+          "text": "\u00a36,000"
+        },
+        "class_evidence": {
+          "paragraph_id": "p4",
+          "text": "from savings held outside the portfolio"
+        },
+        "money_class": "received",
+        "purpose": "Add savings held outside the portfolio to the Stocks & Shares ISA."
+      }
+    ],
+    "new_accounts": [],
+    "objectives_and_circumstances": [
+      {
+        "text": {
+          "paragraph_id": "p2",
+          "text": "Klaus confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p6",
+          "text": "Klaus has no income requirement from the portfolio."
+        }
+      }
+    ],
+    "open_actions": [],
+    "value_observations": []
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 2577,
+    "input_tokens": 2753,
+    "output_tokens": 757,
+    "reasoning_tokens": 304
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "cost_usd": "0.0000837",
+  "input_hash": "692922d53945ae808dc479bb238c572d54744ef3eaf70eb388938b41f5fc2b8a",
+  "model": "gpt-6-luna",
+  "prompt_version": "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
+  "response": {
+    "candidate_account_ids": [
+      "D-BOND-01",
+      "D-ISA-01"
+    ],
+    "reason": "\u201cMeridian offshore bond\u201d matches the Meridian Offshore Investment Bond, and \u201cHolloway Stocks & Shares ISA\u201d matches the Holloway Stocks & Shares ISA."
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 437,
+    "output_tokens": 80,
+    "reasoning_tokens": 15
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001099",
+  "input_hash": "b106c1dd3fffdb3beca46d0d988809bacb6edbb7607d6c69f8bcb15c51543b5c",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "We agreed he would pay \u00a36,000 into the Stocks & Shares ISA.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 894,
+    "output_tokens": 41,
+    "reasoning_tokens": 0
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001082",
+  "input_hash": "d18e7a272fe7624ba80e2266e6f0416fd16aacb96abc14665b71493296ad1025",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "We agreed to confirm the value of that account and report back to her.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 882,
+    "output_tokens": 40,
+    "reasoning_tokens": 0
+  }
+}

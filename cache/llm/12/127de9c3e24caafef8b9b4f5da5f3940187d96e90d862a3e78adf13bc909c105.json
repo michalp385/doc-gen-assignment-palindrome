@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001000",
+  "input_hash": "05ec343105eb17913d5c293864c2851f119d91fc9cd1a15cb84edebd916e7bea",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.97,
+    "evidence_quote": "This document explains how our annual review process works and what to expect from your adviser relationship.",
+    "role": "general_document"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 785,
+    "output_tokens": 43,
+    "reasoning_tokens": 0
+  }
+}

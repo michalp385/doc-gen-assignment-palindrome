@@ -1,0 +1,44 @@
+{
+  "cost_usd": "0.0017137",
+  "input_hash": "f5b6ec237963d9f09b53a2dd9b9047c233ffcbfad42048083ea63e3bce7a5b6e",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a38,000 from the cash account into the Stocks & Shares ISA, as agreed."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "The client is recommended to move \u00a38,000 from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p4",
+        "quote": "We agreed she would move \u00a38,000 from the cash account into the Stocks & Shares ISA. No investments are being sold to do this.",
+        "report_quote": "We recommend moving \u00a38,000 from the cash account into the Stocks & Shares ISA",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The move was agreed.",
+        "paragraph_id": "p4",
+        "quote": "We agreed she would move \u00a38,000 from the cash account into the Stocks & Shares ISA. No investments are being sold to do this.",
+        "report_quote": "as agreed.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a38,000 from the cash account into the Stocks & Shares ISA, as agreed."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2412,
+    "output_tokens": 2945,
+    "reasoning_tokens": 2699
+  }
+}

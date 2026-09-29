@@ -1,0 +1,19 @@
+{
+  "cost_usd": "0.0000828",
+  "input_hash": "a34994a53b92bc58159f8d386724a6a5334a34207701f9ed0e3d5aec02b4bcdb",
+  "model": "gpt-6-luna",
+  "prompt_version": "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
+  "response": {
+    "candidate_account_ids": [
+      "L-ISA-01"
+    ],
+    "reason": "\u201cHolloway Stocks & Shares ISA\u201d matches the account\u2019s platform and type; no Patricia\u2019s Personal Pension account is listed."
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 418,
+    "output_tokens": 82,
+    "reasoning_tokens": 29
+  }
+}

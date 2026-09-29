@@ -1,0 +1,19 @@
+{
+  "cost_usd": "0.0000664",
+  "input_hash": "601d49462d9b8ae7b3fe770d61a96bd2686256f36a2d0f01417bee7135750cb0",
+  "model": "gpt-6-luna",
+  "prompt_version": "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
+  "response": {
+    "candidate_account_ids": [
+      "G2-ISA-01"
+    ],
+    "reason": "\u201cHolloway\u201d matches the platform and \u201cStocks & Shares ISA\u201d matches the account type."
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 434,
+    "output_tokens": 46,
+    "reasoning_tokens": 0
+  }
+}

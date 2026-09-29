@@ -1,0 +1,178 @@
+{
+  "client": "case_14",
+  "meeting_date": "2026-05-20",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "objectives": "he has more available to invest than he first thought",
+  "tax_section": false,
+  "accounts": [
+    {
+      "id": "G2-ISA-01",
+      "owners": [
+        "Alistair Grieve"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "33000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "G2-CASH-01",
+      "owners": [
+        "Alistair Grieve"
+      ],
+      "type": "Cash Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": false,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "15000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    }
+  ],
+  "money": [],
+  "actions": [
+    {
+      "id": "a1",
+      "description": "We agreed the top-up amount would be revised to £7,000 from the cash account into the Stocks & Shares ISA.",
+      "kind": "action",
+      "accounts": [
+        "cash account",
+        "Stocks & Shares ISA"
+      ],
+      "quote": "We agreed the top-up amount would be revised to £7,000 from the cash account into the Stocks & Shares ISA.",
+      "source_id": "meeting_notes_followup.docx"
+    }
+  ],
+  "excluded": [],
+  "markers": [
+    {
+      "id": "#1",
+      "key": "platform_charge_holloway",
+      "text": "ongoing platform charge rate, Holloway",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#2",
+      "key": "advice_charge",
+      "text": "ongoing advice charge rate",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    }
+  ],
+  "review": [
+    {
+      "id": "rv1",
+      "kind": "degradation",
+      "blocking": false,
+      "detail": "there are 2 meeting records; the latest, meeting_notes_followup.docx (20 May 2026), governs decisions. Earlier: meeting_notes.docx (1 April 2026) -- they contribute dated figures only (R3, R10).",
+      "refs": []
+    },
+    {
+      "id": "rv2",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_holloway",
+      "refs": [
+        "platform_charge_holloway"
+      ]
+    },
+    {
+      "id": "rv3",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker advice_charge",
+      "refs": [
+        "advice_charge"
+      ]
+    }
+  ],
+  "questions": [],
+  "facts": {
+    "account.G2-ISA-01.value": {
+      "id": "account.G2-ISA-01.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "33000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.G2-CASH-01.value": {
+      "id": "account.G2-CASH-01.value",
+      "kind": "money",
+      "description": "the Cash Account's current value",
+      "value": {
+        "amount": "15000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "action.a1.amount": {
+      "id": "action.a1.amount",
+      "kind": "money",
+      "description": "the amount involved in this action",
+      "value": {
+        "amount": "7000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes_followup.docx",
+        "quote": "£7,000",
+        "selected_by": "action_amount"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "transaction",
+      "placement": "any"
+    }
+  }
+}

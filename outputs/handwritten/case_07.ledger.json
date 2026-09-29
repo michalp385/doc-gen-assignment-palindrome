@@ -1,0 +1,231 @@
+{
+  "client": "case_07",
+  "meeting_date": "2026-05-14",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "objectives": "Diane confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk. Diane has no income requirement from the portfolio.",
+  "tax_section": true,
+  "accounts": [
+    {
+      "id": "C-ISA-01",
+      "owners": [
+        "Diane Carter"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "60000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "C-GIA-01",
+      "owners": [
+        "Diane Carter"
+      ],
+      "type": "General Investment Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "25000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    }
+  ],
+  "money": [
+    {
+      "id": "m1",
+      "money_class": "proceeds",
+      "amount": {
+        "amount": "10000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£10,000",
+        "selected_by": "P5"
+      },
+      "counted": true,
+      "reason": "",
+      "quote": "We agreed to sell £10,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "actions": [
+    {
+      "id": "a1",
+      "description": "We agreed to sell £10,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+      "kind": "action",
+      "accounts": [
+        "Diane's General Investment Account",
+        "Stocks & Shares ISA"
+      ],
+      "quote": "We agreed to sell £10,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "excluded": [],
+  "markers": [
+    {
+      "id": "#1",
+      "key": "platform_charge_holloway",
+      "text": "ongoing platform charge rate, Holloway",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#2",
+      "key": "advice_charge",
+      "text": "ongoing advice charge rate",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#3",
+      "key": "cgt",
+      "text": "capital gains tax on the disposal",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "tax_implications",
+      "fact_ref": null
+    },
+    {
+      "id": "#4",
+      "key": "disposal_pending_confirmation",
+      "text": "whether an existing investment is sold: the report instruction and the meeting record differ",
+      "reason": "R4/G5b: a possible taxable disposal pending confirmation, not settled silently",
+      "section": "recommendations",
+      "fact_ref": null
+    }
+  ],
+  "review": [
+    {
+      "id": "rv1",
+      "kind": "conflict",
+      "blocking": true,
+      "detail": "the report instruction says 'Selling existing investments? | No' but the meeting record shows a sale: \"We agreed to sell £10,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.\"; confirm whether anything is sold before anything is finalised.",
+      "refs": []
+    },
+    {
+      "id": "rv2",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_holloway",
+      "refs": [
+        "platform_charge_holloway"
+      ]
+    },
+    {
+      "id": "rv3",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker advice_charge",
+      "refs": [
+        "advice_charge"
+      ]
+    },
+    {
+      "id": "rv4",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker cgt",
+      "refs": [
+        "cgt"
+      ]
+    },
+    {
+      "id": "rv5",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker disposal_pending_confirmation",
+      "refs": [
+        "disposal_pending_confirmation"
+      ]
+    }
+  ],
+  "questions": [],
+  "facts": {
+    "account.C-ISA-01.value": {
+      "id": "account.C-ISA-01.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "60000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.C-GIA-01.value": {
+      "id": "account.C-GIA-01.value",
+      "kind": "money",
+      "description": "the General Investment Account's current value",
+      "value": {
+        "amount": "25000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "action.a1.amount": {
+      "id": "action.a1.amount",
+      "kind": "money",
+      "description": "the gross sale proceeds from this disposal, before any CGT and not yet realised",
+      "value": {
+        "amount": "10000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£10,000",
+        "selected_by": "action_amount"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "sale proceeds",
+      "placement": "any"
+    }
+  }
+}

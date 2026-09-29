@@ -1,0 +1,43 @@
+{
+  "cost_usd": "0.0003790",
+  "input_hash": "a21a0508e11d92770633fe89864b8b77edf9d96df1793d9865bf411e8c95ac3a",
+  "model": "gpt-6-luna",
+  "prompt_version": "b54cb02c66a0b73b8e9b22c9f8039fc30df3d113e7133c37c8f3c70472dfde1c",
+  "response": {
+    "account_type": null,
+    "end": null,
+    "entry_id": null,
+    "finding": {
+      "answer": "supports",
+      "evidence": [
+        {
+          "paragraph_id": "p3",
+          "quote": "We discussed her Stocks & Shares ISA, which she is happy to leave as it is.",
+          "source": "meeting_notes.docx"
+        },
+        {
+          "paragraph_id": "p4",
+          "quote": "Yvonne also asked about her other account on the Holloway platform; she was not sure of its current value.",
+          "source": "meeting_notes.docx"
+        }
+      ],
+      "explanation": "The note identifies her Stocks & Shares ISA immediately before referring to her other Holloway account, which points to her General Investment Account.",
+      "proposed_account_id": "Y-GIA-01",
+      "proposed_label": null,
+      "question_id": "q1"
+    },
+    "holder": null,
+    "platform": null,
+    "source": null,
+    "start": null,
+    "text": null,
+    "tool": "finish"
+  },
+  "stage": "investigate",
+  "usage": {
+    "cached_input_tokens": 1303,
+    "input_tokens": 1765,
+    "output_tokens": 405,
+    "reasoning_tokens": 219
+  }
+}

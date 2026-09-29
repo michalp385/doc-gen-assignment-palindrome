@@ -1,0 +1,25 @@
+{
+  "cost_usd": "0.0001727",
+  "input_hash": "a3dccd7fc0a6871055f119b85b49627b5370dc538384ce59a600bbcfc80eb14d",
+  "model": "gpt-6-luna",
+  "prompt_version": "b54cb02c66a0b73b8e9b22c9f8039fc30df3d113e7133c37c8f3c70472dfde1c",
+  "response": {
+    "account_type": null,
+    "end": null,
+    "entry_id": null,
+    "finding": null,
+    "holder": null,
+    "platform": null,
+    "source": null,
+    "start": null,
+    "text": null,
+    "tool": "list_sources"
+  },
+  "stage": "investigate",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1392,
+    "output_tokens": 67,
+    "reasoning_tokens": 13
+  }
+}

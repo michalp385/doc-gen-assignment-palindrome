@@ -1,0 +1,84 @@
+{
+  "cost_usd": "0.0005765",
+  "input_hash": "99d4c3d11a39234575982634fa75f37661527fc7e69ce4e06494b9affd565a84",
+  "model": "gpt-6-luna",
+  "prompt_version": "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b",
+  "response": {
+    "accounts_mentioned": [
+      "Meridian offshore bond",
+      "Stocks & Shares ISA"
+    ],
+    "agreed_actions": [
+      {
+        "accounts_referenced": [
+          "Meridian offshore bond"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p3",
+          "text": "We agreed to fully encash the Meridian offshore bond"
+        },
+        "is_non_action": false
+      },
+      {
+        "accounts_referenced": [
+          "Stocks & Shares ISA"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p4",
+          "text": "We also agreed to switch the funds held within her Stocks & Shares ISA to a more cautious fund range"
+        },
+        "is_non_action": false
+      }
+    ],
+    "attendees": [
+      "Sandra Doyle"
+    ],
+    "disposals": [
+      {
+        "account_reference": "Meridian offshore bond",
+        "extent": "full",
+        "extent_evidence": {
+          "paragraph_id": "p3",
+          "text": "fully encash the Meridian offshore bond"
+        },
+        "quote": {
+          "paragraph_id": "p3",
+          "text": "We agreed to fully encash the Meridian offshore bond, as it no longer suits her plans."
+        }
+      }
+    ],
+    "excluded_items": [],
+    "limit_signals": [],
+    "meeting_date": {
+      "paragraph_id": "p1",
+      "text": "held 11 May 2026."
+    },
+    "money_items": [],
+    "new_accounts": [],
+    "objectives_and_circumstances": [
+      {
+        "text": {
+          "paragraph_id": "p2",
+          "text": "Sandra confirmed her circumstances and objectives are unchanged and remains comfortable with a cautious approach to risk."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p5",
+          "text": "Sandra has no income requirement from the portfolio."
+        }
+      }
+    ],
+    "open_actions": [],
+    "value_observations": []
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 2577,
+    "input_tokens": 2725,
+    "output_tokens": 608,
+    "reasoning_tokens": 148
+  }
+}

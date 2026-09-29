@@ -1,0 +1,288 @@
+{
+  "client": "case_03",
+  "meeting_date": "2026-04-30",
+  "risk_profile": "5 (balanced)",
+  "initial_charge": "0%",
+  "objectives": "Both confirmed their circumstances and objectives are unchanged since the last review and remain comfortable with a balanced approach to risk. Neither has any income requirement from the portfolio at present.",
+  "tax_section": false,
+  "accounts": [
+    {
+      "id": "W-ISA-01",
+      "owners": [
+        "Ian Walsh"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "40000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-15",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "W-GIA-01",
+      "owners": [
+        "Ian Walsh",
+        "Priya Walsh"
+      ],
+      "type": "General Investment Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "52000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-15",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [
+        {
+          "amount": "50000.0",
+          "currency": "GBP",
+          "precision": "exact",
+          "qualifier": "exact",
+          "date": "2026-04-01",
+          "source_id": "client_data_db.json",
+          "quote": "",
+          "selected_by": "R3"
+        }
+      ],
+      "value_marker": null
+    },
+    {
+      "id": "W-ISA-02",
+      "owners": [
+        "Priya Walsh"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "38000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-15",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    }
+  ],
+  "money": [],
+  "actions": [
+    {
+      "id": "a1",
+      "description": "no changes are needed at this time",
+      "kind": "non_action",
+      "accounts": [
+        "Stocks & Shares ISAs",
+        "jointly-held General Investment Account"
+      ],
+      "quote": "no changes are needed at this time",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "a2",
+      "description": "will review again next year.",
+      "kind": "action",
+      "accounts": [
+        "Stocks & Shares ISAs",
+        "jointly-held General Investment Account"
+      ],
+      "quote": "will review again next year.",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "excluded": [],
+  "markers": [
+    {
+      "id": "#1",
+      "key": "platform_charge_holloway",
+      "text": "ongoing platform charge rate, Holloway",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#2",
+      "key": "advice_charge",
+      "text": "ongoing advice charge rate",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    }
+  ],
+  "review": [
+    {
+      "id": "rv1",
+      "kind": "superseded",
+      "blocking": false,
+      "detail": "W-GIA-01: superseded value £50,000 (client_data_db.json, 1 April); current value £52,000 (client_data_db.json, 15 April).",
+      "refs": [
+        "W-GIA-01"
+      ]
+    },
+    {
+      "id": "rv2",
+      "kind": "joint_value_conflict",
+      "blocking": false,
+      "detail": "account W-GIA-01: joint copies disagree (values ['50000.0', '52000.0'], dates ['2026-04-01', '2026-04-15'])",
+      "refs": [
+        "W-GIA-01"
+      ]
+    },
+    {
+      "id": "rv3",
+      "kind": "ambiguity",
+      "blocking": false,
+      "detail": "'Stocks & Shares ISAs' could mean any of: Stocks & Shares ISA (Holloway), W-ISA-01; Stocks & Shares ISA (Holloway), W-ISA-02. The sources do not say which (the finding is 'inconclusive', not 'supports'). Meeting note: We reviewed their Stocks & Shares ISAs and their jointly-held General Investment Account on the Holloway platform.",
+      "refs": []
+    },
+    {
+      "id": "rv4",
+      "kind": "ambiguity",
+      "blocking": false,
+      "detail": "'Holloway platform' could mean any of: Stocks & Shares ISA (Holloway), W-ISA-01; General Investment Account (Holloway), W-GIA-01; Stocks & Shares ISA (Holloway), W-ISA-02. The sources do not say which (the finding is 'inconclusive', not 'supports'). Meeting note: We reviewed their Stocks & Shares ISAs and their jointly-held General Investment Account on the Holloway platform.",
+      "refs": []
+    },
+    {
+      "id": "rv5",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_holloway",
+      "refs": [
+        "platform_charge_holloway"
+      ]
+    },
+    {
+      "id": "rv6",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker advice_charge",
+      "refs": [
+        "advice_charge"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "kind": "account_link",
+      "subject_ref": "Stocks & Shares ISAs",
+      "status": "unresolved",
+      "accepted": false,
+      "reason": "the finding is 'inconclusive', not 'supports'",
+      "resolved_to": null
+    },
+    {
+      "id": "q2",
+      "kind": "account_link",
+      "subject_ref": "Holloway platform",
+      "status": "unresolved",
+      "accepted": false,
+      "reason": "the finding is 'inconclusive', not 'supports'",
+      "resolved_to": null
+    }
+  ],
+  "facts": {
+    "account.W-ISA-01.value": {
+      "id": "account.W-ISA-01.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "40000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-15",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.W-GIA-01.value": {
+      "id": "account.W-GIA-01.value",
+      "kind": "money",
+      "description": "the General Investment Account's current value",
+      "value": {
+        "amount": "52000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-15",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.W-GIA-01.superseded.1": {
+      "id": "account.W-GIA-01.superseded.1",
+      "kind": "money",
+      "description": "the General Investment Account's superseded value",
+      "value": {
+        "amount": "50000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "superseded value",
+      "placement": "footnote_only"
+    },
+    "account.W-ISA-02.value": {
+      "id": "account.W-ISA-02.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "38000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-15",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    }
+  }
+}

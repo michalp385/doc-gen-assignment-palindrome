@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001038",
+  "input_hash": "0ccdd8254f0dcce22e9343e31aaf71847b1717bb0825a2cb239a1db5b96cce2e",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.98,
+    "evidence_quote": "Accounts covered | Holloway Stocks & Shares ISA and General Investment Account",
+    "role": "report_instruction"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 843,
+    "output_tokens": 39,
+    "reasoning_tokens": 0
+  }
+}

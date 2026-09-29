@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001057",
+  "input_hash": "9cef48c2b20a20f642b89ca7a6ba9749257712d265a7d877786f5f4348e644a8",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.94,
+    "evidence_quote": "Accounts covered | Holloway ISAs (Marcus and Fiona) and the joint GIA",
+    "role": "report_instruction"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 842,
+    "output_tokens": 43,
+    "reasoning_tokens": 0
+  }
+}

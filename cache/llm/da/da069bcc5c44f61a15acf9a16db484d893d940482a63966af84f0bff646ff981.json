@@ -1,0 +1,25 @@
+{
+  "cost_usd": "0.0001869",
+  "input_hash": "f01561fa3ec9c5d1423c5e09a3526a11311ab7a20a12d8e73193a937747996dc",
+  "model": "gpt-6-luna",
+  "prompt_version": "b54cb02c66a0b73b8e9b22c9f8039fc30df3d113e7133c37c8f3c70472dfde1c",
+  "response": {
+    "account_type": null,
+    "end": null,
+    "entry_id": null,
+    "finding": null,
+    "holder": null,
+    "platform": null,
+    "source": "meeting_notes.docx",
+    "start": null,
+    "text": "Holloway platform her other account on that platform",
+    "tool": "find_in_source"
+  },
+  "stage": "investigate",
+  "usage": {
+    "cached_input_tokens": 1303,
+    "input_tokens": 1439,
+    "output_tokens": 86,
+    "reasoning_tokens": 19
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001049",
+  "input_hash": "f2c1e9c0438d2fe1da47174de83f5ceb2e24e1966aeef1dd802ca227e2373427",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.98,
+    "evidence_quote": "Accounts covered | Meridian offshore bond and Holloway Stocks & Shares ISA",
+    "role": "report_instruction"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 854,
+    "output_tokens": 39,
+    "reasoning_tokens": 0
+  }
+}

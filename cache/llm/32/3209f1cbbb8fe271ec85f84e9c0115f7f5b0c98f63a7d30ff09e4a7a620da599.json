@@ -1,0 +1,20 @@
+{
+  "cost_usd": "0.0000871",
+  "input_hash": "e5dbbdabd1f08e5d9bd3b0f8e7faea7a63922a37c446b83c3d18dcd4ebf9cbf1",
+  "model": "gpt-6-luna",
+  "prompt_version": "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
+  "response": {
+    "candidate_account_ids": [
+      "P-ISA-01",
+      "P-SIPP-01"
+    ],
+    "reason": "\u201cHolloway Stocks & Shares ISA\u201d matches P-ISA-01\u2019s platform and type, and \u201cBrightwell SIPP\u201d matches P-SIPP-01\u2019s platform and type."
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 436,
+    "output_tokens": 87,
+    "reasoning_tokens": 16
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "cost_usd": "0.0007557",
+  "input_hash": "83d55a9758d0c8d40922bacb9a46a480c7ff946139c8d5378ec0ea721297c259",
+  "model": "gpt-6-luna",
+  "prompt_version": "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b",
+  "response": {
+    "accounts_mentioned": [
+      "Stocks & Shares ISA",
+      "two General Investment Accounts on the Holloway platform",
+      "one of his General Investment Accounts on Holloway"
+    ],
+    "agreed_actions": [
+      {
+        "accounts_referenced": [
+          "Stocks & Shares ISA",
+          "two General Investment Accounts on the Holloway platform"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p3",
+          "text": "all are to be left as they are."
+        },
+        "is_non_action": true
+      },
+      {
+        "accounts_referenced": [
+          "one of his General Investment Accounts on Holloway"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p5",
+          "text": "We agreed to leave this for now and revisit if it becomes relevant."
+        },
+        "is_non_action": true
+      }
+    ],
+    "attendees": [
+      "Bernard Otieno"
+    ],
+    "disposals": [],
+    "excluded_items": [
+      {
+        "class_evidence": {
+          "paragraph_id": "p4",
+          "text": "Bernard mentioned he still has an old paper share certificate relating to one of his General Investment Accounts on Holloway, but could not recall which one."
+        },
+        "item_class": "circumstance",
+        "text": {
+          "paragraph_id": "p4",
+          "text": "Bernard mentioned he still has an old paper share certificate relating to one of his General Investment Accounts on Holloway, but could not recall which one."
+        }
+      }
+    ],
+    "limit_signals": [],
+    "meeting_date": {
+      "paragraph_id": "p1",
+      "text": "held 19 May 2026."
+    },
+    "money_items": [],
+    "new_accounts": [],
+    "objectives_and_circumstances": [
+      {
+        "text": {
+          "paragraph_id": "p2",
+          "text": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p6",
+          "text": "Bernard has no income requirement from the portfolio."
+        }
+      }
+    ],
+    "open_actions": [],
+    "value_observations": []
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 2577,
+    "input_tokens": 2747,
+    "output_tokens": 962,
+    "reasoning_tokens": 448
+  }
+}

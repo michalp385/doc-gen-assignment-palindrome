@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001117",
+  "input_hash": "a7cf2849901e98cda56fdb02609915b6665358f4f2450720865607e16df3255f",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "Annual review meeting with Owen Pratt, held 12 May 2026.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 917,
+    "output_tokens": 40,
+    "reasoning_tokens": 0
+  }
+}

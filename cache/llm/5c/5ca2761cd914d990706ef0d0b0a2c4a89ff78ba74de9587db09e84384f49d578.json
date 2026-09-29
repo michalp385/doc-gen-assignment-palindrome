@@ -1,0 +1,38 @@
+{
+  "cost_usd": "0.0003649",
+  "input_hash": "df4f9ee77a38e0bd834282c5e62f0526f6d6f76e59e3d7a2b850ab090e628c8c",
+  "model": "gpt-6-luna",
+  "prompt_version": "b54cb02c66a0b73b8e9b22c9f8039fc30df3d113e7133c37c8f3c70472dfde1c",
+  "response": {
+    "account_type": null,
+    "end": null,
+    "entry_id": null,
+    "finding": {
+      "answer": "inconclusive",
+      "evidence": [
+        {
+          "paragraph_id": "p3",
+          "quote": "We reviewed their Stocks & Shares ISAs and their jointly-held General Investment Account on the Holloway platform.",
+          "source": "meeting_notes.docx"
+        }
+      ],
+      "explanation": "The note mentions their Stocks & Shares ISAs collectively and does not identify which individual ISA is meant.",
+      "proposed_account_id": null,
+      "proposed_label": null,
+      "question_id": "q2"
+    },
+    "holder": null,
+    "platform": null,
+    "source": null,
+    "start": null,
+    "text": null,
+    "tool": "finish"
+  },
+  "stage": "investigate",
+  "usage": {
+    "cached_input_tokens": 1303,
+    "input_tokens": 1994,
+    "output_tokens": 331,
+    "reasoning_tokens": 189
+  }
+}

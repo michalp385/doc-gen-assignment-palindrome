@@ -1,0 +1,25 @@
+{
+  "cost_usd": "0.0001964",
+  "input_hash": "a52630af5ae29afdcb0b20bcd767e7ab55c32ca2ab5098d79877415558fd1bfb",
+  "model": "gpt-6-luna",
+  "prompt_version": "b54cb02c66a0b73b8e9b22c9f8039fc30df3d113e7133c37c8f3c70472dfde1c",
+  "response": {
+    "account_type": null,
+    "end": "p4",
+    "entry_id": null,
+    "finding": null,
+    "holder": null,
+    "platform": null,
+    "source": "meeting_notes.docx",
+    "start": "p2",
+    "text": null,
+    "tool": "read_paragraphs"
+  },
+  "stage": "investigate",
+  "usage": {
+    "cached_input_tokens": 1303,
+    "input_tokens": 1509,
+    "output_tokens": 91,
+    "reasoning_tokens": 30
+  }
+}

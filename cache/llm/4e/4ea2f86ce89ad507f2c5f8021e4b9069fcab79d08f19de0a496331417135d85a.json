@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001083",
+  "input_hash": "095639822a268821fd0de6b30005d56d597a6b4e585c8c27371ba6a5dd5df92e",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "We agreed to leave this for now and revisit if it becomes relevant.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 888,
+    "output_tokens": 39,
+    "reasoning_tokens": 0
+  }
+}

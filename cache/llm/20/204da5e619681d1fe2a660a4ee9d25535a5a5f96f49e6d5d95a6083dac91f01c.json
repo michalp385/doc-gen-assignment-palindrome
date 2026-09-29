@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001044",
+  "input_hash": "24abe6ba664e5b4b64463ee9730307cc670015c620f105f5642c55957bc9c602",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.98,
+    "evidence_quote": "Accounts covered | Holloway Stocks & Shares ISA and Patricia's Personal Pension",
+    "role": "report_instruction"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 844,
+    "output_tokens": 40,
+    "reasoning_tokens": 0
+  }
+}

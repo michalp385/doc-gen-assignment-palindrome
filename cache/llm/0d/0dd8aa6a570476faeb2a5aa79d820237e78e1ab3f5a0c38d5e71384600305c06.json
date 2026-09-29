@@ -1,0 +1,86 @@
+{
+  "cost_usd": "0.0006683",
+  "input_hash": "87ad84f370251397ad1c3421a77f80d9cd3ce7d4e7bf56295c1ceb0ba70da6d5",
+  "model": "gpt-6-luna",
+  "prompt_version": "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b",
+  "response": {
+    "accounts_mentioned": [
+      "Holloway cash account",
+      "Stocks & Shares ISA",
+      "cash account"
+    ],
+    "agreed_actions": [
+      {
+        "accounts_referenced": [
+          "cash account",
+          "Stocks & Shares ISA"
+        ],
+        "amount": {
+          "paragraph_id": "p4",
+          "text": "\u00a36,000"
+        },
+        "description": {
+          "paragraph_id": "p4",
+          "text": "We agreed she would move \u00a36,000 from the cash account into the Stocks & Shares ISA."
+        },
+        "is_non_action": false
+      },
+      {
+        "accounts_referenced": [],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p4",
+          "text": "No investments are being sold."
+        },
+        "is_non_action": true
+      }
+    ],
+    "attendees": [
+      "Felicity Marsh"
+    ],
+    "disposals": [],
+    "excluded_items": [],
+    "limit_signals": [],
+    "meeting_date": {
+      "paragraph_id": "p1",
+      "text": "held 22 May 2026."
+    },
+    "money_items": [],
+    "new_accounts": [],
+    "objectives_and_circumstances": [
+      {
+        "text": {
+          "paragraph_id": "p2",
+          "text": "Felicity confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p5",
+          "text": "Felicity has no income requirement from the portfolio."
+        }
+      }
+    ],
+    "open_actions": [
+      {
+        "blocking": false,
+        "blocking_evidence": {
+          "paragraph_id": "p6",
+          "text": "Next steps: confirm which accounts this report should cover"
+        },
+        "text": {
+          "paragraph_id": "p6",
+          "text": "confirm which accounts this report should cover"
+        }
+      }
+    ],
+    "value_observations": []
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 2577,
+    "input_tokens": 2733,
+    "output_tokens": 790,
+    "reasoning_tokens": 328
+  }
+}

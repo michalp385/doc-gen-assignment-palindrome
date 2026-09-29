@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001063",
+  "input_hash": "652d18c6cd0cafe3366787b17607288b2910e5fa834d34acf5e5926b9e510c2b",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "We agreed no changes are needed at this time and will review again next year.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 858,
+    "output_tokens": 41,
+    "reasoning_tokens": 0
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001067",
+  "input_hash": "77a52f39b546da93c73e72c56d957ac65d062f4684d645879a273f0e895d20d2",
+  "model": "gpt-6-luna",
+  "prompt_version": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+  "response": {
+    "confidence": 0.99,
+    "evidence_quote": "Annual review meeting with Douglas Kerr, held 16 May 2026.",
+    "role": "meeting_record"
+  },
+  "stage": "classify",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 867,
+    "output_tokens": 40,
+    "reasoning_tokens": 0
+  }
+}

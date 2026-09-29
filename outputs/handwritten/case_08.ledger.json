@@ -1,0 +1,183 @@
+{
+  "client": "case_08",
+  "meeting_date": "2026-05-12",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "objectives": "Vera confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk. Vera has no income requirement from the portfolio. Vera would like to move around £15,000 from her Holloway cash account into her Stocks & Shares ISA to use this year's allowance.",
+  "tax_section": false,
+  "accounts": [
+    {
+      "id": "V-ISA-01",
+      "owners": [
+        "Vera Hopkins"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "50000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "V-CASH-01",
+      "owners": [
+        "Vera Hopkins"
+      ],
+      "type": "Cash Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": false,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "20000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    }
+  ],
+  "money": [],
+  "actions": [
+    {
+      "id": "a1",
+      "description": "We agreed she would move money from the cash account into the Stocks & Shares ISA",
+      "kind": "action",
+      "accounts": [
+        "cash account",
+        "Stocks & Shares ISA"
+      ],
+      "quote": "We agreed she would move money from the cash account into the Stocks & Shares ISA",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "excluded": [],
+  "markers": [
+    {
+      "id": "#1",
+      "key": "platform_charge_holloway",
+      "text": "ongoing platform charge rate, Holloway",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#2",
+      "key": "advice_charge",
+      "text": "ongoing advice charge rate",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#3",
+      "key": "topup_amount_conflict",
+      "text": "topup amount: the report instruction and the meeting record differ",
+      "reason": "R5: the stated amounts differ; no tolerance is assumed",
+      "section": "recommendations",
+      "fact_ref": null
+    }
+  ],
+  "review": [
+    {
+      "id": "rv1",
+      "kind": "open_action",
+      "blocking": false,
+      "detail": "We agreed she would move money from the cash account into the Stocks & Shares ISA; the exact amount would be confirmed in the report.",
+      "refs": []
+    },
+    {
+      "id": "rv2",
+      "kind": "conflict",
+      "blocking": true,
+      "detail": "topup amount: the report instruction says GBP 12,000 (report_request.docx) but the meeting record says around £15,000 (meeting_notes.docx); the adviser must settle which is right.",
+      "refs": []
+    },
+    {
+      "id": "rv3",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_holloway",
+      "refs": [
+        "platform_charge_holloway"
+      ]
+    },
+    {
+      "id": "rv4",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker advice_charge",
+      "refs": [
+        "advice_charge"
+      ]
+    },
+    {
+      "id": "rv5",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker topup_amount_conflict",
+      "refs": [
+        "topup_amount_conflict"
+      ]
+    }
+  ],
+  "questions": [],
+  "facts": {
+    "account.V-ISA-01.value": {
+      "id": "account.V-ISA-01.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "50000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.V-CASH-01.value": {
+      "id": "account.V-CASH-01.value",
+      "kind": "money",
+      "description": "the Cash Account's current value",
+      "value": {
+        "amount": "20000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    }
+  }
+}

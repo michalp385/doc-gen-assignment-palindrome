@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001127",
+  "input_hash": "5135a3302d6c10083bceedcccefe23eb8188dfc5083249f5b2cbe242fffe1367",
+  "model": "gpt-6-luna",
+  "prompt_version": "504468ee89696fcaf8b3624d1d31b81fb0edce8faf54a8bffacd6e5373789944",
+  "response": {
+    "paragraphs": [
+      "Sandra confirmed that her circumstances and objectives are unchanged. She remains comfortable with a cautious approach to risk and has no income requirement from the portfolio."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 797,
+    "output_tokens": 66,
+    "reasoning_tokens": 21
+  }
+}

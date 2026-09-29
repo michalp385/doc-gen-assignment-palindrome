@@ -1,0 +1,25 @@
+{
+  "cost_usd": "0.0002234",
+  "input_hash": "b2228f1cecb3a98ea67f388e22cb94b52b2d851b2872cb487916f0a8ffdbc24e",
+  "model": "gpt-6-luna",
+  "prompt_version": "b54cb02c66a0b73b8e9b22c9f8039fc30df3d113e7133c37c8f3c70472dfde1c",
+  "response": {
+    "account_type": "General Investment Account",
+    "end": null,
+    "entry_id": null,
+    "finding": null,
+    "holder": "Bernard",
+    "platform": "Holloway",
+    "source": null,
+    "start": null,
+    "text": null,
+    "tool": "get_accounts"
+  },
+  "stage": "investigate",
+  "usage": {
+    "cached_input_tokens": 1303,
+    "input_tokens": 1694,
+    "output_tokens": 108,
+    "reasoning_tokens": 49
+  }
+}

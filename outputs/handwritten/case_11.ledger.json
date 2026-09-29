@@ -1,0 +1,233 @@
+{
+  "client": "case_11",
+  "meeting_date": "2026-05-09",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0%",
+  "objectives": "Patricia confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk. Patricia has no income requirement from the portfolio.",
+  "tax_section": false,
+  "accounts": [
+    {
+      "id": "L-ISA-01",
+      "owners": [
+        "Patricia Nolan"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "47000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "unresolved:personal_pension",
+      "owners": [
+        "Patricia Nolan"
+      ],
+      "type": "Personal Pension",
+      "platform": null,
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": "named in the report instruction's scope but matches no account (R8)",
+      "is_new": false,
+      "value": null,
+      "superseded": [],
+      "value_marker": "scope_unresolved_personal_pension"
+    }
+  ],
+  "money": [
+    {
+      "id": "m1",
+      "money_class": "received",
+      "amount": {
+        "amount": "3000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£3,000",
+        "selected_by": "P5"
+      },
+      "counted": true,
+      "reason": "",
+      "quote": "£3,000",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "actions": [
+    {
+      "id": "a1",
+      "description": "We agreed she would pay £3,000 into the Stocks & Shares ISA.",
+      "kind": "action",
+      "accounts": [
+        "Stocks & Shares ISA"
+      ],
+      "quote": "We agreed she would pay £3,000 into the Stocks & Shares ISA.",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "a2",
+      "description": "No investments are being sold.",
+      "kind": "non_action",
+      "accounts": [],
+      "quote": "No investments are being sold.",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "excluded": [],
+  "markers": [
+    {
+      "id": "#1",
+      "key": "platform_charge_holloway",
+      "text": "ongoing platform charge rate, Holloway",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#2",
+      "key": "advice_charge",
+      "text": "ongoing advice charge rate",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#3",
+      "key": "scope_unresolved_personal_pension",
+      "text": "which account(s) are meant by \"Patricia's Personal Pension\" in the report instruction",
+      "reason": "R8: the scope phrase names an account that resolves to nothing",
+      "section": "account_table",
+      "fact_ref": null
+    }
+  ],
+  "review": [
+    {
+      "id": "rv1",
+      "kind": "scope_flag",
+      "blocking": true,
+      "detail": "the report instruction's \"Accounts covered\" field names \"Patricia's Personal Pension\", but the account data has no Personal Pension; confirm what is meant before anything is finalised.",
+      "refs": [
+        "unresolved:personal_pension"
+      ]
+    },
+    {
+      "id": "rv2",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_holloway",
+      "refs": [
+        "platform_charge_holloway"
+      ]
+    },
+    {
+      "id": "rv3",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker advice_charge",
+      "refs": [
+        "advice_charge"
+      ]
+    },
+    {
+      "id": "rv4",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker scope_unresolved_personal_pension",
+      "refs": [
+        "scope_unresolved_personal_pension"
+      ]
+    }
+  ],
+  "questions": [],
+  "facts": {
+    "account.L-ISA-01.value": {
+      "id": "account.L-ISA-01.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "47000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-05-01",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "action.a1.amount": {
+      "id": "action.a1.amount",
+      "kind": "money",
+      "description": "the amount involved in this action",
+      "value": {
+        "amount": "3000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£3,000",
+        "selected_by": "action_amount"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "transaction",
+      "placement": "any"
+    },
+    "money.m1.amount": {
+      "id": "money.m1.amount",
+      "kind": "money",
+      "description": "money the client has already received",
+      "value": {
+        "amount": "3000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£3,000",
+        "selected_by": "P5"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "received money",
+      "placement": "any"
+    },
+    "money.available": {
+      "id": "money.available",
+      "kind": "money",
+      "description": "the money available to invest now, after commitments",
+      "value": {
+        "amount": "3000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "derived",
+        "quote": "",
+        "selected_by": "P5"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "available to invest",
+      "placement": "any"
+    }
+  }
+}
