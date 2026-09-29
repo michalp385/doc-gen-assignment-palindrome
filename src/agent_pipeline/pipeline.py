@@ -74,6 +74,7 @@ from agent_pipeline.reconcile.values import (
     match_image_row,
     select_values,
     superseded_values,
+    tied_candidates,
 )
 from agent_pipeline.reconcile.wrappers import classify_wrapper
 from agent_pipeline.sources.adapters.docx import read_docx
@@ -349,6 +350,24 @@ def _apply_values(
             continue
         viewed = observations_by_account.get(account_id, [])
         value = select_values(record.value, record.valuation_date, record.currency, viewed)
+        tie = tied_candidates(record.value, record.valuation_date, record.currency, viewed)
+        if tie and is_stated_gbp(record.currency):
+            # R3 / R9: same-date candidates that disagree select nothing; the account's value
+            # cell becomes a marker (`_apply_account_states`) and the adviser sees why.
+            tie_date = tie[0].date
+            when = render_date(tie_date) if tie_date is not None else "undated"
+            figures = "; ".join(f"{render_table(v)} ({v.source_id})" for v in tie)
+            review_items.append(
+                ReviewItemInput(
+                    kind="conflict",
+                    blocking=False,
+                    detail=(
+                        f"{account_id}: sources give different values on the same date "
+                        f"({when}): {figures}; no value is selected."
+                    ),
+                    refs=[account_id],
+                )
+            )
         superseded = superseded_values(
             record.value, record.valuation_date, record.currency, viewed, value
         )

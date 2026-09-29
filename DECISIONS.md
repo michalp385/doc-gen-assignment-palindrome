@@ -432,6 +432,25 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
 - **Evidence:** `tests/test_g16_intro_scope.py`, `tests/test_g10_internal_filenames.py`; the parked
   run artefacts are in the session scratchpad, not the repo, and no results file exists for this.
 
+### D23. A same-date tie between disagreeing values selects nothing
+- **Context:** R3 says the most recent dated figure wins, but the account data's snapshot and a
+  figure viewed in the meeting can carry the same date with different amounts (as can two figures
+  viewed at once). `select_values` took `max` of the candidates, so the first, the account-data
+  figure, won silently. No real client has this shape (the live figures are dated after the
+  snapshots), so nothing showed it.
+- **Decision:** candidates that share the latest date and disagree on amount or currency select
+  nothing, following R9 (same-date, different-value joint copies are unresolved). The value cell
+  becomes a marker and the review sheet gets a non-blocking conflict naming both figures. Candidates
+  that agree on the amount are one answer, and the exact one is used.
+- **Alternatives:** prefer the figure viewed in the meeting on the day: it is fresher in spirit, but
+  the spec gives no such tie-break and it would pick silently. Prefer the account data: the old
+  behaviour, equally silent.
+- **Consequences / how it generalises:** a rare case now costs a marker instead of a possibly wrong
+  figure, which fails safe. An undated meeting figure never ties with a dated snapshot (it is
+  earlier, so the snapshot wins), and two undated candidates that differ do tie. Revisit if real
+  clients hit this often enough that the tie-break is worth specifying.
+- **Evidence:** `tests/test_r3_same_date_tie.py`.
+
 ## What I would do with more time
 <!-- For production: what's missing, what you'd change in the pipeline and the agent setup,
      and the risks you know about. Concrete, not a wish list. -->

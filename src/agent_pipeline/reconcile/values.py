@@ -63,16 +63,48 @@ def _candidates(
     return candidates
 
 
+def _latest(candidates: list[Value]) -> list[Value]:
+    """The candidates sharing the latest date (an undated one is the earliest of all)."""
+    latest = max(v.date or _date.min for v in candidates)
+    return [v for v in candidates if (v.date or _date.min) == latest]
+
+
+def tied_candidates(
+    db_value: Decimal | None,
+    db_date: _date | None,
+    currency: str | None,
+    viewed_observations: list[Value],
+) -> list[Value]:
+    """R3's same-date tie: the candidates sharing the latest date when they do not agree on the
+    amount and currency ("the most recent dated figure wins" has no answer between them).
+    Following R9 (same-date, different-value joint copies are unresolved), a tie selects
+    nothing: the value cell is a marker and the review sheet gets a conflict, never a silent
+    pick. Candidates that agree are not a tie. Empty when there is no tie."""
+    candidates = _candidates(db_value, db_date, currency, viewed_observations)
+    if not candidates:
+        return []
+    at_latest = _latest(candidates)
+    if len({(v.amount, v.currency) for v in at_latest}) > 1:
+        return at_latest
+    return []
+
+
 def select_values(
     db_value: Decimal | None,
     db_date: _date | None,
     currency: str | None,
     viewed_observations: list[Value],
 ) -> Value | None:
+    """R3: the most recent dated candidate. `None` when there is none, and also on a same-date
+    tie that disagrees (`tied_candidates`): unresolved, never a silent pick. Candidates on the
+    latest date that agree on the amount are one answer; the exact one is used."""
     candidates = _candidates(db_value, db_date, currency, viewed_observations)
     if not candidates:
         return None
-    return max(candidates, key=lambda v: v.date or _date.min)
+    if tied_candidates(db_value, db_date, currency, viewed_observations):
+        return None
+    at_latest = _latest(candidates)
+    return next((v for v in at_latest if v.precision == "exact"), at_latest[0])
 
 
 def superseded_values(
