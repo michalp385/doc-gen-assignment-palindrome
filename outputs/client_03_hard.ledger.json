@@ -1,0 +1,468 @@
+{
+  "client": "client_03_hard",
+  "meeting_date": "2026-05-16",
+  "risk_profile": "4 (moderate)",
+  "initial_charge": "0.5%",
+  "objectives": "The couple would like to put this to work alongside their existing portfolio. Their objectives are unchanged from the last review: long-term growth, with no income required from the portfolio for the foreseeable future. Both remain at a moderate risk level and were comfortable keeping it there. Jean mentioned in passing that she has another small cash account from some years ago, but she could not recall the balance and was not even sure it was still active.",
+  "tax_section": true,
+  "accounts": [
+    {
+      "id": "H-ISA-R",
+      "owners": [
+        "Robert Fletcher"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "70000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "H-GIA-JF",
+      "owners": [
+        "Robert Fletcher",
+        "Jean Fletcher"
+      ],
+      "type": "General Investment Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "38000",
+        "currency": "GBP",
+        "precision": "approximate",
+        "qualifier": "around",
+        "date": "2026-05-16",
+        "source_id": "meeting_notes.docx",
+        "quote": "around £38,000",
+        "selected_by": "R3"
+      },
+      "superseded": [
+        {
+          "amount": "30000.0",
+          "currency": "GBP",
+          "precision": "exact",
+          "qualifier": "exact",
+          "date": "2026-03-10",
+          "source_id": "client_data_db.json",
+          "quote": "",
+          "selected_by": "R3"
+        }
+      ],
+      "value_marker": null
+    },
+    {
+      "id": "H-ISA-JE",
+      "owners": [
+        "Jean Fletcher"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "66000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "H-CASH-JE",
+      "owners": [
+        "Jean Fletcher"
+      ],
+      "type": "Cash Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": false,
+      "scope_reason": null,
+      "is_new": false,
+      "value": null,
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "new:joint_investment_account",
+      "owners": [
+        "Robert Fletcher",
+        "Jean Fletcher"
+      ],
+      "type": "New joint account",
+      "platform": null,
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": true,
+      "value": null,
+      "superseded": [],
+      "value_marker": null
+    }
+  ],
+  "money": [
+    {
+      "id": "m1",
+      "money_class": "proceeds",
+      "amount": {
+        "amount": "38000",
+        "currency": "GBP",
+        "precision": "approximate",
+        "qualifier": "around",
+        "date": "2026-05-16",
+        "source_id": "meeting_notes.docx",
+        "quote": "around £38,000",
+        "selected_by": "R3"
+      },
+      "counted": true,
+      "reason": "",
+      "quote": "disinvest the joint GIA",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "m2",
+      "money_class": "received",
+      "amount": {
+        "amount": "120000",
+        "currency": "GBP",
+        "precision": "approximate",
+        "qualifier": "around",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "around £120,000",
+        "selected_by": "P5"
+      },
+      "counted": true,
+      "reason": "",
+      "quote": "around £120,000",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "actions": [
+    {
+      "id": "a1",
+      "description": "disinvest the joint GIA",
+      "kind": "action",
+      "accounts": [
+        "joint GIA"
+      ],
+      "quote": "disinvest the joint GIA",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "a2",
+      "description": "together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year",
+      "kind": "action",
+      "accounts": [
+        "Robert's ISAs",
+        "Jean's ISAs"
+      ],
+      "quote": "together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "a3",
+      "description": "open a new jointly-held investment account for the balance",
+      "kind": "action",
+      "accounts": [
+        "new jointly-held investment account"
+      ],
+      "quote": "open a new jointly-held investment account for the balance",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "e1",
+      "item_class": "circumstance",
+      "description": "Jean's mother had passed away earlier in the spring.",
+      "allowed_in": [],
+      "quote": "Jean's mother had passed away earlier in the spring."
+    },
+    {
+      "id": "e2",
+      "item_class": "tangent",
+      "description": "We talked about their grandchildren and a trip they have planned later in the year; nothing there changes the advice.",
+      "allowed_in": [],
+      "quote": "We talked about their grandchildren and a trip they have planned later in the year; nothing there changes the advice."
+    }
+  ],
+  "markers": [
+    {
+      "id": "#1",
+      "key": "platform_charge_holloway",
+      "text": "ongoing platform charge rate, Holloway",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#2",
+      "key": "advice_charge",
+      "text": "ongoing advice charge rate",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#3",
+      "key": "new_account_charges",
+      "text": "charges on the new joint account",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#4",
+      "key": "cgt",
+      "text": "capital gains tax on the disposal",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "tax_implications",
+      "fact_ref": null
+    }
+  ],
+  "review": [
+    {
+      "id": "rv1",
+      "kind": "superseded",
+      "blocking": false,
+      "detail": "H-GIA-JF: superseded value £30,000 (client_data_db.json, 10 March); current value c. £38,000 (meeting_notes.docx, 16 May).",
+      "refs": [
+        "H-GIA-JF"
+      ]
+    },
+    {
+      "id": "rv2",
+      "kind": "out_of_scope_no_value",
+      "blocking": false,
+      "detail": "Cash Account (Holloway) is out of scope and has no value on record.",
+      "refs": [
+        "H-CASH-JE"
+      ]
+    },
+    {
+      "id": "rv3",
+      "kind": "open_action",
+      "blocking": true,
+      "detail": "Jean mentioned in passing that she has another small cash account from some years ago, but she could not recall the balance and was not even sure it was still active. She will dig out the paperwork and we will confirm it before anything is finalised.",
+      "refs": []
+    },
+    {
+      "id": "rv4",
+      "kind": "open_action",
+      "blocking": false,
+      "detail": "Robert asked about the charges on the new joint account; I said the report would set those out once verified.",
+      "refs": []
+    },
+    {
+      "id": "rv5",
+      "kind": "scope_flag",
+      "blocking": false,
+      "detail": "new joint account: its type and platform are not stated in the sources; confirm both.",
+      "refs": [
+        "new:joint_investment_account"
+      ]
+    },
+    {
+      "id": "rv6",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_holloway",
+      "refs": [
+        "platform_charge_holloway"
+      ]
+    },
+    {
+      "id": "rv7",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker advice_charge",
+      "refs": [
+        "advice_charge"
+      ]
+    },
+    {
+      "id": "rv8",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker new_account_charges",
+      "refs": [
+        "new_account_charges"
+      ]
+    },
+    {
+      "id": "rv9",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker cgt",
+      "refs": [
+        "cgt"
+      ]
+    },
+    {
+      "id": "rv10",
+      "kind": "image_discrepancy",
+      "blocking": false,
+      "detail": "statement image shows '30,000' for 'Holloway GIA (Joint)'; selected value is 38000",
+      "refs": []
+    }
+  ],
+  "questions": [],
+  "facts": {
+    "account.H-ISA-R.value": {
+      "id": "account.H-ISA-R.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "70000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.H-GIA-JF.value": {
+      "id": "account.H-GIA-JF.value",
+      "kind": "money",
+      "description": "the General Investment Account's current value",
+      "value": {
+        "amount": "38000",
+        "currency": "GBP",
+        "precision": "approximate",
+        "qualifier": "around",
+        "date": "2026-05-16",
+        "source_id": "meeting_notes.docx",
+        "quote": "around £38,000",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.H-GIA-JF.superseded.1": {
+      "id": "account.H-GIA-JF.superseded.1",
+      "kind": "money",
+      "description": "the General Investment Account's superseded value",
+      "value": {
+        "amount": "30000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-03-10",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "superseded value",
+      "placement": "footnote_only"
+    },
+    "account.H-ISA-JE.value": {
+      "id": "account.H-ISA-JE.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "66000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "action.a1.amount": {
+      "id": "action.a1.amount",
+      "kind": "money",
+      "description": "the gross sale proceeds from this disposal, before any CGT and not yet realised",
+      "value": {
+        "amount": "38000",
+        "currency": "GBP",
+        "precision": "approximate",
+        "qualifier": "around",
+        "date": "2026-05-16",
+        "source_id": "meeting_notes.docx",
+        "quote": "around £38,000",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "sale proceeds",
+      "placement": "any"
+    },
+    "money.m2.amount": {
+      "id": "money.m2.amount",
+      "kind": "money",
+      "description": "money the client has already received",
+      "value": {
+        "amount": "120000",
+        "currency": "GBP",
+        "precision": "approximate",
+        "qualifier": "around",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "around £120,000",
+        "selected_by": "P5"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "received money",
+      "placement": "any"
+    },
+    "money.available": {
+      "id": "money.available",
+      "kind": "money",
+      "description": "the money available to invest now, after commitments",
+      "value": {
+        "amount": "120000",
+        "currency": "GBP",
+        "precision": "approximate",
+        "qualifier": "circa",
+        "date": null,
+        "source_id": "derived",
+        "quote": "",
+        "selected_by": "P5"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "available to invest",
+      "placement": "any"
+    }
+  }
+}

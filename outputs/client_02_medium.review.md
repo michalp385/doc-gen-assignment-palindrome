@@ -12,7 +12,7 @@ None.
 
 ## Other open actions (not blocking)
 
-- I said I would confirm the exact figures in the report rather than quote them from memory in the meeting.
+- Susan asked what the ongoing charges would look like after the change. I said I would confirm the exact figures in the report rather than quote them from memory in the meeting.
 
 ## Markers to fill
 

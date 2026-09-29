@@ -1,0 +1,79 @@
+{
+  "cost_usd": "0.0024733",
+  "input_hash": "70026f7e86f39e76cbe866cad14ce10c7cfbe551f3616a0786316c0e50fccddb",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a320,000 from the cash account into the Stocks & Shares ISA, as agreed."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "She is comfortable with the previously agreed moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "She remains comfortable with the moderate approach to risk we agreed previously",
+        "report_quote": "She remains comfortable with the previously agreed moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "She is satisfied with the portfolio\u2019s performance.",
+        "paragraph_id": "p2",
+        "quote": "was happy that the portfolio had performed in line with that.",
+        "report_quote": "and is satisfied with the portfolio\u2019s performance.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "She would like to use this year\u2019s ISA allowance by moving cash from her Holloway cash account into her Stocks & Shares ISA.",
+        "paragraph_id": "p4",
+        "quote": "Her main point for the meeting was that she has cash sitting on deposit in her Holloway cash account and would like to use this year's ISA allowance by moving some of it into her Stocks & Shares ISA.",
+        "report_quote": "She would like to use this year\u2019s ISA allowance by moving some cash held in her Holloway cash account into her Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "She has no current income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Margaret has no income requirement from the portfolio at present and does not expect that to change in the near term.",
+        "report_quote": "She has no current income requirement from the portfolio",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "She does not expect her income requirements to change in the near term.",
+        "paragraph_id": "p6",
+        "quote": "Margaret has no income requirement from the portfolio at present and does not expect that to change in the near term.",
+        "report_quote": "and does not expect this to change in the near term.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Her agreed risk approach is moderate.",
+        "paragraph_id": "p2",
+        "quote": "She remains comfortable with the moderate approach to risk we agreed previously",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to move \u00a320,000 from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p5",
+        "quote": "We agreed she would move \u00a320,000 from the cash account into the Stocks & Shares ISA. No investments are being sold to do this; it is simply moving available cash into the ISA wrapper, so there is no disposal involved.",
+        "report_quote": "We recommend moving \u00a320,000 from the cash account into the Stocks & Shares ISA",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a320,000 from the cash account into the Stocks & Shares ISA, as agreed."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2633,
+    "output_tokens": 4420,
+    "reasoning_tokens": 3799
+  }
+}

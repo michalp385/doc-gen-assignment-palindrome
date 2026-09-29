@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0002223",
+  "input_hash": "a7147af09bc8607adb5bd2eaa6f5a199d412345a9185e0a05f07d76172cd07b7",
+  "model": "gpt-6-luna",
+  "prompt_version": "504468ee89696fcaf8b3624d1d31b81fb0edce8faf54a8bffacd6e5373789944",
+  "response": {
+    "paragraphs": [
+      "James has completed the sale of his company, and he and Caroline seek long-term growth with a balanced-to-moderate approach to risk. They do not currently need income from the portfolio. Their priority is to build a tax-efficient base that can replace James\u2019s income when he steps back from full-time work, and recommendations should be assessed against this objective."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1233,
+    "output_tokens": 198,
+    "reasoning_tokens": 110
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "cost_usd": "0.0002552",
+  "input_hash": "7cc4665244d112b7e88b71981e4f0075f4ee633f2f081b679a4aac639c65b5b9",
+  "model": "gpt-6-luna",
+  "prompt_version": "710aacb251745659106594df4ec6f0e4956cf31fbbd8fb194fabbf8a5f099351",
+  "response": {
+    "paragraphs": [
+      "We recommend using both ISA allowances for the new tax year.",
+      "SIPP contribution amounts",
+      "We recommend making pension contributions into both SIPPs up to the appropriate level.",
+      "We recommend adding to the Holloway joint GIA and placing the remaining balance into a new jointly held investment account.",
+      "We recommend disinvesting a portion of the Holloway joint GIA and rebalancing it.",
+      "We recommend leaving it as it is for now and revisiting this at the next review."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1272,
+    "output_tokens": 256,
+    "reasoning_tokens": 146
+  }
+}

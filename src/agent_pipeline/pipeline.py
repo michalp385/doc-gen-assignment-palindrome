@@ -11,6 +11,7 @@ scope ambiguity, currency items), are explicitly M2's job, not wired here.
 from __future__ import annotations
 
 import json
+import re
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -26,6 +27,7 @@ from agent_pipeline.extract.image import LLMImageModel, extract_image
 from agent_pipeline.extract.instruction import LLMInstructionModel, extract_instruction
 from agent_pipeline.extract.meeting import LLMMeetingModel, extract_meeting
 from agent_pipeline.extract.parsing import parse_amount, parse_date
+from agent_pipeline.extract.schemas import NewAccount, OpenAction
 from agent_pipeline.gates.deterministic import ReportBundle, TableRow, run_gates
 from agent_pipeline.gates.judge import judge_models, majority_release_judge
 from agent_pipeline.gates.release import ReleaseState, decide_release
@@ -61,6 +63,7 @@ from agent_pipeline.reconcile.markers import (
     required_markers,
 )
 from agent_pipeline.reconcile.money import available_now, build_money_items, classify_money
+from agent_pipeline.reconcile.new_accounts import NewAccountMention, build_new_accounts
 from agent_pipeline.reconcile.ownership import resolve_ownership
 from agent_pipeline.reconcile.predicates import evaluate
 from agent_pipeline.reconcile.refs import accounts_matching_reference
@@ -80,6 +83,7 @@ from agent_pipeline.reconcile.wrappers import classify_wrapper
 from agent_pipeline.sources.adapters.docx import read_docx
 from agent_pipeline.sources.adapters.image import read_image
 from agent_pipeline.sources.adapters.json_accounts import (
+    AccountData,
     AccountDataError,
     AccountRecord,
     read_accounts,
@@ -196,15 +200,37 @@ def _build_actions(agreed_actions, meeting_source_id: str) -> tuple[list[Action]
     return actions, action_amounts
 
 
-def _build_excluded(excluded_items, meeting_source_id: str) -> list[ExcludedItem]:
+def _to_sentence_end(quote: str, paragraph: str | None) -> str:
+    """The quote extended to the end of its own sentence in the source paragraph, verbatim.
+    An aspiration's caveat ("not for today") often sits after the clause the model quoted."""
+    if not paragraph or quote.rstrip().endswith((".", "!", "?")):
+        return quote
+    start = paragraph.find(quote)
+    if start < 0:
+        return quote
+    end = start + len(quote)
+    stop = re.search(r"[.!?](?=\s|$)", paragraph[end:])
+    if stop is None:
+        return paragraph[start:].strip()
+    return paragraph[start : end + stop.end()].strip()
+
+
+def _build_excluded(
+    excluded_items, meeting_source_id: str, meeting_doc: SourceDoc
+) -> list[ExcludedItem]:
+    def _text(item) -> str:
+        if item.item_class != "aspiration":
+            return item.text.text
+        return _to_sentence_end(item.text.text, meeting_doc.paragraph_text(item.text.paragraph_id))
+
     return [
         ExcludedItem.model_validate(
             {
                 "id": f"e{i}",
                 "class": item.item_class,
-                "description": item.text.text,
+                "description": _text(item),
                 "allowed_in": ["background_objectives"] if item.item_class == "aspiration" else [],
-                "quote": item.text.text,
+                "quote": _text(item),
             }
         )
         for i, item in enumerate(excluded_items, start=1)
@@ -435,6 +461,36 @@ def _apply_money(
             )
         )
     return build.items, result.value, markers, review_items
+
+
+def _open_action_item(action: OpenAction, meeting_doc: SourceDoc) -> ReviewItemInput:
+    """An open action's review item. The quote alone is often a bare pronoun sentence, so the
+    detail is its source paragraph verbatim, which contains the quote: the subject is in the
+    note, not in code."""
+    quote = action.text.text
+    paragraph = meeting_doc.paragraph_text(action.text.paragraph_id)
+    detail = paragraph if paragraph and paragraph.strip() != quote.strip() else quote
+    return ReviewItemInput(kind="open_action", blocking=action.blocking, detail=detail, refs=[])
+
+
+def _apply_new_accounts(
+    mentions: list[NewAccount], scope_phrase: str, account_data: AccountData
+) -> tuple[list[Account], list[Marker], list[ReviewItemInput]]:
+    """R1, P9, P2: the accounts the advice opens, from the meeting's verified mentions and the
+    report instruction's scope (`reconcile/new_accounts.py`). Owners come from the account data's
+    holders. Not put through `_apply_account_states`: a new account's value is "To be opened",
+    not a missing value."""
+    result = build_new_accounts(
+        [
+            NewAccountMention(
+                quote=m.description.text, joint=m.joint, owner_references=tuple(m.owner_references)
+            )
+            for m in mentions
+        ],
+        scope_phrase,
+        [holder.name for holder in account_data.holders.values()],
+    )
+    return result.accounts, result.markers, result.review_items
 
 
 def _apply_account_states(
@@ -796,6 +852,10 @@ def _run_stages(
     resolved_accounts, state_markers, state_review_items = _apply_account_states(
         list(account_by_id.values()), account_currency_by_id
     )
+    new_accounts, new_account_markers, new_account_review_items = _apply_new_accounts(
+        meeting_extraction.new_accounts, scope_field.value, account_data
+    )
+    resolved_accounts = [*resolved_accounts, *new_accounts]
 
     # R1/R9: two copies of the same account_id may disagree on value or date -- always a
     # review-sheet conflict (which one wins is R3's job above).
@@ -823,7 +883,9 @@ def _run_stages(
         actions, action_amounts, resolved_accounts, disposal_proceeds_by_account
     )
 
-    excluded = _build_excluded(meeting_extraction.excluded_items, meeting_source.path.name)
+    excluded = _build_excluded(
+        meeting_extraction.excluded_items, meeting_source.path.name, meeting_doc
+    )
 
     in_scope_platforms = {a.platform for a in resolved_accounts if a.in_scope and a.platform}
     # Value-cell markers (R6, P12) sit in the account table, which opens the report, so
@@ -832,6 +894,7 @@ def _run_stages(
     markers = [
         *state_markers,
         *required_markers(in_scope_platforms),
+        *new_account_markers,
         *cgt_marker(disposals),
         *bond_marker(disposals),
         *pension_markers,
@@ -869,11 +932,9 @@ def _run_stages(
     review_inputs: list[ReviewItemInput] = [
         *ownership.set_aside,
         *superseded_review_items,
-        *(
-            ReviewItemInput(kind="open_action", blocking=oa.blocking, detail=oa.text.text, refs=[])
-            for oa in meeting_extraction.open_actions
-        ),
+        *(_open_action_item(oa, meeting_doc) for oa in meeting_extraction.open_actions),
         *money_review_items,
+        *new_account_review_items,
         *disposal_review_items,
         *pension_review_items,
         *marker_review_items(markers),

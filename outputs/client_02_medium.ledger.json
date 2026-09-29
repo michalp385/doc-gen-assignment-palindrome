@@ -107,7 +107,7 @@
       },
       "counted": true,
       "reason": "",
-      "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+      "quote": "We agreed to disinvest the joint GIA in full",
       "source_id": "meeting_notes.docx"
     }
   ],
@@ -118,8 +118,8 @@
       "kind": "action",
       "accounts": [
         "joint GIA",
-        "David's Stocks & Shares ISA",
-        "Susan's Stocks & Shares ISA"
+        "David's Stocks & Shares ISAs",
+        "Susan's Stocks & Shares ISAs"
       ],
       "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
       "source_id": "meeting_notes.docx"
@@ -182,7 +182,7 @@
       "id": "rv2",
       "kind": "open_action",
       "blocking": false,
-      "detail": "I said I would confirm the exact figures in the report rather than quote them from memory in the meeting.",
+      "detail": "Susan asked what the ongoing charges would look like after the change. I said I would confirm the exact figures in the report rather than quote them from memory in the meeting.",
       "refs": []
     },
     {

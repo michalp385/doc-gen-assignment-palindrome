@@ -75,7 +75,7 @@
     {
       "gate": "G16",
       "passed": true,
-      "detail": ""
+      "detail": "1 of 3 judge samples disagreed: uncovered clause(s): ['She would like to use this year\u2019s ISA allowance by moving some cash held in her Holloway cash account into her Stocks & Shares ISA.']"
     },
     {
       "gate": "G8",
@@ -140,19 +140,19 @@
       "cache_hits": 2,
       "live_calls": 0,
       "tokens": {
-        "input": 2888,
-        "cached_input": 2453,
-        "output": 1326,
-        "reasoning": 607
+        "input": 3328,
+        "cached_input": 0,
+        "output": 1243,
+        "reasoning": 569
       },
-      "cost_usd": "0.0009518",
+      "cost_usd": "0.0009543",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
         "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
-        "4e0b34de0d820fdef13e07f584c43f6429642598ee763eab3fa479b60e987ae1"
+        "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b"
       ]
     },
     {
@@ -161,12 +161,12 @@
       "cache_hits": 5,
       "live_calls": 0,
       "tokens": {
-        "input": 5163,
+        "input": 5178,
         "cached_input": 2275,
-        "output": 523,
-        "reasoning": 255
+        "output": 482,
+        "reasoning": 211
       },
-      "cost_usd": "0.0007778",
+      "cost_usd": "0.0007588",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -185,12 +185,12 @@
       "cache_hits": 4,
       "live_calls": 0,
       "tokens": {
-        "input": 10540,
-        "cached_input": 8110,
-        "output": 18916,
-        "reasoning": 15829
+        "input": 10560,
+        "cached_input": 5490,
+        "output": 16915,
+        "reasoning": 14345
       },
-      "cost_usd": "0.0105120",
+      "cost_usd": "0.0095135",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -203,5 +203,5 @@
   "total_calls": 16,
   "total_cache_hits": 16,
   "total_live_calls": 0,
-  "total_cost_usd": "0.0128608"
+  "total_cost_usd": "0.0118458"
 }

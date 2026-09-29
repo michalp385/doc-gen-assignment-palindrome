@@ -1,0 +1,205 @@
+{
+  "cost_usd": "0.0016054",
+  "input_hash": "077d7d0ff2d4af6a44af21d1056d65c3452c797342ff47ad7425c4684e32b89f",
+  "model": "gpt-6-luna",
+  "prompt_version": "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b",
+  "response": {
+    "accounts_mentioned": [
+      "existing portfolio",
+      "jointly-held General Investment Account",
+      "joint GIA",
+      "Robert's ISAs",
+      "Jean's ISAs",
+      "new jointly-held investment account",
+      "new joint account",
+      "another small cash account"
+    ],
+    "agreed_actions": [
+      {
+        "accounts_referenced": [
+          "joint GIA"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p7",
+          "text": "disinvest the joint GIA"
+        },
+        "is_non_action": false
+      },
+      {
+        "accounts_referenced": [
+          "Robert's ISAs",
+          "Jean's ISAs"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p7",
+          "text": "together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year"
+        },
+        "is_non_action": false
+      },
+      {
+        "accounts_referenced": [
+          "new jointly-held investment account"
+        ],
+        "amount": null,
+        "description": {
+          "paragraph_id": "p7",
+          "text": "open a new jointly-held investment account for the balance"
+        },
+        "is_non_action": false
+      }
+    ],
+    "attendees": [
+      "Robert Fletcher",
+      "Jean Fletcher"
+    ],
+    "disposals": [
+      {
+        "account_reference": "joint GIA",
+        "extent": "full",
+        "extent_evidence": {
+          "paragraph_id": "p7",
+          "text": "disinvest the joint GIA"
+        },
+        "quote": {
+          "paragraph_id": "p7",
+          "text": "disinvest the joint GIA"
+        }
+      }
+    ],
+    "excluded_items": [
+      {
+        "class_evidence": {
+          "paragraph_id": "p2",
+          "text": "I started by acknowledging that Jean's mother had passed away earlier in the spring."
+        },
+        "item_class": "circumstance",
+        "text": {
+          "paragraph_id": "p2",
+          "text": "Jean's mother had passed away earlier in the spring."
+        }
+      },
+      {
+        "class_evidence": {
+          "paragraph_id": "p5",
+          "text": "nothing there changes the advice"
+        },
+        "item_class": "tangent",
+        "text": {
+          "paragraph_id": "p5",
+          "text": "We talked about their grandchildren and a trip they have planned later in the year; nothing there changes the advice."
+        }
+      }
+    ],
+    "limit_signals": [],
+    "meeting_date": {
+      "paragraph_id": "p1",
+      "text": "held 16 May 2026"
+    },
+    "money_items": [
+      {
+        "amount": {
+          "paragraph_id": "p3",
+          "text": "around \u00a3120,000"
+        },
+        "class_evidence": {
+          "paragraph_id": "p3",
+          "text": "Jean has received an inheritance of around \u00a3120,000 from her late mother's estate, which has now cleared."
+        },
+        "money_class": "received",
+        "purpose": "Put to work alongside their existing portfolio."
+      },
+      {
+        "amount": null,
+        "class_evidence": {
+          "paragraph_id": "p7",
+          "text": "disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year and open a new jointly-held investment account for the balance."
+        },
+        "money_class": "proceeds",
+        "purpose": "Fund both ISAs and a new jointly-held investment account."
+      }
+    ],
+    "new_accounts": [
+      {
+        "description": {
+          "paragraph_id": "p7",
+          "text": "open a new jointly-held investment account for the balance"
+        },
+        "joint": true,
+        "owner_references": []
+      }
+    ],
+    "objectives_and_circumstances": [
+      {
+        "text": {
+          "paragraph_id": "p3",
+          "text": "The couple would like to put this to work alongside their existing portfolio."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p4",
+          "text": "Their objectives are unchanged from the last review: long-term growth, with no income required from the portfolio for the foreseeable future."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p4",
+          "text": "Both remain at a moderate risk level and were comfortable keeping it there."
+        }
+      },
+      {
+        "text": {
+          "paragraph_id": "p9",
+          "text": "Jean mentioned in passing that she has another small cash account from some years ago, but she could not recall the balance and was not even sure it was still active."
+        }
+      }
+    ],
+    "open_actions": [
+      {
+        "blocking": true,
+        "blocking_evidence": {
+          "paragraph_id": "p9",
+          "text": "before anything is finalised"
+        },
+        "text": {
+          "paragraph_id": "p9",
+          "text": "She will dig out the paperwork and we will confirm it before anything is finalised."
+        }
+      },
+      {
+        "blocking": false,
+        "blocking_evidence": {
+          "paragraph_id": "p10",
+          "text": "once verified"
+        },
+        "text": {
+          "paragraph_id": "p10",
+          "text": "I said the report would set those out once verified."
+        }
+      }
+    ],
+    "value_observations": [
+      {
+        "account_reference": "jointly-held General Investment Account on the Holloway platform",
+        "amount": {
+          "paragraph_id": "p6",
+          "text": "around \u00a338,000"
+        },
+        "basis": "viewed_in_meeting",
+        "basis_evidence": {
+          "paragraph_id": "p6",
+          "text": "Pulling it up during the meeting"
+        }
+      }
+    ]
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 2577,
+    "input_tokens": 3014,
+    "output_tokens": 2608,
+    "reasoning_tokens": 1278
+  }
+}

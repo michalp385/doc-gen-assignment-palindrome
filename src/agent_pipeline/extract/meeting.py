@@ -36,6 +36,7 @@ from agent_pipeline.extract.schemas import (
     LabelEvidence,
     MeetingExtraction,
     MoneyItem,
+    NewAccount,
     ObjectiveStatement,
     OpenAction,
     Quote,
@@ -225,6 +226,15 @@ def _verify_excluded_item(
     return item.model_copy(update={"item_class": item_class}), None
 
 
+def _verify_new_account(
+    doc: SourceDoc, account: NewAccount
+) -> tuple[NewAccount | None, _Rejection | None]:
+    verified = _verify_quote_of(doc, account.description)
+    if isinstance(verified, Rejected):
+        return None, _Rejection("new account", account.description.text, verified.reason)
+    return account, None
+
+
 def _verify_objective(
     doc: SourceDoc, obj: ObjectiveStatement
 ) -> tuple[ObjectiveStatement | None, _Rejection | None]:
@@ -268,6 +278,7 @@ def _verify_round(
     open_actions = _run(raw.open_actions, _verify_open_action)
     excluded_items = _run(raw.excluded_items, _verify_excluded_item)
     objectives = _run(raw.objectives_and_circumstances, _verify_objective)
+    new_accounts = _run(raw.new_accounts, _verify_new_account)
     meeting_date = _verify_meeting_date(doc, raw.meeting_date)
 
     verified = raw.model_copy(
@@ -280,6 +291,7 @@ def _verify_round(
             "open_actions": open_actions,
             "excluded_items": excluded_items,
             "objectives_and_circumstances": objectives,
+            "new_accounts": new_accounts,
             # limit_signals carry no verification-worthy label and their own quote isn't a
             # report fact (P4 screening only reads them); still dropped if unverifiable.
             "limit_signals": [

@@ -33,13 +33,20 @@ isn't in the right place, is rejected and never reaches the client.
      money from outside the plan such as an inheritance or an earnout (external). **Moving
      money between the client's own existing accounts is not a money item at all** -- it
      has no outside source and creates no new money for the plan -- report it only as an
-     agreed action, never here as well.
+     agreed action, never here as well. Report **every** distinct money item the note
+     describes, each with its own quote. When the note says where a sale's proceeds go
+     (into other accounts, or towards a new one), report the proceeds as a `proceeds` item,
+     quoting the sentence that states that destination: code counts proceeds toward the
+     plan only when it knows where they go.
    - `agreed_actions`: what was agreed, including an agreed **non**-action ("leave it as it
      is" also counts), and including any move of money between the client's own accounts.
      Include the amount quote if one was agreed, or omit the amount if none was specified.
-   - `disposals`: any account being sold or encashed. Quote the sentence that mentions the
-     disposal itself, and separately give `extent` (`full`, `portion`, or `unspecified`)
-     with its own evidence quote from that **same paragraph**.
+   - `disposals`: any account being sold, disinvested or encashed. Quote the sentence that
+     mentions the disposal itself, and separately give `extent` with its own evidence quote
+     from that **same paragraph**: `full` when the account is sold or disinvested outright
+     (no qualifier, no part, no amount -- "sell the account", "disinvest it"); `portion`
+     only when the note says a part, a portion or a stated amount; `unspecified` only when
+     the note does not say how much.
    - `limit_signals`: any mention of an allowance or limit already used or being watched
      (e.g. "already part-funded", "worried about over-contributing").
    - `open_actions`: something about the **client's own situation** that still needs
@@ -51,7 +58,14 @@ isn't in the right place, is rejected and never reaches the client.
      of writing or sending the report itself (e.g. "I will prepare the report and confirm
      the charges with her"): split it and report only the part that's about the client's
      situation as an open action; the part that's just the adviser producing this report is
-     true of every meeting and isn't one.
+     true of every meeting and isn't one. Report **every** distinct follow-up, each with its
+     own quote and label -- including a detail of a new arrangement that is still to be
+     confirmed -- not only the most prominent one.
+   - `new_accounts`: an account the plan **opens** (one that does not exist yet), with the
+     meeting's own words agreeing to open it as `description`, `joint` true when it is held
+     jointly, and, only for a non-joint one, `owner_references` (the holder's name as
+     written). Code builds the account; you only say that one was agreed. An existing
+     account is never a new account.
    - `excluded_items`: a tangent (no bearing on this advice), a future aspiration the client
      said not to act on now, or a personal circumstance mentioned in passing -- each with
      its class and same-paragraph evidence.
@@ -71,6 +85,7 @@ isn't in the right place, is rejected and never reaches the client.
 
 A single JSON object matching the given schema: `meeting_date`, `attendees`,
 `value_observations`, `money_items`, `agreed_actions`, `disposals`, `limit_signals`,
-`open_actions`, `excluded_items`, `objectives_and_circumstances`, `accounts_mentioned` --
+`open_actions`, `new_accounts`, `excluded_items`, `objectives_and_circumstances`,
+`accounts_mentioned` --
 each a list (empty if nothing applies), each item's quotes as `{"paragraph_id": ..., "text":
 ...}`.

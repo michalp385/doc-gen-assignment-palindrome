@@ -92,7 +92,9 @@ def _describe_scope(ledger: Ledger) -> str:
 
     labels = [_label(a) for a in in_scope]
     platforms = {a.platform for a in in_scope if a.platform}
-    if len(platforms) != 1:
+    # One trailing "held with X" is only true when every listed account has that platform; an
+    # account with none (a new account's platform is unstated) is named without one.
+    if len(platforms) != 1 or any(not a.platform for a in in_scope):
         return _join(
             [
                 f"{label} held with {a.platform}" if a.platform else label

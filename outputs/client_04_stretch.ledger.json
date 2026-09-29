@@ -1,0 +1,847 @@
+{
+  "client": "client_04_stretch",
+  "meeting_date": "2026-05-20",
+  "risk_profile": "4 (balanced to moderate)",
+  "initial_charge": "0.5%",
+  "objectives": "James completed the sale of his company in April. James and Caroline's objectives are long-term growth with a balanced-to-moderate risk appetite. They have no income requirement from the portfolio currently James may do some consultancy work but nothing is settled. Their overriding objective for this money is clear: to build a tax-efficient base that can replace James's income when he steps back from full-time work in about three years. We agreed everything we recommend should be weighed against that three-year goal.",
+  "tax_section": true,
+  "accounts": [
+    {
+      "id": "H4-ISA-J",
+      "owners": [
+        "James Whitmore"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "85000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "H4-GIA-HJ",
+      "owners": [
+        "James Whitmore",
+        "Caroline Whitmore"
+      ],
+      "type": "General Investment Account",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "255000",
+        "currency": "GBP",
+        "precision": "approximate",
+        "qualifier": "around",
+        "date": "2026-05-20",
+        "source_id": "meeting_notes.docx",
+        "quote": "around £255,000",
+        "selected_by": "R3"
+      },
+      "superseded": [
+        {
+          "amount": "240000.0",
+          "currency": "GBP",
+          "precision": "exact",
+          "qualifier": "exact",
+          "date": "2026-02-28",
+          "source_id": "client_data_db.json",
+          "quote": "",
+          "selected_by": "R3"
+        }
+      ],
+      "value_marker": null
+    },
+    {
+      "id": "B4-SIPP-J",
+      "owners": [
+        "James Whitmore"
+      ],
+      "type": "SIPP",
+      "platform": "Brightwell",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "610000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "B4-GIA-J",
+      "owners": [
+        "James Whitmore",
+        "Caroline Whitmore"
+      ],
+      "type": "General Investment Account",
+      "platform": "Brightwell",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "95000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "M4-BOND-J",
+      "owners": [
+        "James Whitmore",
+        "Caroline Whitmore"
+      ],
+      "type": "Offshore Investment Bond",
+      "platform": "Meridian",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "180000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "M4-CASH-J",
+      "owners": [
+        "James Whitmore"
+      ],
+      "type": "Cash Account",
+      "platform": "Meridian",
+      "status": "open",
+      "in_scope": false,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "30000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "H4-ISA-C",
+      "owners": [
+        "Caroline Whitmore"
+      ],
+      "type": "Stocks & Shares ISA",
+      "platform": "Holloway",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "82000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "B4-SIPP-C",
+      "owners": [
+        "Caroline Whitmore"
+      ],
+      "type": "SIPP",
+      "platform": "Brightwell",
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": false,
+      "value": {
+        "amount": "430000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "M4-CASH-C",
+      "owners": [
+        "Caroline Whitmore"
+      ],
+      "type": "Cash Account",
+      "platform": "Meridian",
+      "status": "open",
+      "in_scope": false,
+      "scope_reason": null,
+      "is_new": false,
+      "value": null,
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "M4-OLD-C",
+      "owners": [
+        "Caroline Whitmore"
+      ],
+      "type": "Cash Account",
+      "platform": "Meridian",
+      "status": "closed",
+      "in_scope": false,
+      "scope_reason": null,
+      "is_new": false,
+      "value": null,
+      "superseded": [],
+      "value_marker": null
+    },
+    {
+      "id": "new:joint_investment_account",
+      "owners": [
+        "James Whitmore",
+        "Caroline Whitmore"
+      ],
+      "type": "New joint account",
+      "platform": null,
+      "status": "open",
+      "in_scope": true,
+      "scope_reason": null,
+      "is_new": true,
+      "value": null,
+      "superseded": [],
+      "value_marker": null
+    }
+  ],
+  "money": [
+    {
+      "id": "m1",
+      "money_class": "proceeds",
+      "amount": null,
+      "counted": false,
+      "reason": "disposal extent is 'portion', not full",
+      "quote": "we agreed to disinvest a portion of the Holloway joint GIA and rebalance it",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "m2",
+      "money_class": "received",
+      "amount": {
+        "amount": "850000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "a completion payment of £850,000 was received on completion",
+        "selected_by": "P5"
+      },
+      "counted": true,
+      "reason": "",
+      "quote": "a completion payment of £850,000 was received on completion",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "m3",
+      "money_class": "external",
+      "amount": {
+        "amount": "400000",
+        "currency": "GBP",
+        "precision": "approximate",
+        "qualifier": "up_to",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "up to £400,000",
+        "selected_by": "P5"
+      },
+      "counted": false,
+      "reason": "contingent or not yet received; named as excluded, never allocated (P5)",
+      "quote": "up to £400,000",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "m4",
+      "money_class": "committed",
+      "amount": {
+        "amount": "200000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£200,000",
+        "selected_by": "P5"
+      },
+      "counted": true,
+      "reason": "",
+      "quote": "£200,000",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "actions": [
+    {
+      "id": "a1",
+      "description": "we agreed to use both ISA allowances for the new tax year",
+      "kind": "action",
+      "accounts": [
+        "both ISA allowances"
+      ],
+      "quote": "we agreed to use both ISA allowances for the new tax year",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "a2",
+      "description": "make pension contributions into both SIPPs up to the appropriate level",
+      "kind": "action",
+      "accounts": [
+        "both SIPPs"
+      ],
+      "quote": "make pension contributions into both SIPPs up to the appropriate level",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "a3",
+      "description": "add to the Holloway joint GIA",
+      "kind": "action",
+      "accounts": [
+        "Holloway joint GIA"
+      ],
+      "quote": "add to the Holloway joint GIA",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "a4",
+      "description": "place the remaining balance into a new jointly-held investment account",
+      "kind": "action",
+      "accounts": [
+        "new jointly-held investment account"
+      ],
+      "quote": "place the remaining balance into a new jointly-held investment account",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "a5",
+      "description": "we agreed to disinvest a portion of the Holloway joint GIA and rebalance it",
+      "kind": "action",
+      "accounts": [
+        "Holloway joint GIA"
+      ],
+      "quote": "we agreed to disinvest a portion of the Holloway joint GIA and rebalance it",
+      "source_id": "meeting_notes.docx"
+    },
+    {
+      "id": "a6",
+      "description": "we agreed to leave it as it is for now and revisit at the next review.",
+      "kind": "non_action",
+      "accounts": [
+        "offshore bond"
+      ],
+      "quote": "we agreed to leave it as it is for now and revisit at the next review.",
+      "source_id": "meeting_notes.docx"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "e1",
+      "item_class": "aspiration",
+      "description": "they would like, at some stage, to help with school fees for their grandchildren and possibly make a charitable donation.",
+      "allowed_in": [
+        "background_objectives"
+      ],
+      "quote": "they would like, at some stage, to help with school fees for their grandchildren and possibly make a charitable donation."
+    },
+    {
+      "id": "e2",
+      "item_class": "aspiration",
+      "description": "possibly make a charitable donation.",
+      "allowed_in": [
+        "background_objectives"
+      ],
+      "quote": "possibly make a charitable donation."
+    },
+    {
+      "id": "e3",
+      "item_class": "tangent",
+      "description": "There was a tangent about a property in France they had once considered buying",
+      "allowed_in": [],
+      "quote": "There was a tangent about a property in France they had once considered buying"
+    }
+  ],
+  "markers": [
+    {
+      "id": "#1",
+      "key": "platform_charge_brightwell",
+      "text": "ongoing platform charge rate, Brightwell",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#2",
+      "key": "platform_charge_holloway",
+      "text": "ongoing platform charge rate, Holloway",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#3",
+      "key": "platform_charge_meridian",
+      "text": "ongoing platform charge rate, Meridian",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#4",
+      "key": "advice_charge",
+      "text": "ongoing advice charge rate",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#5",
+      "key": "new_account_charges",
+      "text": "charges on the new joint account",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "fees_charges",
+      "fact_ref": null
+    },
+    {
+      "id": "#6",
+      "key": "cgt",
+      "text": "capital gains tax on the disposal",
+      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "section": "tax_implications",
+      "fact_ref": null
+    },
+    {
+      "id": "#7",
+      "key": "sipp_contribution_amounts",
+      "text": "SIPP contribution amounts",
+      "reason": "pension contribution amounts are always adviser-review markers (P4); never estimated",
+      "section": "recommendations",
+      "fact_ref": null
+    }
+  ],
+  "review": [
+    {
+      "id": "rv1",
+      "kind": "superseded",
+      "blocking": false,
+      "detail": "H4-GIA-HJ: superseded value £240,000 (client_data_db.json, 28 February); current value c. £255,000 (meeting_notes.docx, 20 May).",
+      "refs": [
+        "H4-GIA-HJ"
+      ]
+    },
+    {
+      "id": "rv2",
+      "kind": "out_of_scope_no_value",
+      "blocking": false,
+      "detail": "Cash Account (Meridian) is out of scope and has no value on record.",
+      "refs": [
+        "M4-CASH-C"
+      ]
+    },
+    {
+      "id": "rv3",
+      "kind": "open_action",
+      "blocking": false,
+      "detail": "On the Meridian platform there is a jointly-held offshore investment bond, and James holds a cash account there. Caroline also has a cash account on Meridian, but she could not remember the balance and thought it might be fairly small; she will confirm it for us.",
+      "refs": []
+    },
+    {
+      "id": "rv4",
+      "kind": "open_action",
+      "blocking": false,
+      "detail": "To summarise the actions I noted: confirm Caroline's Meridian cash balance, and confirm the timing of the bridging-loan repayment.",
+      "refs": []
+    },
+    {
+      "id": "rv5",
+      "kind": "scope_flag",
+      "blocking": false,
+      "detail": "new joint account: its type and platform are not stated in the sources; confirm both.",
+      "refs": [
+        "new:joint_investment_account"
+      ]
+    },
+    {
+      "id": "rv6",
+      "kind": "p4_note",
+      "blocking": false,
+      "detail": "Pension contribution amounts are adviser-review markers: pension limits depend on personal circumstances, earlier contributions, tapering and carry-forward, so no figure is stated.",
+      "refs": [
+        "B4-SIPP-J",
+        "B4-SIPP-C"
+      ]
+    },
+    {
+      "id": "rv7",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_brightwell",
+      "refs": [
+        "platform_charge_brightwell"
+      ]
+    },
+    {
+      "id": "rv8",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_holloway",
+      "refs": [
+        "platform_charge_holloway"
+      ]
+    },
+    {
+      "id": "rv9",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker platform_charge_meridian",
+      "refs": [
+        "platform_charge_meridian"
+      ]
+    },
+    {
+      "id": "rv10",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker advice_charge",
+      "refs": [
+        "advice_charge"
+      ]
+    },
+    {
+      "id": "rv11",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker new_account_charges",
+      "refs": [
+        "new_account_charges"
+      ]
+    },
+    {
+      "id": "rv12",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker cgt",
+      "refs": [
+        "cgt"
+      ]
+    },
+    {
+      "id": "rv13",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker sipp_contribution_amounts",
+      "refs": [
+        "sipp_contribution_amounts"
+      ]
+    },
+    {
+      "id": "rv14",
+      "kind": "image_discrepancy",
+      "blocking": false,
+      "detail": "statement image row 'Holloway GIA (Joint)' did not match any in-scope account",
+      "refs": []
+    }
+  ],
+  "questions": [],
+  "facts": {
+    "account.H4-ISA-J.value": {
+      "id": "account.H4-ISA-J.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "85000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.H4-GIA-HJ.value": {
+      "id": "account.H4-GIA-HJ.value",
+      "kind": "money",
+      "description": "the General Investment Account's current value",
+      "value": {
+        "amount": "255000",
+        "currency": "GBP",
+        "precision": "approximate",
+        "qualifier": "around",
+        "date": "2026-05-20",
+        "source_id": "meeting_notes.docx",
+        "quote": "around £255,000",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.H4-GIA-HJ.superseded.1": {
+      "id": "account.H4-GIA-HJ.superseded.1",
+      "kind": "money",
+      "description": "the General Investment Account's superseded value",
+      "value": {
+        "amount": "240000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-02-28",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "superseded value",
+      "placement": "footnote_only"
+    },
+    "account.B4-SIPP-J.value": {
+      "id": "account.B4-SIPP-J.value",
+      "kind": "money",
+      "description": "the SIPP's current value",
+      "value": {
+        "amount": "610000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.B4-GIA-J.value": {
+      "id": "account.B4-GIA-J.value",
+      "kind": "money",
+      "description": "the General Investment Account's current value",
+      "value": {
+        "amount": "95000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.M4-BOND-J.value": {
+      "id": "account.M4-BOND-J.value",
+      "kind": "money",
+      "description": "the Offshore Investment Bond's current value",
+      "value": {
+        "amount": "180000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.M4-CASH-J.value": {
+      "id": "account.M4-CASH-J.value",
+      "kind": "money",
+      "description": "the Cash Account's current value",
+      "value": {
+        "amount": "30000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.H4-ISA-C.value": {
+      "id": "account.H4-ISA-C.value",
+      "kind": "money",
+      "description": "the Stocks & Shares ISA's current value",
+      "value": {
+        "amount": "82000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "account.B4-SIPP-C.value": {
+      "id": "account.B4-SIPP-C.value",
+      "kind": "money",
+      "description": "the SIPP's current value",
+      "value": {
+        "amount": "430000.0",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": "2026-04-30",
+        "source_id": "client_data_db.json",
+        "quote": "",
+        "selected_by": "R3"
+      },
+      "reportable": true,
+      "transaction": false,
+      "role": "account value",
+      "placement": "any"
+    },
+    "money.m2.amount": {
+      "id": "money.m2.amount",
+      "kind": "money",
+      "description": "money the client has already received",
+      "value": {
+        "amount": "850000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "a completion payment of £850,000 was received on completion",
+        "selected_by": "P5"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "received money",
+      "placement": "any"
+    },
+    "money.m3.amount": {
+      "id": "money.m3.amount",
+      "kind": "money",
+      "description": "contingent money not yet received, excluded from the plan",
+      "value": {
+        "amount": "400000",
+        "currency": "GBP",
+        "precision": "approximate",
+        "qualifier": "up_to",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "up to £400,000",
+        "selected_by": "P5"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "excluded",
+      "placement": "any"
+    },
+    "money.m4.amount": {
+      "id": "money.m4.amount",
+      "kind": "money",
+      "description": "received money already committed elsewhere",
+      "value": {
+        "amount": "200000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "meeting_notes.docx",
+        "quote": "£200,000",
+        "selected_by": "P5"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "committed money",
+      "placement": "any"
+    },
+    "money.available": {
+      "id": "money.available",
+      "kind": "money",
+      "description": "the money available to invest now, after commitments",
+      "value": {
+        "amount": "650000",
+        "currency": "GBP",
+        "precision": "exact",
+        "qualifier": "exact",
+        "date": null,
+        "source_id": "derived",
+        "quote": "",
+        "selected_by": "P5"
+      },
+      "reportable": true,
+      "transaction": true,
+      "role": "available to invest",
+      "placement": "any"
+    }
+  }
+}

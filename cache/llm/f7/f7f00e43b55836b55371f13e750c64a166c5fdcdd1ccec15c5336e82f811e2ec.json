@@ -1,0 +1,101 @@
+{
+  "cost_usd": "0.0049573",
+  "input_hash": "3132b404a2e12c48add0d69089328c69a04882a8cba6c406235204f44812fac3",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a338,000 to fund both Robert's and Jean's ISAs for the new tax year, together with the inheritance."
+      },
+      {
+        "action_id": "a3",
+        "report_quote": "We recommend investing the balance in a new jointly-held investment account."
+      }
+    ],
+    "findings": [
+      {
+        "detail": "The source states that the joint GIA was showing around \u00a338,000; the report presents that account-value figure as gross disposal proceeds available to fund investments, which is a different figure role.",
+        "gate": "G2",
+        "quote": "We recommend using the gross proceeds of c. \u00a338,000 to fund both Robert's and Jean's ISAs for the new tax year, together with the inheritance."
+      }
+    ],
+    "material_claims": [
+      {
+        "claim": "The clients' agreed risk level is moderate.",
+        "paragraph_id": "p4",
+        "quote": "Both remain at a moderate risk level and were comfortable keeping it there.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report recommends disinvesting the joint GIA.",
+        "paragraph_id": "p7",
+        "quote": "The plan we agreed: disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year and open a new jointly-held investment account for the balance.",
+        "report_quote": "We recommend disinvesting the joint GIA.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report refers to c. \u00a338,000 as gross proceeds from the joint GIA.",
+        "paragraph_id": "p6",
+        "quote": "We looked at the jointly-held General Investment Account on the Holloway platform. Pulling it up during the meeting, it was showing around \u00a338,000, a little higher than the figure on the last statement they had to hand.",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a338,000 to fund both Robert's and Jean's ISAs for the new tax year, together with the inheritance.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed plan is to fund both Robert's and Jean's ISAs for the new tax year together with the inheritance.",
+        "paragraph_id": "p7",
+        "quote": "The plan we agreed: disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year and open a new jointly-held investment account for the balance.",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a338,000 to fund both Robert's and Jean's ISAs for the new tax year, together with the inheritance.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds are described as gross before CGT.",
+        "paragraph_id": "p8",
+        "quote": "Selling down the GIA is a disposal, so there is a capital gains position to set out in the report.",
+        "report_quote": "This figure is gross before any CGT",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The figure is described as becoming available once the disposal completes.",
+        "paragraph_id": "p7",
+        "quote": "The plan we agreed: disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year and open a new jointly-held investment account for the balance.",
+        "report_quote": "becomes available once the disposal completes",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report recommends investing the balance in a new jointly-held investment account.",
+        "paragraph_id": "p7",
+        "quote": "The plan we agreed: disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year and open a new jointly-held investment account for the balance.",
+        "report_quote": "We recommend investing the balance in a new jointly-held investment account.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a338,000 to fund both Robert's and Jean's ISAs for the new tax year, together with the inheritance."
+      },
+      {
+        "action_id": "a3",
+        "report_quote": "We recommend investing the balance in a new jointly-held investment account."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2988,
+    "output_tokens": 9317,
+    "reasoning_tokens": 8393
+  }
+}

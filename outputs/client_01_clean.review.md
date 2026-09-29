@@ -12,7 +12,7 @@ None.
 
 ## Other open actions (not blocking)
 
-- confirm the ongoing charges with her once the report is issued.
+- Next steps: I will prepare the advice report covering the ISA top-up and confirm the ongoing charges with her once the report is issued.
 
 ## Markers to fill
 

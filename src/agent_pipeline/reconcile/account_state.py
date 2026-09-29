@@ -167,7 +167,11 @@ def check_account_states(
         # An account absent from the map is a missing currency, hence not-GBP: withheld and
         # marked, never assumed to be sterling. Do not "simplify" this to a GBP default.
         currency = currency_by_id.get(account.id)
-        if account.status == "closed":
+        if account.is_new:
+            # An account the advice opens is shown as "To be opened" (P9): it has no value
+            # to be missing, so it never gets R6's no-value marker.
+            states[account.id] = AccountState(in_table=True)
+        elif account.status == "closed":
             states[account.id] = _closed_state(account)
         elif account.value is None:
             states[account.id] = _null_value_state(account, taken)

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from agent_pipeline.gates.deterministic import TABLE_HEADER
 from agent_pipeline.ledger import Account, Ledger, Marker, render_date, render_prose, render_table
+from agent_pipeline.reconcile.new_accounts import SYNTHETIC_ID_PREFIX
 
 
 def _value_cell(account: Account, marker_by_key: dict[str, Marker]) -> str:
@@ -58,7 +59,9 @@ def build_table(ledger: Ledger) -> str:
     for account in rows:
         owner = " & ".join(account.owners)
         value_cell = _value_cell(account, marker_by_key)
-        lines.append(f"| {account.id} | {owner} | {account.type} | {value_cell} |")
+        # A new account's id is synthetic (`new:<slug>`), never something a client has seen.
+        account_cell = "To be opened" if account.id.startswith(SYNTHETIC_ID_PREFIX) else account.id
+        lines.append(f"| {account_cell} | {owner} | {account.type} | {value_cell} |")
         for superseded in account.superseded:
             # T19: a db-sourced candidate (`reconcile/values.py::select_values`) has no
             # natural quote -- it's a structured field, not a paragraph -- so quoting an

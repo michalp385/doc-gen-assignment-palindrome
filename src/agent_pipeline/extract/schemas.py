@@ -82,6 +82,16 @@ class ExcludedItem(_Strict):
     class_evidence: LabelEvidence
 
 
+class NewAccount(_Strict):
+    """An account the plan opens (R1, P9): the meeting's own words agreeing to open one, and
+    whether it is joint. Code builds the account (`reconcile/new_accounts.py`); the model only
+    says one was agreed. `owner_references` are holder names as written, for a non-joint one."""
+
+    description: Quote
+    joint: bool
+    owner_references: list[str] = Field(default_factory=list)
+
+
 class ObjectiveStatement(_Strict):
     text: Quote
 
@@ -111,6 +121,7 @@ class RawMeetingProposal(_Strict):
     excluded_items: list[ExcludedItem] = Field(default_factory=list)
     objectives_and_circumstances: list[ObjectiveStatement] = Field(default_factory=list)
     accounts_mentioned: list[str] = Field(default_factory=list)  # for R1's new-account check
+    new_accounts: list[NewAccount] = Field(default_factory=list)
 
 
 class MeetingExtraction(RawMeetingProposal):

@@ -1,5 +1,5 @@
 {
-  "client": "client_02_medium",
+  "client": "client_03_hard",
   "release_state": "draft",
   "gate_results": [
     {
@@ -80,7 +80,7 @@
     {
       "gate": "G8",
       "passed": true,
-      "detail": "1 of 3 judge samples disagreed: agreed action not covered: a1"
+      "detail": ""
     },
     {
       "gate": "G2",
@@ -116,16 +116,16 @@
   "stages": [
     {
       "stage": "classify",
-      "calls": 5,
-      "cache_hits": 5,
+      "calls": 6,
+      "cache_hits": 6,
       "live_calls": 0,
       "tokens": {
-        "input": 5080,
+        "input": 6288,
         "cached_input": 1088,
-        "output": 217,
+        "output": 259,
         "reasoning": 0
       },
-      "cost_usd": "0.0006165",
+      "cost_usd": "0.0007583",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -140,12 +140,12 @@
       "cache_hits": 3,
       "live_calls": 0,
       "tokens": {
-        "input": 4476,
+        "input": 4527,
         "cached_input": 2577,
-        "output": 2137,
-        "reasoning": 952
+        "output": 3049,
+        "reasoning": 1489
       },
-      "cost_usd": "0.0015161",
+      "cost_usd": "0.0019772",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -162,12 +162,12 @@
       "cache_hits": 7,
       "live_calls": 0,
       "tokens": {
-        "input": 7112,
+        "input": 7175,
         "cached_input": 0,
-        "output": 844,
-        "reasoning": 472
+        "output": 1217,
+        "reasoning": 782
       },
-      "cost_usd": "0.0011332",
+      "cost_usd": "0.0013260",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -183,16 +183,16 @@
     },
     {
       "stage": "release_judge",
-      "calls": 3,
-      "cache_hits": 3,
+      "calls": 4,
+      "cache_hits": 4,
       "live_calls": 0,
       "tokens": {
-        "input": 8648,
-        "cached_input": 6537,
-        "output": 26221,
-        "reasoning": 23926
+        "input": 12007,
+        "cached_input": 7320,
+        "output": 44377,
+        "reasoning": 39618
       },
-      "cost_usd": "0.0139753",
+      "cost_usd": "0.0233892",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -202,8 +202,8 @@
       ]
     }
   ],
-  "total_calls": 18,
-  "total_cache_hits": 18,
+  "total_calls": 20,
+  "total_cache_hits": 20,
   "total_live_calls": 0,
-  "total_cost_usd": "0.0172411"
+  "total_cost_usd": "0.0274507"
 }

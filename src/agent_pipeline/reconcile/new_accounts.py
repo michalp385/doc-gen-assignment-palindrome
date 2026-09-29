@@ -18,6 +18,8 @@ from dataclasses import dataclass, field
 from agent_pipeline.ledger import Account, Marker
 from agent_pipeline.reconcile.review import ReviewItemInput
 
+# A built account's id is synthetic (no id exists in the data); never shown to a client.
+SYNTHETIC_ID_PREFIX = "new:"
 _NEVER_ESTIMATED = "never estimated (CLAUDE.md non-negotiable)"
 _SCOPE_NEW_ACCOUNT_RE = re.compile(r"\bnew\b(?:\s+[a-z-]+){0,3}?\s+account\b", re.IGNORECASE)
 
@@ -114,7 +116,7 @@ def build_new_accounts(
         account_type = "New joint account" if mention.joint else "New account"
         accounts.append(
             Account(
-                id=f"new:{slug}",
+                id=f"{SYNTHETIC_ID_PREFIX}{slug}",
                 owners=list(owners),
                 type=account_type,
                 platform=None,
@@ -131,7 +133,7 @@ def build_new_accounts(
                     f"{account_type.lower()}: its type and platform are not stated in the "
                     "sources; confirm both."
                 ),
-                refs=[f"new:{slug}"],
+                refs=[f"{SYNTHETIC_ID_PREFIX}{slug}"],
             )
         )
 

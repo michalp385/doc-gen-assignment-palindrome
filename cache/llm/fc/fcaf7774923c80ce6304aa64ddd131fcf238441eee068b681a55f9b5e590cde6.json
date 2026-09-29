@@ -1,0 +1,25 @@
+{
+  "cost_usd": "0.0002096",
+  "input_hash": "189a23b3390fd15544fb43d190fd6f12227a41ab6b512777efb0ce5f486437ac",
+  "model": "gpt-6-luna",
+  "prompt_version": "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
+  "response": {
+    "candidate_account_ids": [
+      "H4-ISA-J",
+      "H4-ISA-C",
+      "B4-SIPP-J",
+      "B4-SIPP-C",
+      "H4-GIA-HJ",
+      "B4-GIA-J",
+      "M4-BOND-J"
+    ],
+    "reason": "\u201cHolloway ISAs\u201d and \u201cBrightwell SIPPs\u201d match both listed accounts of each type; \u201cjoint GIAs\u201d matches the Holloway and Brightwell GIA accounts; \u201cMeridian offshore bond\u201d matches M4-BOND-J. No existing account is identified as the new joint account for the proceeds."
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 621,
+    "output_tokens": 295,
+    "reasoning_tokens": 166
+  }
+}

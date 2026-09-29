@@ -38,7 +38,7 @@
         },
         "initial_charge": { "kind": "computed" }
       },
-      "markers": ["platform_charge_*", "advice_charge"]
+      "markers": ["platform_charge_*", "advice_charge", "new_account_charges*"]
     },
     {
       "id": "conclusion",

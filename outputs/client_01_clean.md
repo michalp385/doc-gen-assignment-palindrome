@@ -8,7 +8,7 @@ This firm is authorised and regulated by the Financial Conduct Authority.
 
 ## Background & Objectives
 
-Margaret is retired and confirmed that her circumstances and objectives are unchanged since her last review. She remains comfortable with the previously agreed moderate approach to risk and is happy with the portfolio’s performance. She would like to use her ISA allowance by moving some cash from her Holloway cash account into her Stocks & Shares ISA. She has no current income requirement from the portfolio and does not expect this to change in the near term.
+Margaret is retired and confirmed that her circumstances and objectives remain unchanged since her last review. She remains comfortable with the previously agreed moderate approach to risk and is satisfied with the portfolio’s performance. She would like to use this year’s ISA allowance by moving some cash held in her Holloway cash account into her Stocks & Shares ISA. She has no current income requirement from the portfolio and does not expect this to change in the near term.
 
 Your agreed risk profile is 4 (moderate).
 

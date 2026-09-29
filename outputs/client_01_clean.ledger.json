@@ -3,7 +3,7 @@
   "meeting_date": "2026-05-12",
   "risk_profile": "4 (moderate)",
   "initial_charge": "0%",
-  "objectives": "Margaret is retired and confirmed there have been no changes to her circumstances or objectives since last year's review. She remains comfortable with the moderate approach to risk we agreed previously and was happy that the portfolio had performed in line with that. her Holloway cash account and would like to use this year's ISA allowance by moving some of it into her Stocks & Shares ISA. Margaret has no income requirement from the portfolio at present and does not expect that to change in the near term.",
+  "objectives": "Margaret is retired and confirmed there have been no changes to her circumstances or objectives since last year's review. She remains comfortable with the moderate approach to risk we agreed previously and was happy that the portfolio had performed in line with that. Her main point for the meeting was that she has cash sitting on deposit in her Holloway cash account and would like to use this year's ISA allowance by moving some of it into her Stocks & Shares ISA. Margaret has no income requirement from the portfolio at present and does not expect that to change in the near term.",
   "tax_section": false,
   "accounts": [
     {
@@ -103,7 +103,7 @@
       "id": "rv1",
       "kind": "open_action",
       "blocking": false,
-      "detail": "confirm the ongoing charges with her once the report is issued.",
+      "detail": "Next steps: I will prepare the advice report covering the ISA top-up and confirm the ongoing charges with her once the report is issued.",
       "refs": []
     },
     {
