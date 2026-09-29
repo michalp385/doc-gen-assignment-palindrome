@@ -431,6 +431,14 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   after another, so a report's judge latency grows with the count.
 - **Evidence:** `tests/test_g16_intro_scope.py`, `tests/test_g10_internal_filenames.py`; the parked
   run artefacts are in the session scratchpad, not the repo, and no results file exists for this.
+- **Root cause, and what would fix it:** the judge is non-repeatable because the only models on this
+  key reject `temperature`, so its sampling cannot be pinned. The majority vote lowers the
+  variance, it does not remove it: a later fresh run flagged a clause in client 03's
+  Recommendations as uncovered by a majority of samples, when it matches the meeting note's
+  "together with the inheritance, fund both ISAs" (D26). The real fix is a judge that can run at
+  `temperature=0`, which needs a model that accepts it; none is available here, so it is listed
+  under "What I would do with more time". Until then a fresh judge run can fail a correct
+  report, and the committed outputs are the ones whose judge verdicts are cached.
 
 ### D23. A same-date tie between disagreeing values selects nothing
 - **Context:** R3 says the most recent dated figure wins, but the account data's snapshot and a
@@ -507,6 +515,32 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   exemption and fails safe. Revisit if the writer's wording changes.
 - **Evidence:** `tests/test_g7_permitted_proceeds_sentence.py`,
   `tests/test_g7_proceeds_carveout_narrowing.py`.
+
+### D26. A sequential `--fresh` batch is order-dependent, so the committed cache is built once
+- **Context:** for the final fresh run I regenerated the four clients with `--fresh` in one batch.
+  Copied back and replayed offline, the release judge missed the cache and went live with a new
+  verdict. Clients share cache keys when their inputs are identical (the same general documents
+  classified for each), the model is not deterministic, and `--fresh` rewrites every entry. So a
+  later client overwrote a shared entry with a different response, and an earlier client's replay
+  followed the overwritten one and diverged. Only the downstream judge input showed it. One client
+  run fresh and then replayed matched on every call, which located the cause in the sequence.
+- **Decision:** the committed state stays the one whose outputs, cache and results file were built
+  together and replay offline. I did not commit the fresh batch, and I did not re-run it until four
+  drafts came out. Replay tests now cover every client (`tests/test_pipeline_replay*.py`), so a
+  missing or stale entry fails offline.
+- **Alternatives:** keep the fresh batch as the outputs: it does not replay, so the offline guarantee
+  is lost. Run the four clients from an empty cache in one non-fresh batch, so each shared entry is
+  generated once and reused: consistent by construction, and I ran it. It flagged a clause in client
+  03 that matches the meeting note, so its verdict was a judge false positive (D22), not a wrong
+  report. Committing it would have left a failed client 03, and re-running until it passed would have
+  been resampling for a verdict, so I did neither.
+- **Consequences / how it generalises:** a fresh regeneration can change any client's judge verdict,
+  and a report that failed only that way is not a real failure. The safe procedure is an empty cache
+  and one non-fresh batch, replay-checked per client before anything is committed. The judge's
+  non-repeatability is documented, not hidden: it is D22's residual, and the fix is a deterministic
+  judge.
+- **Evidence:** `tests/test_pipeline_replay.py`, `tests/test_pipeline_replay_client_02.py`,
+  `tests/test_pipeline_replay_client_03.py`, `tests/test_pipeline_replay_client_04.py`.
 
 ## What I would do with more time
 <!-- For production: what's missing, what you'd change in the pipeline and the agent setup,
