@@ -647,6 +647,20 @@ ship, not the outcome of a resample. On the 20 hand-written cases, each aimed at
 - **R4/R5 pair by count, not by meaning.** The instruction-versus-meeting rules are wired (D28). R5 compares the instruction's one exact figure with the one funding action that states an amount, and cannot tell a total from one part of it, so it can raise a false blocking conflict that the adviser then settles. Pairing them by the account the money goes to would fix that.
 - **Run the generated synthetic clients.** The 20 hand-written cases are run and scored (D28). The generator and phrase bank (D4) exist and are covered by offline tests, but no generated client has been run through the live pipeline and scored, so behaviour on unseen shapes beyond the hand-written ones is unmeasured: the funding-word list (D24) may over-mark, and the new-account scope check depends on the instruction's wording.
 
+- **PII minimisation before the API boundary.** Not built, because it touches every model input
+  and this data is synthetic. Sent today: classify and extract get client and holder names,
+  account IDs, values and the full meeting text; the writer gets names and account types but no
+  figures (D1); the release judge gets the report and the source paragraphs. First step:
+  tokenise names and account IDs at the writer and judge boundary, resolved from the ledger in
+  code, extending the D1 fact tokens. The extractor is the hard case, since its job is to quote
+  names from prose: it needs a reversible per-run map, with quote verification (D9) run against
+  the unmasked source. A local scrubber would strip what the pipeline never uses (addresses,
+  phone numbers, dates of birth). Measure it by re-running the four clients and the 20
+  hand-written cases before and after and comparing gate results and Q scores, knowing that every
+  prompt input changes, so the whole cache rebuilds (and D26's order-dependence applies). A
+  data-processing agreement with the provider remains the primary control; this is defence in
+  depth.
+
 ## How I worked
 - **AI assistance.** I built this with Claude Code (Anthropic's CLI) working in the repo under the rules in
   `CLAUDE.md`: plan first, small diffs, tests first for deterministic code, and every decision recorded.
