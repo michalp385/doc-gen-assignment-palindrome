@@ -31,11 +31,15 @@ Your joint General Investment Account was previously shown in our records (28 Fe
 
 We recommend the following:
 
-We recommend using both ISA allowances for the new tax year, making pension contributions into both SIPPs up to the appropriate level, and adding to the Holloway joint GIA. We also recommend placing the remaining balance into a new jointly held investment account.
+We recommend using both ISA allowances for the new tax year and making pension contributions into both SIPPs up to the appropriate level. [ADVISER TO CONFIRM #7: SIPP contribution amounts]
 
-[ADVISER TO CONFIRM #7: SIPP contribution amounts]
+We recommend adding to the Holloway joint GIA. [ADVISER TO CONFIRM #8: the amount added to the General Investment Account (Holloway)]
 
-We recommend disinvesting a portion of the Holloway joint GIA and rebalancing it. We recommend leaving the other investment as it is for now and revisiting it at the next review.
+We recommend placing the remaining balance into a new jointly held investment account. [ADVISER TO CONFIRM #10: the balance placed into the new account]
+
+We recommend disinvesting a portion of the Holloway joint GIA and rebalancing it. [ADVISER TO CONFIRM #9: the portion of the General Investment Account (Holloway) sold]
+
+We recommend leaving the other investment as it is for now and revisiting it at the next review.
 
 ## Tax Implications
 

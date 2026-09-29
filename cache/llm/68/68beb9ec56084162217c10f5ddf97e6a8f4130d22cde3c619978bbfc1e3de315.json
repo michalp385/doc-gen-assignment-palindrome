@@ -1,0 +1,23 @@
+{
+  "cost_usd": "0.0003198",
+  "input_hash": "06d2a06296ed701c4a351d9fda5317d544ba81bb9548969cf84a4dc0f127c4ea",
+  "model": "gpt-6-luna",
+  "prompt_version": "710aacb251745659106594df4ec6f0e4956cf31fbbd8fb194fabbf8a5f099351",
+  "response": {
+    "paragraphs": [
+      "We recommend using the available amount of {fact:money.available} to implement the agreed investment actions: use both ISA allowances for the new tax year, make pension contributions into both SIPPs up to the appropriate level, add to the Holloway joint GIA and place the remaining balance into a new jointly held investment account.",
+      "SIPP contribution amounts",
+      "the amount added to the General Investment Account (Holloway)",
+      "the portion of the General Investment Account (Holloway) sold",
+      "the balance placed into the new account",
+      "We also recommend disinvesting a portion of the Holloway joint GIA and rebalancing it. We agreed to leave the remaining investment as it is for now and revisit it at the next review."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1443,
+    "output_tokens": 351,
+    "reasoning_tokens": 188
+  }
+}

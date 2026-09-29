@@ -31,6 +31,7 @@ from typing import Literal
 from agent_pipeline.extract.parsing import parse_amount
 from agent_pipeline.extract.schemas import MoneyItem as ExtractedMoneyItem
 from agent_pipeline.ledger import MoneyItem, Value
+from agent_pipeline.reconcile.amounts import prefer_exact_instruction_figure
 from agent_pipeline.reconcile.review import ReviewItemInput
 
 DERIVED_SOURCE = "derived"
@@ -129,7 +130,10 @@ _EXTERNAL_REASON = "contingent or not yet received; named as excluded, never all
 
 
 def build_money_items(
-    extracted: list[ExtractedMoneyItem], source_id: str, start_index: int = 1
+    extracted: list[ExtractedMoneyItem],
+    source_id: str,
+    start_index: int = 1,
+    instruction_figures: list[Value] | None = None,
 ) -> MoneyBuild:
     """Ledger `MoneyItem`s for the received, committed and external items of a meeting
     extraction. The amount is parsed in code from the item's verified quote (D9); one that
@@ -170,6 +174,10 @@ def build_money_items(
             else None
         )
         money_class: Literal["received", "committed", "external"] = item.money_class
+        if amount is not None and money_class != "external" and instruction_figures:
+            # R5: the instruction's exact figure for the same amount beats the
+            # approximate one.
+            amount = prefer_exact_instruction_figure(amount, instruction_figures)
         items.append(
             MoneyItem.model_validate(
                 {

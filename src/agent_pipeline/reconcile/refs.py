@@ -30,7 +30,12 @@ def account_matches_reference(reference: str, account: Account) -> bool:
     if account_type in ref or ref in account_type:
         return True
     ref_words = set(re.findall(r"[a-z']+", ref))
-    return any(alias.lower() in ref_words for alias in type_aliases(account.type))
+    if any(alias.lower() in ref_words for alias in type_aliases(account.type)):
+        return True
+    # A plural of an acronym the type itself spells in capitals ("ISAs" for "Stocks & Shares
+    # ISA"); never a plural of an ordinary word, which would match every account.
+    acronyms = re.findall(r"\b[A-Z]{3,}\b", account.type)
+    return any(f"{acronym.lower()}s" in ref_words for acronym in acronyms)
 
 
 def accounts_matching_reference(reference: str, accounts: list[Account]) -> list[Account]:

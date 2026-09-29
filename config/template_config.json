@@ -31,9 +31,9 @@
           "prompt": "Describe what the client should do with their investments, and why, including the amounts involved."
         }
       },
-      "facts": ["action.*.amount"],
+      "facts": ["action.*.amount", "money.*"],
       "text_sources": ["actions"],
-      "markers": ["*_amounts"]
+      "markers": ["*_amounts", "*_addition_amount", "*_portion_sold", "new_account_balance"]
     },
     {
       "id": "tax_implications",

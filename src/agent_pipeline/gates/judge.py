@@ -27,7 +27,7 @@ from agent_pipeline.gates.deterministic import (
     ReportBundle,
     split_sentences,
 )
-from agent_pipeline.ledger import Ledger
+from agent_pipeline.ledger import Ledger, render_table
 from agent_pipeline.llm import LLMClient
 from agent_pipeline.reconcile.wrappers import type_aliases
 from agent_pipeline.sources.document import SourceDoc
@@ -45,6 +45,9 @@ def _load_standard_wording() -> list[re.Pattern[str]]:
 
 
 _STANDARD_WORDING = _load_standard_wording()
+_PROCEEDS_TIMING = re.compile(
+    json.loads(STANDARD_WORDING_PATH.read_text(encoding="utf-8"))["proceeds_timing"]["pattern"]
+)
 
 
 def _normalise_sentence(sentence: str) -> str:
@@ -73,6 +76,53 @@ def redact_standard_wording(text: str, ledger: Ledger) -> str:
         if sentence.strip() and is_standard_wording(sentence, ledger):
             text = text.replace(sentence.strip(), STANDARD_WORDING_PLACEHOLDER, 1)
     return text
+
+
+def is_permitted_proceeds_sentence(sentence: str, report_text: str, ledger: Ledger) -> bool:
+    """SCOPING P5 permits full-disposal proceeds as funding, described as gross, before any
+    CGT and not yet realised. So a sentence that states a ledger proceeds fact's own
+    rendering, directly followed by the standard timing caveat, is not a G7 finding: G7 targets
+    external or contingent money and money treated as available when it is not. Narrow by
+    construction: the figure must be a "sale proceeds" fact's, and the caveat must be the next
+    sentence."""
+    figures = {
+        render_table(fact.value)  # the rendering the writer's fact tokens resolve to
+        for fact in ledger.facts.values()
+        if fact.role == "sale proceeds" and fact.value is not None
+    }
+    if not any(figure in sentence for figure in figures):
+        return False
+    # Located by string search, not `split_sentences`: a qualifier such as "c." would split the
+    # sentence in two. A quote that stops short of the sentence's end is read on to its end.
+    quote = sentence.strip()
+    start = report_text.find(quote)
+    if start < 0:
+        return False
+    rest = report_text[start + len(quote) :]
+    if not quote.endswith((".", "!", "?")):
+        end = re.search(r"[.!?](?=\s|$)", rest)
+        if end is None:
+            return False
+        rest = rest[end.end() :]
+    following = re.match(r"\s*([^.!?]*[.!?]?)", rest)
+    return following is not None and (
+        _PROCEEDS_TIMING.fullmatch(_normalise_sentence(following.group(1))) is not None
+    )
+
+
+def _without_permitted_proceeds(
+    raw: RawJudgeVerdict, bundle: ReportBundle, ledger: Ledger
+) -> RawJudgeVerdict:
+    kept = [
+        finding
+        for finding in raw.findings
+        if not (
+            finding.gate == "G7"
+            and finding.quote
+            and is_permitted_proceeds_sentence(finding.quote, bundle.report_text, ledger)
+        )
+    ]
+    return raw.model_copy(update={"findings": kept})
 
 
 class JudgeMaterialClaim(BaseModel):
@@ -452,6 +502,8 @@ def release_judge(
 ) -> list[GateResult]:
     raw = model.judge(bundle, ledger, sources, [])
     g16, raw = _check_g16(raw, model, bundle, ledger, sources)
+    # After G16: its coverage re-ask can return a fresh verdict with fresh findings.
+    raw = _without_permitted_proceeds(raw, bundle, ledger)
     return [g16, _check_g8(raw, bundle, ledger), *_check_simple_gates(raw)]
 
 

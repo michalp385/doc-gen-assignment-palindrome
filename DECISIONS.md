@@ -451,6 +451,57 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
   clients hit this often enough that the tie-break is worth specifying.
 - **Evidence:** `tests/test_r3_same_date_tie.py`.
 
+### D24. Unspecified-amount markers are derived in code from the ledger, never labelled by the model
+- **Context:** four markers were missing on the harder clients: ISA top-up amounts, the amount added
+  to a GIA, the portion of a GIA sold, and the balance placed into a new account. Each is an amount
+  the sources leave unstated, or that depends on another unstated amount. The meeting extraction
+  already gives the agreed actions and disposals with their accounts and stated amounts.
+- **Decision:** `reconcile/unspecified_amounts.py` builds them from those (P2, P5) and keys each by
+  the account type's own wording. A funding action with no amount is a marker; a portion sold is a
+  marker plus a destination review item; a new account's balance folds into the single other
+  unspecified marker that feeds it, and is its own marker when several do. The model labels no
+  "basis" and types no marker (D1/P1).
+- **Alternatives:** an `amount_basis` field the model fills in ("stated", "full allowance",
+  "unspecified"): it reads "use both allowances" against "fund both ISAs" more reliably than a word
+  list, but it puts a judgement that decides whether a marker exists into the model, adds a live
+  refresh, and reintroduces the run-to-run variance D22 spent effort removing.
+- **Consequences / how it generalises:** a funding action is recognised by a short word list, so an
+  unusual verb ("earmark") yields no marker; the list errs towards a marker, which fails safe. The
+  fold-or-separate rule for a new account's balance is a convention, chosen to match the two
+  reference clients, not derived from a principle. Revisit if held-out clients show missed or
+  spurious markers.
+- **Expected file:** client 04's `eval/expected` file gained `new_account_charges`. The basis is
+  DESIGN.md `required_markers` ("for each new account, its charges", unconditional) and client
+  03's SCOPING entry, not that the pipeline emits it. Client 04's SCOPING wording ("plus the new
+  account's if on another") is conditional and about the platform rate, so on its own it does not
+  settle the point; the general rule does.
+- **Also routed:** `money.*` facts now go to Recommendations (DESIGN's own `"money.*"` example), so
+  the received, available and excluded money reaches the writer. Without it client 03's
+  "together with the inheritance" action had no inheritance fact to state and failed G8.
+- **Evidence:** `tests/test_reconcile_unspecified_amounts.py`.
+
+### D25. A permitted disposal-proceeds sentence is not a G7 finding, decided in code
+- **Context:** client 03's Recommendations state the counted proceeds of a full disposal, then the
+  P5 timing caveat ("gross before any CGT and becomes available once the disposal completes").
+  All three release-judge samples flagged the first sentence under G7 as allocating money that is
+  not yet available, so the report failed. SCOPING P5 allows full-disposal proceeds to count as
+  funding once amount and destination are known, described as gross, before CGT and not yet
+  realised; G7's target is external or contingent money.
+- **Decision:** `is_permitted_proceeds_sentence` (`gates/judge.py`) drops a G7 finding whose quoted
+  sentence states a "sale proceeds" fact's own rendering and is directly followed by the caveat
+  sentence (pattern in `config/standard_wording.json`). Every other G7 finding is kept. The
+  sentence is not hidden from the judge: G8 needs it to check the action is covered.
+- **Alternatives:** redact the sentence from the judge's input like G16's standard wording: G8
+  would then report the disposal action as uncovered, and the judge would see the caveat without
+  what it qualifies. Add a rule to the judge prompt: leaves a model to follow it, on the gate whose
+  variance D22 spent effort reducing. Change the writer's wording: the sentence already follows
+  P5 and the writer prompt; the disagreement is the judge's.
+- **Consequences / how it generalises:** narrow by construction: the figure must be a proceeds
+  fact's, and the caveat must be the very next sentence, so a real allocation of unrealised money
+  elsewhere still fails. It keys on one caveat wording, the writer prompt's fixed sentence; a
+  reworded caveat loses the exemption and fails safe. Revisit if the writer's wording changes.
+- **Evidence:** `tests/test_g7_permitted_proceeds_sentence.py`.
+
 ## What I would do with more time
 <!-- For production: what's missing, what you'd change in the pipeline and the agent setup,
      and the risks you know about. Concrete, not a wish list. -->

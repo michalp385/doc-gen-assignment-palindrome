@@ -36,6 +36,7 @@ from agent_pipeline.gates.deterministic import (
 )
 from agent_pipeline.ledger import Ledger
 from agent_pipeline.llm import LLMClient, OpenAITransport, Transport
+from agent_pipeline.reconcile.new_accounts import NEW_ACCOUNT_LABEL
 from agent_pipeline.sources.adapters.docx import read_docx
 from agent_pipeline.sources.adapters.markdown import read_markdown
 from agent_pipeline.sources.classify import (
@@ -70,8 +71,12 @@ _TABLE_ROW_RE = re.compile(
 _HEADING_RE = re.compile(r"^##\s+(.+?)\s*$", re.MULTILINE)
 
 
-def _parse_table_rows(report_text: str) -> list[TableRow]:
+def _parse_table_rows(report_text: str, new_account_ids: list[str]) -> list[TableRow]:
+    """The report's table as rows. A new account is printed as "To be opened", not its
+    synthetic id; each such row takes the next of the ledger's `new_account_ids`, so G1 still
+    checks it. A label beyond their number stays as printed and G1 reports it unexpected."""
     lines = report_text.splitlines()
+    pending_new = list(new_account_ids)
     rows: list[TableRow] = []
     in_table = False
     for line in lines:
@@ -86,6 +91,8 @@ def _parse_table_rows(report_text: str) -> list[TableRow]:
         if not match:
             break  # the table ended
         account_id, owner, _account_type, value = (g.strip() for g in match.groups())
+        if account_id == NEW_ACCOUNT_LABEL and pending_new:
+            account_id = pending_new.pop(0)
         rows.append(
             TableRow(
                 account_id=account_id,
@@ -145,7 +152,9 @@ def _load_bundle(
     bundle = ReportBundle(
         report_text=report_text,
         sections=_split_sections(report_text, config),
-        table_rows=_parse_table_rows(report_text),
+        table_rows=_parse_table_rows(
+            report_text, [a.id for a in ledger.accounts if a.is_new and a.in_scope]
+        ),
         ledger=ledger,
     )
     return bundle, release_state

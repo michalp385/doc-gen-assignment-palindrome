@@ -469,6 +469,30 @@
       "reason": "pension contribution amounts are always adviser-review markers (P4); never estimated",
       "section": "recommendations",
       "fact_ref": null
+    },
+    {
+      "id": "#8",
+      "key": "gia_addition_amount",
+      "text": "the amount added to the General Investment Account (Holloway)",
+      "reason": "the amount to add is not stated in the sources (P2); never estimated (CLAUDE.md non-negotiable)",
+      "section": "recommendations",
+      "fact_ref": null
+    },
+    {
+      "id": "#9",
+      "key": "gia_portion_sold",
+      "text": "the portion of the General Investment Account (Holloway) sold",
+      "reason": "the portion sold is not stated in the sources (P5); never estimated (CLAUDE.md non-negotiable)",
+      "section": "recommendations",
+      "fact_ref": null
+    },
+    {
+      "id": "#10",
+      "key": "new_account_balance",
+      "text": "the balance placed into the new account",
+      "reason": "the balance depends on amounts the sources leave unspecified (P5); never estimated (CLAUDE.md non-negotiable)",
+      "section": "recommendations",
+      "fact_ref": null
     }
   ],
   "review": [
@@ -515,6 +539,15 @@
     },
     {
       "id": "rv6",
+      "kind": "ambiguity",
+      "blocking": false,
+      "detail": "Only a portion of Holloway joint GIA is sold, and the sources do not say whether the proceeds stay in it or join the £650,000 available to invest; confirm the amount and where the money goes.",
+      "refs": [
+        "H4-GIA-HJ"
+      ]
+    },
+    {
+      "id": "rv7",
       "kind": "p4_note",
       "blocking": false,
       "detail": "Pension contribution amounts are adviser-review markers: pension limits depend on personal circumstances, earlier contributions, tapering and carry-forward, so no figure is stated.",
@@ -524,7 +557,7 @@
       ]
     },
     {
-      "id": "rv7",
+      "id": "rv8",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker platform_charge_brightwell",
@@ -533,7 +566,7 @@
       ]
     },
     {
-      "id": "rv8",
+      "id": "rv9",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker platform_charge_holloway",
@@ -542,7 +575,7 @@
       ]
     },
     {
-      "id": "rv9",
+      "id": "rv10",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker platform_charge_meridian",
@@ -551,7 +584,7 @@
       ]
     },
     {
-      "id": "rv10",
+      "id": "rv11",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker advice_charge",
@@ -560,7 +593,7 @@
       ]
     },
     {
-      "id": "rv11",
+      "id": "rv12",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker new_account_charges",
@@ -569,7 +602,7 @@
       ]
     },
     {
-      "id": "rv12",
+      "id": "rv13",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker cgt",
@@ -578,7 +611,7 @@
       ]
     },
     {
-      "id": "rv13",
+      "id": "rv14",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker sipp_contribution_amounts",
@@ -587,7 +620,34 @@
       ]
     },
     {
-      "id": "rv14",
+      "id": "rv15",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker gia_addition_amount",
+      "refs": [
+        "gia_addition_amount"
+      ]
+    },
+    {
+      "id": "rv16",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker gia_portion_sold",
+      "refs": [
+        "gia_portion_sold"
+      ]
+    },
+    {
+      "id": "rv17",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker new_account_balance",
+      "refs": [
+        "new_account_balance"
+      ]
+    },
+    {
+      "id": "rv18",
       "kind": "image_discrepancy",
       "blocking": false,
       "detail": "statement image row 'Holloway GIA (Joint)' did not match any in-scope account",

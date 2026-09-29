@@ -41,7 +41,10 @@ outputs: their prompts and live verification are still to do.
   calls. `ownership.py` (R1, R9), `scope.py` and `refs.py` (R2, R8, matching a free-text account
   reference), `values.py` (R3, P10), `amounts.py` (R5), `account_state.py` (R6, P12: null, closed and
   non-GBP accounts), `money.py` (P5: available now, money items, proceeds), `limits.py` (P4: ISA
-  allowance screening, pension contributions always markers), `sections.py` and `predicates.py`
+  allowance screening, pension contributions always markers), `new_accounts.py` (R1, P9: the
+  accounts the advice opens, their charges marker), `unspecified_amounts.py` (P2, P5: markers for
+  funding amounts, portions sold and a new account's balance that the sources leave unstated),
+  `sections.py` and `predicates.py`
   (G5, P7: inclusion decided in code), `markers.py` (the markers built in code), `facts.py` (the
   ledger's fact IDs and roles), `wrappers.py` (account-type wording to wrapper class),
   `review.py`. `resolve_amount` (R5) is built and tested but not wired into the stage graph yet

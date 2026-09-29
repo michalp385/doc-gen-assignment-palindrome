@@ -11,5 +11,9 @@
       "source": "P5: proceeds are 'gross, before any CGT, not yet realised'",
       "pattern": "(?:we note that )?the (?:stated |sale )?proceeds (?:are|is) gross (?:and )?before (?:any )?(?:capital gains tax|cgt)(?: and not yet realised)?"
     }
-  ]
+  ],
+  "proceeds_timing": {
+    "source": "P5: full-disposal proceeds count toward funding once amount and destination are known, described as gross, before any CGT and not yet realised. A recommendation stating them is permitted when this caveat sentence follows it directly (release judge G7).",
+    "pattern": "this figure is gross before (?:any )?(?:capital gains tax|cgt) and becomes available once the disposal completes"
+  }
 }

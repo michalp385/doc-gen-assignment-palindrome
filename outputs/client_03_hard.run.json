@@ -75,12 +75,12 @@
     {
       "gate": "G16",
       "passed": true,
-      "detail": ""
+      "detail": "1 of 3 judge samples disagreed: unsupported claim(s): ['The proceeds figure is gross before CGT.']"
     },
     {
       "gate": "G8",
       "passed": true,
-      "detail": ""
+      "detail": "1 of 3 judge samples disagreed: agreed action not covered: a1"
     },
     {
       "gate": "G2",
@@ -158,16 +158,16 @@
     },
     {
       "stage": "write",
-      "calls": 7,
-      "cache_hits": 7,
+      "calls": 8,
+      "cache_hits": 8,
       "live_calls": 0,
       "tokens": {
-        "input": 7175,
+        "input": 8576,
         "cached_input": 0,
-        "output": 1217,
-        "reasoning": 782
+        "output": 1710,
+        "reasoning": 1135
       },
-      "cost_usd": "0.0013260",
+      "cost_usd": "0.0017126",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -183,16 +183,16 @@
     },
     {
       "stage": "release_judge",
-      "calls": 4,
-      "cache_hits": 4,
+      "calls": 3,
+      "cache_hits": 3,
       "live_calls": 0,
       "tokens": {
-        "input": 12007,
-        "cached_input": 7320,
-        "output": 44377,
-        "reasoning": 39618
+        "input": 9104,
+        "cached_input": 5490,
+        "output": 30989,
+        "reasoning": 26446
       },
-      "cost_usd": "0.0233892",
+      "cost_usd": "0.0164049",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -205,5 +205,5 @@
   "total_calls": 20,
   "total_cache_hits": 20,
   "total_live_calls": 0,
-  "total_cost_usd": "0.0274507"
+  "total_cost_usd": "0.0208530"
 }

@@ -10,9 +10,11 @@ amount the sources disagree on is an adviser-review marker, not a pick).
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from decimal import Decimal
 
+from agent_pipeline.extract.parsing import parse_amount
 from agent_pipeline.ledger import Marker, Value, render_prose
 from agent_pipeline.reconcile.review import ReviewItemInput
 
@@ -27,6 +29,51 @@ def reconcile_amounts(instruction: Value, meeting: Value) -> AmountReconciliatio
     if instruction.amount == meeting.amount:
         return AmountReconciliation(amount=instruction.amount, agrees=True)
     return AmountReconciliation(amount=None, agrees=False)
+
+
+_FIGURE_RE = re.compile(r"(?:[£€$]\s?|\b(?:GBP|EUR|USD)\s+)\d[\d,]*(?:\.\d+)?[kKmM]?")
+_QUALIFIER_WINDOW = 20
+
+
+def instruction_figures(text: str, source_id: str) -> list[Value]:
+    """R5: the exact money figures in a report-instruction field's text, which can be compound
+    ("GBP 5,000 inheritance plus the full account value"). A figure preceded by a
+    qualifier ("around", "c.") is not exact and is left out. Each is parsed in code from the
+    text itself (D9), never from a model's structured value."""
+    figures: list[Value] = []
+    previous_end = 0
+    for match in _FIGURE_RE.finditer(text):
+        window = text[max(previous_end, match.start() - _QUALIFIER_WINDOW) : match.end()]
+        previous_end = match.end()
+        parsed = parse_amount(window)
+        if parsed is None or parsed.precision != "exact":
+            continue
+        figures.append(
+            Value(
+                amount=parsed.amount,
+                currency=parsed.currency,
+                precision="exact",
+                qualifier="exact",
+                date=None,
+                source_id=source_id,
+                quote=match.group(0).strip(),
+                selected_by="R5",
+            )
+        )
+    return figures
+
+
+def prefer_exact_instruction_figure(meeting: Value, instruction: list[Value]) -> Value:
+    """R5 (SCOPING section 3.1 rule 5): an approximate meeting figure is replaced by the
+    instruction's exact figure only when both state the same amount in the same currency.
+    Otherwise the meeting's figure stands; a genuine difference is R4's conflict, raised by
+    `resolve_amount`, which is not wired into the stage graph yet."""
+    if meeting.precision == "exact":
+        return meeting
+    for figure in instruction:
+        if figure.amount == meeting.amount and figure.currency == meeting.currency:
+            return figure
+    return meeting
 
 
 @dataclass(frozen=True)

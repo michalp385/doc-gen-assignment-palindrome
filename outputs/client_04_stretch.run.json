@@ -95,7 +95,7 @@
     {
       "gate": "G7",
       "passed": true,
-      "detail": ""
+      "detail": "1 of 3 judge samples disagreed: The recommendation to invest the \u201cremaining balance\u201d does not clarify that \u00a3200,000 of the completion payment is already committed to the bridging-loan repayment, so it could treat committed funds as available for investment. ('We recommend placing the remaining balance into a new jointly held investment account.')"
     },
     {
       "gate": "G10",
@@ -162,12 +162,12 @@
       "cache_hits": 8,
       "live_calls": 0,
       "tokens": {
-        "input": 8657,
+        "input": 8999,
         "cached_input": 0,
-        "output": 1360,
-        "reasoning": 656
+        "output": 1545,
+        "reasoning": 762
       },
-      "cost_usd": "0.0015457",
+      "cost_usd": "0.0016724",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -183,16 +183,16 @@
     },
     {
       "stage": "release_judge",
-      "calls": 4,
-      "cache_hits": 4,
+      "calls": 3,
+      "cache_hits": 3,
       "live_calls": 0,
       "tokens": {
-        "input": 15802,
-        "cached_input": 7320,
-        "output": 31281,
-        "reasoning": 24391
+        "input": 12029,
+        "cached_input": 5490,
+        "output": 25952,
+        "reasoning": 20453
       },
-      "cost_usd": "0.0172207",
+      "cost_usd": "0.0141789",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -202,8 +202,8 @@
       ]
     }
   ],
-  "total_calls": 21,
-  "total_cache_hits": 21,
+  "total_calls": 20,
+  "total_cache_hits": 20,
   "total_live_calls": 0,
-  "total_cost_usd": "0.0223804"
+  "total_cost_usd": "0.0194653"
 }

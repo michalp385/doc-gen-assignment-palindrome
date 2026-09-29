@@ -46,6 +46,7 @@ from agent_pipeline.ledger import (
 )
 from agent_pipeline.llm import LLMClient, OpenAITransport, Transport
 from agent_pipeline.reconcile.account_state import check_account_states
+from agent_pipeline.reconcile.amounts import instruction_figures
 from agent_pipeline.reconcile.facts import build_facts
 from agent_pipeline.reconcile.limits import (
     check_limits,
@@ -71,6 +72,10 @@ from agent_pipeline.reconcile.review import ReviewItemInput, build_review_items,
 from agent_pipeline.reconcile.scope import resolve_scope
 from agent_pipeline.reconcile.sections import Disposal as SectionDisposal
 from agent_pipeline.reconcile.sections import SectionContext, unknown_wrapper_review_items
+from agent_pipeline.reconcile.unspecified_amounts import (
+    PartialDisposal,
+    build_unspecified_amounts,
+)
 from agent_pipeline.reconcile.values import (
     check_image_row,
     is_stated_gbp,
@@ -439,14 +444,17 @@ def _pension_markers(
 
 
 def _apply_money(
-    extracted, source_id: str, start_index: int
+    extracted,
+    source_id: str,
+    start_index: int,
+    instruction_figures: list[Value] | None = None,
 ) -> tuple[list[MoneyItem], Value | None, list[Marker], list[ReviewItemInput]]:
     """P5: the meeting's received, committed and external money items as ledger items, and
     the available-now value (received minus committed, in code). When it cannot be computed
     without a guess -- a commitment with no stated amount -- the amount becomes a marker
     with a review row explaining why, never a subtracted guess. Proceeds are not built here:
     `_classify_disposals` owns them. `start_index` keeps ids unique against those."""
-    build = build_money_items(extracted, source_id, start_index)
+    build = build_money_items(extracted, source_id, start_index, instruction_figures)
     result = available_now(build.items)
     markers: list[Marker] = []
     review_items = list(build.review_items)
@@ -461,6 +469,21 @@ def _apply_money(
             )
         )
     return build.items, result.value, markers, review_items
+
+
+def _partial_disposals(disposals, accounts: list[Account]) -> list[PartialDisposal]:
+    """P5: each disposal that matches one account and whose extent is a portion, or is not
+    stated -- its amount sold is an unspecified amount, not the account's whole value."""
+    partial: list[PartialDisposal] = []
+    for disposal in disposals:
+        found = accounts_matching_reference(disposal.account_reference, accounts)
+        if len(found) == 1 and disposal.extent != "full":
+            partial.append(
+                PartialDisposal(
+                    account=found[0], reference=disposal.account_reference, extent=disposal.extent
+                )
+            )
+    return partial
 
 
 def _open_action_item(action: OpenAction, meeting_doc: SourceDoc) -> ReviewItemInput:
@@ -871,8 +894,15 @@ def _run_stages(
     tax_section = evaluate("taxable_disposal", SectionContext(disposals=disposals))
     disposal_review_items = unknown_wrapper_review_items(disposals)
 
+    amount_field = fields_by_canonical.get("investment_amount")
     other_money_items, available, available_markers, money_review_items = _apply_money(
-        meeting_extraction.money_items, meeting_source.path.name, len(money_items) + 1
+        meeting_extraction.money_items,
+        meeting_source.path.name,
+        len(money_items) + 1,
+        # R5: the instruction's exact figures, read in code from its amount field.
+        instruction_figures(amount_field.value, instruction_source.path.name)
+        if amount_field is not None and not amount_field.is_tbc
+        else None,
     )
     money_items = [*money_items, *other_money_items]
 
@@ -927,6 +957,18 @@ def _run_stages(
     else:
         limit_items = []
 
+    unspecified = build_unspecified_amounts(
+        actions,
+        action_amounts,
+        resolved_accounts,
+        partial_disposals=_partial_disposals(meeting_extraction.disposals, resolved_accounts),
+        disposal_quotes=[d.quote.text for d in meeting_extraction.disposals],
+        other_unspecified=len(pension_markers) + len(available_markers),
+        taken_keys={m.key for m in markers},
+        available=available,
+    )
+    markers += unspecified.markers
+
     image_items = _image_review_items(image_source, resolved_accounts, account_currency_by_id, llm)
 
     review_inputs: list[ReviewItemInput] = [
@@ -936,6 +978,7 @@ def _run_stages(
         *money_review_items,
         *new_account_review_items,
         *disposal_review_items,
+        *unspecified.review_items,
         *pension_review_items,
         *marker_review_items(markers),
         *limit_items,

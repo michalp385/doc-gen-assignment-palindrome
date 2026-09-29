@@ -1,0 +1,167 @@
+{
+  "cost_usd": "0.0053791",
+  "input_hash": "8768b4ff345147e52831e0990cb46001a2a7d3e83efb37f329179134c6e5ad79",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using both ISA allowances for the new tax year"
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "making pension contributions into both SIPPs up to the appropriate level."
+      },
+      {
+        "action_id": "a3",
+        "report_quote": "We recommend adding to the Holloway joint GIA."
+      },
+      {
+        "action_id": "a4",
+        "report_quote": "We recommend placing the remaining balance into a new jointly held investment account."
+      },
+      {
+        "action_id": "a5",
+        "report_quote": "We recommend disinvesting a portion of the Holloway joint GIA and rebalancing it."
+      },
+      {
+        "action_id": "a6",
+        "report_quote": "We recommend leaving the other investment as it is for now and revisiting it at the next review."
+      }
+    ],
+    "findings": [
+      {
+        "detail": "The recommendation to invest the \u201cremaining balance\u201d does not clarify that \u00a3200,000 of the completion payment is already committed to the bridging-loan repayment, so it could treat committed funds as available for investment.",
+        "gate": "G7",
+        "quote": "We recommend placing the remaining balance into a new jointly held investment account."
+      }
+    ],
+    "material_claims": [
+      {
+        "claim": "James completed the sale of his company.",
+        "paragraph_id": "p2",
+        "quote": "James completed the sale of his company in April.",
+        "report_quote": "James has completed the sale of his company",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "James and Caroline seek long-term growth with a balanced-to-moderate approach to risk.",
+        "paragraph_id": "p6",
+        "quote": "James and Caroline's objectives are long-term growth with a balanced-to-moderate risk appetite.",
+        "report_quote": "he and Caroline seek long-term growth with a balanced-to-moderate approach to risk.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "James and Caroline do not currently need income from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "They have no income requirement from the portfolio currently;",
+        "report_quote": "They do not currently need income from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Their priority is to build a tax-efficient base that can replace James\u2019s income when he steps back from full-time work.",
+        "paragraph_id": "p7",
+        "quote": "Their overriding objective for this money is clear: to build a tax-efficient base that can replace James's income when he steps back from full-time work in about three years.",
+        "report_quote": "Their priority is to build a tax-efficient base that can replace James\u2019s income when he steps back from full-time work",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Recommendations should be assessed against this objective.",
+        "paragraph_id": "p7",
+        "quote": "We agreed everything we recommend should be weighed against that three-year goal.",
+        "report_quote": "and recommendations should be assessed against this objective.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to use both ISA allowances for the new tax year.",
+        "paragraph_id": "p14",
+        "quote": "On the plan for the available proceeds: we agreed to use both ISA allowances for the new tax year, make pension contributions into both SIPPs up to the appropriate level, add to the Holloway joint GIA, and place the remaining balance into a new jointly-held investment account.",
+        "report_quote": "We recommend using both ISA allowances for the new tax year",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to make pension contributions into both SIPPs up to the appropriate level.",
+        "paragraph_id": "p14",
+        "quote": "On the plan for the available proceeds: we agreed to use both ISA allowances for the new tax year, make pension contributions into both SIPPs up to the appropriate level, add to the Holloway joint GIA, and place the remaining balance into a new jointly-held investment account.",
+        "report_quote": "making pension contributions into both SIPPs up to the appropriate level.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to add to the Holloway joint GIA.",
+        "paragraph_id": "p14",
+        "quote": "On the plan for the available proceeds: we agreed to use both ISA allowances for the new tax year, make pension contributions into both SIPPs up to the appropriate level, add to the Holloway joint GIA, and place the remaining balance into a new jointly-held investment account.",
+        "report_quote": "We recommend adding to the Holloway joint GIA.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to place the remaining balance into a new jointly-held investment account.",
+        "paragraph_id": "p14",
+        "quote": "On the plan for the available proceeds: we agreed to use both ISA allowances for the new tax year, make pension contributions into both SIPPs up to the appropriate level, add to the Holloway joint GIA, and place the remaining balance into a new jointly-held investment account.",
+        "report_quote": "We recommend placing the remaining balance into a new jointly held investment account.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to disinvest a portion of the Holloway joint GIA and rebalance it.",
+        "paragraph_id": "p15",
+        "quote": "As part of tidying up, we agreed to disinvest a portion of the Holloway joint GIA and rebalance it; that sale is a disposal and will have a capital gains position to set out.",
+        "report_quote": "We recommend disinvesting a portion of the Holloway joint GIA and rebalancing it.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The disposal has a capital gains position to be set out.",
+        "paragraph_id": "p15",
+        "quote": "As part of tidying up, we agreed to disinvest a portion of the Holloway joint GIA and rebalance it; that sale is a disposal and will have a capital gains position to set out.",
+        "report_quote": "The capital gains tax on the disposal is",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to leave the other investment as it is for now and revisit it at the next review.",
+        "paragraph_id": "p17",
+        "quote": "We also briefly discussed the offshore bond and whether it still suited them; we agreed to leave it as it is for now and revisit at the next review.",
+        "report_quote": "We recommend leaving the other investment as it is for now and revisiting it at the next review.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Ongoing platform charges apply to the investments with Brightwell, Holloway and Meridian.",
+        "paragraph_id": "p16",
+        "quote": "Caroline asked about the total ongoing cost of all this across the three platforms. I said I would set out the charges in the report once I had verified each platform's figures rather than estimate them in the meeting.",
+        "report_quote": "Ongoing platform charges apply to your investments with Brightwell, Holloway and Meridian.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using both ISA allowances for the new tax year"
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "making pension contributions into both SIPPs up to the appropriate level."
+      },
+      {
+        "action_id": "a3",
+        "report_quote": "We recommend adding to the Holloway joint GIA."
+      },
+      {
+        "action_id": "a4",
+        "report_quote": "We recommend placing the remaining balance into a new jointly held investment account."
+      },
+      {
+        "action_id": "a5",
+        "report_quote": "We recommend disinvesting a portion of the Holloway joint GIA and rebalancing it."
+      },
+      {
+        "action_id": "a6",
+        "report_quote": "We recommend leaving the other investment as it is for now and revisiting it at the next review."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 4011,
+    "output_tokens": 9956,
+    "reasoning_tokens": 8413
+  }
+}

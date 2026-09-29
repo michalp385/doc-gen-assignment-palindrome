@@ -20,6 +20,8 @@ from agent_pipeline.reconcile.review import ReviewItemInput
 
 # A built account's id is synthetic (no id exists in the data); never shown to a client.
 SYNTHETIC_ID_PREFIX = "new:"
+# What the client-facing table shows in the account cell of a built account.
+NEW_ACCOUNT_LABEL = "To be opened"
 _NEVER_ESTIMATED = "never estimated (CLAUDE.md non-negotiable)"
 _SCOPE_NEW_ACCOUNT_RE = re.compile(r"\bnew\b(?:\s+[a-z-]+){0,3}?\s+account\b", re.IGNORECASE)
 

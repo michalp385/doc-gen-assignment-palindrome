@@ -147,12 +147,12 @@
       "amount": {
         "amount": "120000",
         "currency": "GBP",
-        "precision": "approximate",
-        "qualifier": "around",
+        "precision": "exact",
+        "qualifier": "exact",
         "date": null,
-        "source_id": "meeting_notes.docx",
-        "quote": "around £120,000",
-        "selected_by": "P5"
+        "source_id": "report_request.docx",
+        "quote": "GBP 120,000",
+        "selected_by": "R5"
       },
       "counted": true,
       "reason": "",
@@ -241,6 +241,14 @@
       "reason": "never estimated (CLAUDE.md non-negotiable)",
       "section": "tax_implications",
       "fact_ref": null
+    },
+    {
+      "id": "#5",
+      "key": "isa_amounts",
+      "text": "ISA top-up amounts and the resulting balance for the new account",
+      "reason": "the ISA amounts are not stated in the sources (P2); never estimated (CLAUDE.md non-negotiable)",
+      "section": "recommendations",
+      "fact_ref": null
     }
   ],
   "review": [
@@ -323,6 +331,15 @@
     },
     {
       "id": "rv10",
+      "kind": "marker_reference",
+      "blocking": false,
+      "detail": "see marker isa_amounts",
+      "refs": [
+        "isa_amounts"
+      ]
+    },
+    {
+      "id": "rv11",
       "kind": "image_discrepancy",
       "blocking": false,
       "detail": "statement image shows '30,000' for 'Holloway GIA (Joint)'; selected value is 38000",
@@ -433,12 +450,12 @@
       "value": {
         "amount": "120000",
         "currency": "GBP",
-        "precision": "approximate",
-        "qualifier": "around",
+        "precision": "exact",
+        "qualifier": "exact",
         "date": null,
-        "source_id": "meeting_notes.docx",
-        "quote": "around £120,000",
-        "selected_by": "P5"
+        "source_id": "report_request.docx",
+        "quote": "GBP 120,000",
+        "selected_by": "R5"
       },
       "reportable": true,
       "transaction": true,
@@ -452,8 +469,8 @@
       "value": {
         "amount": "120000",
         "currency": "GBP",
-        "precision": "approximate",
-        "qualifier": "circa",
+        "precision": "exact",
+        "qualifier": "exact",
         "date": null,
         "source_id": "derived",
         "quote": "",

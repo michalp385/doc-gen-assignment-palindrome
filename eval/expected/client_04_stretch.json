@@ -85,6 +85,7 @@
     { "key": "platform_charge_brightwell", "description": "ongoing platform charge rate, Brightwell" },
     { "key": "platform_charge_meridian", "description": "ongoing platform charge rate, Meridian" },
     { "key": "advice_charge", "description": "ongoing advice charge rate" },
+    { "key": "new_account_charges", "description": "charges on the new joint account" },
     { "key": "sipp_contribution_amounts", "description": "SIPP contribution amounts for both James and Caroline" },
     { "key": "gia_addition_amount", "description": "the amount added to the Holloway joint GIA" },
     { "key": "gia_portion_sold", "description": "the portion of the Holloway joint GIA sold" },
