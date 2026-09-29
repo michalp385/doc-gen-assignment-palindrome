@@ -483,24 +483,30 @@ The hardest calls in this pipeline, why I made them, and what I would do next.
 ### D25. A permitted disposal-proceeds sentence is not a G7 finding, decided in code
 - **Context:** client 03's Recommendations state the counted proceeds of a full disposal, then the
   P5 timing caveat ("gross before any CGT and becomes available once the disposal completes").
-  All three release-judge samples flagged the first sentence under G7 as allocating money that is
-  not yet available, so the report failed. SCOPING P5 allows full-disposal proceeds to count as
+  The release judge flagged the first sentence under G7, in every sample, as allocating money
+  that is not yet available, so the report failed. SCOPING P5 allows full-disposal proceeds to count as
   funding once amount and destination are known, described as gross, before CGT and not yet
   realised; G7's target is external or contingent money.
-- **Decision:** `is_permitted_proceeds_sentence` (`gates/judge.py`) drops a G7 finding whose quoted
-  sentence states a "sale proceeds" fact's own rendering and is directly followed by the caveat
-  sentence (pattern in `config/standard_wording.json`). Every other G7 finding is kept. The
+- **Decision:** `is_permitted_proceeds_sentence` (`gates/judge.py`) drops a G7 finding only for the
+  writer prompt's fixed form, "[We recommend] using the [gross] proceeds of <a proceeds fact's
+  rendering> to <what to do>", where the rest of the sentence names no other figure and no
+  contingent money, and every copy of the sentence is directly followed by the caveat sentence
+  (pattern in `config/standard_wording.json`). Every other G7 finding is kept. The
   sentence is not hidden from the judge: G8 needs it to check the action is covered.
 - **Alternatives:** redact the sentence from the judge's input like G16's standard wording: G8
   would then report the disposal action as uncovered, and the judge would see the caveat without
   what it qualifies. Add a rule to the judge prompt: leaves a model to follow it, on the gate whose
   variance D22 spent effort reducing. Change the writer's wording: the sentence already follows
   P5 and the writer prompt; the disagreement is the judge's.
-- **Consequences / how it generalises:** narrow by construction: the figure must be a proceeds
-  fact's, and the caveat must be the very next sentence, so a real allocation of unrealised money
-  elsewhere still fails. It keys on one caveat wording, the writer prompt's fixed sentence; a
-  reworded caveat loses the exemption and fails safe. Revisit if the writer's wording changes.
-- **Evidence:** `tests/test_g7_permitted_proceeds_sentence.py`.
+- **Consequences / how it generalises:** an independent verifier found the first version too
+  loose (a sentence adding a bonus or an expected inheritance to the proceeds was exempt); the
+  fixed-form and no-other-money conditions closed that. Contingent money is recognised by a short
+  word list, so an unlisted phrasing is not caught by the exemption's own check, though it is
+  still a G7 finding to any judge sample that flags it once the sentence is not the fixed form.
+  It keys on one caveat wording, the writer prompt's fixed sentence; a reworded caveat loses the
+  exemption and fails safe. Revisit if the writer's wording changes.
+- **Evidence:** `tests/test_g7_permitted_proceeds_sentence.py`,
+  `tests/test_g7_proceeds_carveout_narrowing.py`.
 
 ## What I would do with more time
 <!-- For production: what's missing, what you'd change in the pipeline and the agent setup,

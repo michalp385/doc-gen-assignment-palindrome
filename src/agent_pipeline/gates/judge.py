@@ -78,36 +78,66 @@ def redact_standard_wording(text: str, ledger: Ledger) -> str:
     return text
 
 
+# Money that is contingent or not yet received: a sentence naming it is never exempt, even
+# when it also states the proceeds figure. G7 exists to catch exactly this.
+_CONTINGENT_RE = re.compile(
+    r"\b(?:expected|unconfirmed|contingent|anticipated|potential|projected|earn-?out|bonus|"
+    r"inherit\w*|not yet received)\b",
+    re.IGNORECASE,
+)
+
+
+def _follows_with_timing_caveat(report_text: str, quote: str) -> bool:
+    """Every copy of `quote` in the report is directly followed by the timing caveat. A quote
+    that stops short of the sentence's end is read on to its end first."""
+    copies = [m.end() for m in re.finditer(re.escape(quote), report_text)]
+    if not copies:
+        return False
+    for position in copies:
+        rest = report_text[position:]
+        if not quote.endswith((".", "!", "?")):
+            end = re.search(r"[.!?](?=\s|$)", rest)
+            if end is None:
+                return False
+            rest = rest[end.end() :]
+        following = re.match(r"\s*([^.!?]*[.!?]?)", rest)
+        if following is None or not _PROCEEDS_TIMING.fullmatch(
+            _normalise_sentence(following.group(1))
+        ):
+            return False
+    return True
+
+
 def is_permitted_proceeds_sentence(sentence: str, report_text: str, ledger: Ledger) -> bool:
     """SCOPING P5 permits full-disposal proceeds as funding, described as gross, before any
-    CGT and not yet realised. So a sentence that states a ledger proceeds fact's own
-    rendering, directly followed by the standard timing caveat, is not a G7 finding: G7 targets
-    external or contingent money and money treated as available when it is not. Narrow by
-    construction: the figure must be a "sale proceeds" fact's, and the caveat must be the next
-    sentence."""
+    CGT and not yet realised. So the writer prompt's fixed form -- "[We recommend] using the
+    [gross] proceeds of <a ledger proceeds figure> to <what to do>" -- directly followed by
+    the standard timing caveat is not a G7 finding: G7 targets external or contingent money
+    and money treated as available when it is not. Narrow by construction: the figure must be
+    a "sale proceeds" fact's own rendering at a number boundary, the rest of the sentence
+    names no other figure and no contingent money, and every copy of the quote is followed by
+    the caveat as the very next sentence."""
+    quote = sentence.strip()
     figures = {
         render_table(fact.value)  # the rendering the writer's fact tokens resolve to
         for fact in ledger.facts.values()
         if fact.role == "sale proceeds" and fact.value is not None
     }
-    if not any(figure in sentence for figure in figures):
-        return False
-    # Located by string search, not `split_sentences`: a qualifier such as "c." would split the
-    # sentence in two. A quote that stops short of the sentence's end is read on to its end.
-    quote = sentence.strip()
-    start = report_text.find(quote)
-    if start < 0:
-        return False
-    rest = report_text[start + len(quote) :]
-    if not quote.endswith((".", "!", "?")):
-        end = re.search(r"[.!?](?=\s|$)", rest)
-        if end is None:
+    for figure in figures:
+        lead = re.match(
+            r"(?:we recommend )?using the (?:gross )?proceeds of "
+            + re.escape(figure)
+            + r"(?!\d|[,.]\d)",
+            quote,
+            re.IGNORECASE,
+        )
+        if lead is None:
+            continue
+        tail = quote[lead.end() :]
+        if re.search(r"\d|[£€$%]", tail) or _CONTINGENT_RE.search(tail):
             return False
-        rest = rest[end.end() :]
-    following = re.match(r"\s*([^.!?]*[.!?]?)", rest)
-    return following is not None and (
-        _PROCEEDS_TIMING.fullmatch(_normalise_sentence(following.group(1))) is not None
-    )
+        return _follows_with_timing_caveat(report_text, quote)
+    return False
 
 
 def _without_permitted_proceeds(
