@@ -1,0 +1,2490 @@
+{
+  "generated_at": "2026-09-29T16:21:42Z",
+  "commit": "3ce9edb",
+  "dirty": false,
+  "config_hash": "d7ef88ef3e2d2cd7f137b847c4ba07fcc2c5850ebb1c89b4d85468b49c018515",
+  "prompt_versions": {
+    "classify": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+    "extract_meeting": "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b",
+    "eval_judge": "f20296886939b866ac7d52f8edfc3e8882390be2fd16c2c83db2b67083169764"
+  },
+  "stage_models": {
+    "classify": "gpt-6-luna",
+    "extract": "gpt-6-luna",
+    "investigate": "gpt-6-luna",
+    "plan": "gpt-6-luna",
+    "write": "gpt-6-luna",
+    "release_judge": "gpt-6-luna",
+    "eval_judge": "gpt-6-sol"
+  },
+  "clients": [
+    {
+      "client": "case_01",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          }
+        ],
+        "labels": []
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4475,
+      "cached_input_tokens": 0,
+      "output_tokens": 894,
+      "cost_usd": "0.0008945",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_02",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          }
+        ],
+        "labels": [
+          {
+            "label": "basis",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4491,
+      "cached_input_tokens": 0,
+      "output_tokens": 893,
+      "cost_usd": "0.0008956",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_03",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          }
+        ],
+        "labels": []
+      },
+      "investigation_score": {
+        "questions_raised": 2,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4418,
+      "cached_input_tokens": 2577,
+      "output_tokens": 886,
+      "cost_usd": "0.0008848",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_04",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          }
+        ],
+        "labels": [
+          {
+            "label": "blocking",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4455,
+      "cached_input_tokens": 2577,
+      "output_tokens": 960,
+      "cost_usd": "0.0009255",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_05",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          }
+        ],
+        "labels": [
+          {
+            "label": "blocking",
+            "correct": 0,
+            "total": 1,
+            "accuracy": 0.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4491,
+      "cached_input_tokens": 2577,
+      "output_tokens": 879,
+      "cost_usd": "0.0008886",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_06",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 1,
+            "matched": 0,
+            "precision": 0.0,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          }
+        ],
+        "labels": [
+          {
+            "label": "money_class",
+            "correct": 0,
+            "total": 0,
+            "accuracy": null
+          },
+          {
+            "label": "blocking",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4537,
+      "cached_input_tokens": 2577,
+      "output_tokens": 1035,
+      "cost_usd": "0.0009712",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_07",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "disposals",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          }
+        ],
+        "labels": [
+          {
+            "label": "money_class",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          {
+            "label": "extent",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4397,
+      "cached_input_tokens": 2577,
+      "output_tokens": 958,
+      "cost_usd": "0.0009187",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_08",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 1,
+            "matched": 0,
+            "precision": 0.0,
+            "recall": null
+          }
+        ],
+        "labels": [
+          {
+            "label": "blocking",
+            "correct": 0,
+            "total": 0,
+            "accuracy": null
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4448,
+      "cached_input_tokens": 2577,
+      "output_tokens": 973,
+      "cost_usd": "0.0009313",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_09",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 2,
+            "actual_count": 2,
+            "matched": 2,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 1,
+            "matched": 0,
+            "precision": 0.0,
+            "recall": null
+          }
+        ],
+        "labels": [
+          {
+            "label": "money_class",
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          {
+            "label": "blocking",
+            "correct": 0,
+            "total": 0,
+            "accuracy": null
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4451,
+      "cached_input_tokens": 2577,
+      "output_tokens": 1415,
+      "cost_usd": "0.0011526",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_10",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          }
+        ],
+        "labels": [
+          {
+            "label": "extent",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4445,
+      "cached_input_tokens": 2577,
+      "output_tokens": 691,
+      "cost_usd": "0.0007900",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_11",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 1,
+            "matched": 0,
+            "precision": 0.0,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          }
+        ],
+        "labels": [
+          {
+            "label": "money_class",
+            "correct": 0,
+            "total": 0,
+            "accuracy": null
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4442,
+      "cached_input_tokens": 2577,
+      "output_tokens": 870,
+      "cost_usd": "0.0008792",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_12",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 1,
+            "matched": 0,
+            "precision": 0.0,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          }
+        ],
+        "labels": [
+          {
+            "label": "money_class",
+            "correct": 0,
+            "total": 0,
+            "accuracy": null
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4490,
+      "cached_input_tokens": 2577,
+      "output_tokens": 837,
+      "cost_usd": "0.0008675",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_13",
+      "release_state": "failed",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          }
+        ],
+        "labels": [
+          {
+            "label": "blocking",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4502,
+      "cached_input_tokens": 2577,
+      "output_tokens": 1016,
+      "cost_usd": "0.0009582",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_14",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          }
+        ],
+        "labels": []
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 5331,
+      "cached_input_tokens": 2577,
+      "output_tokens": 863,
+      "cost_usd": "0.0009646",
+      "cache_hits": 4,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_15",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          }
+        ],
+        "labels": []
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 5222,
+      "cached_input_tokens": 2577,
+      "output_tokens": 918,
+      "cost_usd": "0.0009812",
+      "cache_hits": 4,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_16",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          }
+        ],
+        "labels": [
+          {
+            "label": "blocking",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 1,
+        "answered_correctly": 1,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4460,
+      "cached_input_tokens": 0,
+      "output_tokens": 728,
+      "cost_usd": "0.0008100",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_17",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 1,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": 0.0
+          }
+        ],
+        "labels": [
+          {
+            "label": "blocking",
+            "correct": 0,
+            "total": 0,
+            "accuracy": null
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 1,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 1,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4470,
+      "cached_input_tokens": 2577,
+      "output_tokens": 1041,
+      "cost_usd": "0.0009675",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_18",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          }
+        ],
+        "labels": []
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 4434,
+      "cached_input_tokens": 2577,
+      "output_tokens": 729,
+      "cost_usd": "0.0008079",
+      "cache_hits": 3,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_19",
+      "release_state": "failed",
+      "expected_release_state": "failed",
+      "gate_results": [],
+      "q_scores": [],
+      "extraction_score": null,
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": "0",
+      "cache_hits": 0,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "case_20",
+      "release_state": "failed",
+      "expected_release_state": "failed",
+      "gate_results": [],
+      "q_scores": [],
+      "extraction_score": null,
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0,
+      "cost_usd": "0",
+      "cache_hits": 0,
+      "live_calls": 0,
+      "notes": []
+    }
+  ],
+  "skipped_clients": [],
+  "group_summaries": {
+    "handwritten": {
+      "group": "handwritten",
+      "client_count": 20,
+      "issued_rate": 0.85,
+      "release_state_match_rate": 0.95,
+      "wrongly_issued": 0,
+      "accepted_and_wrong": 0,
+      "cost_per_report_usd": "0.0008"
+    }
+  },
+  "total_cost_usd": "0.0164889"
+}
