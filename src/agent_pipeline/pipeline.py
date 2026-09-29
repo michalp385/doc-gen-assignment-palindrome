@@ -410,6 +410,40 @@ def _resolve_viewed_values(
     return by_account
 
 
+def _recalled_figure_conflicts(
+    value_observations, accounts: list[Account]
+) -> list[ReviewItemInput]:
+    """R3: a figure the client recalled is not one the adviser saw, so it never selects a value;
+    it only confirms or conflicts. One that matches a single account and differs from the value
+    selected for it is a non-blocking conflict naming both figures, so the adviser sees the
+    disagreement. A recalled figure that agrees, or that matches no single account or one with
+    no selected value, raises nothing."""
+    items: list[ReviewItemInput] = []
+    for obs in value_observations:
+        if obs.basis != "recalled":
+            continue
+        parsed = parse_amount(obs.amount.text)
+        matches = accounts_matching_reference(obs.account_reference, accounts)
+        if parsed is None or len(matches) != 1 or matches[0].value is None:
+            continue
+        selected = matches[0].value
+        if parsed.amount == selected.amount and parsed.currency == selected.currency:
+            continue
+        items.append(
+            ReviewItemInput(
+                kind="conflict",
+                blocking=False,
+                detail=(
+                    f"{matches[0].id}: the meeting note has a recalled figure, "
+                    f"{obs.amount.text!r}, which differs from the selected value "
+                    f"{render_table(selected)}; a recalled figure never selects a value (R3)."
+                ),
+                refs=[matches[0].id],
+            )
+        )
+    return items
+
+
 def _full_date(day) -> str:  # type: ignore[no-untyped-def]  # a datetime.date
     """ "15 April 2026": the day, month and year, so a blocking item names the date exactly."""
     return f"{day.day} {day:%B} {day.year}"
@@ -1048,6 +1082,11 @@ def _run_stages(
     )
     account_by_id, superseded_review_items = _apply_values(
         account_by_id, records_by_id, observations_by_account, copies_by_id
+    )
+    superseded_review_items.extend(
+        _recalled_figure_conflicts(
+            meeting_extraction.value_observations, list(account_by_id.values())
+        )
     )
     account_currency_by_id = {aid: r.currency for aid, r in records_by_id.items()}
     resolved_accounts, state_markers, state_review_items = _apply_account_states(

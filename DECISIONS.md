@@ -593,8 +593,8 @@ ship, not the outcome of a resample.
 
 ### D28. Build the rules the hand-written cases expose in code, and record where each stops
 - **Context:** the first run of the 17 non-agent hand-written cases (DESIGN 10.6) passed few of
-  them. The failures were mostly missing deterministic rules (R4, R5, R8, R9, R10, P11, section 8.4
-  degradation), not model errors, plus two defects in my own earlier rules: D24's portion-sold
+  them. The failures were mostly missing deterministic rules (R3's recalled figure, R4, R5, R8, R9,
+  R10, P11, section 8.4 degradation), not model errors, plus two defects in my own earlier rules: D24's portion-sold
   marker fired when the note stated the amount, and its funding-word list read the noun "fund" as a
   verb. A held-out client is exactly a shape like these.
 - **Decision:** each is a pure function with tests first (`reconcile/decisions.py`, `meetings.py`,
