@@ -9,8 +9,9 @@ LINT_FILE_CMD="${LINT_FILE_CMD:-ruff check --fix}"
 CODE_EXT_REGEX="${CODE_EXT_REGEX:-\.py$}"
 
 # Full gate (Stop hook + CI via scripts/check.sh)
-FORMAT_CHECK_CMD="${FORMAT_CHECK_CMD:-ruff format --check .}"
-LINT_CMD="${LINT_CMD:-ruff check .}"
+# --no-cache: ruff's cache once hid a lint error locally that CI (a clean checkout) found.
+FORMAT_CHECK_CMD="${FORMAT_CHECK_CMD:-ruff format --check --no-cache .}"
+LINT_CMD="${LINT_CMD:-ruff check --no-cache .}"
 TYPECHECK_CMD="${TYPECHECK_CMD:-pyright}"
 TEST_CMD="${TEST_CMD:-pytest -q}"                        # offline only: pyproject addopts excludes -m live
 EXTRA_CHECK_CMD="${EXTRA_CHECK_CMD:-python scripts/check_repo.py}"   # overfitting, secrets, static text, protected files

@@ -21,7 +21,6 @@ from agent_pipeline.extract.quotes import (
     verify_label,
     verify_quote,
 )
-
 from agent_pipeline.sources.document import SourceDoc
 
 
