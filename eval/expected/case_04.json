@@ -42,6 +42,10 @@
     {
       "value": "£39,000",
       "placement": "table"
+    },
+    {
+      "value": "0%",
+      "placement": "any"
     }
   ],
   "markers": [

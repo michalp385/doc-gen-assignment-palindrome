@@ -67,6 +67,9 @@ from report_eval.truth import ExpectedTruth
 PROMPTS_DIR = Path("config/prompts")
 MODELS_PATH = Path("config/models.json")
 
+# A value cell that is an adviser marker reads "[ADVISER TO CONFIRM #n: ...]".
+MARKER_CELL_PREFIX = "[ADVISER TO CONFIRM"
+
 _TABLE_ROW_RE = re.compile(
     r"^\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|\s*$"
 )
@@ -93,6 +96,8 @@ def _parse_table_rows(report_text: str, new_account_ids: list[str]) -> list[Tabl
         if not match:
             break  # the table ended
         account_id, owner, _account_type, value = (g.strip() for g in match.groups())
+        if value.startswith(MARKER_CELL_PREFIX):
+            value = "marker"  # how the pipeline's own truth names a marker value cell
         if account_id == NEW_ACCOUNT_LABEL and pending_new:
             account_id = pending_new.pop(0)
         rows.append(

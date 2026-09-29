@@ -354,7 +354,9 @@ def _check_g15(bundle: ReportBundle, truth: Truth) -> GateResult:
                 for r in bundle.ledger.review
                 if r.kind == spec.kind
                 and r.blocking == spec.blocking
-                and all(term in r.detail for term in spec.must_mention)
+                # Case-insensitive: the ledger uses an account type's own capitalisation
+                # ("Cash Account"), which an expected file need not guess.
+                and all(term.lower() in r.detail.lower() for term in spec.must_mention)
             ),
             None,
         )
