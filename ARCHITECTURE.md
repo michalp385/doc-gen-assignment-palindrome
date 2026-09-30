@@ -142,7 +142,12 @@ outputs: their prompts and live verification are still to do.
 - Every input given to the writer is digit-free. [write/plan.py]
 - The writer never sees the internal notes' text, only handling directives that code has checked
   against the notes (verbatim evidence, real sections, a person who is a holder, no six-word run
-  shared with the notes). [extract/guidance.py]
+  shared with the notes). The review sheet lists each applied note, and each note that could not be
+  applied ("check it by hand"), so a dropped instruction is never silent. [extract/guidance.py,
+  assemble.py]
+- A non-action's text reaches the writer as extracted. The plan does not name its referent from the
+  extracted `accounts`, which is the account the action is tied to, not always what it concerns
+  (D33). [write/plan.py]
 - A marker's description is built in code from the ledger and names what it concerns (account,
   platform, holders); it carries no figure, and its key is unchanged. [reconcile/marker_text.py]
 - The investigation agent has read-only tools; its findings affect the ledger only through code

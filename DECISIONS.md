@@ -7,20 +7,20 @@ A fixed, code-driven workflow (D5): sources are classified, facts are extracted 
 that code verifies (D9), and a ledger of reconciled facts and adviser-review markers is built in code
 by one function per trust rule. The writer fills each slot from fact IDs and never types a figure (D1),
 gate checks (14 per client in the results file) verify the result, and a release judge (a majority of
-samples) covers the parts that need reading. Result, from `eval/results/20260930T114259Z_81f0089.json` (commit `81f0089`, clean tree, judged): 4 of 4
-clients are drafts with 0 failing deterministic gates, an issued rate of 1.0, a
-release-state match rate of 1.0, 0 wrongly issued, and
-$0.0355 per report. The weak spots are in the same file: the lowest rubric score is 2 out of 5, and
-client 04's extraction matched 1 of 3 expected value observations and
-1 of 2 open actions. The decision most worth discussing is D22/D26: the release
-judge is not repeatable, because neither model on this key accepts `temperature`, so a fresh run can
-fail a correct report (a clause in client 03 that matches the meeting note was flagged in a fresh
-batch). Everything above replays offline from the committed cache; that is the state I chose to
-ship, not the outcome of a resample. The 20 hand-written cases, each aimed at one rule, are scored on
-deterministic gates and release state only, with no rubric judge (it was never run on them):
-`eval/results/20260930T114704Z_365ba7a.json` (commit `365ba7a`, clean tree) shows 19 of 20 matching their
-expected state with no failing deterministic gate, 0 wrongly issued and 0 accepted-and-wrong; the one that
-does not (case_13) is the release judge's G16 sample vote (D22).
+samples) covers the parts that need reading. Result, from `eval/results/20260930T163614Z_013eebd.json`
+(commit `013eebd`, clean tree, judged): 4 of 4 clients are drafts with 0 failing deterministic gates, an
+issued rate of 1.0, a release-state match rate of 1.0, 0 wrongly issued, and $0.0318 per report. The
+rubric judge scores the adviser markers (Q5) 5 out of 5 on all four clients; the starter baseline has no
+markers, so its Q5 is shown as n/a in `eval/progression.md`. The weak spots are in the same file: the
+lowest rubric score is 2 out of 5, and client 04's extraction matched 1 of 3 expected value observations
+and 1 of 2 open actions. The decision most worth discussing is D22/D26: the release judge is not
+repeatable, because neither model on this key accepts `temperature`, so a fresh run can fail a correct
+report (it did on case 08, D22). Everything above replays offline from the committed cache; that is the
+state I chose to ship, not the outcome of a resample. The 20 hand-written cases, each aimed at one rule,
+are scored on deterministic gates and release state only, with no rubric judge (it was never run on
+them): `eval/results/20260930T163630Z_22c6412.json` (commit `22c6412`, clean tree) shows 20 of 20
+matching their expected state, 0 failing deterministic gates, 0 wrongly issued and 0 accepted-and-wrong;
+18 are drafts and 2 stop at the input by design.
 
 ## Decisions
 <!-- Entries added with /decision. Keep the ones that matter; cut the ones that don't. -->
@@ -134,7 +134,7 @@ does not (case_13) is the release judge's G16 sample vote (D22).
   prompt alone).
 - **Consequences / how it generalises:** the G10 screen stays as a backstop. General rules that only some
   clients' notes contain live in config instead.
-- **Evidence:** none yet.
+- **Evidence:** built as D29.
 
 ### D9. Anchor every extracted fact to a verified quote and parse its amount in code
 - **Context:** meeting figures come with wording that matters ("a little over £45,000", "around
@@ -460,6 +460,19 @@ does not (case_13) is the release judge's G16 sample vote (D22).
   under "What I would do with more time". Until then a fresh judge run can fail a correct
   report, and the committed outputs are the ones whose judge verdicts are cached.
 
+- **Rebuild record (the once-only rule):** in the live rebuild after D29 to D32, two runs failed the
+  release judge in their first pass. Client 03 failed G2 on 2 of 3 samples, for "the gross sale
+  proceeds of c. £38,000" (the pattern D25 exempts). I took the one allowed resample, by deleting its
+  recommendation-writer cache entry and re-running non-fresh. Its later drafts failed for real writer
+  defects (the proceeds sentence carrying extra funding and dropping the disposal, then the proceeds
+  attached to the wrong destination, G8), each fixed in rule 2 of the recommendation prompt (D32), not by
+  resampling again. Case 08 failed G16 on 2 of 3 samples for "Vera has no income requirement from her
+  portfolio.", which matches the meeting note word for word; its one allowed resample failed the same way.
+  I did not sample a third time. It stayed a failed generation until the later writer-rule changes altered
+  its report text, and the judge then evaluated the new text and it drafted: a fresh evaluation of
+  different text, not a third sample of the same input. Case 17 also failed once, for a real defect
+  (D33). The committed state is the offline replay of these outcomes, checked with zero live calls.
+
 ### D23. A same-date tie between disagreeing values selects nothing
 - **Context:** R3 says the most recent dated figure wins, but the account data's snapshot and a
   figure viewed in the meeting can carry the same date with different amounts (as can two figures
@@ -651,8 +664,97 @@ does not (case_13) is the release judge's G16 sample vote (D22).
   run is the same length G10 uses, so this is a check one step earlier, not a stricter one: a leak of
   five words gets through both. Revisit if a rebuilt report shows a directive's wording in the text, or
   if a valid directive is dropped as a false leak.
-- **Evidence:** none yet; the effect is measured by the rebuild recorded in the results files
-  committed with it.
+- **What the rebuild showed:** client 03's directive (refer to the origin of the new money with
+  care) was extracted, verified and applied. It is routed to Background & Objectives only, and the
+  inheritance is discussed in Recommendations, so the report still never refers to its origin and the
+  rubric judge's Q3 for client 03 stays at 2 in the results file. The instruction is conditional ("when
+  explaining the funds' origin"), so a misrouted directive can fail to produce the reference, not
+  produce a false statement. A check that routes a directive to every section its subject appears in is
+  not built (listed under "What I would do with more time").
+- **Also fixed:** the review sheet printed only some note kinds, so an applied `handling_note`, and every
+  `ambiguity` item (several modules produce them; six items across five committed outputs), were in the
+  ledger but never shown. `assemble._NOTE_KINDS` now includes both, so a note the run could not apply
+  ("check it by hand") is no longer silent.
+- **Evidence:** `eval/results/20260930T163614Z_013eebd.json` (client 03's `q_scores`), the tests for
+  guidance extraction, handling plumbing and the review sheet's handling notes; commit `543a507`.
+
+### D30. Build marker descriptions in code from the ledger, naming the account and the holder
+- **Context:** the eval judge's Q5 (is each marker actionable) scored client 03 and client 04 low in
+  `eval/results/20260930T114259Z_81f0089.json`: the CGT marker did not say which disposal, the SIPP
+  marker did not say whose contributions, and the new-account marker said "charges" without saying
+  which. The marker text is inserted into the client's report, so it is wording a client can read.
+- **Decision:** `reconcile/marker_text.py` builds the text from accounts and holders: the joint account
+  as "the joint <type>, <platform>", a single holder's as "Ann's <type>, <platform>", first names unless
+  two holders share one, "platform not stated" when the platform is unknown, the SIPP marker as "for
+  James and for Caroline, each", and the new-account marker as "platform charge and advice charge rates
+  for the new joint account held by A and B". No figure appears. There is still one marker per expected-
+  facts key, so the eval's contract does not change.
+- **Alternatives:** let the writer describe the marker (it does not type facts, and this text goes to
+  the client); one marker per holder (changes the keys and the one-marker-per-key rule).
+- **Consequences / how it generalises:** marker text is a writer and judge input, so this changed cache
+  keys and needed one rebuild (D26). "in-scope", our own word, is gone from client-facing text. Revisit
+  if a client has three holders on one account: the phrase joins them, and its readability is untested.
+- **Evidence:** the marker-text tests; the Q5 for each client is in
+  `eval/results/20260930T163614Z_013eebd.json` and the before/after in `eval/progression.md`
+  (the baseline has no markers, so its Q5 is n/a); commit `46b8166`.
+
+### D31. Match a statement row to a same-type account by owner, then platform, and leave the rest unmatched
+- **Context:** two accounts of one type held by the same people on different platforms could not be told
+  apart from a statement row's label (P10), so the row stayed unmatched.
+- **Decision:** `match_image_row` narrows by owner first. Only if two or more accounts still match does it
+  narrow by the platform named in the label, as a whole word, and it matches only a unique result. A label
+  that names someone who holds neither account is never matched by platform.
+- **Alternatives:** a substring match on the platform ("North" would match "Northgate": a value attached
+  to the wrong account, which is a wrong figure); ask a model to choose (the answer has a right value, so
+  code decides).
+- **Consequences / how it generalises:** an unmatched row is safe, since a report uses a statement value
+  only after it matches, so this can only let more rows match. A label that names only a platform both
+  accounts share stays unmatched.
+- **Evidence:** the image-row platform tests; commit `edab959`.
+
+### D32. Give the recommendation writer rules for money roles, reasons and repeats, and fix what each rebuild broke
+- **Context:** the recommendation slot receives received, committed, available and excluded money, and the
+  prompt had no rule about which role may be stated how; only G7 and G8 caught a misuse, and a failed
+  generation on a correct client is what D22 warns against.
+- **Decision:** rule 5 uses each money fact only for its role and never presents a total across actions as
+  one action's amount; rule 6 gives a reason only when the note or context states one; rule 7 says each
+  recommendation once and never drops an agreed action, a non-action included. Rule 2 (the proceeds
+  sentence, D25) gained three lines over the rebuild: state the disposal first in its own sentence, add no
+  other funding to the proceeds sentence, and attach the proceeds only to the action whose text they fund.
+- **What broke, each found by a live pass and fixed in the prompt rather than by resampling:** a total
+  read as one action's amount (client 03); a non-action dropped (cases 12 and 15); extra funding in the
+  proceeds sentence and the disposal itself dropped (client 03); the proceeds attached to the new account
+  instead of the two ISAs the action text says they fund (client 03, G8).
+- **Alternatives:** leave it to G7 and G8; render the recommendation sentences from a code template
+  (removes the model from the slot, and would also remove D25's dependence on the caveat wording; it is
+  under "What I would do with more time").
+- **Consequences / how it generalises:** every recommendation cache entry changed, so this was part of
+  the one rebuild (D26). Prompt wording is not proof: each rule was checked on the four clients and 20
+  cases, not on a held-out client. Rule 7's example ("the holding") is vague, see D33.
+- **Evidence:** commit `543a507`; gates and Q scores in `eval/results/20260930T163614Z_013eebd.json` and
+  `eval/results/20260930T163630Z_22c6412.json`; the first-attempt failures are recorded in D22.
+
+### D33. Leave a non-action's referent to the writer; do not name it from the extracted accounts
+- **Context:** on client 04 the report says "We recommend leaving the holding as it is", straight after a
+  recommendation about a Holloway GIA, when the note means the offshore bond, and the rubric judge's Q2
+  for client 04 fell (`eval/results/20260930T163614Z_013eebd.json`). The ledger action carried
+  `accounts: ['offshore bond']`, so I made the plan add "(this concerns: ...)" from that field.
+- **What happened:** it fixed client 04 (the report then said "the offshore bond"). Case 17 broke: its
+  action "We agreed to leave this for now and revisit if it becomes relevant" carries `accounts: ['one of
+  his General Investment Accounts on Holloway']`, the account a paper share certificate relates to, while
+  "this" is the certificate. The writer said an account was being left alone, which the meeting note
+  never says, and G8 and P6 failed on all three judge samples: a real defect, not judge noise. The two
+  actions look the same in the ledger; only what they mean tells them apart.
+- **Decision:** withdrawn. `write/plan.py` passes a non-action's text as extracted, and a test keeps the
+  annotation out. Client 04's "the holding" stays, as a known unresolved weakness: the sentence can be
+  read as the GIA just above it.
+- **Alternatives:** keep the annotation where the wording is "it" rather than "this" (a wording guess);
+  have the extractor put the referent into the description (the right fix, but it changes every
+  extraction cache entry, so it needs its own rebuild: under "What I would do with more time").
+- **Consequences / how it generalises:** a held-out client with a pronoun-only non-action gets a vague
+  sentence, not a wrong one. The failed case 17 draft was not committed: its outputs were replaced by
+  the replay once the change was withdrawn.
+- **Evidence:** the non-action referent test; commit `cd88bad`.
 
 ## What I would do with more time
 - **Run the Luna-versus-Sol comparison (D2).** Every pipeline stage runs on Luna and only the eval judge
@@ -661,15 +763,15 @@ does not (case_13) is the release judge's G16 sample vote (D22).
   `--stage-models`, and record each Sol upgrade with its cost next to the accuracy it buys (D12). It
   costs money, so it needs its own go-ahead.
 - **Widen the investigation agent (T22, D14, D27).** Built, with one question kind (an ambiguous account mention). On the hand-written cases (`20260929T162142Z_3ce9edb.json`) it raised 4 questions: 2 in the cases built to raise one, both handled as expected, and 2 that no case expects, both left unresolved. 0 were accepted-and-wrong. Not yet opened: label questions (a viewed-versus-recalled basis), whose acceptance rule and tests exist, and a mention that maps to no account. A broader trigger needs the real clients' cache refreshed, since each new question is a model call.
-- **The guidance extractor (D8).** Also unbuilt: the internal guidance text is used only to check that the
-  report does not leak it (G10). The writer is given no handling instructions at all, such as treating an
-  inheritance sensitively, and the lowest "respects handling instructions" score (Q3) in the results file
-  belongs to clients 03 and 04. Turning the guidance into a structured directive, as D8 says, is the first
-  thing I would build.
-- **A money-role rule for the recommendation writer.** Recommendations now receive the received, committed,
-  available and excluded money facts, and the writer prompt has no rule about which role may be stated
-  how. Only G7 and G8 catch a misuse (client 04 carries an outvoted G7 dissent about "the remaining
-  balance"). This is a prompt change, so it needs its own measured pass.
+- **Route handling directives by where their subject appears (D29).** The guidance extractor is built, but
+  a directive is routed to the sections the model names. Client 03's sensitivity note reached Background
+  & Objectives only, while the inheritance is discussed in Recommendations, so Q3 for client 03 is still
+  2 in the results file. A check that finds the sections that mention the directive's subject, and sends
+  it to each, would fix that.
+- **Have the extractor resolve a non-action's referent (D33).** "We agreed to leave it as it is" carries
+  no noun, and the extracted `accounts` is the account the action is tied to, not always what it
+  concerns. Resolving the referent into the description at extraction would remove the "the holding"
+  sentence on client 04. It changes every extraction cache entry, so it needs its own rebuild.
 - **A deterministic judge (D22).** `config/models.json` records `temperature_accepted: false` for
   both models on this key (`gpt-6-luna` and `gpt-6-sol`), so no available model can give a stable verdict. The fix is a
   judge on a model that accepts `temperature=0`, or a smaller judge surface still: build the

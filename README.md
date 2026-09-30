@@ -91,7 +91,7 @@ For a client `<client>`, `outputs/` holds:
 |---|---|
 | `<client>.md` | The **draft for adviser review**: the report itself, with every open point marked in the text as `[ADVISER TO CONFIRM #n: ...]`. Written only when every hard gate passed. |
 | `<client>.failed.md` | A **failed generation**: the reason, the draft if there was one, and the failing gates with the offending text. Never issued. Written *instead of* the draft, and the other file is removed, so a stale draft is never mistaken for the current run. |
-| `<client>.review.md` | What the adviser must **fill, check and clear**, section by section: the numbered markers and why each exists, conflicts and superseded values, blocking and informational open actions, and how the draft degraded where an input was missing or odd. Every marker in the report has a row here. |
+| `<client>.review.md` | What the adviser must **fill, check and clear**, section by section: the numbered markers and why each exists, conflicts and superseded values, blocking and informational open actions, the handling notes applied (or that could not be), and how the draft degraded where an input was missing or odd. Every marker in the report has a row here. |
 | `<client>.ledger.json` | The **facts ledger**: every fact with its source, date and the rule that selected it, plus accounts, money items, actions, markers, review items and section decisions. The table, the figures and the markers in the report are all read from it. |
 | `<client>.run.json` | The **run summary**: release state, every gate result, per-stage calls, cache hits vs live calls, and cost. |
 | `outputs/baseline/` | The starter pipeline's reports, kept as the baseline the eval measures progress against. |
