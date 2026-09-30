@@ -136,4 +136,4 @@ requirements and expected facts for the four clients; `DECISIONS.md` the decisio
 | `data/` | the client inputs (read-only; `data/synthetic/` holds hand-written and generated cases) |
 | `eval/expected/` | the hand-derived expected facts everything is scored against |
 | `cache/llm/` | the committed LLM response cache |
-| `scripts/` | `check.sh`, `check_repo.py`, `dump_client.py` (print a client's sources), `build_handwritten.py` |
+| `scripts/` | `check.sh`, `check_repo.py`, `dump_client.py` (print a client's sources), `build_handwritten.py`, `progression.py` (offline before/after table, baseline against current, written to `eval/progression.md`; every figure is read from the results files it writes) |
