@@ -1,0 +1,827 @@
+{
+  "generated_at": "2026-09-30T11:51:44Z",
+  "commit": "0576203",
+  "dirty": false,
+  "config_hash": "d7ef88ef3e2d2cd7f137b847c4ba07fcc2c5850ebb1c89b4d85468b49c018515",
+  "prompt_versions": {
+    "classify": "0490676fb4b85e4ea083abbabee6488119c1e0c411874088a92db0ae1b7d38c9",
+    "extract_meeting": "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b",
+    "eval_judge": "f20296886939b866ac7d52f8edfc3e8882390be2fd16c2c83db2b67083169764"
+  },
+  "stage_models": {
+    "classify": "gpt-6-luna",
+    "extract": "gpt-6-luna",
+    "investigate": "gpt-6-luna",
+    "plan": "gpt-6-luna",
+    "write": "gpt-6-luna",
+    "release_judge": "gpt-6-luna",
+    "eval_judge": "gpt-6-sol"
+  },
+  "clients": [
+    {
+      "client": "client_01_clean",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [
+        {
+          "criterion": "Q1",
+          "score": 3,
+          "evidence": [
+            "We recommend moving £20,000 from the cash account into the Stocks & Shares ISA, as agreed."
+          ],
+          "detail": "The recommendation gives the action and amount, but does not explain there why it meets Margaret’s ISA allowance objective or mention the relevant platform charge. Both appear elsewhere, so the reader is unlikely to be misled."
+        },
+        {
+          "criterion": "Q2",
+          "score": 4,
+          "evidence": [
+            "She remains comfortable with the previously agreed moderate approach to risk and is satisfied with the portfolio’s performance."
+          ],
+          "detail": "The meeting note says Margaret was happy the portfolio had performed in line with the agreed approach to risk. Saying she is satisfied with its performance slightly broadens that more specific assessment."
+        },
+        {
+          "criterion": "Q3",
+          "score": 5,
+          "evidence": [],
+          "detail": "The report follows the handling instructions: it flags the outstanding charge rates, invents no tax or fee figures, and preserves the FCA line without exposing internal notes."
+        },
+        {
+          "criterion": "Q4",
+          "score": 4,
+          "evidence": [
+            "Margaret is retired and confirmed that her circumstances and objectives remain unchanged since her last review.",
+            "Your agreed risk profile is 4 (moderate).",
+            "We recommend the following:\n\nWe recommend moving £20,000 from the cash account into the Stocks & Shares ISA, as agreed."
+          ],
+          "detail": "The background shifts between referring to Margaret in the third person and addressing her as ‘you’. The repeated ‘We recommend’ is also unnecessary. The meaning remains clear."
+        },
+        {
+          "criterion": "Q5",
+          "score": 5,
+          "evidence": [],
+          "detail": "Both markers name the specific outstanding ongoing charge rate; the platform-rate marker also identifies Holloway."
+        },
+        {
+          "criterion": "Q6",
+          "score": 5,
+          "evidence": [],
+          "detail": ""
+        }
+      ],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "money_items",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "disposals",
+            "expected_count": 0,
+            "actual_count": 0,
+            "matched": 0,
+            "precision": null,
+            "recall": null
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          }
+        ],
+        "labels": [
+          {
+            "label": "blocking",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 10783,
+      "cached_input_tokens": 3318,
+      "output_tokens": 2808,
+      "cost_usd": "0.0211688",
+      "cache_hits": 7,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "client_02_medium",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [
+        {
+          "criterion": "Q1",
+          "score": 2,
+          "evidence": [
+            "We recommend using the gross proceeds of c. £45,000 to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+            "Your joint General Investment Account was previously shown in our records (15 March) as £40,000."
+          ],
+          "detail": "The recommendation does not explicitly tell the clients to sell the joint GIA in full or explain that they wanted to simplify their holdings. The historical valuation also adds unnecessary detail to a section the specification says to keep high-level."
+        },
+        {
+          "criterion": "Q2",
+          "score": 3,
+          "evidence": [
+            "We recommend using the gross proceeds of c. £45,000 to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs. This figure is gross before any CGT and becomes available once the disposal completes."
+          ],
+          "detail": "The meeting note describes a live account value of a little over £45,000, not confirmed disposal proceeds. Calling that figure the gross proceeds gives it slightly more certainty than the source warrants."
+        },
+        {
+          "criterion": "Q3",
+          "score": 4,
+          "evidence": [
+            "| H-GIA-J | David Clarke & Susan Clarke | General Investment Account | c. £45,000 |"
+          ],
+          "detail": "The report appears to use the more recent meeting figure rather than the older recorded value, but does not date the approximate £45,000 valuation. The handling notes call for attention to the dates of figures drawn from sources produced at different times. No internal guidance wording is leaked."
+        },
+        {
+          "criterion": "Q4",
+          "score": 4,
+          "evidence": [
+            "We recommend the following:\n\nWe recommend using the gross proceeds of c. £45,000",
+            "This figure is gross before any CGT"
+          ],
+          "detail": "The repeated opening is unnecessary, and ‘CGT’ appears before the report spells out capital gains tax. Otherwise the language is largely clear."
+        },
+        {
+          "criterion": "Q5",
+          "score": 4,
+          "evidence": [
+            "[ADVISER TO CONFIRM #3: capital gains tax on the disposal]",
+            "[ADVISER TO CONFIRM #4: ISA top-up amounts within the remaining allowances, and where any excess goes]"
+          ],
+          "detail": "Both markers identify the topic but could be more actionable: #3 should identify the joint Holloway GIA disposal, and #4 should name David’s and Susan’s respective ISAs so the amounts to confirm are unambiguous."
+        },
+        {
+          "criterion": "Q6",
+          "score": 5,
+          "evidence": [],
+          "detail": ""
+        }
+      ],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "money_items",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "disposals",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          }
+        ],
+        "labels": [
+          {
+            "label": "basis",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          {
+            "label": "money_class",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          {
+            "label": "extent",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          {
+            "label": "blocking",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 10886,
+      "cached_input_tokens": 4789,
+      "output_tokens": 4613,
+      "cost_usd": "0.0334189",
+      "cache_hits": 7,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "client_03_hard",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [
+        {
+          "criterion": "Q1",
+          "score": 2,
+          "evidence": [
+            "We recommend using the inheritance of £120,000 together with the proceeds to fund both Robert's and Jean's ISAs for the new tax year, and opening a new jointly-held investment account for the balance."
+          ],
+          "detail": "The recommendations say where the money should go but do not explain why this arrangement suits the clients' objectives, as the specification requires. They also do not clearly recommend selling the joint General Investment Account before using its proceeds."
+        },
+        {
+          "criterion": "Q2",
+          "score": 3,
+          "evidence": [
+            "We recommend using the inheritance of £120,000 together with the proceeds to fund both Robert's and Jean's ISAs for the new tax year, and opening a new jointly-held investment account for the balance.",
+            "We recommend using the gross proceeds of c. £38,000 to fund both ISAs and the new jointly-held investment account."
+          ],
+          "detail": "The meeting note describes the inheritance as around £120,000, rather than an exact sum. It also describes around £38,000 as the account value seen at the meeting, not proceeds established by a completed sale. The report makes both amounts sound more settled than the source does."
+        },
+        {
+          "criterion": "Q3",
+          "score": 2,
+          "evidence": [
+            "We recommend using the inheritance of £120,000 together with the proceeds to fund both Robert's and Jean's ISAs for the new tax year, and opening a new jointly-held investment account for the balance."
+          ],
+          "detail": "The report silently ignores the instruction to refer sensitively to the inheritance's origin following Jean's mother's death. It does not leak the wording of the internal notes."
+        },
+        {
+          "criterion": "Q4",
+          "score": 3,
+          "evidence": [
+            "We recommend the following:\n\nWe recommend using the gross proceeds of c. £38,000 to fund both ISAs and the new jointly-held investment account.",
+            "The initial charge that applies is 0.5%."
+          ],
+          "detail": "The recommendations repeat their opening unnecessarily, and the initial-charge sentence does not say what the charge applies to. Spelling and names are otherwise consistent."
+        },
+        {
+          "criterion": "Q5",
+          "score": 2,
+          "evidence": [
+            "[ADVISER TO CONFIRM #2: ongoing advice charge rate]",
+            "[ADVISER TO CONFIRM #3: charges on the new joint account]",
+            "[ADVISER TO CONFIRM #4: capital gains tax on the disposal]"
+          ],
+          "detail": "The advice-charge marker does not identify which accounts it covers. The new-account marker says only 'charges', without identifying the rates or charge types to verify. The tax marker should identify the joint General Investment Account disposal and specify that the missing item is the estimated tax liability."
+        },
+        {
+          "criterion": "Q6",
+          "score": 5,
+          "evidence": [],
+          "detail": ""
+        }
+      ],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "money_items",
+            "expected_count": 2,
+            "actual_count": 2,
+            "matched": 2,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "disposals",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 2,
+            "actual_count": 2,
+            "matched": 2,
+            "precision": 1.0,
+            "recall": 1.0
+          }
+        ],
+        "labels": [
+          {
+            "label": "basis",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          {
+            "label": "money_class",
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          },
+          {
+            "label": "extent",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          {
+            "label": "blocking",
+            "correct": 2,
+            "total": 2,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 12297,
+      "cached_input_tokens": 3665,
+      "output_tokens": 5500,
+      "cost_usd": "0.0346837",
+      "cache_hits": 8,
+      "live_calls": 0,
+      "notes": []
+    },
+    {
+      "client": "client_04_stretch",
+      "release_state": "draft",
+      "expected_release_state": "draft",
+      "gate_results": [
+        {
+          "gate": "G1",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G2",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G3",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G4",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G5",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G6",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G9",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G10",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G11",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G12",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G13",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G14",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "G15",
+          "passed": true,
+          "detail": ""
+        },
+        {
+          "gate": "P6",
+          "passed": true,
+          "detail": ""
+        }
+      ],
+      "q_scores": [
+        {
+          "criterion": "Q1",
+          "score": 2,
+          "evidence": [
+            "We recommend using both ISA allowances for the new tax year and making pension contributions into both SIPPs up to the appropriate level. [ADVISER TO CONFIRM #7: SIPP contribution amounts]",
+            "We recommend placing the remaining balance into a new jointly held investment account. [ADVISER TO CONFIRM #10: the balance placed into the new account]"
+          ],
+          "detail": "The Recommendations section lists actions but gives little explanation of why they suit the stated objective. It also leaves the contribution and investment amounts unresolved, although the specification requires amounts."
+        },
+        {
+          "criterion": "Q2",
+          "score": 3,
+          "evidence": [
+            "Their priority is to build a tax-efficient base that can replace James’s income when he steps back from full-time work, and recommendations should be assessed against this objective.",
+            "We recommend placing the remaining balance into a new jointly held investment account."
+          ],
+          "detail": "The meeting note makes the approximately three-year timeframe central to assessing the advice; the report drops it. It also does not distinguish the completion money available after the committed bridging-loan repayment from the contingent, unpaid earnout when discussing the remaining balance."
+        },
+        {
+          "criterion": "Q3",
+          "score": 2,
+          "evidence": [
+            "James has completed the sale of his company, and he and Caroline seek long-term growth with a balanced-to-moderate approach to risk.",
+            "We recommend placing the remaining balance into a new jointly held investment account."
+          ],
+          "detail": "The report silently ignores the handling note’s warning that the sale proceeds arrive in different forms and at different times. It does not explain the unpaid, contingent earnout or the committed loan repayment before recommending investment of a remaining balance. It does not leak the internal guidance’s wording."
+        },
+        {
+          "criterion": "Q4",
+          "score": 3,
+          "evidence": [
+            "We recommend leaving the other investment as it is for now and revisiting it at the next review.",
+            "The initial charge that applies is 0.5%."
+          ],
+          "detail": "With several investments in the report, ‘the other investment’ does not identify the offshore bond clearly. The initial-charge sentence does not say what the charge applies to."
+        },
+        {
+          "criterion": "Q5",
+          "score": 3,
+          "evidence": [
+            "[ADVISER TO CONFIRM #7: SIPP contribution amounts]",
+            "[ADVISER TO CONFIRM #5: charges on the new joint account]"
+          ],
+          "detail": "The SIPP marker should request separate contribution amounts for James and Caroline. The new-account marker identifies the account but does not specify which charges or rates need confirming."
+        },
+        {
+          "criterion": "Q6",
+          "score": 5,
+          "evidence": [],
+          "detail": ""
+        }
+      ],
+      "extraction_score": {
+        "categories": [
+          {
+            "category": "value_observations",
+            "expected_count": 3,
+            "actual_count": 2,
+            "matched": 1,
+            "precision": 0.5,
+            "recall": 0.3333333333333333
+          },
+          {
+            "category": "money_items",
+            "expected_count": 3,
+            "actual_count": 4,
+            "matched": 3,
+            "precision": 0.75,
+            "recall": 1.0
+          },
+          {
+            "category": "disposals",
+            "expected_count": 1,
+            "actual_count": 1,
+            "matched": 1,
+            "precision": 1.0,
+            "recall": 1.0
+          },
+          {
+            "category": "open_actions",
+            "expected_count": 2,
+            "actual_count": 2,
+            "matched": 1,
+            "precision": 0.5,
+            "recall": 0.5
+          }
+        ],
+        "labels": [
+          {
+            "label": "basis",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          {
+            "label": "money_class",
+            "correct": 3,
+            "total": 3,
+            "accuracy": 1.0
+          },
+          {
+            "label": "extent",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          },
+          {
+            "label": "blocking",
+            "correct": 1,
+            "total": 1,
+            "accuracy": 1.0
+          }
+        ]
+      },
+      "investigation_score": {
+        "questions_raised": 0,
+        "answered_correctly": 0,
+        "stayed_unresolved_correctly": 0,
+        "accepted_and_wrong": 0
+      },
+      "input_tokens": 13995,
+      "cached_input_tokens": 4789,
+      "output_tokens": 8600,
+      "cost_usd": "0.0529126",
+      "cache_hits": 8,
+      "live_calls": 0,
+      "notes": []
+    }
+  ],
+  "skipped_clients": [],
+  "group_summaries": {
+    "real": {
+      "group": "real",
+      "client_count": 4,
+      "issued_rate": 1.0,
+      "release_state_match_rate": 1.0,
+      "wrongly_issued": 0,
+      "accepted_and_wrong": 0,
+      "cost_per_report_usd": "0.0355"
+    }
+  },
+  "total_cost_usd": "0.1421840"
+}
