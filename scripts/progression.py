@@ -200,6 +200,18 @@ def _score_side(
     )
 
 
+_STAMP_FORMAT = "%Y-%m-%dT%H:%M:%SZ"
+
+
+def later_stamp(earlier: str, candidate: str) -> str:
+    """`candidate`, or one second after `earlier` if it is not later. A results file is named by
+    its one-second timestamp and the commit, so two files from one run must not share a stamp."""
+    if candidate > earlier:
+        return candidate
+    bumped = dt.datetime.strptime(earlier, _STAMP_FORMAT) + dt.timedelta(seconds=1)
+    return bumped.strftime(_STAMP_FORMAT)
+
+
 def main() -> int:
     config = load_report_config(CONFIG_PATH)
     models = json.loads(MODELS_PATH.read_text(encoding="utf-8"))
@@ -208,6 +220,9 @@ def main() -> int:
     # tree "dirty" for the second.
     before, before_unjudged = _score_side(BASELINE_DIR, clients, "baseline", config, models)
     after, after_unjudged = _score_side(CURRENT_DIR, clients, "real", config, models)
+    after = after.model_copy(
+        update={"generated_at": later_stamp(before.generated_at, after.generated_at)}
+    )
     before_path = write_results_file(before)
     after_path = write_results_file(after)
 
