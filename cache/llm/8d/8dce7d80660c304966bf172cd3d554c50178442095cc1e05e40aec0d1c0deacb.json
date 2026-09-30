@@ -1,0 +1,73 @@
+{
+  "cost_usd": "0.0021377",
+  "input_hash": "e7fde63cf51e0329c7a5da6ee31d46cbe20ec9f951ea30127b6ad48c1f130db6",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA, as agreed."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "No investments are being sold."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Klaus remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Klaus confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "He remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Klaus has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Klaus has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk profile is moderate.",
+        "paragraph_id": "p2",
+        "quote": "Klaus confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Klaus agreed to pay \u00a36,000 into the Stocks & Shares ISA.",
+        "paragraph_id": "p5",
+        "quote": "We agreed he would pay \u00a36,000 into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA, as agreed.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "No investments are being sold.",
+        "paragraph_id": "p5",
+        "quote": "We agreed he would pay \u00a36,000 into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "No investments are being sold.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA, as agreed."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "No investments are being sold."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2497,
+    "output_tokens": 3776,
+    "reasoning_tokens": 3211
+  }
+}

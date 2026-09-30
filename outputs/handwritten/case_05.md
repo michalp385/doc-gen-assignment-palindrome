@@ -26,7 +26,7 @@ We recommend checking the cash account and, if the funds are available, moving Â
 
 ## Fees & Charges
 
-An ongoing platform charge applies to your investments on Holloway. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
+An ongoing platform charge applies to your investments. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
 
 An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate for the accounts on Holloway].
 
@@ -36,4 +36,4 @@ The initial charge that applies is 0%.
 
 The value of investments can fall as well as rise and you may get back less than you invest. Past performance is not a guide to future returns.
 
-Please let us know if you would like to proceed, and we will be happy to help.
+Please let us know if you would like to proceed with our recommendation; weâ€™ll be pleased to help.

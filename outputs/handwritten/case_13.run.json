@@ -158,25 +158,25 @@
     {
       "stage": "write",
       "calls": 5,
-      "cache_hits": 3,
-      "live_calls": 2,
+      "cache_hits": 4,
+      "live_calls": 1,
       "tokens": {
-        "input": 4489,
-        "cached_input": 1422,
-        "output": 303,
-        "reasoning": 93
+        "input": 4768,
+        "cached_input": 1589,
+        "output": 400,
+        "reasoning": 186
       },
-      "cost_usd": "0.0006004",
-      "latency_s": 3.668328374857083,
+      "cost_usd": "0.0006768",
+      "latency_s": 2.89349599997513,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
-        "30f91c95b05038946e72ea9583bf3385a42e0da5c56579610d445b649a0a7f2f",
-        "5d82af3e6687d9d8d06e705a03bb732ec3af5d6a73571706a8781f7be8c3ddd0",
-        "bc75978d80a620494428cf68d9da2866c6f09867b78144c8192416c6a196196c",
-        "cfa4c11a5375e0cfa6b5984ea493d5d59af608051767b8ea722191fa473b6584",
-        "e8ad6e2be045a2de80d6973e56f53b183d273b2b613cf18d59dd8b02508b0481"
+        "1bbba08a78878a56c08358453edf4bc552e4f63d1da78fcb4c8c4a3a30c21171",
+        "7484353a95291c6344e3638f244423cc4de30d3170676dd43246d4e86efda064",
+        "7c75508fc5047488559364c74e7ecc174a064bda47e02237e7bce989ebbb4861",
+        "8afb729f92d3f62cd1b68ab1c67a3a02de18eda06942110bbf187f66125d0254",
+        "c4cf9539bfaff3de6b78059e985d66a6bdadd39f1ed1833d02449bac6bd6ee15"
       ]
     },
     {
@@ -185,13 +185,13 @@
       "cache_hits": 0,
       "live_calls": 3,
       "tokens": {
-        "input": 7364,
+        "input": 7379,
         "cached_input": 5490,
-        "output": 10594,
-        "reasoning": 9368
+        "output": 12400,
+        "reasoning": 11246
       },
-      "cost_usd": "0.0060334",
-      "latency_s": 111.27815066603944,
+      "cost_usd": "0.0069379",
+      "latency_s": 97.19045720761642,
       "models": [
         "gpt-6-luna"
       ],
@@ -201,7 +201,7 @@
     }
   ],
   "total_calls": 12,
-  "total_cache_hits": 7,
-  "total_live_calls": 5,
-  "total_cost_usd": "0.0076657"
+  "total_cache_hits": 8,
+  "total_live_calls": 4,
+  "total_cost_usd": "0.0086466"
 }

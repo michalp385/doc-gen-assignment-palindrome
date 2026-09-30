@@ -1,0 +1,51 @@
+{
+  "cost_usd": "0.0023281",
+  "input_hash": "d86e7dd83db1d51b6e2c2e6072949cbd2bd124104cb5266823a4124f5ab53958",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a35,000 from the cash account into the Stocks & Shares ISA, as agreed."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "She has no income requirement from her portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Rosalind has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from her portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to move \u00a35,000 from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p4",
+        "quote": "We agreed she would move \u00a35,000 from the cash account into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "We recommend moving \u00a35,000 from the cash account into the Stocks & Shares ISA",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The move was agreed.",
+        "paragraph_id": "p4",
+        "quote": "We agreed she would move \u00a35,000 from the cash account into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "as agreed.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a35,000 from the cash account into the Stocks & Shares ISA, as agreed."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2461,
+    "output_tokens": 4164,
+    "reasoning_tokens": 3789
+  }
+}

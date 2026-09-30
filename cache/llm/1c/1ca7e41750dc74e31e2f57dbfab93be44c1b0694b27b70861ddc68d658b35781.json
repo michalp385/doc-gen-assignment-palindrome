@@ -1,0 +1,196 @@
+{
+  "cost_usd": "0.0050228",
+  "input_hash": "75b4a61b8ff5d06d057507ef4512fba24f65c0b1c18b82b363bf956b28e276ef",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "The inheritance will be used together with these proceeds to fund both ISAs."
+      },
+      {
+        "action_id": "a3",
+        "report_quote": "We recommend opening a new jointly-held investment account for the balance."
+      }
+    ],
+    "findings": [
+      {
+        "detail": "The report presents \u00a3120,000 as the money available across the agreed actions, although the source identifies that amount as the inheritance and the report also separately counts the GIA proceeds toward those actions.",
+        "gate": "G2",
+        "quote": "\u00a3120,000 is the money available to invest across the agreed actions."
+      }
+    ],
+    "material_claims": [
+      {
+        "claim": "The couple would like to invest alongside their existing portfolio.",
+        "paragraph_id": "p3",
+        "quote": "The couple would like to put this to work alongside their existing portfolio.",
+        "report_quote": "The couple would like to invest alongside their existing portfolio",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Their aim is long-term growth with no portfolio income needed for the foreseeable future.",
+        "paragraph_id": "p4",
+        "quote": "Their objectives are unchanged from the last review: long-term growth, with no income required from the portfolio for the foreseeable future.",
+        "report_quote": "with the aim of achieving long-term growth and no need for portfolio income for the foreseeable future.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Their objectives remain unchanged.",
+        "paragraph_id": "p4",
+        "quote": "Their objectives are unchanged from the last review: long-term growth, with no income required from the portfolio for the foreseeable future.",
+        "report_quote": "Their objectives remain unchanged",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Both are comfortable maintaining a moderate level of risk.",
+        "paragraph_id": "p4",
+        "quote": "Both remain at a moderate risk level and were comfortable keeping it there.",
+        "report_quote": "and both are comfortable maintaining a moderate level of risk.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Jean mentioned a separate cash account from some years ago.",
+        "paragraph_id": "p9",
+        "quote": "Jean mentioned in passing that she has another small cash account from some years ago, but she could not recall the balance and was not even sure it was still active.",
+        "report_quote": "Jean also mentioned a separate cash account from some years ago",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Jean is unsure whether the cash account remains active or what it contains.",
+        "paragraph_id": "p9",
+        "quote": "Jean mentioned in passing that she has another small cash account from some years ago, but she could not recall the balance and was not even sure it was still active.",
+        "report_quote": "although she is unsure whether it remains active or what it contains.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk profile is 4 (moderate).",
+        "paragraph_id": "p4",
+        "quote": "Both remain at a moderate risk level and were comfortable keeping it there.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The joint General Investment Account was shown in records on 10 March as \u00a330,000.",
+        "paragraph_id": "p6",
+        "quote": "Pulling it up during the meeting, it was showing around \u00a338,000, a little higher than the figure on the last statement they had to hand.",
+        "report_quote": "Your joint General Investment Account was previously shown in our records (10 March) as \u00a330,000.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to disinvest the joint GIA.",
+        "paragraph_id": "p7",
+        "quote": "The plan we agreed: disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year and open a new jointly-held investment account for the balance.",
+        "report_quote": "We recommend disinvesting the joint GIA.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The gross proceeds are approximately \u00a338,000.",
+        "paragraph_id": "p6",
+        "quote": "Pulling it up during the meeting, it was showing around \u00a338,000, a little higher than the figure on the last statement they had to hand.",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a338,000 to fund both Robert's and Jean's ISAs for the new tax year.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds are to fund both Robert's and Jean's ISAs for the new tax year.",
+        "paragraph_id": "p7",
+        "quote": "The plan we agreed: disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year and open a new jointly-held investment account for the balance.",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a338,000 to fund both Robert's and Jean's ISAs for the new tax year.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds figure is gross before any CGT.",
+        "paragraph_id": "p8",
+        "quote": "Selling down the GIA is a disposal, so there is a capital gains position to set out in the report.",
+        "report_quote": "This figure is gross before any CGT",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds become available once the disposal completes.",
+        "paragraph_id": "p7",
+        "quote": "The plan we agreed: disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year and open a new jointly-held investment account for the balance.",
+        "report_quote": "becomes available once the disposal completes.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The inheritance is to be used together with the proceeds to fund both ISAs.",
+        "paragraph_id": "p7",
+        "quote": "The plan we agreed: disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year and open a new jointly-held investment account for the balance.",
+        "report_quote": "The inheritance will be used together with these proceeds to fund both ISAs.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to open a new jointly-held investment account for the balance.",
+        "paragraph_id": "p7",
+        "quote": "The plan we agreed: disinvest the joint GIA, and together with the inheritance, fund both Robert's and Jean's ISAs for the new tax year and open a new jointly-held investment account for the balance.",
+        "report_quote": "We recommend opening a new jointly-held investment account for the balance.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "\u00a3120,000 is described as the money available to invest across the agreed actions.",
+        "paragraph_id": "p3",
+        "quote": "Jean has received an inheritance of around \u00a3120,000 from her late mother's estate, which has now cleared.",
+        "report_quote": "\u00a3120,000 is the money available to invest across the agreed actions.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "An ongoing platform charge applies to investments held on Holloway.",
+        "paragraph_id": "p6",
+        "quote": "We looked at the jointly-held General Investment Account on the Holloway platform.",
+        "report_quote": "An ongoing platform charge applies to the investments held on Holloway.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "An ongoing advice charge applies to the accounts on Holloway.",
+        "paragraph_id": "p10",
+        "quote": "Robert asked about the charges on the new joint account; I said the report would set those out once verified.",
+        "report_quote": "An ongoing advice charge applies to the accounts on Holloway.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Ongoing platform and advice charges apply to the new joint account held by Robert and Jean.",
+        "paragraph_id": "p10",
+        "quote": "Robert asked about the charges on the new joint account; I said the report would set those out once verified.",
+        "report_quote": "Ongoing platform and advice charges apply to the new joint account held by Robert and Jean.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The initial charge is 0.5%.",
+        "paragraph_id": "p10",
+        "quote": "Robert asked about the charges on the new joint account; I said the report would set those out once verified.",
+        "report_quote": "The initial charge that applies is 0.5%.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a338,000 to fund both Robert's and Jean's ISAs for the new tax year."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "The inheritance will be used together with these proceeds to fund both ISAs."
+      },
+      {
+        "action_id": "a3",
+        "report_quote": "We recommend opening a new jointly-held investment account for the balance."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 3108,
+    "output_tokens": 9424,
+    "reasoning_tokens": 7146
+  }
+}

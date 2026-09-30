@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0002548",
+  "input_hash": "8436616dcacb66a721eab155b967691736774f67c637ca56e9ba22e28c6041d3",
+  "model": "gpt-6-luna",
+  "prompt_version": "7c75508fc5047488559364c74e7ecc174a064bda47e02237e7bce989ebbb4861",
+  "response": {
+    "paragraphs": [
+      "the accounts comprising James's Stocks & Shares ISA held with Holloway, your General Investment Account held with Holloway, James's SIPP held with Brightwell, your General Investment Account held with Brightwell, your Offshore Investment Bond held with Meridian, Caroline's Stocks & Shares ISA held with Holloway, Caroline's SIPP held with Brightwell and your New joint account"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1283,
+    "output_tokens": 253,
+    "reasoning_tokens": 163
+  }
+}

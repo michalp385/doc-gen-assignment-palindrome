@@ -3,7 +3,7 @@
 ## Status
 
 Release state: draft
-Cache replay vs live: 20 replayed, 0 live
+Cache replay vs live: 21 replayed, 0 live
 Gates: 22/22 passed
 
 ## Blocking before sign-off
@@ -41,7 +41,7 @@ None.
 ## Notes
 
 - new joint account: its type and platform are not stated in the sources; confirm both.
-- a handling note was applied to background_objectives: When explaining the funds’ origin, do so with care given the family bereavement.
+- a handling note was applied to background_objectives and recommendations: Refer to the source of the new funds in restrained, sensitive language.
 - statement image shows '30,000' for 'Holloway GIA (Joint)'; selected value is 38000
 
 ## How this draft degraded

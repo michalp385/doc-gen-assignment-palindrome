@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0000975",
+  "input_hash": "ee27c46b849585cfe8732b07b2794171bfd1328ba1af66482d9a824797d16b37",
+  "model": "gpt-6-luna",
+  "prompt_version": "7c75508fc5047488559364c74e7ecc174a064bda47e02237e7bce989ebbb4861",
+  "response": {
+    "paragraphs": [
+      "your Stocks & Shares ISA"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 875,
+    "output_tokens": 20,
+    "reasoning_tokens": 0
+  }
+}

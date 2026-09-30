@@ -1,0 +1,65 @@
+{
+  "cost_usd": "0.0034216",
+  "input_hash": "ecc3f8ef094fbb1375525c8af5847c74a45a328271d4c4e155fa59da7f3dff4d",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no other changes at this time, as agreed."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Yvonne's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Yvonne confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Yvonne confirmed that her circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Yvonne confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "She remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Yvonne has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne is happy to leave her Stocks & Shares ISA unchanged.",
+        "paragraph_id": "p3",
+        "quote": "We discussed her Stocks & Shares ISA, which she is happy to leave as it is.",
+        "report_quote": "We recommend making no other changes at this time, as agreed.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne has another account on the Holloway platform.",
+        "paragraph_id": "p4",
+        "quote": "Yvonne also asked about her other account on the Holloway platform; she was not sure of its current value.",
+        "report_quote": "accounts on Holloway",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no other changes at this time, as agreed."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2431,
+    "output_tokens": 6357,
+    "reasoning_tokens": 5976
+  }
+}

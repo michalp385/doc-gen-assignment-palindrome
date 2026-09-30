@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001066",
+  "input_hash": "4c762ff2ba4bbf32c8b617d22db6099b9ff7c4c202dc5439f9e29da8bd45b37f",
+  "model": "gpt-6-luna",
+  "prompt_version": "7c75508fc5047488559364c74e7ecc174a064bda47e02237e7bce989ebbb4861",
+  "response": {
+    "paragraphs": [
+      "Bernard's two General Investment Accounts and your Stocks & Shares ISA, held with Holloway"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 901,
+    "output_tokens": 33,
+    "reasoning_tokens": 0
+  }
+}

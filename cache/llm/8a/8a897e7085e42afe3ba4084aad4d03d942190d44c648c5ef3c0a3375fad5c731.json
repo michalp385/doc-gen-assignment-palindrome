@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001147",
+  "input_hash": "2ed802519c0a60c5f574f681d39978696cf35ec1066625f4cf43ff25d57e60af",
+  "model": "gpt-6-luna",
+  "prompt_version": "c4cf9539bfaff3de6b78059e985d66a6bdadd39f1ed1833d02449bac6bd6ee15",
+  "response": {
+    "paragraphs": [
+      "Bernard confirmed that his circumstances and objectives are unchanged. He remains comfortable with a moderate approach to risk and has no income requirement from the portfolio."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 927,
+    "output_tokens": 44,
+    "reasoning_tokens": 0
+  }
+}

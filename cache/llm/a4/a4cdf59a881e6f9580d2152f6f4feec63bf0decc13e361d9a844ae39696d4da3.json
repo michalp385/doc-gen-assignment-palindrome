@@ -1,0 +1,20 @@
+{
+  "cost_usd": "0.0002864",
+  "input_hash": "e0501c961737525d33cd30fe09280efcd7024f5796c37c43c80006c10eb8b64b",
+  "model": "gpt-6-luna",
+  "prompt_version": "7484353a95291c6344e3638f244423cc4de30d3170676dd43246d4e86efda064",
+  "response": {
+    "paragraphs": [
+      "We recommend selling Diane's General Investment Account.",
+      "We recommend using the gross proceeds of {fact:action.a1.amount} to top up her Stocks & Shares ISA for the new tax year. This figure is gross before any CGT and becomes available once the disposal completes.",
+      "{marker:disposal_pending_confirmation}"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1589,
+    "input_tokens": 1744,
+    "output_tokens": 224,
+    "reasoning_tokens": 145
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0005194",
+  "input_hash": "50c7cd3fc115497c5288cb4626e1866c31b5e3f1bbdc3a57c6de4ea413dafe3e",
+  "model": "gpt-6-luna",
+  "prompt_version": "7484353a95291c6344e3638f244423cc4de30d3170676dd43246d4e86efda064",
+  "response": {
+    "paragraphs": [
+      "We recommend disinvesting the joint GIA. We recommend using the gross proceeds of {fact:action.a1.amount} to fund both Robert's and Jean's ISAs for the new tax year. This figure is gross before any CGT and becomes available once the disposal completes. The inheritance will be used together with these proceeds to fund both ISAs. We recommend opening a new jointly-held investment account for the balance. {fact:money.available} is the money available to invest across the agreed actions. {marker:isa_amounts}"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1589,
+    "input_tokens": 2149,
+    "output_tokens": 609,
+    "reasoning_tokens": 483
+  }
+}

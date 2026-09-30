@@ -1,0 +1,59 @@
+{
+  "cost_usd": "0.029144",
+  "input_hash": "eb396e4e78645d432e71f1f16bbbf702005b5512300e17d76e71c34d3d4233b8",
+  "model": "gpt-6-sol",
+  "prompt_version": "f20296886939b866ac7d52f8edfc3e8882390be2fd16c2c83db2b67083169764",
+  "response": {
+    "findings": [
+      {
+        "criterion": "Q1",
+        "detail": "Background & Objectives includes an unnecessary historic valuation rather than staying high level. The recommendations say what to do, but do not clearly explain why selling the GIA and funding the ISAs is recommended.",
+        "report_quote": [
+          "Your joint General Investment Account was previously shown in our records (10 March) as \u00a330,000.",
+          "We recommend disinvesting the joint GIA."
+        ],
+        "score": 4
+      },
+      {
+        "criterion": "Q2",
+        "detail": "The meeting note describes around \u00a3120,000 of inheritance in addition to the joint GIA proceeds. Calling \u00a3120,000 the money available across all the actions understates the total being put to work.",
+        "report_quote": [
+          "\u00a3120,000 is the money available to invest across the agreed actions."
+        ],
+        "score": 2
+      },
+      {
+        "criterion": "Q3",
+        "detail": "The report does not follow the handling instruction to refer sensitively to the inheritance\u2019s origin following Jean\u2019s mother\u2019s death. It omits that context rather than leaking the internal wording.",
+        "report_quote": [
+          "The inheritance will be used together with these proceeds to fund both ISAs."
+        ],
+        "score": 2
+      },
+      {
+        "criterion": "Q4",
+        "detail": "The report shifts from addressing Robert and Jean directly to calling them \u2018the couple\u2019, and the consecutive \u2018We recommend\u2019 sentences are needlessly repetitive.",
+        "report_quote": [
+          "The couple would like to invest alongside their existing portfolio",
+          "We recommend disinvesting the joint GIA. We recommend using the gross proceeds"
+        ],
+        "score": 4
+      },
+      {
+        "criterion": "Q5",
+        "detail": "This marker identifies the figures needed, but should name Robert\u2019s and Jean\u2019s ISAs individually and specify that the resulting balance is for the new joint account.",
+        "report_quote": [
+          "[ADVISER TO CONFIRM #5: ISA top-up amounts and the resulting balance for the new account]"
+        ],
+        "score": 4
+      }
+    ]
+  },
+  "stage": "eval_judge",
+  "usage": {
+    "cached_input_tokens": 1124,
+    "input_tokens": 3097,
+    "output_tokens": 2295,
+    "reasoning_tokens": 1907
+  }
+}

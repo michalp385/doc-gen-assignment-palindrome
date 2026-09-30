@@ -1,0 +1,26 @@
+{
+  "cost_usd": "0.0002661",
+  "input_hash": "fb8bf60d74b2a2869cfccdfc330fc9a5c5c02821cd368f2b0e9310948a08c626",
+  "model": "gpt-6-luna",
+  "prompt_version": "7f65e67ba31945184e09aa4ee5245f294f13001223b9d26db0d7077cee9985ff",
+  "response": {
+    "directives": [
+      {
+        "evidence": "Reference its origin with appropriate sensitivity.",
+        "instruction": "Refer to the source of the new funds in restrained, sensitive language.",
+        "person": null,
+        "sections": [
+          "background_objectives",
+          "recommendations"
+        ]
+      }
+    ]
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 991,
+    "output_tokens": 334,
+    "reasoning_tokens": 275
+  }
+}

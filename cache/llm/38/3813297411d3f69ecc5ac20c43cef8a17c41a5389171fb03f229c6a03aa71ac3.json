@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001332",
+  "input_hash": "2edda3c4c912998863a4de0a7586f26f28824fb29f456adeb12cab36f5133371",
+  "model": "gpt-6-luna",
+  "prompt_version": "7c75508fc5047488559364c74e7ecc174a064bda47e02237e7bce989ebbb4861",
+  "response": {
+    "paragraphs": [
+      "your Offshore Investment Bond held with Meridian and your Stocks & Shares ISA held with Holloway"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 887,
+    "output_tokens": 89,
+    "reasoning_tokens": 55
+  }
+}

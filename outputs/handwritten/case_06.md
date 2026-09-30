@@ -27,7 +27,11 @@ We recommend paying £4,000 into the Stocks & Shares ISA.
 
 ## Fees & Charges
 
-An ongoing platform charge applies to your investments held on Brightwell. The platform charge rate for Brightwell is [ADVISER TO CONFIRM #2: ongoing platform charge rate, Brightwell]. An ongoing platform charge also applies to your investments held on Holloway. The platform charge rate for Holloway is [ADVISER TO CONFIRM #3: ongoing platform charge rate, Holloway]. An ongoing advice charge applies to the accounts on Brightwell and Holloway. The advice charge rate is [ADVISER TO CONFIRM #4: ongoing advice charge rate for the accounts on Brightwell and Holloway].
+An ongoing platform charge applies to your investments on Brightwell. The Brightwell platform charge rate is [ADVISER TO CONFIRM #2: ongoing platform charge rate, Brightwell].
+
+An ongoing platform charge also applies to your investments on Holloway. The Holloway platform charge rate is [ADVISER TO CONFIRM #3: ongoing platform charge rate, Holloway].
+
+An ongoing advice charge applies to the accounts on Brightwell and Holloway. The advice charge rate is [ADVISER TO CONFIRM #4: ongoing advice charge rate for the accounts on Brightwell and Holloway].
 
 The initial charge that applies is 0%.
 
@@ -35,4 +39,4 @@ The initial charge that applies is 0%.
 
 The value of investments can fall as well as rise and you may get back less than you invest. Past performance is not a guide to future returns.
 
-Please let us know if you would like to proceed, and we will be happy to help.
+Please let us know if you would like to proceed with our recommendation; we’ll be pleased to help.

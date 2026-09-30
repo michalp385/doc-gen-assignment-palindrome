@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Further to our recent discussions, we are writing to set out our advice in relation to the General Investment Account held by Bernard and your Stocks & Shares ISA, both held with Holloway. This advice is based on the information currently available to us.
+Further to our recent discussions, we are writing to set out our advice in relation to the two General Investment Accounts belonging to Bernard and your Stocks & Shares ISA, held with Holloway. This advice is based on the information currently available to us.
 
 This firm is authorised and regulated by the Financial Conduct Authority.
 
@@ -24,11 +24,11 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend leaving all as they are. We recommend leaving this for now and revisiting it if it becomes relevant.
+We recommend leaving all as they are. We recommend making no other changes at this time, as agreed, and revisiting the matter if it becomes relevant.
 
 ## Fees & Charges
 
-An ongoing platform charge applies to your investments on Holloway. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
+An ongoing platform charge applies to your investments. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
 
 An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate for the accounts on Holloway].
 
@@ -38,4 +38,4 @@ The initial charge that applies is 0%.
 
 The value of investments can fall as well as rise and you may get back less than you invest. Past performance is not a guide to future returns.
 
-Please let us know if you would like to proceed, and we will be happy to help.
+Please let us know if you would like to proceed with our recommendation; we’ll be pleased to help.

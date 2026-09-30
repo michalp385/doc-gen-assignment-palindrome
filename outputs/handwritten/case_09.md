@@ -8,7 +8,7 @@ This firm is authorised and regulated by the Financial Conduct Authority.
 
 ## Background & Objectives
 
-Trevor would like the remaining funds invested in his Stocks & Shares ISA for the new tax year. He has no income requirement from his portfolio.
+Trevor would like the remainder invested into his Stocks & Shares ISA for the new tax year. He has no income requirement from the portfolio.
 
 Your agreed risk profile is 4 (moderate).
 
@@ -26,7 +26,7 @@ We recommend the following:
 
 ## Fees & Charges
 
-An ongoing platform charge applies to your investments on Holloway. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
+An ongoing platform charge applies to your investments. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
 
 An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate for the accounts on Holloway].
 
@@ -36,4 +36,4 @@ The initial charge that applies is 0%.
 
 The value of investments can fall as well as rise and you may get back less than you invest. Past performance is not a guide to future returns.
 
-Please let us know if you would like to proceed, and we will be happy to help.
+Please let us know if you would like to proceed with our recommendation; we’ll be pleased to help.

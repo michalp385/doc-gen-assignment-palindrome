@@ -1,0 +1,20 @@
+{
+  "cost_usd": "0.0002307",
+  "input_hash": "293ab743efea051193aeb452d5de6faecabf6031b7d91cd66f1e8c30c95d1279",
+  "model": "gpt-6-luna",
+  "prompt_version": "1bbba08a78878a56c08358453edf4bc552e4f63d1da78fcb4c8c4a3a30c21171",
+  "response": {
+    "paragraphs": [
+      "An ongoing platform charge applies to the investments held on Holloway. The platform charge rate is {marker:platform_charge_holloway}.",
+      "An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is {marker:advice_charge}.",
+      "Ongoing platform and advice charges apply to the new joint account held by Robert and Jean. The platform charge and advice charge rates for this account are {marker:new_account_charges}."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1067,
+    "output_tokens": 248,
+    "reasoning_tokens": 142
+  }
+}

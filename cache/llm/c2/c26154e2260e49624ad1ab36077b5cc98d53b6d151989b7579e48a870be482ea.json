@@ -1,0 +1,98 @@
+{
+  "cost_usd": "0.0034233",
+  "input_hash": "b75101daf5a0453107c36a45112e93aa49c50cc0776575ed835dbf04eaa22245",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving all as they are."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "revisiting the matter if it becomes relevant."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Bernard's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Bernard confirmed that his circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Bernard remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "He remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Bernard has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Bernard has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk profile is stated as 4 (moderate).",
+        "paragraph_id": "p2",
+        "quote": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to leave everything as it is.",
+        "paragraph_id": "p3",
+        "quote": "We reviewed his Stocks & Shares ISA and his two General Investment Accounts on the Holloway platform; all are to be left as they are.",
+        "report_quote": "We recommend leaving all as they are.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "No other changes are to be made at this time.",
+        "paragraph_id": "p3",
+        "quote": "We reviewed his Stocks & Shares ISA and his two General Investment Accounts on the Holloway platform; all are to be left as they are.",
+        "report_quote": "We recommend making no other changes at this time",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The no-change decision was agreed.",
+        "paragraph_id": "p3",
+        "quote": "We reviewed his Stocks & Shares ISA and his two General Investment Accounts on the Holloway platform; all are to be left as they are.",
+        "report_quote": "as agreed",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The matter is to be revisited if it becomes relevant.",
+        "paragraph_id": "p5",
+        "quote": "We agreed to leave this for now and revisit if it becomes relevant.",
+        "report_quote": "revisiting the matter if it becomes relevant.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving all as they are."
+      },
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no other changes at this time"
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "revisiting the matter if it becomes relevant."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2508,
+    "output_tokens": 6345,
+    "reasoning_tokens": 5718
+  }
+}

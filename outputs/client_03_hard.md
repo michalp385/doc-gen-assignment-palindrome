@@ -8,7 +8,7 @@ This firm is authorised and regulated by the Financial Conduct Authority.
 
 ## Background & Objectives
 
-The couple would like to invest alongside their existing portfolio, with unchanged objectives of long-term growth and no income required for the foreseeable future. Both remain comfortable with a moderate level of risk. Jean also mentioned a separate cash account from some years ago, although she is unsure whether it is still active.
+The couple would like to invest alongside their existing portfolio, with the aim of achieving long-term growth and no need for portfolio income for the foreseeable future. Their objectives remain unchanged, and both are comfortable maintaining a moderate level of risk. Jean also mentioned a separate cash account from some years ago, although she is unsure whether it remains active or what it contains.
 
 Your agreed risk profile is 4 (moderate).
 
@@ -27,29 +27,19 @@ Your joint General Investment Account was previously shown in our records (10 Ma
 
 We recommend the following:
 
-We recommend disinvesting the joint GIA.
-
-We recommend using the gross proceeds of c. £38,000 to fund both Robert’s and Jean’s ISAs for the new tax year. This figure is gross before any CGT and becomes available once the disposal completes.
-
-The inheritance of £120,000 will also fund both ISAs.
-
-The total money available to invest now is £120,000. We recommend opening a new jointly-held investment account for the balance.
-
-[ADVISER TO CONFIRM #5: ISA top-up amounts and the resulting balance for the new account]
+We recommend disinvesting the joint GIA. We recommend using the gross proceeds of c. £38,000 to fund both Robert's and Jean's ISAs for the new tax year. This figure is gross before any CGT and becomes available once the disposal completes. The inheritance will be used together with these proceeds to fund both ISAs. We recommend opening a new jointly-held investment account for the balance. £120,000 is the money available to invest across the agreed actions. [ADVISER TO CONFIRM #5: ISA top-up amounts and the resulting balance for the new account]
 
 ## Tax Implications
 
-We note that the disposal may create a capital gains tax liability assessed against the annual exempt amount for the relevant tax year.
-
-[ADVISER TO CONFIRM #4: capital gains tax on the disposal of the joint General Investment Account, Holloway]
+We note that the disposal may create a capital gains tax liability assessed against the annual exempt amount for the relevant tax year. [ADVISER TO CONFIRM #4: capital gains tax on the disposal of the joint General Investment Account, Holloway]
 
 ## Fees & Charges
 
-An ongoing platform charge applies to your investments held on Holloway. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
+An ongoing platform charge applies to the investments held on Holloway. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
 
-An ongoing advice charge applies to the accounts held on Holloway. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate for the accounts on Holloway].
+An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate for the accounts on Holloway].
 
-For the new joint account held by Robert and Jean, the platform charge and advice charge rates are [ADVISER TO CONFIRM #3: platform charge and advice charge rates for the new joint account held by Robert and Jean (platform not stated)].
+Ongoing platform and advice charges apply to the new joint account held by Robert and Jean. The platform charge and advice charge rates for this account are [ADVISER TO CONFIRM #3: platform charge and advice charge rates for the new joint account held by Robert and Jean (platform not stated)].
 
 The initial charge that applies is 0.5%.
 
@@ -57,4 +47,4 @@ The initial charge that applies is 0.5%.
 
 The value of investments can fall as well as rise and you may get back less than you invest. Past performance is not a guide to future returns.
 
-Please let us know if you would like to proceed, and we’ll be happy to help.
+Please let us know if you would like to proceed, and we will be happy to help.

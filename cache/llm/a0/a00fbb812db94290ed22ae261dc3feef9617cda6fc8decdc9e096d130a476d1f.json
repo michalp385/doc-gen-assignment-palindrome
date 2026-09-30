@@ -1,0 +1,80 @@
+{
+  "cost_usd": "0.0026858",
+  "input_hash": "1491c4a1e5aba46c19f2fc3434967cc922f1aceed42a8b39eb1e13337c34046f",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving all as they are."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "revisiting the matter if it becomes relevant."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Bernard's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Bernard confirmed that his circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Bernard remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "He remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Bernard has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Bernard has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "All reviewed accounts are to be left as they are.",
+        "paragraph_id": "p3",
+        "quote": "We reviewed his Stocks & Shares ISA and his two General Investment Accounts on the Holloway platform; all are to be left as they are.",
+        "report_quote": "We recommend leaving all as they are.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "No other changes are to be made at this time.",
+        "paragraph_id": "p7",
+        "quote": "Next steps: prepare the annual review report confirming no changes.",
+        "report_quote": "We recommend making no other changes at this time",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The matter is to be revisited if it becomes relevant.",
+        "paragraph_id": "p5",
+        "quote": "We agreed to leave this for now and revisit if it becomes relevant.",
+        "report_quote": "revisiting the matter if it becomes relevant.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving all as they are."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend making no other changes at this time, as agreed, and revisiting the matter if it becomes relevant."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2508,
+    "output_tokens": 4870,
+    "reasoning_tokens": 4392
+  }
+}

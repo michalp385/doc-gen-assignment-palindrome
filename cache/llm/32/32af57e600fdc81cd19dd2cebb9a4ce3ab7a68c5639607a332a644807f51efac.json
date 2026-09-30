@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001222",
+  "input_hash": "c22fb360d441c6e3eea7d79596f5adcf3659c235453c4c5dc61273440975c2ff",
+  "model": "gpt-6-luna",
+  "prompt_version": "62cd778e8d7b07d7af414d75c64f478af0e02de9d026396720f34ec1fe6636bf",
+  "response": {
+    "paragraphs": [
+      "We note that the disposal may create a capital gains tax liability assessed against the annual exempt amount for the relevant tax year. {marker:cgt}"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1002,
+    "output_tokens": 44,
+    "reasoning_tokens": 0
+  }
+}
