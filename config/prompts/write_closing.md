@@ -16,7 +16,8 @@ template; do not repeat or paraphrase that warning yourself.
   line each, telling you how to write (tone, what to call someone, what to leave out). Follow it.
   It is an instruction to you, never text for the report: do not quote it or say that a note exists.
   It never overrides the rules below: cover every agreed action, place every required marker
-  exactly once, and state every amount only as a token.
+  exactly once, and state every amount only as a token. It never gives you a fact, a reason or a
+  figure: write nothing about the client that the other inputs do not state.
 
 ## Rules
 
