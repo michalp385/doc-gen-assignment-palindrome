@@ -2,62 +2,82 @@
 
 The hardest calls in this pipeline, why I made them, and what I would do next.
 
+**Start here:** [Summary](#summary) · [D1: the writer never types figures](#d1-fill-figures-and-markers-into-prose-with-ledger-tokens-never-let-the-writer-type-them) · [D2: models per stage](#d2-set-the-model-per-stage-in-config-default-every-pipeline-stage-to-luna-judge-with-sol) · [D22: judge not repeatable](#d22-the-release-judges-verdicts-are-not-repeatable-so-a-fresh-judge-run-can-fail-a-good-report) · [D26: --fresh order](#d26-a-sequential---fresh-batch-is-order-dependent-so-the-committed-cache-is-built-once) · [D29: handling directives](#d29-pass-handling-notes-to-the-writer-as-verified-directives-and-drop-any-that-fail-a-check) · [More time](#what-i-would-do-with-more-time) · [How I worked](#how-i-worked)
+
+The other decisions are the detail behind these, and can be read as needed.
+
 ## Summary
-A fixed, code-driven workflow (D5): sources are classified, facts are extracted with verbatim quotes
-that code verifies (D9), and a ledger of reconciled facts and adviser-review markers is built in code
-by one function per trust rule. The writer fills each slot from fact IDs and never types a figure (D1),
-gate checks (14 per client in the results file) verify the result, and a release judge (a majority of
-samples) covers the parts that need reading. Result, from `eval/results/20260930T203155Z_38c9f47.json`
-(commit `38c9f47`, clean tree, judged): 4 of 4 clients are drafts with 0 failing deterministic gates, an
-issued rate of 1.0, a release-state match rate of 1.0, 0 wrongly issued, and $0.0363 per report. The
-rubric judge scores the adviser markers (Q5) 5 out of 5 on all four clients; the starter
-baseline has no markers, so its Q5 is shown as n/a in `eval/progression.md`. The weak spots are in the same file: the
-lowest rubric score is 2 out of 5 (Q1 on three clients, Q3 on clients 03 and 04), and client 04's extraction matched 1 of 3 expected value observations
-and 1 of 2 open actions. The decision most worth discussing is D22/D26: the release judge is not
-repeatable, because neither model on this key accepts `temperature`, so a fresh run can fail a correct
-report (it did on case 08, D22). Everything above replays offline from the committed cache; that is the
-state I chose to ship, not the outcome of a resample. The 20 hand-written cases, each aimed at one rule,
-are scored on deterministic gates and release state only, with no rubric judge (it was never run on
-them): `eval/results/20260930T203207Z_1efe433.json` (commit `1efe433`, clean tree) shows 20 of 20
-matching their expected state, 0 failing deterministic gates, 0 wrongly issued and 0 accepted-and-wrong;
-18 are drafts and 2 stop at the input by design.
+This pipeline turns a client folder into a draft suitability letter for an adviser to review. The main
+problem with the starter was factual consistency: it invented CGT figures and fee rates, used stale
+account values and let sections bleed into each other. Hence most of my decisions are about keeping
+figures out of the model's hands. Sources are classified, and every fact is extracted together with a
+verbatim quote that code verifies (D9). Code then reconciles the facts into a ledger, one function per
+trust rule, and adds a marker wherever the adviser has to supply something. The writer fills each
+section from fact IDs and never types a figure (D1). Finally, deterministic gates check the draft (14
+per client) and a release judge, which takes the majority of three samples, covers the checks that need
+reading (D22). The workflow itself is fixed in code, and the models only work inside bounded loops (D5).
+
+On the four clients (`eval/results/20260930T203155Z_38c9f47.json`, commit `38c9f47`, judged), all four
+reports are drafts for adviser review, with 0 failing deterministic gates, an issued rate of 1.0, a
+release-state match rate of 1.0, 0 wrongly issued and $0.0363 per report. The rubric judge scores the
+adviser markers (Q5) 5 out of 5 on all four clients. The starter has no markers, so its Q5 is shown as
+n/a in `eval/progression.md`, which compares the baseline with the final outputs client by client. The
+20 hand-written cases, each aimed at one rule, are scored on the deterministic gates and release state
+only, without the rubric judge (`eval/results/20260930T203207Z_1efe433.json`, commit `1efe433`): 20 of
+20 match their expected state (18 drafts and 2 stops at the input by design), with 0 failing
+deterministic gates, 0 wrongly issued and 0 accepted-and-wrong.
+
+The weak spots are in the same results file. The lowest rubric score is 2 out of 5: Q1 on three
+clients, because the recommendation writer is not given the client's objectives and so cannot say why,
+and Q3 on clients 03 and 04. On client 03 the letter does not say where the new money came from,
+because the pipeline does not yet carry the origin of funds as a fact (D29). On client 04 it states the
+money available now without explaining that the earn-out of up to £400,000 is contingent and has not
+been received. Client 04's extraction also matched only 1 of 3 expected value observations and 1 of 2 open
+actions. The decision most worth discussing is D22/D26. Neither model on this key accepts
+`temperature`, so the release judge is not repeatable, and a fresh run can fail a correct report.
+Everything above replays offline from the committed cache, which is the state I chose to ship rather
+than the result of re-running until a report passed.
 
 ## Decisions
-<!-- Entries added with /decision. Keep the ones that matter; cut the ones that don't. -->
 
 ### D1. Fill figures and markers into prose with ledger tokens, never let the writer type them
-- **Context:** the baseline invented CGT figures (£3,540; ~£6,600), fee rates (0.5% + 0.5%) and a stale
-  GIA value (£40,000 against a live ~£45,000), and client 03's report contradicted its own table
-  (£38,000 vs £30,000). CLAUDE.md requires every figure to be a source value or a calculation in code,
-  and SCOPING P1 requires markers to be inserted by code.
-- **Decision:** the writer sees fact IDs with descriptions, never numbers, and writes `{fact:…}` and
-  `{marker:…}` tokens; code fills them from the ledger. Writer output containing any digit fails
-  validation.
-- **Alternatives:** let the writer copy rendered figures into prose and validate every figure
-  afterwards. More natural prose, but a wrong figure is caught after the fact instead of made
-  impossible, and rewording drift ("around" vs "c.") needs fuzzy rules.
-- **Consequences / how it generalises:** prose can read slightly stiffer; each fact needs a prose and a
-  table rendering. Works for any client because no figure passes through a model. Revisit if the judge
-  scores Q4 (clarity) low on token-filled sentences.
-- **Evidence:** none yet (design stage).
+- **Context:** the starter invented CGT figures (£3,540 and about £6,600) and fee rates (0.5% + 0.5%),
+  used a stale GIA value (£40,000 when the meeting showed about £45,000), and client 03's report
+  contradicted its own table (£38,000 against £30,000). In a suitability letter a wrong figure is the
+  most serious error there is, so I wanted the design to make it impossible rather than just unlikely.
+  It is a problem I have met before: in my MSc thesis a text simplification model dropped or invented
+  named entities, and adding special tokens to its input gave control over what had to be preserved.
+- **Decision:** the writer never sees a number. It sees fact IDs with a short description and writes
+  `{fact:…}` and `{marker:…}` tokens, and code fills them in from the ledger. Any digit in the writer's
+  output fails validation.
+- **Alternatives:** let the writer copy the rendered figures into prose and check every figure
+  afterwards. The prose would read more naturally, but a wrong figure would only be caught after it
+  was written, and wording drift such as "around" against "c." would need fuzzy matching rules.
+- **Consequences / how it generalises:** the prose can read a little stiff, and each fact needs both a
+  prose and a table rendering. On the other hand it works in the same way for any client, because no
+  figure ever passes through a model. Revisit if the judge scores clarity (Q4) low on token-filled
+  sentences.
+- **Evidence:** the writer validation tests (`tests/test_write_writer.py`) and every committed report,
+  whose figures all come from its ledger.
 
 ### D2. Set the model per stage in config; default every pipeline stage to Luna, judge with Sol
-- **Context:** the key can use gpt-6-luna and gpt-6-sol (prices in `config/models.json`), among
-  others; at the time, against a fixed budget (since replaced by cost reporting, D12). The release judge
-  (G8, G16) runs on every report, so its model decides both cost and which drafts are issued.
-- **Decision:** every stage's model is a config setting. Luna is the default for every pipeline stage;
-  Sol is the eval judge. The intended comparison (extraction, the release judge and the investigation
-  agent (D14) on both Luna and Sol over the four clients and the hand-written cases, so that a stage
-  moves to Sol only if Luna measurably misses) has not been run. Luna is a default, not a measured
-  choice.
-- **Alternatives:** Luna everywhere including the eval judge (a model grading its own output tends to be
-  lenient); Sol for both judges (dearer per report, so two or three full eval runs would have used most of the
-  budget).
-- **Consequences / how it generalises:** the comparison needs extraction to be scored on its own against
-  expected facts (DESIGN §10.7), which the eval does. If it is run, its outcome gets its own entry,
-  citing both results files. It is listed under "What I would do with more time".
+- **Context:** the key gives access to `gpt-6-luna` and `gpt-6-sol` (prices in `config/models.json`).
+  When I made this choice I was working to a fixed budget, which I later replaced with cost reporting
+  (D12). The release judge runs on every report, so its model affects both the cost and which drafts
+  are issued.
+- **Decision:** every stage's model is a setting in config. Luna is the default for every pipeline
+  stage, and Sol is used only as the eval judge, because a model grading its own output tends to be
+  lenient. I planned to compare Luna and Sol on extraction, the release judge and the investigation
+  agent (D14), over the four clients and the hand-written cases, and to move a stage to Sol only where
+  Luna measurably missed. I did not run that comparison, so Luna is a default, not a measured choice.
+- **Alternatives:** Luna everywhere, including the eval judge, which risks lenient grading. Sol for both
+  judges, which costs more per report and at the time would have used most of the budget in two or
+  three full eval runs.
+- **Consequences / how it generalises:** the eval already scores extraction on its own against expected
+  facts (DESIGN §10.7), so the comparison needs no new tooling. If it is run, the result gets its own
+  entry citing both results files. It is listed under "What I would do with more time".
 - **Evidence:** none for the choice of Luna. The results files record Luna for every pipeline stage and
-  Sol for the eval judge only (`stage_models`); none records a run with a pipeline stage on Sol.
+  Sol for the eval judge only (`stage_models`), and none records a run with a pipeline stage on Sol.
 
 ### D3. Commit the LLM response cache, and make every replay visible
 - **Context:** reviewers re-run the pipeline from a clean checkout with their own key; model output can
@@ -391,92 +411,56 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   did not stabilise (see D22), so no results file is quoted.
 
 ### D22. The release judge's verdicts are not repeatable, so a fresh judge run can fail a good report
-- **Context:** the judge runs on `gpt-6-luna`, which rejects `temperature` (`config/models.json`), so
-  the same input can return different verdicts. Re-running client 02's judge once failed G16 on
-  standard CGT wording. After D21 and a revised prompt, two more live passes failed different hard
-  gates: client 01 on G16 for an introduction sentence its claim did not verify, and client 02 on G10
-  for the table footnote naming `client_data_db.json`, a known defect (`write/table.py`
-  `_source_label`). The committed client 02 draft passed only under an earlier verdict, and it does
-  not replay offline because its judge cache entry is stale.
-- **Later episodes, both real defects and not judge noise:** in the final rebuild client 03 failed G2, G8
-  and G12 because a rule 5 sentence garbled the funding sentence, and case 04 failed G8 because the
-  writer dropped "will review again next year". Each was fixed in the prompt (commits `4a831c0`,
-  `b96039d`), not by resampling; the only resample remains case 08.
-- **Decision:** I did not resample until a run passed, and I did not commit a failed draft as the
-  client 02 output. The offline replay guarantee (S4) holds for client 01 only until the judge is
-  made repeatable.
-- **Alternatives:** keep re-running the judge (cherry-picks a verdict and proves nothing); accept
-  failed generations as the committed outputs (hides the flaky component).
-- **Consequences / how it generalises:** on a held-out client the same flakiness would produce failed
-  generations that are not real failures. I am shrinking the judge's surface code-first, since any
-  decision with a right answer belongs in code: D21 moved the standard wording; the Introduction's
-  scope sentence is now checked against the ledger (`intro_scope_problems`) and needs no claim; and
-  G10 rejects an internal file name deterministically. What stays with the model is what has no
-  deterministic answer: whether a material claim about the client is supported by a source
-  paragraph (G16), which recommendation implements which agreed action (G8), a figure used in the
-  wrong role (G2), contingent money described as available (G7), a paraphrase of the static text
-  (G4), text that reads as lifted internal notes (G10's subjective half), a passage that does not
-  read grammatically (G12) and an aspiration presented as a recommendation (P6).
-- **Known gap, and the real fix:** the Introduction is still a model-written slot, and I kept the
-  exemption for its figure-free sentences loose (no digit, figure or tax term, checked against the
-  ledger for account types). So a qualitative invention such as "your ISA has performed well"
-  would pass G16 unsourced. A word-list to catch it would be brittle and bring back the false
-  failures this change removed, so I did not build one. The real fix is to build the scope sentence
-  from the ledger in code and remove the model-written scope slot, so that sentence cannot arise.
-- **Three samples, three different false positives:** after D21 and the code-side fixes (the
-  standard-wording whitelist, the introduction-scope check, the footnote wording and the G10
-  file-name check), each fresh judge pass failed a different gate on a correct report: CGT wording
-  (G16), then a filename in the footnote (G10) and an introduction sentence (G16), then G7 on
-  client 02 saying the gross proceeds of a not-yet-completed disposal "are not established as
-  available to invest". That last one contradicts SCOPING P5 (full-disposal proceeds count once the
-  amount and destination are known, described as gross, before CGT, not yet realised), and the report
-  says exactly that. The code fixes held (G16's whitelist and G10 did not recur); the residue is the
-  non-repeatable judge. I stopped adding carve-outs: each one fixes the last sample and the next
-  sample finds a new one.
-- **Model check:** the T11 live probe (`tests/test_llm_live.py`) found that neither model accepts
-  `temperature`; `config/models.json` records `temperature_accepted: false` for both `gpt-6-luna` and
-  `gpt-6-sol` (checked 2026-09-27), and they are the only two on this key. The release judge runs
-  `gpt-6-luna` at high reasoning effort (Sol is the eval judge), so no available model gives a stable
-  verdict through `temperature=0`. No new live call was spent on this.
-- **Options:** (a) take a majority of an odd number of judge samples per report, which keeps G7, G8
-  and G16 hard gates but multiplies the judge's cost; (b) make judge-only findings review-sheet flags
-  instead of hard gates, which weakens SCOPING's hard gates; (c) lower the judge's reasoning effort
-  or move it to Sol, untested. The user chose (a). The introduction-scope, filename and
-  standard-wording checks stay in code either way.
-- **Built (a):** `majority_release_judge` runs `stages.release_judge.samples` independent
-  `release_judge` passes, each with its own coverage re-ask, and each gate passes or fails by the
-  majority, decided in code; a dissent is kept in a passing gate's detail. Each later sample has its
-  own cache key. The setting defaults to 1; the shipped config now sets `release_judge.samples`
-  to 3, with the parked v2 judge prompt (the standard-wording and stale introduction rules), and
-  clients 01 and 02's judge cache was refreshed in one live run each. Both came out as drafts, and
-  client 02's replay now needs no live call (`tests/test_pipeline_replay_client_02.py`). A dissent
-  was outvoted and is recorded in `outputs/client_02_medium.run.json`. One sample per client is
-  thin evidence: the vote shrinks the judge's variance, it does not remove it. Samples run one
-  after another, so a report's judge latency grows with the count.
-- **Evidence:** `tests/test_g16_intro_scope.py`, `tests/test_g10_internal_filenames.py`; the parked
-  run artefacts are in the session scratchpad, not the repo, and no results file exists for this.
-- **Root cause, and what would fix it:** the judge is non-repeatable because the only models on this
-  key reject `temperature`, so its sampling cannot be pinned. The majority vote lowers the
-  variance, it does not remove it: a later fresh run flagged a clause in client 03's
-  Recommendations as uncovered by a majority of samples, when it matches the meeting note's
-  "together with the inheritance, fund both ISAs" (D26). The real fix is a judge that can run at
-  `temperature=0`, which needs a model that accepts it; none is available here, so it is listed
-  under "What I would do with more time". Until then a fresh judge run can fail a correct
-  report, and the committed outputs are the ones whose judge verdicts are cached.
-
-- **Rebuild record (the once-only rule):** in the live rebuild after D29 to D32, two runs failed the
-  release judge in their first pass. Client 03 failed G2 on 2 of 3 samples, for "the gross sale
-  proceeds of c. £38,000" (the pattern D25 exempts). I took the one allowed resample, by deleting its
-  recommendation-writer cache entry and re-running non-fresh. Its later drafts failed for real writer
-  defects (the proceeds sentence carrying extra funding and dropping the disposal, then the proceeds
-  attached to the wrong destination, G8), each fixed in rule 2 of the recommendation prompt (D32), not by
-  resampling again. Case 08 failed G16 on 2 of 3 samples for "Vera has no income requirement from her
-  portfolio.", which matches the meeting note word for word; its one allowed resample failed the same way.
-  I did not sample a third time. It stayed a failed generation until the later writer-rule changes altered
-  its report text, and the judge then evaluated the new text and it drafted: a fresh evaluation of
-  different text, not a third sample of the same input. Case 17 also failed, twice, for real defects
-  (D33, then D34: its run stopped on the stricter introduction check until the scope description stated
-  the count). The committed state is the offline replay of these outcomes, checked with zero live calls.
+- **Context:** the release judge runs on `gpt-6-luna` at high reasoning effort. The T11 live probe
+  (`tests/test_llm_live.py`) found that neither model on this key accepts `temperature`
+  (`config/models.json` records `temperature_accepted: false` for both, checked 2026-09-27), so the
+  same input can get a different verdict on a different run. This showed up early. Re-running client
+  02's judge failed G16 on standard CGT wording, and after I fixed that, each further fresh pass failed
+  a different gate on a correct report: client 01 on G16 for an introduction sentence, client 02 on G10
+  for the table footnote naming `client_data_db.json`, and client 02 again on G7, by calling the gross
+  proceeds of a disposal not yet available to invest, which contradicts SCOPING P5.
+- **Decision:** I did two things. First, I moved every check that has a right answer out of the judge
+  and into code: the standard-wording whitelist (D21), a check of the Introduction's scope sentence
+  against the ledger (`intro_scope_problems`), and a deterministic G10 check for internal file names.
+  These held, and the same false failures did not come back. What stays with the judge are the checks
+  that need reading: whether a material claim is supported by a source paragraph (G16), which
+  recommendation covers which agreed action (G8), a figure used in the wrong role (G2), contingent money
+  described as available (G7), a paraphrase of the static text (G4), text that reads like lifted
+  internal notes (G10's subjective half), a passage that is not grammatical (G12) and an aspiration
+  presented as a recommendation (P6). Second, for those checks the release judge takes the majority of
+  three independent samples (`majority_release_judge`, `stages.release_judge.samples: 3`), decided in
+  code, and a dissent is kept in the passing gate's detail. The vote reduces the variance, but it does
+  not remove it.
+- **Alternatives:** re-run the judge until a report passes. This would cherry-pick a verdict and prove
+  nothing, so I did not do it. Turn judge-only findings into review-sheet flags instead of hard gates,
+  which would weaken SCOPING's hard gates. Lower the judge's reasoning effort or move it to Sol, which I
+  did not test. I chose the majority vote because it keeps G2, G7, G8 and G16 as hard gates.
+- **How I handled a failed judge run:** I first read the report against its sources. If the report was
+  wrong, I fixed the cause instead of resampling. In the final rebuild this happened for client 03,
+  which failed G2, G8 and G12 because a writer rule garbled its funding sentence, and for case 04,
+  whose writer dropped an agreed review date (G8). Both were fixed in the prompt (commits `4a831c0`
+  and `b96039d`). In an earlier pass case 17's introduction miscounted its accounts, which was fixed in
+  code (D34, commits `4b24744` and `8f72ca6`). If the report
+  was right, I allowed one resample and no more. Client 03 once failed G2 on 2 of 3 samples for the
+  sentence pattern D25 exempts, and case 08 failed G16 on 2 of 3 samples for a sentence that matches
+  the meeting note word for word. Case 08's one resample failed in the same way, so it stayed a failed
+  generation until later writer changes altered its text, and the judge then passed the new text.
+  These resamples were recorded at the time, during the rebuild (commit `c902b51`). The failed attempts
+  themselves were not committed, so no results file shows them.
+- **Consequences / how it generalises:** on a held-out client the same non-repeatability can produce a
+  failed generation that is not a real failure. That is why the committed outputs are the ones whose
+  judge verdicts are cached, and all 24 reports replay offline with no live call
+  (`tests/test_pipeline_replay*.py`). One known gap remains. The Introduction is still written by the
+  model and its figure-free sentences are only loosely checked, so a qualitative invention such as
+  "your ISA has performed well" would pass G16 without a source. A word list to catch it would be
+  brittle and would bring back the false failures above, so I did not build one. The real fix is to
+  build the scope sentence from the ledger in code and remove that slot.
+- **Root cause, and what would fix it:** the judge cannot be pinned, because the only models on this
+  key reject `temperature`. The fix is a judge on a model that accepts `temperature=0`. Until then a
+  fresh judge run can fail a correct report, and I think it is better to document this than to hide it
+  by resampling.
+- **Evidence:** `tests/test_g16_standard_wording.py`, `tests/test_g16_intro_scope.py`,
+  `tests/test_g10_internal_filenames.py` and the replay tests.
 
 ### D23. A same-date tie between disagreeing values selects nothing
 - **Context:** R3 says the most recent dated figure wins, but the account data's snapshot and a
@@ -555,28 +539,27 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   `tests/test_g7_proceeds_carveout_narrowing.py`.
 
 ### D26. A sequential `--fresh` batch is order-dependent, so the committed cache is built once
-- **Context:** for the final fresh run I regenerated the four clients with `--fresh` in one batch.
-  Copied back and replayed offline, the release judge missed the cache and went live with a new
-  verdict. Clients share cache keys when their inputs are identical (the same general documents
-  classified for each), the model is not deterministic, and `--fresh` rewrites every entry. So a
-  later client overwrote a shared entry with a different response, and an earlier client's replay
-  followed the overwritten one and diverged. Only the downstream judge input showed it. One client
-  run fresh and then replayed matched on every call, which located the cause in the sequence.
-- **Decision:** the committed state stays the one whose outputs, cache and results file were built
-  together and replay offline. I did not commit the fresh batch, and I did not re-run it until four
-  drafts came out. Replay tests now cover every client (`tests/test_pipeline_replay*.py`), so a
-  missing or stale entry fails offline.
-- **Alternatives:** keep the fresh batch as the outputs: it does not replay, so the offline guarantee
-  is lost. Run the four clients from an empty cache in one non-fresh batch, so each shared entry is
-  generated once and reused: consistent by construction, and I ran it. It flagged a clause in client
-  03 that matches the meeting note, so its verdict was a judge false positive (D22), not a wrong
-  report. Committing it would have left a failed client 03, and re-running until it passed would have
-  been resampling for a verdict, so I did neither.
+- **Context:** for the final fresh run I regenerated the four clients with `--fresh` in one batch. When
+  I replayed the result offline, the release judge missed the cache and went live with a new verdict,
+  and it took some investigation to find out why. Clients share cache keys when their inputs are
+  identical, for example the same general documents classified for each client, and `--fresh` rewrites
+  every entry it touches. Because the model is not deterministic, a later client overwrote a shared
+  entry with a different response, and an earlier client's replay then followed the overwritten entry
+  and diverged. Only the downstream judge input showed it. Running one client fresh and then replaying
+  it matched on every call, which located the cause in the sequence rather than in the code.
+- **Decision:** the committed state is the one whose outputs, cache and results files were built
+  together and replay offline. I did not commit the fresh batch. The safe procedure is to run one
+  non-fresh batch in a fixed order, so that each shared entry is generated once and reused, and then to
+  replay-check every client before committing. The final rebuild followed this rule. Replay tests now
+  cover every client and case, so a missing or stale entry fails offline.
+- **Alternatives:** keep the fresh batch as the outputs, which loses the offline guarantee because it
+  does not replay. Re-run the batch until all four clients come out as drafts, which is resampling for
+  a verdict (D22). When I first ran the non-fresh batch from an empty cache, the judge flagged a clause
+  in client 03 that matches the meeting note, a false positive, so I did not commit that one either.
 - **Consequences / how it generalises:** a fresh regeneration can change any client's judge verdict,
-  and a report that failed only that way is not a real failure. The safe procedure is an empty cache
-  and one non-fresh batch, replay-checked per client before anything is committed. The judge's
-  non-repeatability is documented, not hidden: it is D22's residual, and the fix is a deterministic
-  judge.
+  and a report that failed only that way is not a real failure. Hence `--fresh` stays available for
+  anyone who wants to see live generation, but the committed outputs are never produced by it. This is
+  D22's residual, and the fix is a deterministic judge.
 - **Evidence:** `tests/test_pipeline_replay.py`, `tests/test_pipeline_replay_client_02.py`,
   `tests/test_pipeline_replay_client_03.py`, `tests/test_pipeline_replay_client_04.py`.
 
@@ -651,49 +634,43 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   `test_task_b_review_fixes.py`, `test_eval_checks_approved_fixes.py`.
 
 ### D29. Pass handling notes to the writer as verified directives, and drop any that fail a check
-- **Context:** D8 was unbuilt: the internal notes were used only to check the report did not leak
-  them (G10). Client 03's notes ask that the origin of its new money be treated sensitively, and
-  the notes' other lines only describe data sources. So the client-specific line reached no writer.
-- **Decision:** one extraction call reads the notes and proposes directives (sections, one
-  instruction, the person, the note's own words as evidence). Code keeps a directive only if the
-  evidence is a verbatim quote of the notes, the sections exist, a named person resolves to a holder,
-  and the instruction shares no six-word run with the notes. The writer gets the instruction line
-  only, never the notes. A directive that fails on the person or the wording becomes a non-blocking
-  review item; one with no verbatim evidence or no valid section is dropped without one.
-- **Alternatives:** pass the notes' client-specific paragraph to the writer with "never quote this"
-  (the leak defence would rest on the prompt alone; already rejected in D8); a directive with an
-  unresolved person kept without the name (the instruction may only make sense for that person, and
-  D8 says an unresolved person is a review item, not a guess).
-- **Consequences / how it generalises:** a client with no client-specific notes gets an empty list, and
-  its writer inputs carry no `handling` key, so its cache keys do not change for that reason. The six-word
-  run is the same length G10 uses, so this is a check one step earlier, not a stricter one: a leak of
-  five words gets through both. Revisit if a rebuilt report shows a directive's wording in the text, or
-  if a valid directive is dropped as a false leak.
-- **What the rebuild showed:** client 03's directive (refer to the origin of the new money with
-  care) was extracted, verified and applied. The first build routed it to Background & Objectives only,
-  while the inheritance is discussed in Recommendations, and its wording carried a fact from the internal
-  notes (a bereavement), which the independent review flagged as a route for a client fact from internal
-  guidance into the report. The extraction prompt now asks for every section that mentions the subject,
-  and forbids an instruction from stating a circumstance, event, reason or amount, in digits or words
-  (the word forms are also refused in code). The directive now reaches both sections and reads "refer to
-  the source of the new funds in restrained, sensitive language". The rubric judge's Q3 for client 03 is
-  still 2 in the results file, because it wants the report to state where the money came from. I had
-  written that this fact is only in the internal notes; that was wrong. The meeting notes and the report
-  request, both client-facing sources, state the inheritance and its origin, so the letter could state
-  it from those sources without breaking the rule that guidance text never appears. Two known gaps
-  stop it: the pipeline does not carry origin of funds as a fact, so nothing in the ledger lets the
-  writer state it, and `inherit\w*` in `_CONTINGENT_RE` (`gates/judge.py`) treats any mention of an
-  inheritance as contingent. Both are in "What I would do with more time". Routing is still chosen by
-  the model, with no code check that the named sections mention the subject.
-- **Also fixed:** the review sheet printed only some note kinds, so an applied `handling_note`, and every
-  `ambiguity` item (several modules produce them; six items across five committed outputs), were in the
-  ledger but never shown. `assemble._NOTE_KINDS` now includes both, so a note the run could not apply
-  ("check it by hand") is no longer silent. The cost, found by the independent review: the sheet now
-  also shows the investigation stage's plural-reference flags ("'Stocks & Shares ISAs' could mean any
-  of ..."), which are over-flags and sit on clean cases. I kept them visible and listed the over-flagging
-  under "What I would do with more time". A note naming a first name two holders share is no longer
-  applied to whichever comes first: it becomes a review item.
-- **Evidence:** `eval/results/20260930T184615Z_99cef32.json` (client 03's `q_scores`), the tests for
+- **Context:** client 03's internal notes ask for the origin of the new money to be referenced with
+  sensitivity. G10 forbids internal guidance text in the report, so the notes cannot simply be given to
+  the writer. D8 set out the design for this, but until this change the notes were only used to check
+  that the report did not leak them, and no writer received the handling instruction.
+- **Decision:** one extraction call reads the notes and proposes directives, each with the sections it
+  applies to, one instruction, the person it concerns and the note's own words as evidence. Code keeps
+  a directive only if the evidence is a verbatim quote from the notes, the sections exist, the person
+  resolves to a holder, the instruction carries no figure (in digits or in words), and it shares no
+  six-word run with the notes. The writer only gets the instruction line, never the notes. A directive
+  that fails on the person, a figure or the wording becomes a non-blocking review item, and one with no verbatim evidence or no valid section is dropped.
+- **Alternatives:** pass the relevant paragraph of the notes to the writer with "never quote this". The
+  leak defence would then rest on the prompt alone, which is what D8 rejected. Keep a directive with an
+  unresolved person but drop the name, which is not ideal, because the instruction may only make sense
+  for that person.
+- **Consequences / how it generalises:** a client without client-specific notes gets an empty list, so
+  its writer inputs and cache keys do not change. The six-word check is the same length G10 uses, so it
+  is the same check one step earlier, not a stricter one.
+- **What the rebuild showed, and a mistake I made:** client 03's directive was extracted, verified and
+  applied, and it now reaches both Background & Objectives and Recommendations as "refer to the source
+  of the new funds in restrained, sensitive language". The first version carried the bereavement itself
+  into the instruction, which the independent review flagged as a route for a client fact from the
+  internal notes into the report. The extraction prompt now forbids an instruction from stating a
+  circumstance, event, reason or amount, and code refuses the word forms as well. However, the rubric
+  judge still scores client 03's Q3 at 2, because the letter never says where the money came from. I
+  first recorded this as a score the rules prevent me from raising, on the basis that the bereavement
+  is only in the internal notes. That was wrong. The meeting notes and the report request, which are
+  both client-facing sources, state that Jean received the inheritance from her late mother's estate,
+  so the letter can say so without breaking G10. Two gaps stop it: the pipeline does not carry the
+  origin of funds as a fact, so there is nothing in the ledger for the writer to state, and
+  `inherit\w*` in `_CONTINGENT_RE` (`gates/judge.py`) treats any mention of an inheritance as
+  contingent money. Both are the first item under "What I would do with more time".
+- **Also fixed:** the review sheet printed only some note kinds, so an applied handling note and every
+  ambiguity item were in the ledger but never shown. They are now printed. The cost is that the sheet
+  also shows the investigation stage's plural-reference flags, which over-flag on clean cases, and this
+  is listed under "What I would do with more time". A note naming a first name that two holders share
+  is no longer applied to whichever comes first: it becomes a review item.
+- **Evidence:** client 03's `q_scores` in `eval/results/20260930T203155Z_38c9f47.json`; the tests for
   guidance extraction, handling plumbing and the review sheet's handling notes; commit `543a507`.
 
 ### D30. Build marker descriptions in code from the ledger, naming the account and the holder
@@ -811,14 +788,14 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
 
 ### D35. Record what the independent review found, and what I fixed and did not
 - **Context:** after the marker, matcher, directive and writer changes were committed with the
-  reports rebuilt and all 22 gates green, the opus verifier (run as you asked, before the final commit)
+  reports rebuilt and all 22 gates green, the opus verifier (run before the final commit)
   returned FAIL on three regenerated reports that gates had passed: client 03's funding sentence,
   client 04's "the holding", and case 17's introduction.
 - **Fixed, each test-first where it is code:** client 03's funding wording (D32); case 17's scope count
   (D34); the image-row matcher giving a joint row to a sole account (D31: every named holder must hold
   the chosen account, and the earlier platform tests named nobody in the label so could not fail: new
-  tests name owners, and the two old ones are left in place because editing a committed test is yours to
-  approve); the CGT marker dropping an unmatched disposal and first-name collisions (D30); a handling
+  tests name owners, and the two old ones are left in place because editing a committed test is left for the
+  maintainer to approve); the CGT marker dropping an unmatched disposal and first-name collisions (D30); a handling
   instruction carrying an amount in words, and the prompt letting an instruction state a client
   circumstance (D29); the "and why" contradiction (D32); client 04's "the holding" (D33).
 - **Not fixed:** a directive's routing is still chosen by the model; the extractor does not resolve a
@@ -847,72 +824,81 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   session); the fixes are commits `e3a6ebe`, `dc1eef3`, `4b24744`, `6ecf335` and `8f72ca6`.
 
 ## What I would do with more time
-- **Run the Luna-versus-Sol comparison (D2).** Every pipeline stage runs on Luna and only the eval judge
-  on Sol, but that was never compared: no run has a pipeline stage on Sol. Run extraction, the release
-  judge and the investigation agent (D14) on both over the four clients and the hand-written cases with
-  `--stage-models`, and record each Sol upgrade with its cost next to the accuracy it buys (D12). It
-  costs money, so it needs its own go-ahead.
-- **Widen the investigation agent (T22, D14, D27).** Built, with one question kind (an ambiguous account mention). On the hand-written cases (`20260929T162142Z_3ce9edb.json`) it raised 4 questions: 2 in the cases built to raise one, both handled as expected, and 2 that no case expects, both left unresolved. 0 were accepted-and-wrong. Not yet opened: label questions (a viewed-versus-recalled basis), whose acceptance rule and tests exist, and a mention that maps to no account. A broader trigger needs the real clients' cache refreshed, since each new question is a model call.
-- **Route handling directives by where their subject appears (D29).** The guidance extractor is built, but
-  a directive is routed to the sections the model names. Client 03's sensitivity note reached Background
-  & Objectives only, while the inheritance is discussed in Recommendations, so Q3 for client 03 is still
-  2 in the results file. A check that finds the sections that mention the directive's subject, and sends
-  it to each, would fix that.
-- **Have the extractor resolve a non-action's referent (D33).** "We agreed to leave it as it is" carries
-  no noun, and the extracted `accounts` is the account the action is tied to, not always what it
-  concerns. Resolving the referent into the description at extraction would let client 04's report say
-  which holding is left alone instead of "no other changes". It changes every extraction cache entry,
-  so it needs its own rebuild.
-- **Give the recommendation slot the reasons (D32, D35).** It receives no objectives, so it can give a
-  reason only from an action text, and Q1 (does the section say what to do and why) is 2 to 4 in the
-  results file. Sending it the objectives is a measured change: a reason is also a place to state
-  something the sources do not support (P6, an aspiration presented as a recommendation).
-- **Stop the investigation stage flagging plural references (D29).** "Stocks & Shares ISAs could mean any
-  of ..." means all of them; now that the review sheet prints `ambiguity` items, it shows on clean
-  cases. Print the other review-item kinds the independent review reports as recorded and not shown only
-  after deciding which of them an adviser needs, since a sheet that lists everything is not read.
-- **Tighten the checks the second review left (D35).** Extend the matcher's owner guard to the older
-  paths, pluralise account types from a table rather than by appending "s", make the introduction check
-  alias-aware, and name which joint account the table footnote means.
-- **Origin of funds as a verified fact (D29).** Extract it from the meeting notes and report request with a
-  verified quote, carry it in the ledger, and apply it with the handling directive. Also stop
-  `inherit\w*` in `_CONTINGENT_RE` treating any mention as contingent.
-- **Pass the objectives to the recommendation writer.** This is the cause of Q1 = 2 (D32, D35).
-- **Lower-case account types in prose.** "Your New joint account" reads as a name mid-sentence.
-- **Name the platform in the stale-value footnote.** It says "Your joint General Investment Account"
-  without saying which one.
-- **Give rule 7 of the writer prompt a generic example** in place of the wording that now stands for it.
-- **A deterministic judge (D22).** `config/models.json` records `temperature_accepted: false` for
-  both models on this key (`gpt-6-luna` and `gpt-6-sol`), so no available model can give a stable verdict. The fix is a
-  judge on a model that accepts `temperature=0`, or a smaller judge surface still: build the
-  Introduction's scope sentence from the ledger and remove that model-written slot.
-- **The G7 carve-out depends on one caveat wording (D25).** A proceeds sentence is exempt only when the
-  writer prompt's fixed timing caveat follows it. A reworded caveat loses the exemption and fails safe
-  into a false G7 failure. Rendering that sentence and its caveat from a code template would remove the
-  dependence.
-- **R4/R5 pair by count, not by meaning.** The instruction-versus-meeting rules are wired (D28). R5 compares the instruction's one exact figure with the one funding action that states an amount, and cannot tell a total from one part of it, so it can raise a false blocking conflict that the adviser then settles. Pairing them by the account the money goes to would fix that.
-- **Run the generated synthetic clients.** The 20 hand-written cases are run and scored (D28). The generator and phrase bank (D4) exist and are covered by offline tests, but no generated client has been run through the live pipeline and scored, so behaviour on unseen shapes beyond the hand-written ones is unmeasured: the funding-word list (D24) may over-mark, and the new-account scope check depends on the instruction's wording.
-
-- **PII minimisation before the API boundary.** Not built, because it touches every model input
-  and this data is synthetic. Sent today: classify and extract get client and holder names,
-  account IDs, values and the full meeting text; the writer gets names and account types but no
-  figures (D1); the release judge gets the report and the source paragraphs. First step:
-  tokenise names and account IDs at the writer and judge boundary, resolved from the ledger in
-  code, extending the D1 fact tokens. The extractor is the hard case, since its job is to quote
-  names from prose: it needs a reversible per-run map, with quote verification (D9) run against
-  the unmasked source. A local scrubber would strip what the pipeline never uses (addresses,
-  phone numbers, dates of birth). Measure it by re-running the four clients and the 20
-  hand-written cases before and after and comparing gate results and Q scores, knowing that every
-  prompt input changes, so the whole cache rebuilds (and D26's order-dependence applies). A
-  data-processing agreement with the provider remains the primary control; this is defence in
-  depth.
+The items are in the order I would work on them. The first three are the causes of the lowest
+rubric scores, and they need one live rebuild together (D26).
+- **Carry the origin of funds as a verified fact (D29).** Extract it from the meeting notes and the
+  report request with a verified quote, carry it in the ledger, and let the writer state it with the
+  handling directive. Also remove `inherit\w*` from `_CONTINGENT_RE`, so that contingency comes from
+  the money fact's role and not from a keyword, and check that G7 still catches an inheritance that has
+  not been received. This is the cause of Q3 = 2 on client 03.
+- **Give the recommendation writer the client's objectives (D32, D35).** At the moment it can give a
+  reason only when an action text states one, so the section says what to do but rarely why. This is
+  the cause of Q1 = 2 on three clients. It needs a measured pass, because a reason is also a place to
+  state something the sources do not support (P6).
+- **Explain contingent money when the notes ask for it (D29, D32).** Client 04's letter states the
+  money available now but not that the earn-out is contingent and not yet received, which is the
+  cause of its Q3 = 2. The recommendation writer may mention excluded money only to say it is not
+  included, and the handling directive for client 04 does not reach that point.
+- **Run the Luna-versus-Sol comparison (D2). Run extraction, the release judge and the investigation
+  agent on both models over the four clients and the hand-written cases with `--stage-models`, and
+  record each Sol upgrade with its cost next to the accuracy it buys (D12).
+- **Run the generated synthetic clients (D4).** The generator and phrase bank exist and have offline
+  tests, but no generated client has been run through the live pipeline and scored. So behaviour on
+  unseen shapes beyond the 20 hand-written cases is unmeasured. For example, the funding-word list (D24)
+  may over-mark, and the new-account scope check depends on the instruction's wording.
+- **Shrink the judge's surface further (D22, D25).** Build the Introduction's scope sentence from the
+  ledger and remove that model-written slot, and render the proceeds sentence and its timing caveat
+  from a code template, so that the G7 exemption no longer depends on one exact wording. The full fix
+  is a judge on a model that accepts `temperature=0`.
+- **Route handling directives by where their subject appears (D29).** At the moment the model chooses
+  the sections, and no code checks that those sections mention the subject.
+- **Resolve a non-action's referent at extraction (D33).** "We agreed to leave it as it is" carries no
+  noun, and the extracted account is not always what the action concerns. Resolving the referent would
+  let client 04's report say which holding is left alone. It changes every extraction cache entry, so
+  it needs its own rebuild.
+- **Widen the investigation agent (D14, D27).** It is built for one question kind, an ambiguous account
+  mention. On the hand-written cases (`eval/results/20260929T162142Z_3ce9edb.json`) it raised 4
+  questions: the 2 in the cases built to raise one were handled as expected, the other 2 were left
+  unresolved, and none was accepted-and-wrong. Label questions (whether a figure was viewed or
+  recalled) and a mention that maps to no account are not opened yet.
+- **Make the review sheet more selective (D29).** Stop the investigation stage flagging plural
+  references such as "Stocks & Shares ISAs", which means all of them. Four more review-item kinds are
+  recorded but not printed, and I would print them only after deciding which ones an adviser needs,
+  since a sheet that lists everything is not read.
+- **Pair R4 and R5 by meaning, not by count (D28).** R5 compares the instruction's one exact figure
+  with the one funding action that states an amount, and cannot tell a total from a part of it, so it
+  can raise a false blocking conflict. Pairing them by the account the money goes to would fix that.
+- **Small fixes left by the second review (D35).** Extend the matcher's owner guard to the older paths,
+  pluralise account types from a table instead of appending "s", make the introduction check
+  alias-aware, name the platform in the stale-value footnote when two joint accounts share a type, put
+  account types in lower case in prose ("your new joint account"), and give rule 7 of the writer prompt
+  a generic example.
+- **PII minimisation before the API boundary.** Not built, because it touches every model input and
+  this data is synthetic. Today classification and extraction get names, account IDs, values and the
+  full meeting text, the writer gets names and account types but no figures (D1), and the release judge
+  gets the report and the source paragraphs. The first step would be to tokenise names and account IDs
+  at the writer and judge boundary, resolved from the ledger in code, in the same way as the D1 fact
+  tokens. The extractor is the tricky case, because its job is to quote names from prose, so it needs a
+  reversible per-run map, with quote verification (D9) run against the unmasked source. I would measure
+  it by re-running the four clients and the 20 hand-written cases before and after and comparing gate
+  results and Q scores, knowing that every prompt input changes and the whole cache rebuilds. A
+  data-processing agreement with the provider remains the primary control, and this would be defence
+  in depth.
 
 ## How I worked
-- **AI assistance.** I built this with Claude Code (Anthropic's CLI) working in the repo under the rules in
-  `CLAUDE.md`: plan first, small diffs, tests first for deterministic code, and every decision recorded.
-  Hooks enforced the rules mechanically (protected files, committed tests, live API calls, the
-  quality gate at the end of each turn). An independent `verifier` subagent reviewed each change that
-  touched a prompt or a trust rule, and its findings were fixed or recorded before the commit.
-- **Models in the pipeline.** `gpt-6-luna` for classification, extraction, writing and the release judge, and
-  `gpt-6-sol` for the eval judge only (D2).
-- **Time.** About 12 hours of my time, worked on and off across four days, with Claude Code running long stretches autonomously. My time went mostly to design decisions, the data investigation, reviewing verifier checkpoints and prompt tuning, while the agent did the mechanical build. The commit history records the timeline.
+- **AI assistance.** I built this with Claude Code working in the repo. I wrote the rules it worked
+  under in `CLAUDE.md` (plan first, small diffs, tests first for deterministic code, every decision
+  recorded), and hooks enforced them mechanically: protected files, committed tests, live API calls and
+  the quality gate at the end of every turn. An independent `verifier` subagent reviewed each change
+  that touched a prompt or a trust rule, and its findings were fixed or recorded before the commit. I
+  also used separate Claude and GPT sessions to review the scoping document before any code was
+  written, and a separate Claude session to review the repository near the end, which is where the
+  D29 mistake was found.
+- **What I spent my own time on.** Mostly the parts that need judgement: investigating the data and
+  verifying the ground truth (`notes/scoping_review.md`), the design and the trust rules, reading the
+  reports against their sources after each rebuild, and deciding what to fix and what to record. The
+  agent did most of the mechanical build.
+- **Models in the pipeline.** `gpt-6-luna` for classification, extraction, writing and the release
+  judge, and `gpt-6-sol` for the eval judge only (D2).
+- **Time.** About 12 hours of my time, worked on and off across four days, with Claude Code running
+  long stretches autonomously. The commit history records the timeline.
