@@ -193,7 +193,17 @@ def match_image_row(row: ImageValueRow, accounts: list[Account]) -> Account | No
             if a.platform and re.search(rf"\b{re.escape(a.platform.lower())}\b", label)
         ]
         if len(by_owner) >= 2 and len(by_platform) == 1:
-            return by_platform[0]
+            # Every holder the label names must hold the account the platform picked: a joint
+            # row is never given to a sole account that shares one holder with it.
+            named = {
+                owner.split()[0].lower()
+                for a in same_type
+                for owner in a.owners
+                if owner.split()[0].lower() in label_words
+            }
+            held = {owner.split()[0].lower() for owner in by_platform[0].owners}
+            if named <= held:
+                return by_platform[0]
     return None
 
 
