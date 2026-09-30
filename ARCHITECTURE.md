@@ -148,6 +148,10 @@ outputs: their prompts and live verification are still to do.
 - A non-action's text reaches the writer as extracted. The plan does not name its referent from the
   extracted `accounts`, which is the account the action is tied to, not always what it concerns
   (D33). [write/plan.py]
+- The Introduction names each in-scope account type as many times as the report covers accounts of it
+  (a plural, or one mention per account); the scope description handed to the writer states the count.
+  The writer repairs a miss in its own rounds and G16 checks it again. [write/plan.py,
+  write/writer.py, gates/judge.py]
 - A marker's description is built in code from the ledger and names what it concerns (account,
   platform, holders); it carries no figure, and its key is unchanged. [reconcile/marker_text.py]
 - The investigation agent has read-only tools; its findings affect the ledger only through code

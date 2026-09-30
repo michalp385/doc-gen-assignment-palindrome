@@ -7,18 +7,18 @@ A fixed, code-driven workflow (D5): sources are classified, facts are extracted 
 that code verifies (D9), and a ledger of reconciled facts and adviser-review markers is built in code
 by one function per trust rule. The writer fills each slot from fact IDs and never types a figure (D1),
 gate checks (14 per client in the results file) verify the result, and a release judge (a majority of
-samples) covers the parts that need reading. Result, from `eval/results/20260930T163614Z_013eebd.json`
-(commit `013eebd`, clean tree, judged): 4 of 4 clients are drafts with 0 failing deterministic gates, an
-issued rate of 1.0, a release-state match rate of 1.0, 0 wrongly issued, and $0.0318 per report. The
-rubric judge scores the adviser markers (Q5) 5 out of 5 on all four clients; the starter baseline has no
-markers, so its Q5 is shown as n/a in `eval/progression.md`. The weak spots are in the same file: the
+samples) covers the parts that need reading. Result, from `eval/results/20260930T184615Z_99cef32.json`
+(commit `99cef32`, clean tree, judged): 4 of 4 clients are drafts with 0 failing deterministic gates, an
+issued rate of 1.0, a release-state match rate of 1.0, 0 wrongly issued, and $0.0345 per report. The
+rubric judge scores the adviser markers (Q5) 5 out of 5 on three clients and 4 on client 03; the starter
+baseline has no markers, so its Q5 is shown as n/a in `eval/progression.md`. The weak spots are in the same file: the
 lowest rubric score is 2 out of 5, and client 04's extraction matched 1 of 3 expected value observations
 and 1 of 2 open actions. The decision most worth discussing is D22/D26: the release judge is not
 repeatable, because neither model on this key accepts `temperature`, so a fresh run can fail a correct
 report (it did on case 08, D22). Everything above replays offline from the committed cache; that is the
 state I chose to ship, not the outcome of a resample. The 20 hand-written cases, each aimed at one rule,
 are scored on deterministic gates and release state only, with no rubric judge (it was never run on
-them): `eval/results/20260930T163630Z_22c6412.json` (commit `22c6412`, clean tree) shows 20 of 20
+them): `eval/results/20260930T184620Z_7ad73ee.json` (commit `7ad73ee`, clean tree) shows 20 of 20
 matching their expected state, 0 failing deterministic gates, 0 wrongly issued and 0 accepted-and-wrong;
 18 are drafts and 2 stop at the input by design.
 
@@ -470,8 +470,9 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   portfolio.", which matches the meeting note word for word; its one allowed resample failed the same way.
   I did not sample a third time. It stayed a failed generation until the later writer-rule changes altered
   its report text, and the judge then evaluated the new text and it drafted: a fresh evaluation of
-  different text, not a third sample of the same input. Case 17 also failed once, for a real defect
-  (D33). The committed state is the offline replay of these outcomes, checked with zero live calls.
+  different text, not a third sample of the same input. Case 17 also failed, twice, for real defects
+  (D33, then D34: its run stopped on the stricter introduction check until the scope description stated
+  the count). The committed state is the offline replay of these outcomes, checked with zero live calls.
 
 ### D23. A same-date tie between disagreeing values selects nothing
 - **Context:** R3 says the most recent dated figure wins, but the account data's snapshot and a
@@ -665,17 +666,27 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   five words gets through both. Revisit if a rebuilt report shows a directive's wording in the text, or
   if a valid directive is dropped as a false leak.
 - **What the rebuild showed:** client 03's directive (refer to the origin of the new money with
-  care) was extracted, verified and applied. It is routed to Background & Objectives only, and the
-  inheritance is discussed in Recommendations, so the report still never refers to its origin and the
-  rubric judge's Q3 for client 03 stays at 2 in the results file. The instruction is conditional ("when
-  explaining the funds' origin"), so a misrouted directive can fail to produce the reference, not
-  produce a false statement. A check that routes a directive to every section its subject appears in is
-  not built (listed under "What I would do with more time").
+  care) was extracted, verified and applied. The first build routed it to Background & Objectives only,
+  while the inheritance is discussed in Recommendations, and its wording carried a fact from the internal
+  notes (a bereavement), which the independent review flagged as a route for a client fact from internal
+  guidance into the report. The extraction prompt now asks for every section that mentions the subject,
+  and forbids an instruction from stating a circumstance, event, reason or amount, in digits or words
+  (the word forms are also refused in code). The directive now reaches both sections and reads "refer to
+  the source of the new funds in restrained, sensitive language". The rubric judge's Q3 for client 03 is
+  still 2 in the results file, because it wants the report to mention the bereavement, and that fact is
+  only in the internal notes: a report that stated it would break the rule that guidance text never
+  appears. I treat that score as one the rules prevent me from raising. Routing is still chosen by the
+  model, with no code check that the named sections mention the subject ("What I would do with more
+  time").
 - **Also fixed:** the review sheet printed only some note kinds, so an applied `handling_note`, and every
   `ambiguity` item (several modules produce them; six items across five committed outputs), were in the
   ledger but never shown. `assemble._NOTE_KINDS` now includes both, so a note the run could not apply
-  ("check it by hand") is no longer silent.
-- **Evidence:** `eval/results/20260930T163614Z_013eebd.json` (client 03's `q_scores`), the tests for
+  ("check it by hand") is no longer silent. The cost, found by the independent review: the sheet now
+  also shows the investigation stage's plural-reference flags ("'Stocks & Shares ISAs' could mean any
+  of ..."), which are over-flags and sit on clean cases. I kept them visible and listed the over-flagging
+  under "What I would do with more time". A note naming a first name two holders share is no longer
+  applied to whichever comes first: it becomes a review item.
+- **Evidence:** `eval/results/20260930T184615Z_99cef32.json` (client 03's `q_scores`), the tests for
   guidance extraction, handling plumbing and the review sheet's handling notes; commit `543a507`.
 
 ### D30. Build marker descriptions in code from the ledger, naming the account and the holder
@@ -692,10 +703,13 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
 - **Alternatives:** let the writer describe the marker (it does not type facts, and this text goes to
   the client); one marker per holder (changes the keys and the one-marker-per-key rule).
 - **Consequences / how it generalises:** marker text is a writer and judge input, so this changed cache
-  keys and needed one rebuild (D26). "in-scope", our own word, is gone from client-facing text. Revisit
-  if a client has three holders on one account: the phrase joins them, and its readability is untested.
+  keys and needed one rebuild (D26). "in-scope", our own word, is gone from client-facing text. Two
+  gaps from the independent review are closed: a disposal that matches no account is no longer dropped
+  from the CGT marker (it adds "and on any other disposal in this advice"), and two holders who share a
+  first name are named in full. Not closed: a new joint account lists every holder as an owner, so a
+  client with three holders reads "held by Ann, Ben and Carl" (an older assumption, now visible).
 - **Evidence:** the marker-text tests; the Q5 for each client is in
-  `eval/results/20260930T163614Z_013eebd.json` and the before/after in `eval/progression.md`
+  `eval/results/20260930T184615Z_99cef32.json` and the before/after in `eval/progression.md`
   (the baseline has no markers, so its Q5 is n/a); commit `46b8166`.
 
 ### D31. Match a statement row to a same-type account by owner, then platform, and leave the rest unmatched
@@ -724,20 +738,28 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
 - **What broke, each found by a live pass and fixed in the prompt rather than by resampling:** a total
   read as one action's amount (client 03); a non-action dropped (cases 12 and 15); extra funding in the
   proceeds sentence and the disposal itself dropped (client 03); the proceeds attached to the new account
-  instead of the two ISAs the action text says they fund (client 03, G8).
+  instead of the two ISAs the action text says they fund (client 03, G8). One break no gate caught: the
+  rule that other funding goes in a separate sentence made client 03's report say the inheritance "will
+  also fund both ISAs" beside the proceeds, which reads as money on top of them. The independent review
+  found it; rule 2 now says other money an action text joins to the proceeds is stated as used together
+  with them for that same action, and rule 5 allows a link between a sum and an action only where an
+  action text gives it. The role line no longer asks for "and why" against rule 6 (a reason only where an
+  input states one): the recommendation slot is given no objectives, so a reason could not be met, and
+  Q1 stays at 2 to 4 (recorded under "What I would do with more time").
 - **Alternatives:** leave it to G7 and G8; render the recommendation sentences from a code template
   (removes the model from the slot, and would also remove D25's dependence on the caveat wording; it is
   under "What I would do with more time").
 - **Consequences / how it generalises:** every recommendation cache entry changed, so this was part of
   the one rebuild (D26). Prompt wording is not proof: each rule was checked on the four clients and 20
-  cases, not on a held-out client. Rule 7's example ("the holding") is vague, see D33.
-- **Evidence:** commit `543a507`; gates and Q scores in `eval/results/20260930T163614Z_013eebd.json` and
-  `eval/results/20260930T163630Z_22c6412.json`; the first-attempt failures are recorded in D22.
+  cases, not on a held-out client. Rule 7 first used "the holding" as its example, which taught the
+  writer a generic noun; it now says what to write when an action names nothing (D33).
+- **Evidence:** commit `543a507`; gates and Q scores in `eval/results/20260930T184615Z_99cef32.json` and
+  `eval/results/20260930T184620Z_7ad73ee.json`; the first-attempt failures are recorded in D22.
 
 ### D33. Leave a non-action's referent to the writer; do not name it from the extracted accounts
 - **Context:** on client 04 the report says "We recommend leaving the holding as it is", straight after a
   recommendation about a Holloway GIA, when the note means the offshore bond, and the rubric judge's Q2
-  for client 04 fell (`eval/results/20260930T163614Z_013eebd.json`). The ledger action carried
+  for client 04 fell (`eval/results/20260930T184615Z_99cef32.json`). The ledger action carried
   `accounts: ['offshore bond']`, so I made the plan add "(this concerns: ...)" from that field.
 - **What happened:** it fixed client 04 (the report then said "the offshore bond"). Case 17 broke: its
   action "We agreed to leave this for now and revisit if it becomes relevant" carries `accounts: ['one of
@@ -746,15 +768,67 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   never says, and G8 and P6 failed on all three judge samples: a real defect, not judge noise. The two
   actions look the same in the ledger; only what they mean tells them apart.
 - **Decision:** withdrawn. `write/plan.py` passes a non-action's text as extracted, and a test keeps the
-  annotation out. Client 04's "the holding" stays, as a known unresolved weakness: the sentence can be
-  read as the GIA just above it.
+  annotation out. The independent review then showed that "the holding" really does contradict the
+  sentence before it on client 04 (it reads as "do not touch the GIA"), so the prompt changed instead:
+  when an action names nothing, rule 7 has the writer say "we recommend making no other changes at
+  this time, as agreed", never "it" or a generic noun. Client 04 now reads that way.
 - **Alternatives:** keep the annotation where the wording is "it" rather than "this" (a wording guess);
-  have the extractor put the referent into the description (the right fix, but it changes every
-  extraction cache entry, so it needs its own rebuild: under "What I would do with more time").
-- **Consequences / how it generalises:** a held-out client with a pronoun-only non-action gets a vague
-  sentence, not a wrong one. The failed case 17 draft was not committed: its outputs were replaced by
-  the replay once the change was withdrawn.
+  use the extracted account only when it resolves to exactly one in-scope account (the review's
+  suggestion: it fixes client 04 and leaves case 17 alone, but a certificate tied to a client's only
+  GIA would again read as that account being left alone, so I did not); have the extractor put the
+  referent into the description (the right fix, but it changes every extraction cache entry, so it
+  needs its own rebuild: under "What I would do with more time").
+- **Consequences / how it generalises:** a held-out client with a pronoun-only non-action gets a
+  sentence that names nothing, not a wrong one. The cost is specificity: client 04's report no longer
+  says which holding is left alone. The failed case 17 draft was not committed: its outputs were
+  replaced by the replay once the change was withdrawn.
 - **Evidence:** the non-action referent test; commit `cd88bad`.
+
+### D34. Check how many accounts the Introduction names, in the writer and in code, and state the count
+- **Context:** after the first rebuild, case 17's Introduction said "the General Investment Account held
+  by Bernard" for a report that covers two. The scope check (`intro_scope_problems`) only asked whether
+  each in-scope type was named, so nothing caught it, and all 22 gates passed on a wrong scope sentence.
+- **Decision:** the check now also requires a plural, or one mention per account, for a type held more
+  than once, and the writer runs it in its repair rounds (`write_slot`) so the model repairs the slot,
+  not the release judge finding it late. Stricter alone stopped case 17: the scope writer is told to
+  use `context.scope_description` and never invent a number of accounts, and that description listed
+  two identical labels, which it collapsed. `_describe_scope` now groups accounts that would read the
+  same and states the count ("Bernard's two General Investment Accounts"). No other ledger's
+  description changed.
+- **Alternatives:** leave it to the release judge (it passed the wrong sentence); build the whole scope
+  sentence from the ledger in code (the real fix in D22's "known gap", larger than this change).
+- **Consequences / how it generalises:** a count mismatch is repaired or stops the run, never shipped;
+  the count word list stops at eight ("several" beyond), and accounts that differ only by an unstated
+  detail are still told apart only by owner and platform.
+- **Evidence:** the multiplicity and scope-description tests; commits `4b24744` and `8f72ca6`.
+
+### D35. Record what the independent review found, and what I fixed and did not
+- **Context:** after the marker, matcher, directive and writer changes were committed with the
+  reports rebuilt and all 22 gates green, the opus verifier (run as you asked, before the final commit)
+  returned FAIL on three regenerated reports that gates had passed: client 03's funding sentence,
+  client 04's "the holding", and case 17's introduction.
+- **Fixed, each test-first where it is code:** client 03's funding wording (D32); case 17's scope count
+  (D34); the image-row matcher giving a joint row to a sole account (D31: every named holder must hold
+  the chosen account, and the earlier platform tests named nobody in the label so could not fail: new
+  tests name owners, and the two old ones are left in place because editing a committed test is yours to
+  approve); the CGT marker dropping an unmatched disposal and first-name collisions (D30); a handling
+  instruction carrying an amount in words, and the prompt letting an instruction state a client
+  circumstance (D29); the "and why" contradiction (D32); client 04's "the holding" (D33).
+- **Not fixed:** a directive's routing is still chosen by the model; the extractor does not resolve a
+  non-action's referent; the recommendation slot receives no reasons, so Q1 stays low; the review
+  sheet exposes the investigation stage's over-flags; the review reports four more review-item kinds
+  (`joint_value_conflict`, `account_missing_field`, `money`, `account_link`) that are recorded and not
+  printed, which I have not verified; a new joint account lists every holder as an owner. Each is under
+  "What I would do with more time".
+- **Two of the review's three questions I decided rather than asked:** the three regressions were
+  already in committed history when the review ran, and the final outputs replace them (I did not keep
+  them as they were); for client 04 I used a neutral sentence, not a marker placeholder. The third, whether the recommendation slot should receive the objectives so a
+  reason can be given, changes what the writer may say about why and needs a measured pass, so it is
+  left open.
+- **Consequences / how it generalises:** gates passing is not evidence the report is right: three wrong
+  statements passed 22 of 22. The reports were read against their sources after each rebuild from then on.
+- **Evidence:** the verifier's findings are not committed (it is read-only and its report lives in the
+  session); the fixes are commits `e3a6ebe`, `dc1eef3`, `4b24744`, `6ecf335` and `8f72ca6`.
 
 ## What I would do with more time
 - **Run the Luna-versus-Sol comparison (D2).** Every pipeline stage runs on Luna and only the eval judge
@@ -770,8 +844,17 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   it to each, would fix that.
 - **Have the extractor resolve a non-action's referent (D33).** "We agreed to leave it as it is" carries
   no noun, and the extracted `accounts` is the account the action is tied to, not always what it
-  concerns. Resolving the referent into the description at extraction would remove the "the holding"
-  sentence on client 04. It changes every extraction cache entry, so it needs its own rebuild.
+  concerns. Resolving the referent into the description at extraction would let client 04's report say
+  which holding is left alone instead of "no other changes". It changes every extraction cache entry,
+  so it needs its own rebuild.
+- **Give the recommendation slot the reasons (D32, D35).** It receives no objectives, so it can give a
+  reason only from an action text, and Q1 (does the section say what to do and why) is 2 to 4 in the
+  results file. Sending it the objectives is a measured change: a reason is also a place to state
+  something the sources do not support (P6, an aspiration presented as a recommendation).
+- **Stop the investigation stage flagging plural references (D29).** "Stocks & Shares ISAs could mean any
+  of ..." means all of them; now that the review sheet prints `ambiguity` items, it shows on clean
+  cases. Print the other review-item kinds the independent review reports as recorded and not shown only
+  after deciding which of them an adviser needs, since a sheet that lists everything is not read.
 - **A deterministic judge (D22).** `config/models.json` records `temperature_accepted: false` for
   both models on this key (`gpt-6-luna` and `gpt-6-sol`), so no available model can give a stable verdict. The fix is a
   judge on a model that accepts `temperature=0`, or a smaller judge surface still: build the
