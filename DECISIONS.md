@@ -37,20 +37,23 @@ ship, not the outcome of a resample. On the 20 hand-written cases, each aimed at
   scores Q4 (clarity) low on token-filled sentences.
 - **Evidence:** none yet (design stage).
 
-### D2. Set the model per stage in config; choose the decisive model stages by measurement
+### D2. Set the model per stage in config; default every pipeline stage to Luna, judge with Sol
 - **Context:** the key can use gpt-6-luna ($0.10 / $0.50 per 1M tokens) and gpt-6-sol ($2 / $10), among
   others; at the time, against a $10 budget (since replaced by cost reporting, D12). The release judge
   (G8, G16) runs on every report, so its model decides both cost and which drafts are issued.
-- **Decision:** every stage's model is a config setting. Luna is the default for all pipeline stages;
-  Sol is the eval judge. Extraction, the release judge and the investigation agent (D14) run on both
-  Luna and Sol over the four clients and the hand-written cases; a stage moves to Sol only if Luna
-  measurably misses.
+- **Decision:** every stage's model is a config setting. Luna is the default for every pipeline stage;
+  Sol is the eval judge. The intended comparison (extraction, the release judge and the investigation
+  agent (D14) on both Luna and Sol over the four clients and the hand-written cases, so that a stage
+  moves to Sol only if Luna measurably misses) has not been run. Luna is a default, not a measured
+  choice.
 - **Alternatives:** Luna everywhere including the eval judge (a model grading its own output tends to be
   lenient); Sol for both judges (≈$0.14 per report, so two or three full eval runs would use most of the
   budget).
-- **Consequences / how it generalises:** needs extraction to be scored on its own against expected facts
-  (DESIGN §10.7). The measured outcome gets its own entry, citing both results files.
-- **Evidence:** pending the §10.7 experiment.
+- **Consequences / how it generalises:** the comparison needs extraction to be scored on its own against
+  expected facts (DESIGN §10.7), which the eval does. If it is run, its outcome gets its own entry,
+  citing both results files. It is listed under "What I would do with more time".
+- **Evidence:** none for the choice of Luna. The results files record Luna for every pipeline stage and
+  Sol for the eval judge only (`stage_models`); none records a run with a pipeline stage on Sol.
 
 ### D3. Commit the LLM response cache, and make every replay visible
 - **Context:** reviewers re-run the pipeline from a clean checkout with their own key; model output can
@@ -221,7 +224,7 @@ ship, not the outcome of a resample. On the 20 hand-written cases, each aimed at
   do hold the answer); an agent allowed to resolve conflicts itself (puts decisions SCOPING §8 assigns to
   code into a model).
 - **Consequences / how it generalises:** one more model stage to measure. It is scored on the
-  hand-written ambiguity cases and included in the Luna-vs-Sol experiment; costs nothing when no
+  hand-written ambiguity cases; it is one of the stages the unrun Luna-vs-Sol comparison (D2) would cover; costs nothing when no
   question is open. Accepted-and-wrong (a finding code accepted that contradicts expected facts) is a
   headline metric in every results file, reported apart from general accuracy; a non-zero figure is the
   evidence that would make us restrict the agent to annotating.
@@ -626,6 +629,11 @@ ship, not the outcome of a resample. On the 20 hand-written cases, each aimed at
   `test_task_b_review_fixes.py`, `test_eval_checks_approved_fixes.py`.
 
 ## What I would do with more time
+- **Run the Luna-versus-Sol comparison (D2).** Every pipeline stage runs on Luna and only the eval judge
+  on Sol, but that was never compared: no run has a pipeline stage on Sol. Run extraction, the release
+  judge and the investigation agent (D14) on both over the four clients and the hand-written cases with
+  `--stage-models`, and record each Sol upgrade with its cost next to the accuracy it buys (D12). It
+  costs money, so it needs its own go-ahead.
 - **Widen the investigation agent (T22, D14, D27).** Built, with one question kind (an ambiguous account mention). On the hand-written cases (`20260929T162142Z_3ce9edb.json`) it raised 4 questions: 2 in the cases built to raise one, both handled as expected, and 2 that no case expects, both left unresolved. 0 were accepted-and-wrong. Not yet opened: label questions (a viewed-versus-recalled basis), whose acceptance rule and tests exist, and a mention that maps to no account. A broader trigger needs the real clients' cache refreshed, since each new question is a model call.
 - **The guidance extractor (D8).** Also unbuilt: the internal guidance text is used only to check that the
   report does not leak it (G10). The writer is given no handling instructions at all, such as treating an
