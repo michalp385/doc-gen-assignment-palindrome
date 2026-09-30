@@ -16,8 +16,8 @@ rather than capped.
 2. **Prefer offline**: deterministic checks on existing reports and cached model responses cost
    nothing. Run those first.
 3. **For a live run**, estimate the cost first: number of clients x model calls per report x rough
-   tokens per call, priced for the models configured. State the estimate and ask before running
-   anything over a few cents, or any run across all clients.
+   tokens per call, priced for the models configured. Print the estimate before any live batch,
+   and ask first when it exceeds $1 or the run uses `--fresh` (CLAUDE.md).
 
 ## Running
 
