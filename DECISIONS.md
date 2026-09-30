@@ -7,18 +7,18 @@ A fixed, code-driven workflow (D5): sources are classified, facts are extracted 
 that code verifies (D9), and a ledger of reconciled facts and adviser-review markers is built in code
 by one function per trust rule. The writer fills each slot from fact IDs and never types a figure (D1),
 gate checks (14 per client in the results file) verify the result, and a release judge (a majority of
-samples) covers the parts that need reading. Result, from `eval/results/20260930T184615Z_99cef32.json`
-(commit `99cef32`, clean tree, judged): 4 of 4 clients are drafts with 0 failing deterministic gates, an
-issued rate of 1.0, a release-state match rate of 1.0, 0 wrongly issued, and $0.0345 per report. The
-rubric judge scores the adviser markers (Q5) 5 out of 5 on three clients and 4 on client 03; the starter
+samples) covers the parts that need reading. Result, from `eval/results/20260930T203155Z_38c9f47.json`
+(commit `38c9f47`, clean tree, judged): 4 of 4 clients are drafts with 0 failing deterministic gates, an
+issued rate of 1.0, a release-state match rate of 1.0, 0 wrongly issued, and $0.0363 per report. The
+rubric judge scores the adviser markers (Q5) 5 out of 5 on all four clients; the starter
 baseline has no markers, so its Q5 is shown as n/a in `eval/progression.md`. The weak spots are in the same file: the
-lowest rubric score is 2 out of 5, and client 04's extraction matched 1 of 3 expected value observations
+lowest rubric score is 2 out of 5 (Q1 on three clients, Q3 on clients 03 and 04), and client 04's extraction matched 1 of 3 expected value observations
 and 1 of 2 open actions. The decision most worth discussing is D22/D26: the release judge is not
 repeatable, because neither model on this key accepts `temperature`, so a fresh run can fail a correct
 report (it did on case 08, D22). Everything above replays offline from the committed cache; that is the
 state I chose to ship, not the outcome of a resample. The 20 hand-written cases, each aimed at one rule,
 are scored on deterministic gates and release state only, with no rubric judge (it was never run on
-them): `eval/results/20260930T184620Z_7ad73ee.json` (commit `7ad73ee`, clean tree) shows 20 of 20
+them): `eval/results/20260930T203207Z_1efe433.json` (commit `1efe433`, clean tree) shows 20 of 20
 matching their expected state, 0 failing deterministic gates, 0 wrongly issued and 0 accepted-and-wrong;
 18 are drafts and 2 stop at the input by design.
 
@@ -398,6 +398,10 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   for the table footnote naming `client_data_db.json`, a known defect (`write/table.py`
   `_source_label`). The committed client 02 draft passed only under an earlier verdict, and it does
   not replay offline because its judge cache entry is stale.
+- **Later episodes, both real defects and not judge noise:** in the final rebuild client 03 failed G2, G8
+  and G12 because a rule 5 sentence garbled the funding sentence, and case 04 failed G8 because the
+  writer dropped "will review again next year". Each was fixed in the prompt (commits `4a831c0`,
+  `b96039d`), not by resampling; the only resample remains case 08.
 - **Decision:** I did not resample until a run passed, and I did not commit a failed draft as the
   client 02 output. The offline replay guarantee (S4) holds for client 01 only until the judge is
   made repeatable.
@@ -825,6 +829,15 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   them as they were); for client 04 I used a neutral sentence, not a marker placeholder. The third, whether the recommendation slot should receive the objectives so a
   reason can be given, changes what the writer may say about why and needs a measured pass, so it is
   left open.
+- **Second review (opus), and what I did with it:** it found client 03 stating "£120,000 across the agreed
+  actions", "no other changes, as agreed" over-claiming, a lone "no other changes" in case 16, client 04
+  stating no money, first-name collisions across the whole ledger, and more word-form amounts in
+  directives. All were fixed (rule 5 and rule 7 in `write_recommendation.md`; `guidance.py`; `plan.py`;
+  `markers.py`). Not fixed, and recorded here: the matcher's owner guard applies only on the platform
+  path; `_counted` pluralises with a blind "s"; the introduction check can double-count aliases and stop
+  a generation (the safe failure); client 04's footnote says "Your joint General Investment Account"
+  without saying which; case 08's "topup" typo comes from the synthetic input; its rebuilt "New joint
+  account" is capitalised mid-sentence.
 - **Consequences / how it generalises:** gates passing is not evidence the report is right: three wrong
   statements passed 22 of 22. The reports were read against their sources after each rebuild from then on.
 - **Evidence:** the verifier's findings are not committed (it is read-only and its report lives in the
@@ -855,6 +868,9 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   of ..." means all of them; now that the review sheet prints `ambiguity` items, it shows on clean
   cases. Print the other review-item kinds the independent review reports as recorded and not shown only
   after deciding which of them an adviser needs, since a sheet that lists everything is not read.
+- **Tighten the checks the second review left (D35).** Extend the matcher's owner guard to the older
+  paths, pluralise account types from a table rather than by appending "s", make the introduction check
+  alias-aware, and name which joint account the table footnote means.
 - **A deterministic judge (D22).** `config/models.json` records `temperature_accepted: false` for
   both models on this key (`gpt-6-luna` and `gpt-6-sol`), so no available model can give a stable verdict. The fix is a
   judge on a model that accepts `temperature=0`, or a smaller judge surface still: build the
