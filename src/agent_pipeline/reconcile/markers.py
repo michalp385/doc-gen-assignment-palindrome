@@ -11,8 +11,11 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 
 from agent_pipeline.extract.schemas import RequestField
-from agent_pipeline.ledger import Marker
+from agent_pipeline.ledger import Account, Marker
+from agent_pipeline.reconcile.marker_text import accounts_phrase, join_natural
 from agent_pipeline.reconcile.sections import Disposal
+
+_CGT_TEXT = "capital gains tax on the disposal"
 
 # Adviser-facing wording (review sheet, ledger); shared by every reconcile module that builds a
 # never-estimated marker. Never reaches a model prompt: PlanMarker carries only key and text.
@@ -45,11 +48,22 @@ def required_markers(
                 section="fees_charges",
             )
         )
+    # Names the platforms the rate covers, and any account with no platform: a rate that names
+    # one platform would read as covering nothing else. No "in-scope": that is our word, and this
+    # text is inserted into the client's report.
+    advice_text = "ongoing advice charge rate"
+    covered = []
+    if in_scope_platforms:
+        covered.append(f"the accounts on {join_natural(sorted(in_scope_platforms))}")
+    if no_platform_types:
+        covered.append("any account whose platform is not stated")
+    if covered:
+        advice_text += f" for {join_natural(covered)}"
     markers.append(
         Marker(
             id="",
             key="advice_charge",
-            text="ongoing advice charge rate",
+            text=advice_text,
             reason=NEVER_ESTIMATED,
             section="fees_charges",
         )
@@ -57,7 +71,7 @@ def required_markers(
     return markers
 
 
-def cgt_marker(disposals: list[Disposal]) -> list[Marker]:
+def cgt_marker(disposals: list[Disposal], accounts: Sequence[Account] = ()) -> list[Marker]:
     """P7 (T19): one marker per taxable disposal -- CGT amounts are never estimated
     (firm policy), same rule as the charge markers above. Key is a bare
     "cgt" for the single-disposal case every current client has; a second taxable
@@ -69,12 +83,28 @@ def cgt_marker(disposals: list[Disposal]) -> list[Marker]:
     unknown = [d for d in disposals if d.wrapper_class == "unknown"]
     if not taxable and not unknown:
         return []
-    text = (
-        "capital gains tax on the disposal"
-        if taxable
-        else "capital gains tax on the possible disposal, pending confirmation of the "
-        "account's tax treatment"
+    by_id = {a.id: a for a in accounts}
+    named = accounts_phrase(
+        by_id[d.account_id] for d in (taxable or unknown) if d.account_id in by_id
     )
+    if taxable:
+        text = f"capital gains tax on the disposal of {named}" if named else _CGT_TEXT
+        possible = accounts_phrase(by_id[d.account_id] for d in unknown if d.account_id in by_id)
+        if possible:
+            # A disposal whose tax treatment is unconfirmed shares the one marker: say so, or it
+            # reads as covered (or as not applying).
+            text += (
+                f", and on the possible disposal of {possible}, pending confirmation of its "
+                "tax treatment"
+            )
+    else:
+        text = (
+            f"capital gains tax on the possible disposal of {named}, pending confirmation "
+            "of the account's tax treatment"
+            if named
+            else "capital gains tax on the possible disposal, pending confirmation of the "
+            "account's tax treatment"
+        )
     return [
         Marker(
             id="",

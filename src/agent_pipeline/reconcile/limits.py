@@ -16,6 +16,7 @@ so it silently missed the first condition (verifier report, T8 checkpoint, findi
 from __future__ import annotations
 
 import json
+from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal
@@ -24,6 +25,7 @@ from typing import Literal
 
 from agent_pipeline.extract.schemas import LimitSignal
 from agent_pipeline.ledger import Account, Action, Marker, Value, render_table
+from agent_pipeline.reconcile.marker_text import accounts_phrase, each_holder_phrase
 from agent_pipeline.reconcile.refs import accounts_matching_reference
 from agent_pipeline.reconcile.review import ReviewItemInput
 from agent_pipeline.reconcile.wrappers import classify_wrapper, type_slug
@@ -122,17 +124,23 @@ def resolve_prior_use(signals: list[LimitSignal], allowance_family: str) -> Prio
     return "unknown"
 
 
-def limit_marker(allowance_family: str, account_ids: list[str]) -> Marker:
+def limit_marker(
+    allowance_family: str, account_ids: list[str], accounts: Sequence[Account] = ()
+) -> Marker:
     """P2, P4 (T19): built once per allowance family a breach or confirmed prior use is
     detected for, never once per account -- multiple accounts share the same allowance
     question (e.g. both of client 02's ISAs). Never states a figure: the allowance figure
-    is P4's internal screening input, not report text."""
+    is P4's internal screening input, not report text. Given the accounts, the text names the
+    ones the question is about (holder, type and platform)."""
+    wanted = set(account_ids)
+    named = accounts_phrase(a for a in accounts if a.id in wanted)
+    subject = f" for {named}" if named else ""
     return Marker(
         id="",
         key=f"{allowance_family}_amounts",
         text=(
-            f"{allowance_family.upper()} top-up amounts within the remaining allowances, "
-            "and where any excess goes"
+            f"{allowance_family.upper()} top-up amounts{subject} within the remaining "
+            "allowances, and where any excess goes"
         ),
         reason="a possible allowance breach or confirmed prior use (P4); never estimated",
         section="recommendations",
@@ -204,10 +212,16 @@ def pension_contribution_markers(accounts: list[Account]) -> list[Marker]:
     for account in accounts:
         key = f"{type_slug(account.type)}_contribution_amounts"
         if key not in markers:
+            holders = [
+                owner
+                for other in accounts
+                if type_slug(other.type) == type_slug(account.type)
+                for owner in other.owners
+            ]
             markers[key] = Marker(
                 id="",
                 key=key,
-                text=f"{account.type} contribution amounts",
+                text=f"{account.type} contribution amounts {each_holder_phrase(holders)}".strip(),
                 reason="pension contribution amounts are always adviser-review markers (P4); "
                 "never estimated",
                 section="recommendations",

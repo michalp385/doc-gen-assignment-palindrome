@@ -62,7 +62,10 @@ def test_the_charges_marker_and_the_type_and_platform_review_item_are_built() ->
     result = build_new_accounts([JOINT], "the ISAs and a new joint account", HOLDERS)
     (marker,) = result.markers
     assert marker.key == "new_account_charges"
-    assert marker.text == "charges on the new joint account"
+    assert marker.text == (
+        "platform charge and advice charge rates for the new joint account "
+        "held by Robert and Jean (platform not stated)"
+    )
     assert marker.section == "fees_charges"
     assert not any(ch.isdigit() for ch in marker.text)
     (item,) = result.review_items
@@ -82,7 +85,10 @@ def test_a_single_holder_new_account_is_owned_by_the_holder_named() -> None:
     assert account.owners == ["Jean Fletcher"]
     assert account.type == "New account"
     assert account.id == "new:investment_account"
-    assert result.markers[0].text == "charges on the new account"
+    assert result.markers[0].text == (
+        "platform charge and advice charge rates for the new account held by Jean "
+        "(platform not stated)"
+    )
 
 
 def test_a_single_holder_account_whose_owner_cannot_be_resolved_is_flagged_not_built() -> None:

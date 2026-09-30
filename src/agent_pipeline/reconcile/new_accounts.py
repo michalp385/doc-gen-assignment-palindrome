@@ -16,6 +16,11 @@ import re
 from dataclasses import dataclass, field
 
 from agent_pipeline.ledger import Account, Marker
+from agent_pipeline.reconcile.marker_text import (
+    PLATFORM_NOT_STATED,
+    holders_phrase,
+    join_natural,
+)
 from agent_pipeline.reconcile.markers import NEVER_ESTIMATED
 from agent_pipeline.reconcile.review import ReviewItemInput
 
@@ -55,6 +60,25 @@ def _resolve_owner(reference: str, holders: list[str]) -> str | None:
         if wanted == holder.lower() or wanted == holder.split()[0].lower():
             return holder
     return None
+
+
+def _is_joint(account: Account) -> bool:
+    return account.type == "New joint account"
+
+
+def _charges_text(joint: bool, accounts: list[Account]) -> str:
+    """Names both charges to confirm, whose account they are for, and that the platform is not
+    stated (a built account never has one): the adviser needs to know it is missing."""
+    charges = "platform charge and advice charge rates"
+    if not joint and len(accounts) > 1:
+        # Several single new accounts share the one marker: each holder is named on their own, or
+        # "held by Ann and Ben" would read as one jointly held account.
+        each = join_natural([f"held by {holders_phrase(a.owners)}" for a in accounts])
+        return f"{charges} for the new accounts, {each} ({PLATFORM_NOT_STATED})"
+    kind = "new joint account" if joint else "new account"
+    holders = holders_phrase([owner for a in accounts for owner in a.owners])
+    held = f" held by {holders}" if holders else ""
+    return f"{charges} for the {kind}{held} ({PLATFORM_NOT_STATED})"
 
 
 def build_new_accounts(
@@ -143,7 +167,7 @@ def build_new_accounts(
         Marker(
             id="",
             key="new_account_charges" if position == 0 else f"new_account_charges_{position + 1}",
-            text="charges on the new joint account" if joint else "charges on the new account",
+            text=_charges_text(joint, [a for a in accounts if a.is_new and _is_joint(a) == joint]),
             reason=NEVER_ESTIMATED,
             section="fees_charges",
         )
