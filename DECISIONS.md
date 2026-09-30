@@ -7,7 +7,7 @@ A fixed, code-driven workflow (D5): sources are classified, facts are extracted 
 that code verifies (D9), and a ledger of reconciled facts and adviser-review markers is built in code
 by one function per trust rule. The writer fills each slot from fact IDs and never types a figure (D1),
 gate checks (14 per client in the results file) verify the result, and a release judge (a majority of
-samples) covers the parts that need reading. Result, from `eval/results/20260929T113522Z_d73dd7b.json` (commit `d73dd7b`, clean tree): 4 of 4
+samples) covers the parts that need reading. Result, from `eval/results/20260930T114259Z_81f0089.json` (commit `81f0089`, clean tree, judged): 4 of 4
 clients are drafts with 0 failing deterministic gates, an issued rate of 1.0, a
 release-state match rate of 1.0, 0 wrongly issued, and
 $0.0355 per report. The weak spots are in the same file: the lowest rubric score is 2 out of 5, and
@@ -16,7 +16,11 @@ client 04's extraction matched 1 of 3 expected value observations and
 judge is not repeatable, because neither model on this key accepts `temperature`, so a fresh run can
 fail a correct report (a clause in client 03 that matches the meeting note was flagged in a fresh
 batch). Everything above replays offline from the committed cache; that is the state I chose to
-ship, not the outcome of a resample. On the 20 hand-written cases, each aimed at one rule, `eval/results/20260929T162142Z_3ce9edb.json` (commit `3ce9edb`, clean tree) shows 19 of 20 matching their expected state with no failing deterministic gate, 0 wrongly issued and 0 accepted-and-wrong; the one that does not (case_13) is the release judge's G16 sample vote (D22).
+ship, not the outcome of a resample. The 20 hand-written cases, each aimed at one rule, are scored on
+deterministic gates and release state only, with no rubric judge (it was never run on them):
+`eval/results/20260930T114704Z_365ba7a.json` (commit `365ba7a`, clean tree) shows 19 of 20 matching their
+expected state with no failing deterministic gate, 0 wrongly issued and 0 accepted-and-wrong; the one that
+does not (case_13) is the release judge's G16 sample vote (D22).
 
 ## Decisions
 <!-- Entries added with /decision. Keep the ones that matter; cut the ones that don't. -->
