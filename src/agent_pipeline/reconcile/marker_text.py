@@ -57,10 +57,12 @@ def account_phrase(account: Account, holders: Sequence[str] = ()) -> str:
     return f"{account.type}, {where}"
 
 
-def accounts_phrase(accounts: Iterable[Account]) -> str:
-    """Each distinct account once, in order, separated by "; " (a phrase has commas inside)."""
+def accounts_phrase(accounts: Iterable[Account], holders: Sequence[str] = ()) -> str:
+    """Each distinct account once, in order, separated by "; " (a phrase has commas inside).
+    `holders` is everyone on the ledger: a first name another holder shares is written in full
+    even when only one of them appears in this phrase."""
     seen: dict[tuple[tuple[str, ...], str, str | None], Account] = {}
     for account in accounts:
         seen.setdefault((tuple(account.owners), account.type, account.platform), account)
-    holders = [owner for a in seen.values() for owner in a.owners]
-    return "; ".join(account_phrase(a, holders) for a in seen.values())
+    everyone = [*holders, *(owner for a in seen.values() for owner in a.owners)]
+    return "; ".join(account_phrase(a, everyone) for a in seen.values())

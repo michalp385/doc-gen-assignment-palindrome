@@ -133,7 +133,9 @@ def limit_marker(
     is P4's internal screening input, not report text. Given the accounts, the text names the
     ones the question is about (holder, type and platform)."""
     wanted = set(account_ids)
-    named = accounts_phrase(a for a in accounts if a.id in wanted)
+    named = accounts_phrase(
+        (a for a in accounts if a.id in wanted), [o for a in accounts for o in a.owners]
+    )
     subject = f" for {named}" if named else ""
     return Marker(
         id="",

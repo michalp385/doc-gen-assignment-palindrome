@@ -30,6 +30,7 @@ from pydantic import BaseModel
 
 from agent_pipeline.config import PromptSpec
 from agent_pipeline.gates.deterministic import (
+    NUMBER_WORDS,
     WORD_FIGURE_RE,
     WORD_PERCENT_RE,
     word_ngrams,
@@ -43,7 +44,10 @@ MIN_EVIDENCE_WORDS = 4  # a shorter quote ("the", "client") is in every set of n
 _FIGURE_RE = re.compile(r"[0-9£$€%]")
 # A share or amount in words reaches the writer as surely as a digit: "half into each ISA", "forty
 # thousand pounds", "fifty per cent". The writer gate's own word-form patterns, plus the fractions.
-_WORD_SHARE_RE = re.compile(r"\b(?:half|quarter)\b", re.IGNORECASE)
+_WORD_SHARE_RE = re.compile(
+    rf"\b(?:half|halves|quarters?|thirds?)\b|{NUMBER_WORDS}\s+(?:pounds?|grand|thousand|hundred|million)\b",
+    re.IGNORECASE,
+)
 
 
 def _carries_a_figure(instruction: str) -> bool:

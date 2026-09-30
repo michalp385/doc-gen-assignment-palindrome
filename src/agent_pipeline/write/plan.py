@@ -97,9 +97,20 @@ def _describe_scope(ledger: Ledger) -> str:
     for account in in_scope:
         type_counts[account.type] = type_counts.get(account.type, 0) + 1
 
+    # Two different holders can share a first name; the full name then tells their accounts apart
+    # (and keeps the grouping below from merging two people's accounts into one).
+    holders = {owner for a in in_scope for owner in a.owners if owner.split()}
+    shared_firsts = {
+        first
+        for first in {h.split()[0] for h in holders}
+        if sum(1 for h in holders if h.split()[0] == first) > 1
+    }
+
     def _label(account: Account) -> str:
         if type_counts[account.type] > 1 and len(account.owners) == 1:
-            return f"{account.owners[0].split()[0]}'s {account.type}"
+            owner = account.owners[0]
+            name = owner if owner.split()[0] in shared_firsts else owner.split()[0]
+            return f"{name}'s {account.type}"
         return f"your {account.type}"
 
     # Accounts that would read identically (the same owner and type on the same platform) are named

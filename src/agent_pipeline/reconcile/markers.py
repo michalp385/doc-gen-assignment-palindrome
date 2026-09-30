@@ -84,12 +84,15 @@ def cgt_marker(disposals: list[Disposal], accounts: Sequence[Account] = ()) -> l
     if not taxable and not unknown:
         return []
     by_id = {a.id: a for a in accounts}
+    everyone = [owner for a in accounts for owner in a.owners]
     named = accounts_phrase(
-        by_id[d.account_id] for d in (taxable or unknown) if d.account_id in by_id
+        (by_id[d.account_id] for d in (taxable or unknown) if d.account_id in by_id), everyone
     )
     if taxable:
         text = f"capital gains tax on the disposal of {named}" if named else _CGT_TEXT
-        possible = accounts_phrase(by_id[d.account_id] for d in unknown if d.account_id in by_id)
+        possible = accounts_phrase(
+            (by_id[d.account_id] for d in unknown if d.account_id in by_id), everyone
+        )
         if possible:
             # A disposal whose tax treatment is unconfirmed shares the one marker: say so, or it
             # reads as covered (or as not applying).
