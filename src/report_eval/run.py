@@ -47,7 +47,7 @@ from agent_pipeline.sources.classify import (
     classify,
 )
 from agent_pipeline.sources.document import SourceDoc
-from report_eval.expected import ExpectedFacts, load_expected
+from report_eval.expected import EXPECTED_ROOT, ExpectedFacts, load_expected
 from report_eval.extraction_score import score_extraction
 from report_eval.investigation_score import score_investigation
 from report_eval.judge_rubric import LLMEvalJudgeModel, MarkerSummary, derive_q6, score_q1_to_q5
@@ -263,16 +263,23 @@ def _apply_stage_overrides(config: ReportConfig, overrides: str) -> ReportConfig
     return config.model_copy(update={"stages": stages})
 
 
-def _resolve_clients(requested: list[str], outputs_dir: Path) -> list[str]:
+def _resolve_clients(
+    requested: list[str], outputs_dir: Path, expected_root: Path = EXPECTED_ROOT
+) -> list[str]:
+    """`all` is every report file (`<client>.md` or `<client>.failed.md`) that has an
+    `eval/expected/<client>.json`. Other files in the outputs dir (`<client>.review.md`, ledgers,
+    run summaries) are not reports, and a report with no expected facts cannot be scored."""
     if requested != ["all"]:
         return requested
     names: set[str] = set()
-    for path in sorted(outputs_dir.glob("*.md")):
+    for path in outputs_dir.glob("*.md"):
+        if path.name.endswith(".review.md"):
+            continue
         if path.name.endswith(".failed.md"):
             names.add(path.name[: -len(".failed.md")])
         else:
             names.add(path.stem)
-    return sorted(names)
+    return sorted(name for name in names if (expected_root / f"{name}.json").exists())
 
 
 def _read_trace(trace_path: Path) -> list[dict]:
