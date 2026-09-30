@@ -20,7 +20,7 @@ uv run python -m agent_pipeline.generate --client client_01_clean
 ```
 
 Options: `--data-dir`, `--config` (default `config/template_config.json`), `--output-dir`
-(default `outputs/`), `--fresh`, `--estimate`.
+(default `outputs/`), `--fresh`.
 
 **The committed cache.** Every model call is cached under `cache/llm/`, keyed on the model, stage
 settings, prompt text, output schema and inputs, and the cache is committed. So a default run of a
@@ -34,14 +34,13 @@ prompt, schema, stage setting or input changes the cache key, so the run goes li
 money until its entries are refreshed.
 
 **`--fresh`** bypasses the cache, calls the API and rewrites the cache entries. It costs money;
-check the model prices in `config/models.json` first and ask before a batch. `--estimate` is
-accepted but not implemented yet (it raises `NotImplementedError`); read the printed cost after a
-run instead.
+check the model prices in `config/models.json` first and ask before a batch. There is no
+dry-run cost estimate; read the cost the run prints.
 
 Client folders live under `data/`: `client_01_clean` to `client_04_stretch` (the four provided
 clients), and `data/synthetic/handwritten/case_01` to `case_20` (hand-written cases, one rule
-each). Committed outputs exist for `client_01_clean` and `client_02_medium`; the others have not
-been generated yet.
+each). Committed outputs exist for all four provided clients (`outputs/`) and for all 20
+hand-written cases (`outputs/handwritten/`).
 
 ## Checks and tests
 
@@ -54,8 +53,9 @@ uv run pytest -m live          # live API tests: they cost money, run deliberate
 `scripts/check_repo.py` (part of `check.sh`) enforces the repo-level rules: no client-specific
 name, account ID, adviser, fund or figure in `src/agent_pipeline/` or `config/` (the pipeline must
 work for clients it has never seen), no secrets, the FCA line and risk warning present verbatim as
-static text, `formatting.py` unchanged, `openai` imported only in `llm.py`, and no run of six or
-more words shared between a prompt and a source document.
+static text, `formatting.py` unchanged, `openai` imported only in `llm.py`, no run of six or
+more words shared between a prompt and a source document, and no mention of `CLAUDE.md` in any
+committed output (outputs are adviser-facing).
 
 ## Evaluate
 
@@ -95,6 +95,7 @@ For a client `<client>`, `outputs/` holds:
 | `<client>.ledger.json` | The **facts ledger**: every fact with its source, date and the rule that selected it, plus accounts, money items, actions, markers, review items and section decisions. The table, the figures and the markers in the report are all read from it. |
 | `<client>.run.json` | The **run summary**: release state, every gate result, per-stage calls, cache hits vs live calls, and cost. |
 | `outputs/baseline/` | The starter pipeline's reports, kept as the baseline the eval measures progress against. |
+| `outputs/handwritten/` | The same files for each hand-written case (`case_01` to `case_20`). |
 
 When a run stops before reconciliation (no readable account data, no report instruction, a scope
 that is missing or "TBC", and similar), only the failure file, a minimal review sheet and a minimal
@@ -113,10 +114,12 @@ A fixed code workflow with bounded model loops (`DECISIONS.md` D5), not an orche
    every quote and parses every amount and date itself.
 3. **Reconcile** in code, one function per trust rule (`SCOPING.md` sections 3.1 and 4): which
    source wins, which accounts are in scope, what is a marker and what is only a review note.
-4. **Plan and write**: each section gets only its own facts, digit-free; the model writes prose
+4. **Investigate** (`DECISIONS.md` D14): where more evidence could change an outcome, a bounded
+   agent with read-only tools gathers quoted evidence; code verifies the quotes and decides.
+5. **Plan and write**: each section gets only its own facts, digit-free; the model writes prose
    with fact and marker tokens and never types a figure; code fills the tokens, builds the table
    and inserts every marker.
-5. **Gate and judge**: deterministic gates and a release judge decide whether the result is a
+6. **Gate and judge**: deterministic gates and a release judge decide whether the result is a
    draft for adviser review or a failed generation.
 
 `ARCHITECTURE.md` is the code map and the invariants; `DESIGN.md` the design; `SCOPING.md` the

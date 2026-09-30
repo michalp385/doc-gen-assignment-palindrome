@@ -912,19 +912,12 @@ def run(
     *,
     outputs_dir: Path = Path("outputs"),
     fresh: bool = False,
-    estimate: bool = False,
     transport: Transport | None = None,
 ) -> RunResult:
     """`transport` is for tests only: a `FakeTransport`/similar that never touches the
     network, so a pure cache replay (`tests/test_pipeline_replay.py`) doesn't need a real
     `OpenAI()` client, which raises immediately without an API key even though a full cache
     hit never calls it (matching every other offline test's `FakeTransport` pattern)."""
-    if estimate:
-        raise NotImplementedError(
-            "--estimate needs an estimate-mode entry point on every stage's model wrapper; "
-            "not built yet. Run for real and read the printed cost."
-        )
-
     client = client_dir.name
     run_id = f"{client}-{int(time.time())}"
     llm = _load_llm(config, fresh=fresh, run_id=run_id, transport=transport)

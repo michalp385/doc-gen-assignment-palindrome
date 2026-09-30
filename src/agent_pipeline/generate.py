@@ -24,9 +24,6 @@ def main() -> None:
     parser.add_argument(
         "--fresh", action="store_true", help="bypass the LLM cache and rewrite its entries"
     )
-    parser.add_argument(
-        "--estimate", action="store_true", help="print an uncached-call cost estimate, no calls"
-    )
     args = parser.parse_args()
 
     load_dotenv()
@@ -37,7 +34,6 @@ def main() -> None:
         config,
         outputs_dir=args.output_dir,
         fresh=args.fresh,
-        estimate=args.estimate,
     )
 
 
