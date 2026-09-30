@@ -95,12 +95,6 @@ class LLMResult(Generic[T]):
     attempts: int
 
 
-@dataclass(frozen=True)
-class EstimateResult:
-    cache_hit: bool
-    estimated_cost_usd: Decimal
-
-
 def _canonical_json(value: object) -> str:
     return json.dumps(value, sort_keys=True, separators=(",", ":"))
 
@@ -358,44 +352,6 @@ class LLMClient:
             latency_s=latency_s,
             attempts=attempts,
         )
-
-    def estimate(
-        self,
-        *,
-        stage: str,
-        prompt: PromptSpec,
-        inputs: Mapping[str, object],
-        schema: type[T],
-        images: Sequence[ImageInput] = (),
-        tools: Sequence[Tool] = (),
-    ) -> EstimateResult:
-        """A cache-key-only check plus a rough token-count heuristic (len(text) // 4) for a
-        miss -- clearly approximate, never billed usage. DESIGN doesn't specify a precise
-        estimator; this exists so `--estimate` (T16) has something to call before a live
-        batch, not to be exact."""
-        stage_config = self._stages[stage]
-        temperature = 0.0 if self._temperature_accepted(stage_config.model) else None
-        rendered_inputs = _canonical_json(inputs)
-        key = compute_cache_key(
-            model=stage_config.model,
-            reasoning_effort=stage_config.reasoning_effort,
-            temperature=temperature,
-            prompt_text=prompt.text,
-            schema_json=_canonical_json(schema.model_json_schema()),
-            rendered_inputs=rendered_inputs,
-            image_hashes=[img.sha256 for img in images],
-            tool_defs=[t.definition for t in tools],
-        )
-        if not self._fresh and read_entry(self._cache_root, key) is not None:
-            return EstimateResult(cache_hit=True, estimated_cost_usd=Decimal(0))
-
-        price = self._prices[stage_config.model]
-        approx_input_tokens = (len(prompt.text) + len(rendered_inputs)) // 4
-        approx_output_tokens = 500  # a rough, undifferentiated guess -- not per-stage tuned
-        input_rate = Decimal(str(price["input"])) / Decimal(1_000_000)
-        output_rate = Decimal(str(price["output"])) / Decimal(1_000_000)
-        cost = approx_input_tokens * input_rate + approx_output_tokens * output_rate
-        return EstimateResult(cache_hit=False, estimated_cost_usd=cost)
 
 
 class OpenAITransport:
