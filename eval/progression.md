@@ -1,6 +1,6 @@
 # Progression: baseline against the current pipeline
 
-Baseline: `eval/results/20260930T163709Z_b35808b.json` (commit `b35808b`). Current: `eval/results/20260930T163710Z_b35808b.json` (commit `b35808b`). n/a means that side has no value: no report for the client, or no judge answer in the cache.
+Baseline: `eval/results/20260930T184844Z_770beb1.json` (commit `770beb1`). Current: `eval/results/20260930T184845Z_770beb1.json` (commit `770beb1`). n/a means that side has no value: no report for the client, or no judge answer in the cache.
 
 ### client_01_clean
 
@@ -13,7 +13,7 @@ Baseline: `eval/results/20260930T163709Z_b35808b.json` (commit `b35808b`). Curre
 | Q1 | 2 | 3 |
 | Q2 | 3 | 4 |
 | Q3 | 1 | 5 |
-| Q4 | 2 | 3 |
+| Q4 | 2 | 4 |
 | Q5 | n/a (no markers) | 5 |
 | Q6 | 1 | 5 |
 
@@ -26,9 +26,9 @@ Baseline: `eval/results/20260930T163709Z_b35808b.json` (commit `b35808b`). Curre
 | Deterministic gates passed | 5 of 14 | 14 of 14 |
 | Failing gates | G1, G2, G3, G4, G11, G12, G13, G14, G15 | none |
 | Q1 | 2 | 2 |
-| Q2 | 1 | 4 |
-| Q3 | 2 | 5 |
-| Q4 | 2 | 4 |
+| Q2 | 1 | 3 |
+| Q3 | 2 | 4 |
+| Q4 | 2 | 3 |
 | Q5 | n/a (no markers) | 5 |
 | Q6 | 1 | 5 |
 
@@ -40,11 +40,11 @@ Baseline: `eval/results/20260930T163709Z_b35808b.json` (commit `b35808b`). Curre
 | Failed deterministic gates | 10 | 0 |
 | Deterministic gates passed | 4 of 14 | 14 of 14 |
 | Failing gates | G1, G2, G3, G4, G9, G11, G12, G13, G14, G15 | none |
-| Q1 | 2 | 3 |
-| Q2 | 2 | 3 |
+| Q1 | 2 | 4 |
+| Q2 | 2 | 2 |
 | Q3 | 2 | 2 |
 | Q4 | 2 | 4 |
-| Q5 | n/a (no markers) | 5 |
+| Q5 | n/a (no markers) | 4 |
 | Q6 | 1 | 5 |
 
 ### client_04_stretch
