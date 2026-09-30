@@ -25,6 +25,8 @@ We recommend the following:
 
 We recommend paying £4,000 into the Stocks & Shares ISA.
 
+The money available to invest now is £4,000.
+
 ## Fees & Charges
 
 An ongoing platform charge applies to your investments on Brightwell. The Brightwell platform charge rate is [ADVISER TO CONFIRM #2: ongoing platform charge rate, Brightwell].

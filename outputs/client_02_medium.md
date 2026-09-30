@@ -26,7 +26,9 @@ Your joint General Investment Account was previously shown in our records (15 Ma
 
 We recommend the following:
 
-We recommend disinvesting the joint GIA in full. We recommend using the gross proceeds of c. £45,000 to top up David’s and Susan’s Stocks & Shares ISAs equally for the new tax year.
+We recommend disinvesting the joint GIA in full.
+
+We recommend using the gross proceeds of c. £45,000 to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.
 
 This figure is gross before any CGT and becomes available once the disposal completes.
 

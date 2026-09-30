@@ -23,7 +23,7 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend making no other changes at this time, as agreed.
+We recommend making no changes at this time.
 
 ## Fees & Charges
 

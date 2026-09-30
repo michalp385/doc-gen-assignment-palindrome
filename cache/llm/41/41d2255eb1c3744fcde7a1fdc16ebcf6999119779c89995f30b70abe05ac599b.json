@@ -1,0 +1,51 @@
+{
+  "cost_usd": "0.0015760",
+  "input_hash": "7a37abd2cf2ba7633988968d17c2e9b7c35275b3081e4a10f0ac9bbc7a5c7b6c",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend revising the top-up amount to \u00a37,000 from the cash account into the Stocks & Shares ISA."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Alistair has more available to invest than he initially thought.",
+        "paragraph_id": "p2",
+        "quote": "Alistair called to say he has more available to invest than he first thought and would now like to move \u00a37,000 rather than \u00a33,000 from his Holloway cash account into his Stocks & Shares ISA.",
+        "report_quote": "He has more available to invest than he initially thought.",
+        "source_id": "meeting_notes_followup.docx"
+      },
+      {
+        "claim": "The report states that the agreed risk profile is 4 (moderate).",
+        "paragraph_id": "p2",
+        "quote": "Alistair confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed top-up amount is to be revised to \u00a37,000 from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p3",
+        "quote": "We agreed the top-up amount would be revised to \u00a37,000 from the cash account into the Stocks & Shares ISA.",
+        "report_quote": "We recommend revising the top-up amount to \u00a37,000 from the cash account into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes_followup.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend revising the top-up amount to \u00a37,000 from the cash account into the Stocks & Shares ISA."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2555,
+    "output_tokens": 2641,
+    "reasoning_tokens": 2277
+  }
+}

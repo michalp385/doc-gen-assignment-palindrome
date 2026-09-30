@@ -1,0 +1,44 @@
+{
+  "cost_usd": "0.0018166",
+  "input_hash": "45eaacce4005ab15ffa21d863da46a8891a80cdcc968c955210bfdd95ffc34e8",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no changes at this time."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "There is no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Yvonne has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report recommends making no changes, reflecting the agreed decision to leave the Stocks & Shares ISA as it is.",
+        "paragraph_id": "p3",
+        "quote": "We discussed her Stocks & Shares ISA, which she is happy to leave as it is.",
+        "report_quote": "We recommend making no changes at this time.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no changes at this time."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2431,
+    "output_tokens": 3147,
+    "reasoning_tokens": 2954
+  }
+}

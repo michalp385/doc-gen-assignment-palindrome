@@ -1,0 +1,44 @@
+{
+  "cost_usd": "0.0018885",
+  "input_hash": "b174706e8cbd877afbc7e00ab6a23774028cbe1b247b36669f5d5adc83309a2d",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": null
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Neither client currently requires income from the portfolio.",
+        "paragraph_id": "p4",
+        "quote": "Neither has any income requirement from the portfolio at present.",
+        "report_quote": "Neither currently requires income from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed position is to make no changes at this time.",
+        "paragraph_id": "p5",
+        "quote": "We agreed no changes are needed at this time and will review again next year.",
+        "report_quote": "We recommend making no changes at this time.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no changes at this time."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2485,
+    "output_tokens": 3280,
+    "reasoning_tokens": 3106
+  }
+}

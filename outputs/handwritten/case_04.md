@@ -24,7 +24,7 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend making no changes at this time and reviewing again next year, as agreed.
+We recommend making no changes at this time and will review again next year.
 
 ## Fees & Charges
 

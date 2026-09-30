@@ -1,0 +1,65 @@
+{
+  "cost_usd": "0.0022562",
+  "input_hash": "39e725e392efbf749d19ef64bf809e0cb339ce666e66b1ca800f39e45a973e82",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no changes at this time."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Yvonne's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Yvonne confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Yvonne confirmed that her circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Yvonne confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "She remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Yvonne has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report states that Yvonne's agreed risk profile is 4 (moderate); the source confirms moderate risk but does not state the numeric profile.",
+        "paragraph_id": "p2",
+        "quote": "Yvonne confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The recommendation is to make no changes, reflecting Yvonne's stated preference to leave her Stocks & Shares ISA as it is.",
+        "paragraph_id": "p3",
+        "quote": "We discussed her Stocks & Shares ISA, which she is happy to leave as it is.",
+        "report_quote": "We recommend making no changes at this time.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no changes at this time."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2427,
+    "output_tokens": 4027,
+    "reasoning_tokens": 3624
+  }
+}

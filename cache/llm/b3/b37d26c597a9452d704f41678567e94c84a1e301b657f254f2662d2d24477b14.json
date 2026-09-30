@@ -1,0 +1,65 @@
+{
+  "cost_usd": "0.0019159",
+  "input_hash": "77f5304186c03db3aa27b5fdc0a6053e8fae368243d5dbd8f93f60ec760adb6a",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a34,000 into the Stocks & Shares ISA."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Owen's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Owen confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Owen confirmed that his circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Owen remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Owen confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "He remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Owen has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Owen has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed payment is \u00a34,000 into the Stocks & Shares ISA.",
+        "paragraph_id": "p5",
+        "quote": "We agreed he would pay \u00a34,000 into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "We recommend paying \u00a34,000 into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "\u00a34,000 from savings held outside the portfolio is available to add to the Stocks & Shares ISA.",
+        "paragraph_id": "p4",
+        "quote": "Owen would like to add \u00a34,000 from savings held outside the portfolio into his Stocks & Shares ISA to use this year's allowance.",
+        "report_quote": "The money available to invest now is \u00a34,000.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a34,000 into the Stocks & Shares ISA."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2554,
+    "output_tokens": 3321,
+    "reasoning_tokens": 2909
+  }
+}

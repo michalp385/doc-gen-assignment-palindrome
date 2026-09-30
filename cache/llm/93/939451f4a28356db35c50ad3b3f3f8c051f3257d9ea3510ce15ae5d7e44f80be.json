@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0002010",
+  "input_hash": "d03ac383765a6c3d28e0cfafb68be1c4018cfc0892aa8a61c322c7941d85a163",
+  "model": "gpt-6-luna",
+  "prompt_version": "50af99f242a8b5e713f85f5cf7872dc6031b89fd17ebd9cf8907704afd821834",
+  "response": {
+    "paragraphs": [
+      "We recommend moving {fact:action.a1.amount} from the cash account into the Stocks & Shares ISA."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1738,
+    "input_tokens": 1825,
+    "output_tokens": 37,
+    "reasoning_tokens": 0
+  }
+}

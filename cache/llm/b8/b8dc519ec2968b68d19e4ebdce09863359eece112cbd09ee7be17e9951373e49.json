@@ -1,0 +1,51 @@
+{
+  "cost_usd": "0.036608",
+  "input_hash": "c87a7f2872ceae4c558a326126fb880898615d75c1b6f94addda16e44e7cee61",
+  "model": "gpt-6-sol",
+  "prompt_version": "f20296886939b866ac7d52f8edfc3e8882390be2fd16c2c83db2b67083169764",
+  "response": {
+    "findings": [
+      {
+        "criterion": "Q1",
+        "detail": "The Recommendations section says what to do but omits why. The spec requires a reason; the meeting note says David and Susan wanted to simplify their accounts.",
+        "report_quote": [
+          "We recommend disinvesting the joint GIA in full."
+        ],
+        "score": 2
+      },
+      {
+        "criterion": "Q2",
+        "detail": "No clear drift in tone, certainty or scope from the supplied sources.",
+        "report_quote": [],
+        "score": 5
+      },
+      {
+        "criterion": "Q3",
+        "detail": "The report follows the relevant handling notes without exposing their wording.",
+        "report_quote": [],
+        "score": 5
+      },
+      {
+        "criterion": "Q4",
+        "detail": "\u2018CGT\u2019 is used before it is explained, making this sentence less clear than it could be for a client.",
+        "report_quote": [
+          "This figure is gross before any CGT and becomes available once the disposal completes."
+        ],
+        "score": 4
+      },
+      {
+        "criterion": "Q5",
+        "detail": "Each marker names the specific charge, tax question or ISA allocation that needs confirming, together with the relevant account or platform.",
+        "report_quote": [],
+        "score": 5
+      }
+    ]
+  },
+  "stage": "eval_judge",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 2894,
+    "output_tokens": 3082,
+    "reasoning_tokens": 2850
+  }
+}

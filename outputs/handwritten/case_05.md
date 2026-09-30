@@ -22,7 +22,7 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend checking the cash account and, if the funds are available, moving £5,000 from it into the Stocks & Shares ISA.
+We recommend looking into the cash account and, if the funds are available, moving £5,000 from it into the Stocks & Shares ISA.
 
 ## Fees & Charges
 

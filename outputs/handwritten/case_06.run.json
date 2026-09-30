@@ -95,7 +95,7 @@
     {
       "gate": "G7",
       "passed": true,
-      "detail": ""
+      "detail": "1 of 3 judge samples disagreed: The report describes the \u00a34,000 as available to invest now even though the client agreed to pay that amount into the ISA; the agreed payment is not yet shown as received in the account. ('The money available to invest now is \u00a34,000.')"
     },
     {
       "gate": "G10",
@@ -158,22 +158,22 @@
     {
       "stage": "write",
       "calls": 5,
-      "cache_hits": 1,
-      "live_calls": 4,
+      "cache_hits": 4,
+      "live_calls": 1,
       "tokens": {
-        "input": 4813,
-        "cached_input": 1589,
-        "output": 415,
-        "reasoning": 165
+        "input": 4962,
+        "cached_input": 1738,
+        "output": 447,
+        "reasoning": 184
       },
-      "cost_usd": "0.0006888",
-      "latency_s": 9.106031333096325,
+      "cost_usd": "0.0007197",
+      "latency_s": 3.334975417004898,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
         "1bbba08a78878a56c08358453edf4bc552e4f63d1da78fcb4c8c4a3a30c21171",
-        "7484353a95291c6344e3638f244423cc4de30d3170676dd43246d4e86efda064",
+        "50af99f242a8b5e713f85f5cf7872dc6031b89fd17ebd9cf8907704afd821834",
         "7c75508fc5047488559364c74e7ecc174a064bda47e02237e7bce989ebbb4861",
         "8afb729f92d3f62cd1b68ab1c67a3a02de18eda06942110bbf187f66125d0254",
         "c4cf9539bfaff3de6b78059e985d66a6bdadd39f1ed1833d02449bac6bd6ee15"
@@ -185,13 +185,13 @@
       "cache_hits": 0,
       "live_calls": 3,
       "tokens": {
-        "input": 7619,
+        "input": 7670,
         "cached_input": 5490,
-        "output": 10211,
-        "reasoning": 9025
+        "output": 14172,
+        "reasoning": 12819
       },
-      "cost_usd": "0.0058674",
-      "latency_s": 77.07963020796888,
+      "cost_usd": "0.0078530",
+      "latency_s": 109.06786779104732,
       "models": [
         "gpt-6-luna"
       ],
@@ -201,7 +201,7 @@
     }
   ],
   "total_calls": 12,
-  "total_cache_hits": 5,
-  "total_live_calls": 7,
-  "total_cost_usd": "0.0076145"
+  "total_cache_hits": 8,
+  "total_live_calls": 4,
+  "total_cost_usd": "0.0096310"
 }

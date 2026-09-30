@@ -23,9 +23,11 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend selling Diane's General Investment Account.
+We recommend selling part of Diane's General Investment Account.
 
-We recommend using the gross proceeds of £10,000 to top up her Stocks & Shares ISA for the new tax year. This figure is gross before any CGT and becomes available once the disposal completes.
+We recommend using the gross proceeds of £10,000 to top up her Stocks & Shares ISA for the new tax year.
+
+This figure is gross before any CGT and becomes available once the disposal completes.
 
 [ADVISER TO CONFIRM #4: whether an existing investment is sold: the report instruction and the meeting record differ]
 

@@ -3,7 +3,7 @@
 ## Status
 
 Release state: draft
-Cache replay vs live: 19 replayed, 7 live
+Cache replay vs live: 25 replayed, 1 live
 Gates: 22/22 passed
 
 ## Blocking before sign-off

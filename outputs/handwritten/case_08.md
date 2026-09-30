@@ -22,7 +22,9 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend moving money from the cash account into the Stocks & Shares ISA, as agreed. [ADVISER TO CONFIRM #3: topup amount: the report instruction and the meeting record differ]
+We recommend moving money from the cash account into the Stocks & Shares ISA.
+
+[ADVISER TO CONFIRM #3: topup amount: the report instruction and the meeting record differ]
 
 ## Fees & Charges
 

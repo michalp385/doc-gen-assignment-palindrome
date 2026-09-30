@@ -1,0 +1,34 @@
+{
+  "cost_usd": "0.0013886",
+  "input_hash": "cb6c5664a8484ed5dbcde3b5b04c54e6625710e2fbf8a233a1cb5f9c25b52359",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Trevor would like the remainder invested in his Stocks & Shares ISA for the new tax year.",
+        "paragraph_id": "p4",
+        "quote": "Trevor would like the remainder invested into his Stocks & Shares ISA for the new tax year.",
+        "report_quote": "Trevor would like the remainder invested into his Stocks & Shares ISA for the new tax year.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Trevor has no income requirement from the portfolio.",
+        "paragraph_id": "p5",
+        "quote": "Trevor has no income requirement from the portfolio.",
+        "report_quote": "He has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": []
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2371,
+    "output_tokens": 2303,
+    "reasoning_tokens": 2139
+  }
+}

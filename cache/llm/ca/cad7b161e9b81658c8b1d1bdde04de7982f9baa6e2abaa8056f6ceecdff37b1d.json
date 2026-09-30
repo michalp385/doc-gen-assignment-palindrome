@@ -1,0 +1,58 @@
+{
+  "cost_usd": "0.0013886",
+  "input_hash": "2791923c2036313d4123dc26c00c3c74360b657a60418eb7b9045c3095f55cb0",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving money from the cash account into the Stocks & Shares ISA."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Vera has no income requirement from the portfolio.",
+        "paragraph_id": "p5",
+        "quote": "Vera has no income requirement from the portfolio.",
+        "report_quote": "She has no income requirement from the portfolio",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Vera would like to move money from her Holloway cash account into her Stocks & Shares ISA.",
+        "paragraph_id": "p3",
+        "quote": "Vera would like to move around \u00a315,000 from her Holloway cash account into her Stocks & Shares ISA to use this year's allowance.",
+        "report_quote": "would like to move money from her Holloway cash account into her Stocks & Shares ISA",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Vera would like to use this year's allowance.",
+        "paragraph_id": "p3",
+        "quote": "Vera would like to move around \u00a315,000 from her Holloway cash account into her Stocks & Shares ISA to use this year's allowance.",
+        "report_quote": "to use this year\u2019s allowance",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Moving money from the cash account into the Stocks & Shares ISA was an agreed action.",
+        "paragraph_id": "p4",
+        "quote": "We agreed she would move money from the cash account into the Stocks & Shares ISA",
+        "report_quote": "We recommend moving money from the cash account into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving money from the cash account into the Stocks & Shares ISA."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2451,
+    "output_tokens": 2287,
+    "reasoning_tokens": 1820
+  }
+}

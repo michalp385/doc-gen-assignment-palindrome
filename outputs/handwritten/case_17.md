@@ -24,7 +24,7 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend leaving all as they are. We recommend making no other changes at this time, as agreed, and revisiting the matter if it becomes relevant.
+We recommend leaving all as they are. We recommend revisiting if it becomes relevant.
 
 ## Fees & Charges
 

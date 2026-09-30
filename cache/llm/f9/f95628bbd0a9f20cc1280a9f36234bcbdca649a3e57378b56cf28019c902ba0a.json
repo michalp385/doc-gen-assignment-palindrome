@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0002423",
+  "input_hash": "31b40460d21c0e2929f2d9ff48b0f9d00d35bfcf54d0096378ab0b9ac76e9bb1",
+  "model": "gpt-6-luna",
+  "prompt_version": "50af99f242a8b5e713f85f5cf7872dc6031b89fd17ebd9cf8907704afd821834",
+  "response": {
+    "paragraphs": [
+      "amount available to invest now, after commitments"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1738,
+    "input_tokens": 1818,
+    "output_tokens": 121,
+    "reasoning_tokens": 96
+  }
+}

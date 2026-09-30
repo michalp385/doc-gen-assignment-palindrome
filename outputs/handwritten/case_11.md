@@ -23,7 +23,7 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend paying £3,000 into the Stocks & Shares ISA. We recommend making no sales of investments.
+We recommend that she pays £3,000 into the Stocks & Shares ISA. The money available to invest now is £3,000. We recommend making no other changes at this time.
 
 ## Fees & Charges
 

@@ -1,0 +1,87 @@
+{
+  "cost_usd": "0.0022638",
+  "input_hash": "6a0ac7bb15107d069bfcced407df83d25278e66979ac84a6e4285a50a54f69e9",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a33,000 into the Stocks & Shares ISA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend that no investments are sold."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Patricia's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Patricia confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Patricia confirmed that her circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Patricia remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Patricia confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "She remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Patricia has no income requirement from the portfolio.",
+        "paragraph_id": "p5",
+        "quote": "Patricia has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk profile is moderate.",
+        "paragraph_id": "p2",
+        "quote": "Patricia confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "A \u00a33,000 payment into the Stocks & Shares ISA was agreed.",
+        "paragraph_id": "p4",
+        "quote": "We agreed she would pay \u00a33,000 into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "We recommend paying \u00a33,000 into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "\u00a33,000 is available to invest now.",
+        "paragraph_id": "p3",
+        "quote": "Patricia would like to add \u00a33,000 from savings held outside the portfolio into her Stocks & Shares ISA to use this year's allowance.",
+        "report_quote": "The money available to invest now is \u00a33,000.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "No investments are being sold.",
+        "paragraph_id": "p4",
+        "quote": "No investments are being sold.",
+        "report_quote": "We recommend that no investments are sold.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a33,000 into the Stocks & Shares ISA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend that no investments are sold."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2483,
+    "output_tokens": 4031,
+    "reasoning_tokens": 3317
+  }
+}

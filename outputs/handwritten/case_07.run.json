@@ -85,7 +85,7 @@
     {
       "gate": "G2",
       "passed": true,
-      "detail": "1 of 3 judge samples disagreed: The agreed \u00a310,000 is the amount to sell from the General Investment Account; the report describes it as \u00a310,000 of gross proceeds, which may incorrectly present the sale amount as the proceeds available for the ISA top-up. ('the gross proceeds of \u00a310,000')"
+      "detail": ""
     },
     {
       "gate": "G4",
@@ -157,24 +157,24 @@
     },
     {
       "stage": "write",
-      "calls": 7,
-      "cache_hits": 2,
-      "live_calls": 5,
+      "calls": 6,
+      "cache_hits": 5,
+      "live_calls": 1,
       "tokens": {
-        "input": 7206,
-        "cached_input": 3178,
-        "output": 898,
-        "reasoning": 512
+        "input": 5611,
+        "cached_input": 1738,
+        "output": 751,
+        "reasoning": 449
       },
-      "cost_usd": "0.0011696",
-      "latency_s": 14.889723542146385,
+      "cost_usd": "0.0009366",
+      "latency_s": 4.603270667139441,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
         "1bbba08a78878a56c08358453edf4bc552e4f63d1da78fcb4c8c4a3a30c21171",
+        "50af99f242a8b5e713f85f5cf7872dc6031b89fd17ebd9cf8907704afd821834",
         "62cd778e8d7b07d7af414d75c64f478af0e02de9d026396720f34ec1fe6636bf",
-        "7484353a95291c6344e3638f244423cc4de30d3170676dd43246d4e86efda064",
         "7c75508fc5047488559364c74e7ecc174a064bda47e02237e7bce989ebbb4861",
         "8afb729f92d3f62cd1b68ab1c67a3a02de18eda06942110bbf187f66125d0254",
         "c4cf9539bfaff3de6b78059e985d66a6bdadd39f1ed1833d02449bac6bd6ee15"
@@ -182,17 +182,17 @@
     },
     {
       "stage": "release_judge",
-      "calls": 3,
+      "calls": 5,
       "cache_hits": 0,
-      "live_calls": 3,
+      "live_calls": 5,
       "tokens": {
-        "input": 7577,
-        "cached_input": 5490,
-        "output": 19030,
-        "reasoning": 17065
+        "input": 12709,
+        "cached_input": 9150,
+        "output": 25338,
+        "reasoning": 22359
       },
-      "cost_usd": "0.0102727",
-      "latency_s": 232.53790395800024,
+      "cost_usd": "0.0139399",
+      "latency_s": 209.4254975838121,
       "models": [
         "gpt-6-luna"
       ],
@@ -201,8 +201,8 @@
       ]
     }
   ],
-  "total_calls": 14,
-  "total_cache_hits": 6,
-  "total_live_calls": 8,
-  "total_cost_usd": "0.0124457"
+  "total_calls": 15,
+  "total_cache_hits": 9,
+  "total_live_calls": 6,
+  "total_cost_usd": "0.0158799"
 }

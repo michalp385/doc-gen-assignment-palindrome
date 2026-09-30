@@ -27,7 +27,7 @@ Your joint General Investment Account was previously shown in our records (10 Ma
 
 We recommend the following:
 
-We recommend disinvesting the joint GIA. We recommend using the gross proceeds of c. £38,000 to fund both Robert's and Jean's ISAs for the new tax year. This figure is gross before any CGT and becomes available once the disposal completes. The inheritance will be used together with these proceeds to fund both ISAs. We recommend opening a new jointly-held investment account for the balance. £120,000 is the money available to invest across the agreed actions. [ADVISER TO CONFIRM #5: ISA top-up amounts and the resulting balance for the new account]
+We recommend disinvesting the joint GIA. We recommend using the gross proceeds of c. £38,000 to fund both Robert’s and Jean’s ISAs for the new tax year. This figure is gross before any CGT and becomes available once the disposal completes. The £120,000 will be used together with these proceeds to fund both ISAs for the new tax year. [ADVISER TO CONFIRM #5: ISA top-up amounts and the resulting balance for the new account] We recommend opening a new jointly-held investment account for the balance. The money available to invest now is £120,000.
 
 ## Tax Implications
 

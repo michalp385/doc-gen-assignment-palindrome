@@ -1,0 +1,65 @@
+{
+  "cost_usd": "0.0030550",
+  "input_hash": "dcbad9499f813a6e980b51f6f0c3ab3f6d0a3f6e3fe7da57ecb40af612fe9ebe",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no changes at this time."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Their circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Both confirmed their circumstances and objectives are unchanged and remain comfortable with a balanced approach to risk.",
+        "report_quote": "Both confirmed that their circumstances and objectives are unchanged",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They remain comfortable with a balanced approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Both confirmed their circumstances and objectives are unchanged and remain comfortable with a balanced approach to risk.",
+        "report_quote": "that they remain comfortable with a balanced approach to risk.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Neither currently requires income from the portfolio.",
+        "paragraph_id": "p4",
+        "quote": "Neither has any income requirement from the portfolio at present.",
+        "report_quote": "Neither currently requires income from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Their agreed risk approach is balanced.",
+        "paragraph_id": "p2",
+        "quote": "Both confirmed their circumstances and objectives are unchanged and remain comfortable with a balanced approach to risk.",
+        "report_quote": "Your agreed risk profile is 5 (balanced).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "No changes are needed at this time.",
+        "paragraph_id": "p5",
+        "quote": "We agreed no changes are needed at this time and will review again next year.",
+        "report_quote": "We recommend making no changes at this time.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no changes at this time."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2485,
+    "output_tokens": 5613,
+    "reasoning_tokens": 5260
+  }
+}

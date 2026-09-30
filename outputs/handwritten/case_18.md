@@ -22,7 +22,7 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend moving £3,500 from the cash account into the Stocks & Shares ISA, as agreed.
+We recommend moving £3,500 from the cash account into the Stocks & Shares ISA.
 
 ## Fees & Charges
 

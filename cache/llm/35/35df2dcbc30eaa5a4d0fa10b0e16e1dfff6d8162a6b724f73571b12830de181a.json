@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0002192",
+  "input_hash": "88e36f7eddba70292ed71e32db94e9cd49b373ebd725e4b0c038288cb4df9dd8",
+  "model": "gpt-6-luna",
+  "prompt_version": "50af99f242a8b5e713f85f5cf7872dc6031b89fd17ebd9cf8907704afd821834",
+  "response": {
+    "paragraphs": [
+      "{marker:available_to_invest}"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1738,
+    "input_tokens": 1837,
+    "output_tokens": 71,
+    "reasoning_tokens": 46
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "cost_usd": "0.0004665",
+  "input_hash": "e153d9bb05c6afca33d1a4419206eec86ace03a23de665c1f334c3129db42d59",
+  "model": "gpt-6-luna",
+  "prompt_version": "0229408ccc9fc785c1eaa0f7c9672c6f9acf7127c1c0bdbcd784cc48a5e40cc3",
+  "response": {
+    "paragraphs": [
+      "We recommend using both ISA allowances for the new tax year.",
+      "We recommend making pension contributions into both SIPPs up to the appropriate level.",
+      "SIPP contribution amounts for James and for Caroline, each",
+      "We recommend adding to the Holloway joint GIA.",
+      "the amount added to the General Investment Account (Holloway)",
+      "We recommend placing the balance into a new jointly-held investment account.",
+      "the balance placed into the new account",
+      "We recommend disinvesting a portion of the Holloway joint GIA and rebalancing it.",
+      "the portion of the General Investment Account (Holloway) sold",
+      "We recommend making no other changes at this time.",
+      "the money available to invest now is {fact:money.available}."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 2365,
+    "output_tokens": 460,
+    "reasoning_tokens": 301
+  }
+}

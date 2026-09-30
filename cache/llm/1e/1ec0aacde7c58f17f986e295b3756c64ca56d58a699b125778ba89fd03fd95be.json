@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0002833",
+  "input_hash": "c8b457ea3165f7759d2993b88ccd9740cd78e9f74e4ade2b7774bc2f2984d75c",
+  "model": "gpt-6-luna",
+  "prompt_version": "ac1aa7cd0d97d9e32b956e853b8c09dccd39318f8330d0d4ddbfb856ecd9c933",
+  "response": {
+    "paragraphs": [
+      "We recommend that he pay {fact:action.a1.amount} into the Stocks & Shares ISA. The money available to invest now is {fact:money.available}."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1703,
+    "input_tokens": 1838,
+    "output_tokens": 199,
+    "reasoning_tokens": 149
+  }
+}

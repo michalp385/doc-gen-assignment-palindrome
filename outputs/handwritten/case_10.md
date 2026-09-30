@@ -23,7 +23,11 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend fully encashing the Meridian offshore bond. [ADVISER TO CONFIRM #4: chargeable-event gain on the bond encashment, to be assessed] We also recommend switching the funds held within her Stocks & Shares ISA to a more cautious fund range.
+We recommend fully encashing the Meridian offshore bond.
+
+We recommend switching the funds held within her Stocks & Shares ISA to a more cautious fund range.
+
+[ADVISER TO CONFIRM #4: chargeable-event gain on the bond encashment, to be assessed]
 
 ## Fees & Charges
 

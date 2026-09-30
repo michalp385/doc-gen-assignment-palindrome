@@ -22,7 +22,7 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend revising the top-up amount from the cash account into the Stocks & Shares ISA to £7,000.
+We recommend revising the top-up amount to £7,000 from the cash account into the Stocks & Shares ISA.
 
 ## Fees & Charges
 

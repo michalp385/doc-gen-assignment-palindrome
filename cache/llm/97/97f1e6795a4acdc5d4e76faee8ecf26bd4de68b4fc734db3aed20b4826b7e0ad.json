@@ -1,0 +1,73 @@
+{
+  "cost_usd": "0.0023513",
+  "input_hash": "0d967643e6e2e4d754ddd388dc02858f6b034612b93d4668dbc9791dffbef538",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend fully encashing the Meridian offshore bond."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We also recommend switching the funds held within her Stocks & Shares ISA to a more cautious fund range."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Sandra's circumstances and objectives remain unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Sandra confirmed her circumstances and objectives are unchanged and remains comfortable with a cautious approach to risk.",
+        "report_quote": "Sandra confirmed that her circumstances and objectives remain unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Sandra remains comfortable with a cautious approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Sandra confirmed her circumstances and objectives are unchanged and remains comfortable with a cautious approach to risk.",
+        "report_quote": "She remains comfortable with a cautious approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Sandra has no income requirement from the portfolio.",
+        "paragraph_id": "p5",
+        "quote": "Sandra has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to fully encash the Meridian offshore bond.",
+        "paragraph_id": "p3",
+        "quote": "We agreed to fully encash the Meridian offshore bond, as it no longer suits her plans.",
+        "report_quote": "We recommend fully encashing the Meridian offshore bond.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to switch the funds in the Stocks & Shares ISA to a more cautious fund range.",
+        "paragraph_id": "p4",
+        "quote": "We also agreed to switch the funds held within her Stocks & Shares ISA to a more cautious fund range; this stays within the ISA wrapper.",
+        "report_quote": "We also recommend switching the funds held within her Stocks & Shares ISA to a more cautious fund range.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend fully encashing the Meridian offshore bond."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We also recommend switching the funds held within her Stocks & Shares ISA to a more cautious fund range."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2528,
+    "output_tokens": 4197,
+    "reasoning_tokens": 3742
+  }
+}

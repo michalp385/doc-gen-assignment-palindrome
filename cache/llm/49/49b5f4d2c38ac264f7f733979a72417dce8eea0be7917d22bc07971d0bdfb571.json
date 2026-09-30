@@ -1,0 +1,23 @@
+{
+  "cost_usd": "0.0005849",
+  "input_hash": "50c7cd3fc115497c5288cb4626e1866c31b5e3f1bbdc3a57c6de4ea413dafe3e",
+  "model": "gpt-6-luna",
+  "prompt_version": "0229408ccc9fc785c1eaa0f7c9672c6f9acf7127c1c0bdbcd784cc48a5e40cc3",
+  "response": {
+    "paragraphs": [
+      "We recommend disinvesting the joint GIA.",
+      "The gross sale proceeds of {fact:action.a1.amount} become available once the disposal completes. This figure is gross before any CGT and becomes available once the disposal completes.",
+      "We recommend using the inheritance received of {fact:money.m2.amount} together with the inheritance to fund both Robert\u2019s and Jean\u2019s ISAs for the new tax year.",
+      "{marker:isa_amounts}",
+      "The money available to invest now is {fact:money.available}.",
+      "We recommend opening a new jointly-held investment account for the balance."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1699,
+    "input_tokens": 2259,
+    "output_tokens": 718,
+    "reasoning_tokens": 585
+  }
+}
