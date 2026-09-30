@@ -22,7 +22,17 @@ from agent_pipeline.ledger import Account, Ledger, Marker, ReviewItem
 from agent_pipeline.reconcile.predicates import section_included
 from agent_pipeline.sources.classify import ClassificationResult
 
-_NOTE_KINDS = ("p4_note", "scope_flag", "currency", "image_discrepancy", "unverified")
+# `handling_note` and `ambiguity` (D29): what the run did, or could not do, with a client-specific
+# handling instruction. The adviser has to see both, in particular a note that was not applied.
+_NOTE_KINDS = (
+    "p4_note",
+    "scope_flag",
+    "currency",
+    "image_discrepancy",
+    "unverified",
+    "handling_note",
+    "ambiguity",
+)
 
 
 @dataclass(frozen=True)

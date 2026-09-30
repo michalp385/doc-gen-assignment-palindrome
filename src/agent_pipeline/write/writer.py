@@ -68,6 +68,8 @@ class LLMWriterModel:
                 "context": plan.context,
                 "rewritten_texts": plan.rewritten_texts,
                 "corrections": corrections,
+                # Only when there is one, so a section with no directive keeps its cache key.
+                **({"handling": plan.handling} if plan.handling else {}),
             },
             schema=RawSlotDraft,
         )

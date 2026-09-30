@@ -24,6 +24,7 @@ from agent_pipeline.assemble import (
     write_input_stop,
 )
 from agent_pipeline.config import ReportConfig, load_prompt
+from agent_pipeline.extract.guidance import LLMGuidanceModel, extract_directives
 from agent_pipeline.extract.image import LLMImageModel, extract_image
 from agent_pipeline.extract.instruction import LLMInstructionModel, extract_instruction
 from agent_pipeline.extract.meeting import LLMMeetingModel, extract_meeting
@@ -813,17 +814,20 @@ def _limit_markers(
     """P2, P4 (T19): `check_limits`' marker case (a breach, or confirmed prior use) builds a
     report marker, one per allowance family across every action that hits it -- not built
     until T19 needed it (client 01 never triggers the marker branch)."""
-    marker_by_family = {}
+    ids_by_family: dict[str, list[str]] = {}
     for group in _limit_groups(actions, action_amounts, accounts):
         prior_use = resolve_prior_use(limit_signals, group.allowance_family)
         result = check_limits(
             group.action_amount.amount, group.allowance_family, prior_use, meeting_date
         )
-        if result.marker and group.allowance_family not in marker_by_family:
-            marker_by_family[group.allowance_family] = limit_marker(
-                group.allowance_family, group.account_ids
-            )
-    return list(marker_by_family.values())
+        if result.marker:
+            # Every action that hits the family adds its accounts, so the one marker names all
+            # of them, not only the first action's.
+            ids_by_family.setdefault(group.allowance_family, []).extend(group.account_ids)
+    return [
+        limit_marker(family, list(dict.fromkeys(ids)), accounts)
+        for family, ids in ids_by_family.items()
+    ]
 
 
 def _image_review_items(
@@ -1015,6 +1019,17 @@ def _run_stages(
     instruction_extraction = extract_instruction(instruction_doc, accounts, instruction_model)
 
     guidance_text = _doc_text(read_markdown(guidance_source.path)) if guidance_source else ""
+    # D8: the notes become verified handling directives; the writer gets those, never the text.
+    guidance = extract_directives(
+        guidance_text,
+        [owner for a in accounts for owner in a.owners],
+        [s.id for s in config.sections],
+        LLMGuidanceModel(llm, load_prompt(PROMPTS_DIR / "extract_guidance.md")),
+    )
+    handling: dict[str, list[str]] = {}
+    for directive in guidance.directives:
+        for section_id in directive.sections:
+            handling.setdefault(section_id, []).append(directive.for_writer())
     spec_text = _doc_text(read_markdown(spec_source.path)) if spec_source else ""
     meeting_text = _doc_text(meeting_doc)
 
@@ -1193,7 +1208,7 @@ def _run_stages(
         *required_markers(in_scope_platforms, no_platform_types),
         *new_account_markers,
         *unresolved_scope.markers,
-        *cgt_marker(tax_disposals),
+        *cgt_marker(tax_disposals, resolved_accounts),
         *bond_marker(disposals),
         *pension_markers,
         *available_markers,
@@ -1254,6 +1269,7 @@ def _run_stages(
         *([selling_decision.review_item] if selling_decision.review_item else []),
         *new_account_review_items,
         *investigation.review_items,
+        *guidance.review_items,
         *(
             [several]
             if (
@@ -1304,7 +1320,9 @@ def _run_stages(
     )
 
     # --- Stage 4: plan ---------------------------------------------------------------------
-    plans = plan_sections(ledger, config, spec_text=spec_text, meeting_text=meeting_text)
+    plans = plan_sections(
+        ledger, config, spec_text=spec_text, meeting_text=meeting_text, handling=handling
+    )
     dangling = unrouted_markers(ledger, plans)
     if dangling:
         # A marker no section carries would vanish from the report silently; stop instead.

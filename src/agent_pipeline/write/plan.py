@@ -139,8 +139,10 @@ def plan_sections(
     extra_context: dict[str, dict[str, str]] | None = None,
     spec_text: str = "",
     meeting_text: str = "",
+    handling: dict[str, list[str]] | None = None,
 ) -> list[SectionPlan]:
     extra_context = extra_context or {}
+    handling = handling or {}
     context_values = _context_values(ledger)
     plans: list[SectionPlan] = []
 
@@ -200,6 +202,7 @@ def plan_sections(
                 meeting_text=meeting_text,
                 rewritten_texts=rewritten_texts,
                 withheld=withheld,
+                handling=list(handling.get(section.id, [])),
             )
         )
 

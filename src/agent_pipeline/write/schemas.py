@@ -47,3 +47,6 @@ class SectionPlan:
     meeting_text: str = ""
     rewritten_texts: dict[str, str] = field(default_factory=dict)
     withheld: list[WithheldText] = field(default_factory=list)
+    # Verified handling directives for this section (D8), one line each: the instruction only,
+    # never the guidance text.
+    handling: list[str] = field(default_factory=list)

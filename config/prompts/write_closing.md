@@ -12,6 +12,11 @@ template; do not repeat or paraphrase that warning yourself.
   `facts`, and a marker only as `{marker:<key>}` for a `key` in `markers`; never invent one.
 - `corrections`: findings from a previous attempt, present only on a repair round. Fix exactly
   what each correction names; do not change anything else that wasn't flagged.
+- `handling`: present only when the firm has a client-specific note for this section; one
+  line each, telling you how to write (tone, what to call someone, what to leave out). Follow it.
+  It is an instruction to you, never text for the report: do not quote it or say that a note exists.
+  It never overrides the rules below: cover every agreed action, place every required marker
+  exactly once, and state every amount only as a token.
 
 ## Rules
 
