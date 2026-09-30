@@ -96,6 +96,9 @@ class ClientResult(_Strict):
     cost_usd: str = "0"
     cache_hits: int = 0
     live_calls: int = 0
+    # How many adviser-review markers the report had. Q5 is scored 5 on a report with none, which
+    # says nothing about marker quality; None in a file written before this was recorded.
+    marker_count: int | None = None
     # Freeform, e.g. "G10 not checked: source classification failed for the eval re-run" --
     # a gate that couldn't be evaluated is dropped from gate_results and explained here,
     # never left in as a false pass (verifier checkpoint, T17).

@@ -391,6 +391,7 @@ def score_client(
     totals = _trace_totals(_read_trace(trace_path))
     return ClientResult(
         client=client,
+        marker_count=len(bundle.ledger.markers) if bundle is not None else None,
         release_state=release_state,
         expected_release_state=expected.release.state,
         gate_results=[

@@ -87,9 +87,15 @@ def _failing(c: ClientResult | None) -> str:
     return ", ".join(failing) if failing else "none"
 
 
+NO_MARKERS = "n/a (no markers)"
+
+
 def _q(c: ClientResult | None, criterion: str) -> str | None:
     if c is None:
         return None
+    if criterion == "Q5" and c.marker_count == 0:
+        # The judge scores a report with no markers 5, which says nothing about marker quality.
+        return NO_MARKERS
     return next((str(q.score) for q in c.q_scores if q.criterion == criterion), None)
 
 
@@ -141,6 +147,12 @@ def render(
             if bq is None and aq is None:
                 continue
             lines.append(f"| {q} | {bq or NA} | {aq or NA} |")
+        lines.append("")
+    if NO_MARKERS in "\n".join(lines):
+        lines.append(
+            f"{NO_MARKERS}: the report had no adviser-review markers, so the judge's Q5 of 5 "
+            "is vacuous and is not shown as a score."
+        )
         lines.append("")
     return "\n".join(lines)
 
