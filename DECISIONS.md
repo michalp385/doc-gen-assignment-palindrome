@@ -42,8 +42,8 @@ does not (case_13) is the release judge's G16 sample vote (D22).
 - **Evidence:** none yet (design stage).
 
 ### D2. Set the model per stage in config; default every pipeline stage to Luna, judge with Sol
-- **Context:** the key can use gpt-6-luna ($0.10 / $0.50 per 1M tokens) and gpt-6-sol ($2 / $10), among
-  others; at the time, against a $10 budget (since replaced by cost reporting, D12). The release judge
+- **Context:** the key can use gpt-6-luna and gpt-6-sol (prices in `config/models.json`), among
+  others; at the time, against a fixed budget (since replaced by cost reporting, D12). The release judge
   (G8, G16) runs on every report, so its model decides both cost and which drafts are issued.
 - **Decision:** every stage's model is a config setting. Luna is the default for every pipeline stage;
   Sol is the eval judge. The intended comparison (extraction, the release judge and the investigation
@@ -51,7 +51,7 @@ does not (case_13) is the release judge's G16 sample vote (D22).
   moves to Sol only if Luna measurably misses) has not been run. Luna is a default, not a measured
   choice.
 - **Alternatives:** Luna everywhere including the eval judge (a model grading its own output tends to be
-  lenient); Sol for both judges (≈$0.14 per report, so two or three full eval runs would use most of the
+  lenient); Sol for both judges (dearer per report, so two or three full eval runs would have used most of the
   budget).
 - **Consequences / how it generalises:** the comparison needs extraction to be scored on its own against
   expected facts (DESIGN §10.7), which the eval does. If it is run, its outcome gets its own entry,
@@ -82,7 +82,7 @@ does not (case_13) is the release judge's G16 sample vote (D22).
 - **Alternatives:** templates with phrase banks: free and exact, but narrow, which is the overfitting risk
   this exists to catch.
 - **Consequences / how it generalises:** synthetic clients test the implementation of the rules, not
-  the rules themselves; hand-written cases cover the rules. ≈$0.01 per client, one-off.
+  the rules themselves; hand-written cases cover the rules.
 - **Evidence:** none yet.
 
 ### D5. Run a fixed code workflow with bounded model loops, not an orchestrating agent
@@ -107,7 +107,7 @@ does not (case_13) is the release judge's G16 sample vote (D22).
   sections comes from the shared ledger, not a shared prompt.
 - **Alternatives:** one call returning all sections as structured fields: cheaper and more coherent in
   tone, but the whole ledger sits in one prompt and bleed is harder to prevent.
-- **Consequences / how it generalises:** ≈5 small calls per report; each section can be repaired alone.
+- **Consequences / how it generalises:** several small calls per report; each section can be repaired alone.
 - **Evidence:** none yet.
 
 ### D7. Classify sources by content: schema checks for structured files, a model for text documents
@@ -118,7 +118,7 @@ does not (case_13) is the release judge's G16 sample vote (D22).
   verified evidence quote, and low confidence makes them unknown. Unknown roles are excluded and logged.
 - **Alternatives:** filename mapping (breaks on renamed files); content heuristics alone (brittle on
   unseen phrasing).
-- **Consequences / how it generalises:** ≈$0.001 per report; a hand-written case with renamed files and
+- **Consequences / how it generalises:** a small per-report cost; a hand-written case with renamed files and
   an extra unknown document tests it.
 - **Evidence:** none yet.
 
@@ -177,7 +177,7 @@ does not (case_13) is the release judge's G16 sample vote (D22).
 ### D12. Report cost as a metric instead of working to a budget cap; keep the default pipeline cheap
 - **Context:** costed in full at the time (the estimate has since grown with the added cases and the
   investigation agent; DESIGN §10.9 holds the current one), the design's development and eval plan came
-  to ≈$10.25 against the $10 key: the Sol eval judge, the full Luna-vs-Sol experiment over the four clients and 14 hand-written
+  to more than the $10 key allowed: the Sol eval judge, the full Luna-vs-Sol experiment over the four clients and the hand-written
   cases, synthetic clients and the final `--fresh` run. A Sol result from the experiment couldn't have
   been acted on within the cap.
 - **Decision:** I fund development and eval runs separately, and nothing in the plan is cut. Every run
@@ -185,7 +185,7 @@ does not (case_13) is the release judge's G16 sample vote (D22).
   file. The default pipeline stays cheap (Luna unless the experiment proves otherwise, plus the
   committed cache), so a reviewer's re-run costs cents.
 - **Alternatives:** a Luna eval judge while iterating and Sol only to confirm, with a reduced experiment
-  (≈$5.50, but weaker evidence for D2); dropping the synthetic clients (still tight, no room for a Sol
+  (cheaper, but weaker evidence for D2); dropping the synthetic clients (still tight, no room for a Sol
   upgrade); skipping the experiment and staying on Luna (reverses D2).
 - **Consequences / how it generalises:** any Sol upgrade is recorded with its cost next to the accuracy
   it buys. CLAUDE.md and the `run-eval` skill are updated to match. The cost estimate
@@ -289,7 +289,7 @@ does not (case_13) is the release judge's G16 sample vote (D22).
   client-specific value; `src/report_eval/` (eval/test tooling) now explicitly may, matching
   `eval/expected/*.json`'s existing exemption. Revisit if `report_eval/` ever grows a module that
   *is* part of a real run's pipeline path rather than eval/test tooling only.
-- **Evidence:** `bash scripts/check.sh` green (350 tests, all repo checks pass) after the change.
+- **Evidence:** `bash scripts/check.sh` green (all repo checks pass) after the change.
 
 ### D18. Extraction's verification loop calls `find_in_source` from code, not as a real model tool
 - **Context:** DESIGN §4.1 says the model "may call one tool, `find_in_source(text) → matching
@@ -344,8 +344,8 @@ does not (case_13) is the release judge's G16 sample vote (D22).
   future gate genuinely needs the same check to run identically pre- and post-assembly (none do
   yet: G4/G9/G10/G11 are meaningfully narrower per-slot, and G12 already runs twice on purpose,
   pre- and post-substitution, per DESIGN §7.2).
-- **Evidence:** `tests/test_write_writer.py` (24 tests, all slot-level gate paths), `bash
-  scripts/check.sh` green (472 offline tests) after the change.
+- **Evidence:** `tests/test_write_writer.py` (all slot-level gate paths), `bash
+  scripts/check.sh` green after the change.
 
 ### D20. Treat a missing currency as not-GBP, and don't let a meeting figure rescue it
 - **Context:** DESIGN §3.3 says a missing currency is treated as not-GBP (P12), but `select_values`
