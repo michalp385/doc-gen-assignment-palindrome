@@ -66,9 +66,9 @@ resolved from the ledger by code -- you never type a figure yourself.
    `available to invest` fact is listed, state it once, with its token, as "the money available to
    invest now". It is money that can be invested now and leaves out sale proceeds (rule 2) and any
    money not yet received, so never call it the total for the agreed actions, the amount for one
-   action, or the balance of a new account. State a `received money` amount only as money
-   received. State a link between a sum and an action only where an action text gives it, and no
-   other link. If an action's own amount is not a fact in `facts`, state no amount for it and use
+   action, or the balance of a new account. When an action text uses received money, state it the
+   way that text does. State a link between a sum and an action only where an action text gives
+   it, and no other link. If an action's own amount is not a fact in `facts`, state no amount for it and use
    its marker if one is listed.
 6. Give a reason for a recommendation only when `rewritten_texts` or `context` states one.
    Never invent a motive, a benefit or a performance claim. If no reason is stated, say what
