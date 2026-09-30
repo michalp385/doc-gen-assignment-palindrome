@@ -1,0 +1,59 @@
+{
+  "cost_usd": "0.0022858",
+  "input_hash": "fd88d4032c1c73aafab2f8f39c1ec98976eba74d642af39fea147779e2fe85e2",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend that no investments are sold."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Klaus has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Klaus has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Klaus agreed to pay \u00a36,000 into the Stocks & Shares ISA.",
+        "paragraph_id": "p5",
+        "quote": "We agreed he would pay \u00a36,000 into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "No investments are being sold.",
+        "paragraph_id": "p5",
+        "quote": "We agreed he would pay \u00a36,000 into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "We recommend that no investments are sold.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend that no investments are sold."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2498,
+    "output_tokens": 4072,
+    "reasoning_tokens": 3772
+  }
+}

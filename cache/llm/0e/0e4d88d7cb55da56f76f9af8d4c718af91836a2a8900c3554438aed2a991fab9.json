@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0002634",
+  "input_hash": "a7147af09bc8607adb5bd2eaa6f5a199d412345a9185e0a05f07d76172cd07b7",
+  "model": "gpt-6-luna",
+  "prompt_version": "e8ad6e2be045a2de80d6973e56f53b183d273b2b613cf18d59dd8b02508b0481",
+  "response": {
+    "paragraphs": [
+      "James completed the sale of his company in April. James and Caroline seek long-term growth with a balanced-to-moderate risk appetite and have no current income requirement from the portfolio. James may undertake consultancy work, although nothing is settled. Their overriding objective is to build a tax-efficient base to replace James\u2019s income when he steps back from full-time work, and recommendations should be assessed against that goal."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1334,
+    "output_tokens": 260,
+    "reasoning_tokens": 163
+  }
+}

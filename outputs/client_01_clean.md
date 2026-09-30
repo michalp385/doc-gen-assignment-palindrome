@@ -8,7 +8,7 @@ This firm is authorised and regulated by the Financial Conduct Authority.
 
 ## Background & Objectives
 
-Margaret is retired and confirmed that her circumstances and objectives remain unchanged since her last review. She remains comfortable with the previously agreed moderate approach to risk and is satisfied with the portfolio’s performance. She would like to use this year’s ISA allowance by moving some cash held in her Holloway cash account into her Stocks & Shares ISA. She has no current income requirement from the portfolio and does not expect this to change in the near term.
+Margaret is retired and confirmed that her circumstances and objectives remain unchanged since her previous review. She remains comfortable with the agreed moderate approach to risk and is satisfied with the portfolio’s performance. She has cash on deposit in her Holloway cash account and would like to use this year’s ISA allowance by moving some of it into her Stocks & Shares ISA. She has no current income requirement from the portfolio and does not expect this to change in the near term.
 
 Your agreed risk profile is 4 (moderate).
 
@@ -22,13 +22,13 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend moving £20,000 from the cash account into the Stocks & Shares ISA, as agreed.
+We recommend moving £20,000 from the cash account into the Stocks & Shares ISA.
 
 ## Fees & Charges
 
-An ongoing platform charge applies to your investments. The platform charge rate for Holloway is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
+An ongoing platform charge applies to your investments. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
 
-An ongoing advice charge also applies to your investments. The ongoing advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate].
+An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate for the accounts on Holloway].
 
 The initial charge that applies is 0%.
 
@@ -36,4 +36,4 @@ The initial charge that applies is 0%.
 
 The value of investments can fall as well as rise and you may get back less than you invest. Past performance is not a guide to future returns.
 
-Please let us know if you would like to proceed, and we will be happy to help.
+Please let us know if you would like to proceed, and we’ll be happy to help.

@@ -1,0 +1,19 @@
+{
+  "cost_usd": "0.0002442",
+  "input_hash": "f8ca68879d68c6c6dd975b610be801662a181f64a88717cf7fef8f8fed0e97f8",
+  "model": "gpt-6-luna",
+  "prompt_version": "cfa4c11a5375e0cfa6b5984ea493d5d59af608051767b8ea722191fa473b6584",
+  "response": {
+    "paragraphs": [
+      "We recommend leaving the Stocks & Shares ISA and the two General Investment Accounts on the Holloway platform as they are.",
+      "We recommend leaving one of his General Investment Accounts on Holloway as it is for now and revisiting this if it becomes relevant."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1422,
+    "input_tokens": 1522,
+    "output_tokens": 184,
+    "reasoning_tokens": 118
+  }
+}

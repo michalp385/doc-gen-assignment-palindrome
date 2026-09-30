@@ -17,7 +17,7 @@ None.
 ## Markers to fill
 
 - #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
-- #2: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #2: ongoing advice charge rate for the accounts on Holloway (firm policy: never estimated), section: fees_charges
 
 ## Conflicts and how they were resolved
 
@@ -37,7 +37,8 @@ None.
 
 ## Notes
 
-None.
+- 'Stocks & Shares ISAs' could mean any of: Stocks & Shares ISA (Holloway), W-ISA-01; Stocks & Shares ISA (Holloway), W-ISA-02. The sources do not say which (the finding is 'inconclusive', not 'supports'). Meeting note: We reviewed their Stocks & Shares ISAs and their jointly-held General Investment Account on the Holloway platform.
+- 'Holloway platform' could mean any of: Stocks & Shares ISA (Holloway), W-ISA-01; General Investment Account (Holloway), W-GIA-01; Stocks & Shares ISA (Holloway), W-ISA-02. The sources do not say which (the finding is 'inconclusive', not 'supports'). Meeting note: We reviewed their Stocks & Shares ISAs and their jointly-held General Investment Account on the Holloway platform.
 
 ## How this draft degraded
 

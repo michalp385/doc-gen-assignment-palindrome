@@ -1,0 +1,48 @@
+{
+  "cost_usd": "0.0038681",
+  "input_hash": "8ed73b8e93460d94df905ae62a76f92962b61a4416636280ceae78f885316be6",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend selling Diane's General Investment Account.\n\nWe recommend using the gross proceeds of \u00a310,000 to top up her Stocks & Shares ISA for the new tax year."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "A sale from Diane's General Investment Account is recommended.",
+        "paragraph_id": "p3",
+        "quote": "We agreed to sell \u00a310,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+        "report_quote": "We recommend selling Diane's General Investment Account.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Using \u00a310,000 of the sale proceeds to top up Diane's Stocks & Shares ISA for the new tax year is recommended.",
+        "paragraph_id": "p3",
+        "quote": "We agreed to sell \u00a310,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+        "report_quote": "We recommend using the gross proceeds of \u00a310,000 to top up her Stocks & Shares ISA for the new tax year.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend selling Diane's General Investment Account."
+      },
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using the gross proceeds of \u00a310,000 to top up her Stocks & Shares ISA for the new tax year."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2531,
+    "output_tokens": 7230,
+    "reasoning_tokens": 6917
+  }
+}

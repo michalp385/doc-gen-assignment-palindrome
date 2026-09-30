@@ -1,0 +1,37 @@
+{
+  "cost_usd": "0.0016267",
+  "input_hash": "f5f4a2374209476be10c37d104a59cd5085ed2db205b6bd174c34e2f43b619cd",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend that he pay \u00a34,000 into the Stocks & Shares ISA."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Owen agreed to pay \u00a34,000 into the Stocks & Shares ISA.",
+        "paragraph_id": "p5",
+        "quote": "We agreed he would pay \u00a34,000 into the Stocks & Shares ISA.",
+        "report_quote": "We recommend that he pay \u00a34,000 into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend that he pay \u00a34,000 into the Stocks & Shares ISA."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2542,
+    "output_tokens": 2745,
+    "reasoning_tokens": 2588
+  }
+}

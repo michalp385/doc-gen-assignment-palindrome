@@ -1,0 +1,93 @@
+{
+  "cost_usd": "0.0029326",
+  "input_hash": "bcc95586792dbda0813200c523810cb28eec686bcae8b08f1f1c86156e548b80",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving the Stocks & Shares ISA and the two General Investment Accounts on the Holloway platform as they are."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": null
+      }
+    ],
+    "findings": [
+      {
+        "detail": "The agreed non-action concerned leaving the old paper share certificate alone for now, not recommending that one of the General Investment Accounts be left on the platform and revisited. The report presents that tangent as a recommendation.",
+        "gate": "P6",
+        "quote": "We recommend leaving one of his General Investment Accounts on Holloway as it is for now and revisiting this if it becomes relevant."
+      }
+    ],
+    "material_claims": [
+      {
+        "claim": "Bernard\u2019s circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Bernard confirmed that his circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Bernard remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "He remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Bernard has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Bernard has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk profile is stated as 4 (moderate).",
+        "paragraph_id": "p2",
+        "quote": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The Stocks & Shares ISA and two General Investment Accounts on Holloway are to be left as they are.",
+        "paragraph_id": "p3",
+        "quote": "We reviewed his Stocks & Shares ISA and his two General Investment Accounts on the Holloway platform; all are to be left as they are.",
+        "report_quote": "We recommend leaving the Stocks & Shares ISA and the two General Investment Accounts on the Holloway platform as they are.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report recommends leaving one General Investment Account on Holloway as it is for now.",
+        "paragraph_id": "p3",
+        "quote": "We reviewed his Stocks & Shares ISA and his two General Investment Accounts on the Holloway platform; all are to be left as they are.",
+        "report_quote": "We recommend leaving one of his General Investment Accounts on Holloway as it is for now",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report says to revisit this if it becomes relevant.",
+        "paragraph_id": "p5",
+        "quote": "We agreed to leave this for now and revisit if it becomes relevant.",
+        "report_quote": "and revisiting this if it becomes relevant.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving the Stocks & Shares ISA and the two General Investment Accounts on the Holloway platform as they are."
+      },
+      {
+        "action_id": null,
+        "report_quote": "We recommend leaving one of his General Investment Accounts on Holloway as it is for now and revisiting this if it becomes relevant."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2526,
+    "output_tokens": 5360,
+    "reasoning_tokens": 4660
+  }
+}

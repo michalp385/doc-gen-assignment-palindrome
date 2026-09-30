@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001627",
+  "input_hash": "31b40460d21c0e2929f2d9ff48b0f9d00d35bfcf54d0096378ab0b9ac76e9bb1",
+  "model": "gpt-6-luna",
+  "prompt_version": "cfa4c11a5375e0cfa6b5984ea493d5d59af608051767b8ea722191fa473b6584",
+  "response": {
+    "paragraphs": [
+      "We recommend investing the money you have already received."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1422,
+    "input_tokens": 1502,
+    "output_tokens": 25,
+    "reasoning_tokens": 0
+  }
+}

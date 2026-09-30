@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001284",
+  "input_hash": "c9d6facb8a31db5bdda63f48482e1342b09d44607f60a8fa76c0888cfbce6b55",
+  "model": "gpt-6-luna",
+  "prompt_version": "30f91c95b05038946e72ea9583bf3385a42e0da5c56579610d445b649a0a7f2f",
+  "response": {
+    "paragraphs": [
+      "Please let us know if you would like to proceed, and we\u2019ll be happy to help."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 849,
+    "output_tokens": 87,
+    "reasoning_tokens": 51
+  }
+}

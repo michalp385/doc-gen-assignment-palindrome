@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001141",
+  "input_hash": "9fed2403dee24891ccfcce1ad7a308e960594c18033c595c7cf9123f074bb304",
+  "model": "gpt-6-luna",
+  "prompt_version": "e8ad6e2be045a2de80d6973e56f53b183d273b2b613cf18d59dd8b02508b0481",
+  "response": {
+    "paragraphs": [
+      "Helen confirmed that her circumstances and objectives remain unchanged since the previous review. She remains comfortable with a moderate approach to risk and has no income requirement from the portfolio."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 906,
+    "output_tokens": 47,
+    "reasoning_tokens": 0
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001245",
+  "input_hash": "9b112e15222b9b0f30ae970503be470a3062da80fa4aff9b7819ca4bff2d86dd",
+  "model": "gpt-6-luna",
+  "prompt_version": "5d82af3e6687d9d8d06e705a03bb732ec3af5d6a73571706a8781f7be8c3ddd0",
+  "response": {
+    "paragraphs": [
+      "An ongoing platform charge and an ongoing advice charge apply to your investments. The ongoing platform charge rate is {marker:platform_charge_unknown_platform}. The ongoing advice charge rate for any account whose platform is not stated is {marker:advice_charge}."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 685,
+    "output_tokens": 112,
+    "reasoning_tokens": 46
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "cost_usd": "0.0023609",
+  "input_hash": "b38111652f587d3303b7adac4d14fea3643a5cb16948fa71242262c54c54355e",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving all as they are."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend leaving this for now and revisiting it if it becomes relevant."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Bernard's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Bernard confirmed that his circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Bernard remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "He remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Bernard has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Bernard has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk profile is moderate.",
+        "paragraph_id": "p2",
+        "quote": "Bernard confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "All the reviewed Holloway accounts are to be left as they are.",
+        "paragraph_id": "p3",
+        "quote": "We reviewed his Stocks & Shares ISA and his two General Investment Accounts on the Holloway platform; all are to be left as they are.",
+        "report_quote": "We recommend leaving all as they are.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed plan is to leave this for now and revisit it if it becomes relevant.",
+        "paragraph_id": "p5",
+        "quote": "We agreed to leave this for now and revisit if it becomes relevant.",
+        "report_quote": "We recommend leaving this for now and revisiting it if it becomes relevant.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving all as they are."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend leaving this for now and revisiting it if it becomes relevant."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2494,
+    "output_tokens": 4223,
+    "reasoning_tokens": 3730
+  }
+}

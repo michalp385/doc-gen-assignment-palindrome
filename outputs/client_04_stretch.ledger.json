@@ -441,7 +441,7 @@
     {
       "id": "#4",
       "key": "advice_charge",
-      "text": "ongoing advice charge rate",
+      "text": "ongoing advice charge rate for the accounts on Brightwell, Holloway and Meridian",
       "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
@@ -449,7 +449,7 @@
     {
       "id": "#5",
       "key": "new_account_charges",
-      "text": "charges on the new joint account",
+      "text": "platform charge and advice charge rates for the new joint account held by James and Caroline (platform not stated)",
       "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
@@ -457,7 +457,7 @@
     {
       "id": "#6",
       "key": "cgt",
-      "text": "capital gains tax on the disposal",
+      "text": "capital gains tax on the disposal of the joint General Investment Account, Holloway",
       "reason": "firm policy: never estimated",
       "section": "tax_implications",
       "fact_ref": null
@@ -465,7 +465,7 @@
     {
       "id": "#7",
       "key": "sipp_contribution_amounts",
-      "text": "SIPP contribution amounts",
+      "text": "SIPP contribution amounts for James and for Caroline, each",
       "reason": "pension contribution amounts are always adviser-review markers (P4); never estimated",
       "section": "recommendations",
       "fact_ref": null

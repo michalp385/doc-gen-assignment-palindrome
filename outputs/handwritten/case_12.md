@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Further to our recent discussions, we are writing to set out our advice in relation to your Stocks & Shares ISA and your General Investment Account, both held with Holloway. This advice is based on the information currently available to us.
+Further to our recent discussions, we are writing to set out our advice in relation to your Stocks & Shares ISA and your General Investment Account, held with Holloway. This advice is based on the information currently available to us.
 
 This firm is authorised and regulated by the Financial Conduct Authority.
 
@@ -23,11 +23,13 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend that he pays £6,000 into the Stocks & Shares ISA, as agreed. No investments are being sold.
+We recommend that he pays £6,000 into the Stocks & Shares ISA. We recommend making no sales of investments.
 
 ## Fees & Charges
 
-An ongoing platform charge and an ongoing advice charge apply to your investments. The platform charge rate is [ADVISER TO CONFIRM #2: ongoing platform charge rate, Holloway]. The advice charge rate is [ADVISER TO CONFIRM #3: ongoing advice charge rate].
+An ongoing platform charge applies to your investments on Holloway. The platform charge rate is [ADVISER TO CONFIRM #2: ongoing platform charge rate, Holloway].
+
+An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is [ADVISER TO CONFIRM #3: ongoing advice charge rate for the accounts on Holloway].
 
 The initial charge that applies is 0%.
 

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0002700",
+  "input_hash": "ea1dac590aec87932c23fb05f31df406cec778eafdca18d3cc2b3f16278cb666",
+  "model": "gpt-6-luna",
+  "prompt_version": "e8ad6e2be045a2de80d6973e56f53b183d273b2b613cf18d59dd8b02508b0481",
+  "response": {
+    "paragraphs": [
+      "The couple would like to invest alongside their existing portfolio, with unchanged objectives of long-term growth and no income required for the foreseeable future. Both remain comfortable with a moderate level of risk. Jean also mentioned a separate cash account from some years ago, although she is unsure whether it is still active."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1310,
+    "output_tokens": 278,
+    "reasoning_tokens": 202
+  }
+}

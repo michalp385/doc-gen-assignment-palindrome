@@ -221,7 +221,7 @@
     {
       "id": "#2",
       "key": "advice_charge",
-      "text": "ongoing advice charge rate",
+      "text": "ongoing advice charge rate for the accounts on Holloway",
       "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
@@ -229,7 +229,7 @@
     {
       "id": "#3",
       "key": "new_account_charges",
-      "text": "charges on the new joint account",
+      "text": "platform charge and advice charge rates for the new joint account held by Robert and Jean (platform not stated)",
       "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
@@ -237,7 +237,7 @@
     {
       "id": "#4",
       "key": "cgt",
-      "text": "capital gains tax on the disposal",
+      "text": "capital gains tax on the disposal of the joint General Investment Account, Holloway",
       "reason": "firm policy: never estimated",
       "section": "tax_implications",
       "fact_ref": null
@@ -295,6 +295,13 @@
     },
     {
       "id": "rv6",
+      "kind": "handling_note",
+      "blocking": false,
+      "detail": "a handling note was applied to background_objectives: When explaining the funds’ origin, do so with care given the family bereavement.",
+      "refs": []
+    },
+    {
+      "id": "rv7",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker platform_charge_holloway",
@@ -303,7 +310,7 @@
       ]
     },
     {
-      "id": "rv7",
+      "id": "rv8",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker advice_charge",
@@ -312,7 +319,7 @@
       ]
     },
     {
-      "id": "rv8",
+      "id": "rv9",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker new_account_charges",
@@ -321,7 +328,7 @@
       ]
     },
     {
-      "id": "rv9",
+      "id": "rv10",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker cgt",
@@ -330,7 +337,7 @@
       ]
     },
     {
-      "id": "rv10",
+      "id": "rv11",
       "kind": "marker_reference",
       "blocking": false,
       "detail": "see marker isa_amounts",
@@ -339,7 +346,7 @@
       ]
     },
     {
-      "id": "rv11",
+      "id": "rv12",
       "kind": "image_discrepancy",
       "blocking": false,
       "detail": "statement image shows '30,000' for 'Holloway GIA (Joint)'; selected value is 38000",

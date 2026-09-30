@@ -1,0 +1,37 @@
+{
+  "cost_usd": "0.0015862",
+  "input_hash": "9d7f475134ce989e7d457900ada8d50cd5b09f470287cb35fd96f1e087b4089a",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a35,000 from the cash account into the Stocks & Shares ISA if the funds are available."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "The agreed action is to move \u00a35,000 from the cash account into the Stocks & Shares ISA if the funds are available.",
+        "paragraph_id": "p4",
+        "quote": "We agreed to look into the cash account, and if the funds are available, move \u00a35,000 from it into the Stocks & Shares ISA.",
+        "report_quote": "We recommend moving \u00a35,000 from the cash account into the Stocks & Shares ISA if the funds are available.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a35,000 from the cash account into the Stocks & Shares ISA if the funds are available."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2447,
+    "output_tokens": 2683,
+    "reasoning_tokens": 2481
+  }
+}

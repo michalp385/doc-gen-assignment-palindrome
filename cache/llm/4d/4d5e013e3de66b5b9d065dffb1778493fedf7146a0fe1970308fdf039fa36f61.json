@@ -1,0 +1,100 @@
+{
+  "cost_usd": "0.0028811",
+  "input_hash": "f502a95e7beeaf018982826ed76567ad1d27f66acb84a66e3f21ed4e63d11692",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a320,000 from the cash account into the Stocks & Shares ISA."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Margaret is retired and her circumstances and objectives have not changed since her previous review.",
+        "paragraph_id": "p2",
+        "quote": "Margaret is retired and confirmed there have been no changes to her circumstances or objectives since last year's review.",
+        "report_quote": "Margaret is retired and confirmed that her circumstances and objectives remain unchanged since her previous review.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Margaret remains comfortable with the previously agreed moderate risk approach and is satisfied with the portfolio's performance.",
+        "paragraph_id": "p2",
+        "quote": "She remains comfortable with the moderate approach to risk we agreed previously and was happy that the portfolio had performed in line with that.",
+        "report_quote": "She remains comfortable with the moderate approach to risk agreed previously and is satisfied with the portfolio\u2019s performance.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Margaret has cash on deposit and would like to use her ISA allowance by moving some of it into her Stocks & Shares ISA.",
+        "paragraph_id": "p4",
+        "quote": "Her main point for the meeting was that she has cash sitting on deposit in her Holloway cash account and would like to use this year's ISA allowance by moving some of it into her Stocks & Shares ISA.",
+        "report_quote": "She has cash on deposit that she would like to use towards her ISA allowance by moving it into her Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Margaret has no current income requirement from the portfolio and does not expect that to change in the near term.",
+        "paragraph_id": "p6",
+        "quote": "Margaret has no income requirement from the portfolio at present and does not expect that to change in the near term.",
+        "report_quote": "She has no current income requirement from the portfolio and does not expect this to change in the near term.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Margaret may wish to discuss gifting to her grandchildren in the future.",
+        "paragraph_id": "p7",
+        "quote": "She mentioned she may want to discuss gifting to her grandchildren at some point in the future, but was clear that is not for today and nothing should be actioned on it now.",
+        "report_quote": "She also mentioned that she may wish to discuss gifting to her grandchildren in the future,",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Gifting to Margaret's grandchildren is not for consideration or action at present.",
+        "paragraph_id": "p7",
+        "quote": "She mentioned she may want to discuss gifting to her grandchildren at some point in the future, but was clear that is not for today and nothing should be actioned on it now.",
+        "report_quote": "but this is not for consideration or action at present.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk approach is moderate.",
+        "paragraph_id": "p2",
+        "quote": "She remains comfortable with the moderate approach to risk we agreed previously and was happy that the portfolio had performed in line with that.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "An ongoing platform charge applies to investments on Holloway.",
+        "paragraph_id": "p8",
+        "quote": "Next steps: I will prepare the advice report covering the ISA top-up and confirm the ongoing charges with her once the report is issued.",
+        "report_quote": "An ongoing platform charge applies to your investments on Holloway.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "An ongoing advice charge applies to the in-scope accounts on Holloway.",
+        "paragraph_id": "p8",
+        "quote": "Next steps: I will prepare the advice report covering the ISA top-up and confirm the ongoing charges with her once the report is issued.",
+        "report_quote": "An ongoing advice charge applies to the in-scope accounts on Holloway.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Margaret agreed to move \u00a320,000 from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p5",
+        "quote": "We agreed she would move \u00a320,000 from the cash account into the Stocks & Shares ISA.",
+        "report_quote": "We recommend moving \u00a320,000 from the cash account into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a320,000 from the cash account into the Stocks & Shares ISA."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2666,
+    "output_tokens": 5229,
+    "reasoning_tokens": 4089
+  }
+}

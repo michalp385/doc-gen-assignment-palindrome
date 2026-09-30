@@ -1,0 +1,19 @@
+{
+  "cost_usd": "0.0001749",
+  "input_hash": "c7f85e48847e2e6e1034998fde0498c518895b1b87d32a79d72b5dc4ea33d33b",
+  "model": "gpt-6-luna",
+  "prompt_version": "cfa4c11a5375e0cfa6b5984ea493d5d59af608051767b8ea722191fa473b6584",
+  "response": {
+    "paragraphs": [
+      "We recommend leaving the Stocks & Shares ISAs and jointly-held General Investment Account as they are; no changes are needed at this time.",
+      "We recommend reviewing your investments again next year."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1422,
+    "input_tokens": 1494,
+    "output_tokens": 51,
+    "reasoning_tokens": 0
+  }
+}

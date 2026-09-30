@@ -1,0 +1,19 @@
+{
+  "cost_usd": "0.0001647",
+  "input_hash": "882ce9a0083b8610dc2d73bfd0bdb79c6ee5cf16bb9c8034d25224b27611b1f1",
+  "model": "gpt-6-luna",
+  "prompt_version": "3e6f609d35c06c061f4a28544190fcac19c2c7af3d69e31416a9a38938a674ac",
+  "response": {
+    "paragraphs": [
+      "We recommend fully encashing the Meridian offshore bond and switching the funds held within her Stocks & Shares ISA to a more cautious fund range.",
+      "{marker:bond_chargeable_gain}"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1279,
+    "input_tokens": 1397,
+    "output_tokens": 50,
+    "reasoning_tokens": 0
+  }
+}

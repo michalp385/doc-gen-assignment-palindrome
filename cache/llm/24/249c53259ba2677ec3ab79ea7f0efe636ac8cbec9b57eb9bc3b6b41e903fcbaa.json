@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001104",
+  "input_hash": "cf11426d7f1e6d963fde4a277fd689b31f36633856f78932db629d103627328b",
+  "model": "gpt-6-luna",
+  "prompt_version": "8fb3f7910eb661d66a4298ff47658876fea62983e5f2c6a99e62af4e6f2e22da",
+  "response": {
+    "paragraphs": [
+      "An ongoing platform charge and an ongoing advice charge apply to your investments. The ongoing platform charge rate for Holloway is {marker:platform_charge_holloway}. The ongoing platform charge rate for Meridian is {marker:platform_charge_meridian}. The ongoing advice charge rate for the in-scope accounts on Holloway and Meridian is {marker:advice_charge}."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 669,
+    "output_tokens": 87,
+    "reasoning_tokens": 0
+  }
+}

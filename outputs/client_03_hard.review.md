@@ -17,9 +17,9 @@ Gates: 22/22 passed
 ## Markers to fill
 
 - #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
-- #2: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
-- #3: charges on the new joint account (firm policy: never estimated), section: fees_charges
-- #4: capital gains tax on the disposal (firm policy: never estimated), section: tax_implications
+- #2: ongoing advice charge rate for the accounts on Holloway (firm policy: never estimated), section: fees_charges
+- #3: platform charge and advice charge rates for the new joint account held by Robert and Jean (platform not stated) (firm policy: never estimated), section: fees_charges
+- #4: capital gains tax on the disposal of the joint General Investment Account, Holloway (firm policy: never estimated), section: tax_implications
 - #5: ISA top-up amounts and the resulting balance for the new account (the ISA amounts are not stated in the sources (P2); firm policy: never estimated), section: recommendations
 
 ## Conflicts and how they were resolved
@@ -41,6 +41,7 @@ None.
 ## Notes
 
 - new joint account: its type and platform are not stated in the sources; confirm both.
+- a handling note was applied to background_objectives: When explaining the funds’ origin, do so with care given the family bereavement.
 - statement image shows '30,000' for 'Holloway GIA (Joint)'; selected value is 38000
 
 ## How this draft degraded

@@ -3,7 +3,7 @@
 ## Status
 
 Release state: draft
-Cache replay vs live: 12 replayed, 1 live
+Cache replay vs live: 5 replayed, 8 live
 Gates: 22/22 passed
 
 ## Blocking before sign-off
@@ -17,7 +17,7 @@ None.
 ## Markers to fill
 
 - #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
-- #2: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #2: ongoing advice charge rate for the accounts on Holloway (firm policy: never estimated), section: fees_charges
 
 ## Conflicts and how they were resolved
 

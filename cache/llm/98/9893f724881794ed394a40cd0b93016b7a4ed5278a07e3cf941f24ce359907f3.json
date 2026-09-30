@@ -1,0 +1,22 @@
+{
+  "cost_usd": "0.0005050",
+  "input_hash": "42d565843a3602fc8d6ede79ae7e0117013c6b2bb7318c76d0b4ce4e3f9c2140",
+  "model": "gpt-6-luna",
+  "prompt_version": "4aa5ebb40b4834023789a37b9f5aaae6ed9173f4be2f5039c8e837f334653505",
+  "response": {
+    "paragraphs": [
+      "We recommend using the gross proceeds of {fact:action.a1.amount} to fund both Robert's and Jean's ISAs for the new tax year.",
+      "This figure is gross before any CGT and becomes available once the disposal completes.",
+      "Together with the inheritance of {fact:money.m2.amount}, we recommend funding both ISAs for the new tax year.",
+      "{marker:isa_amounts}",
+      "We recommend opening a new jointly-held investment account for the balance of {fact:money.available}."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1065,
+    "input_tokens": 1590,
+    "output_tokens": 692,
+    "reasoning_tokens": 576
+  }
+}

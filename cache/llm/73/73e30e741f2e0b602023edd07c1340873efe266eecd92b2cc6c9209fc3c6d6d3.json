@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0002285",
+  "input_hash": "53b6c25fa72971d555a06f8d10673be73edae4d051eeab7865d6d27dd4412d3c",
+  "model": "gpt-6-luna",
+  "prompt_version": "bc75978d80a620494428cf68d9da2866c6f09867b78144c8192416c6a196196c",
+  "response": {
+    "paragraphs": [
+      "the accounts comprising Robert's Stocks & Shares ISA held with Holloway, your General Investment Account held with Holloway, Jean's Stocks & Shares ISA held with Holloway and your New joint account"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1220,
+    "output_tokens": 213,
+    "reasoning_tokens": 158
+  }
+}

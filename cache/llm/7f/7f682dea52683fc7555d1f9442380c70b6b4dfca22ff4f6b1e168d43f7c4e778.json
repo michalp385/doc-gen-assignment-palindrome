@@ -1,0 +1,20 @@
+{
+  "cost_usd": "0.0002340",
+  "input_hash": "e0501c961737525d33cd30fe09280efcd7024f5796c37c43c80006c10eb8b64b",
+  "model": "gpt-6-luna",
+  "prompt_version": "9b2d0a51b59b56a64eb750f28310c2999edb74187a36d3f657f926435ef39c9f",
+  "response": {
+    "paragraphs": [
+      "We recommend using the gross proceeds of {fact:action.a1.amount} to top up Diane's Stocks & Shares ISA for the new tax year.",
+      "This figure is gross before any CGT and becomes available once the disposal completes.",
+      "{marker:disposal_pending_confirmation}"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1155,
+    "input_tokens": 1310,
+    "output_tokens": 206,
+    "reasoning_tokens": 135
+  }
+}

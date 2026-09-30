@@ -1,0 +1,52 @@
+{
+  "cost_usd": "0.0015373",
+  "input_hash": "e21dc555573dcbb2f99b44bfe7a844ef01efbd16a5965e1c7c2ed5d6ba332118",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend that no investments are sold."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "The client was advised to pay \u00a36,000 into the Stocks & Shares ISA.",
+        "paragraph_id": "p5",
+        "quote": "We agreed he would pay \u00a36,000 into the Stocks & Shares ISA.",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "No investments are being sold.",
+        "paragraph_id": "p5",
+        "quote": "No investments are being sold.",
+        "report_quote": "We recommend that no investments are sold.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend that no investments are sold."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2498,
+    "output_tokens": 2575,
+    "reasoning_tokens": 2346
+  }
+}

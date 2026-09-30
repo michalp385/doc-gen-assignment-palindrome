@@ -1,0 +1,21 @@
+{
+  "cost_usd": "0.0003050",
+  "input_hash": "3dfcd6d019328dc6970139a82cd4d9041440eb0ca7d49880d61e6deeb82732a2",
+  "model": "gpt-6-luna",
+  "prompt_version": "3e6f609d35c06c061f4a28544190fcac19c2c7af3d69e31416a9a38938a674ac",
+  "response": {
+    "paragraphs": [
+      "We agreed to disinvest the joint GIA in full.",
+      "We recommend using the gross proceeds of {fact:action.a1.amount} to top up David\u2019s and Susan\u2019s Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+      "This figure is gross before any CGT and becomes available once the disposal completes.",
+      "{marker:isa_amounts}"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1279,
+    "input_tokens": 1770,
+    "output_tokens": 256,
+    "reasoning_tokens": 162
+  }
+}

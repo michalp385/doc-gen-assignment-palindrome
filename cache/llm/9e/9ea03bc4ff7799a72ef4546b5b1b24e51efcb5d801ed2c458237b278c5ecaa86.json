@@ -1,0 +1,104 @@
+{
+  "cost_usd": "0.0048173",
+  "input_hash": "d3ca4cd0f2c9e0719847fc81adbed2a57563020281ef3614a6ab70dacc58181c",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA in full.\n\nWe recommend using the gross proceeds of c. \u00a345,000 to top up both ISAs equally for the new tax year."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Both clients are retired.",
+        "paragraph_id": "p2",
+        "quote": "Both are now retired.",
+        "report_quote": "Both clients are retired.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Their objectives and circumstances remain unchanged since the last review.",
+        "paragraph_id": "p2",
+        "quote": "They confirmed their objectives and circumstances are unchanged since the last review",
+        "report_quote": "Their objectives and circumstances remain unchanged since the last review",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They remain comfortable with the agreed balanced approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "both remain comfortable with the balanced approach to risk we agreed.",
+        "report_quote": "they remain comfortable with the balanced approach to risk agreed.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Neither currently requires income from the portfolio.",
+        "paragraph_id": "p9",
+        "quote": "Neither has any income requirement from the portfolio at the moment.",
+        "report_quote": "Neither currently requires income from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to disinvest the joint GIA in full.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "We recommend disinvesting the joint GIA in full.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The stated approximate proceeds are \u00a345,000.",
+        "paragraph_id": "p5",
+        "quote": "It was showing a little over \u00a345,000",
+        "report_quote": "c. \u00a345,000",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds are to top up both ISAs equally for the new tax year.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "to top up both ISAs equally for the new tax year.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds become available once the disposal completes.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "becomes available once the disposal completes.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "An ongoing platform charge applies to the investments.",
+        "paragraph_id": "p10",
+        "quote": "Susan asked what the ongoing charges would look like after the change.",
+        "report_quote": "An ongoing platform charge applies to your investments.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "An ongoing advice charge applies to the accounts on Holloway.",
+        "paragraph_id": "p10",
+        "quote": "Susan asked what the ongoing charges would look like after the change.",
+        "report_quote": "An ongoing advice charge applies to the accounts on Holloway.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA in full."
+      },
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a345,000 to top up both ISAs equally for the new tax year."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2913,
+    "output_tokens": 9052,
+    "reasoning_tokens": 8060
+  }
+}

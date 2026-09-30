@@ -1,0 +1,65 @@
+{
+  "cost_usd": "0.0020658",
+  "input_hash": "7741d7acd9d24db14ea75c1981d1cb9e860676a4aee801a979fccea22787a6f2",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a35,000 from the cash account into the Stocks & Shares ISA if the funds are available."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Nora's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Nora confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Nora confirmed that her circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Nora remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Nora confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "She remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Nora has no income requirement from the portfolio.",
+        "paragraph_id": "p5",
+        "quote": "Nora has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Nora has a moderate risk profile.",
+        "paragraph_id": "p2",
+        "quote": "Nora confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed conditional action is to move \u00a35,000 from the cash account into the Stocks & Shares ISA if the funds are available.",
+        "paragraph_id": "p4",
+        "quote": "We agreed to look into the cash account, and if the funds are available, move \u00a35,000 from it into the Stocks & Shares ISA.",
+        "report_quote": "We recommend moving \u00a35,000 from the cash account into the Stocks & Shares ISA if the funds are available.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a35,000 from the cash account into the Stocks & Shares ISA if the funds are available."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2443,
+    "output_tokens": 3643,
+    "reasoning_tokens": 3206
+  }
+}

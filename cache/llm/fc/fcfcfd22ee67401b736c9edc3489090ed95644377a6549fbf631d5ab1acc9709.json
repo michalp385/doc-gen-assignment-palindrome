@@ -1,0 +1,79 @@
+{
+  "cost_usd": "0.0018530",
+  "input_hash": "e9de1119dd5a459f572d893cc2fa393d8acfa95b1f9c92e15be3fb02d34e99b4",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend looking into the cash account and, if the funds are available, moving \u00a35,000 from it into the Stocks & Shares ISA."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Nora's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Nora confirmed her circumstances and objectives are unchanged",
+        "report_quote": "Nora confirmed that her circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Nora remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "remains comfortable with a moderate approach to risk",
+        "report_quote": "She remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Nora has no income requirement from the portfolio.",
+        "paragraph_id": "p5",
+        "quote": "Nora has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk profile is 4 (moderate).",
+        "paragraph_id": "p2",
+        "quote": "moderate approach to risk",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to look into the cash account.",
+        "paragraph_id": "p4",
+        "quote": "We agreed to look into the cash account",
+        "report_quote": "We recommend looking into the cash account",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Moving the funds is conditional on their availability.",
+        "paragraph_id": "p4",
+        "quote": "if the funds are available",
+        "report_quote": "if the funds are available",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to move \u00a35,000 from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p4",
+        "quote": "move \u00a35,000 from it into the Stocks & Shares ISA.",
+        "report_quote": "moving \u00a35,000 from it into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend looking into the cash account and, if the funds are available, moving \u00a35,000 from it into the Stocks & Shares ISA."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2485,
+    "output_tokens": 3209,
+    "reasoning_tokens": 2730
+  }
+}

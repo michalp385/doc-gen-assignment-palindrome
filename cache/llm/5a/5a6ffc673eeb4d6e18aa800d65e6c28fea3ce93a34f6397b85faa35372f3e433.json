@@ -1,0 +1,168 @@
+{
+  "cost_usd": "0.0038601",
+  "input_hash": "2e3f14deeb167657a5d68d7788e11607b4f3b493a9c1886775fbaf3bf3a7fc28",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using both ISA allowances for the new tax year."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend making pension contributions into both SIPPs up to the appropriate level."
+      },
+      {
+        "action_id": "a3",
+        "report_quote": "We recommend adding to the Holloway joint GIA."
+      },
+      {
+        "action_id": "a4",
+        "report_quote": "We recommend placing the balance into a new jointly-held investment account."
+      },
+      {
+        "action_id": "a5",
+        "report_quote": "We recommend disinvesting a portion of the Holloway joint GIA and rebalancing it."
+      },
+      {
+        "action_id": "a6",
+        "report_quote": "We recommend leaving it as it is for now and revisiting it at the next review."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "James completed the sale of his company in April.",
+        "paragraph_id": "p2",
+        "quote": "By way of background: James completed the sale of his company in April. James and Caroline seek long-term growth with a balanced-to-moderate risk appetite. They have no income requirement from the portfolio currently; James may do some consultancy work but nothing is settled.",
+        "report_quote": "James completed the sale of his company in April.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "James and Caroline seek long-term growth with a balanced-to-moderate approach to risk.",
+        "paragraph_id": "p6",
+        "quote": "James and Caroline's objectives are long-term growth with a balanced-to-moderate risk appetite. They have no income requirement from the portfolio currently; James may do some consultancy work but nothing is settled.",
+        "report_quote": "James and Caroline seek long-term growth with a balanced-to-moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They do not currently require income from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "James and Caroline's objectives are long-term growth with a balanced-to-moderate risk appetite. They have no income requirement from the portfolio currently; James may do some consultancy work but nothing is settled.",
+        "report_quote": "do not currently require income from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Their priority is to build a tax-efficient base that can replace James\u2019s income when he steps back from full-time work.",
+        "paragraph_id": "p7",
+        "quote": "Their overriding objective for this money is clear: to build a tax-efficient base that can replace James's income when he steps back from full-time work in about three years. We agreed everything we recommend should be weighed against that three-year goal.",
+        "report_quote": "Their priority is to build a tax-efficient base that can replace James\u2019s income when he steps back from full-time work",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Recommendations should be assessed against this objective.",
+        "paragraph_id": "p7",
+        "quote": "Their overriding objective for this money is clear: to build a tax-efficient base that can replace James's income when he steps back from full-time work in about three years. We agreed everything we recommend should be weighed against that three-year goal.",
+        "report_quote": "any recommendations should be assessed against this objective.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They may wish to help with their grandchildren\u2019s school fees and make a charitable donation in future.",
+        "paragraph_id": "p8",
+        "quote": "They mentioned they would like, at some stage, to help with school fees for their grandchildren and possibly make a charitable donation. Both were clear these are aspirations for the future and nothing should be actioned on them in this report.",
+        "report_quote": "They may also wish to help with their grandchildren\u2019s school fees and make a charitable donation in future.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They agreed to use both ISA allowances for the new tax year.",
+        "paragraph_id": "p14",
+        "quote": "On the plan for the available proceeds: we agreed to use both ISA allowances for the new tax year, make pension contributions into both SIPPs up to the appropriate level, add to the Holloway joint GIA, and place the remaining balance into a new jointly-held investment account.",
+        "report_quote": "We recommend using both ISA allowances for the new tax year.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They agreed to make pension contributions into both SIPPs up to the appropriate level.",
+        "paragraph_id": "p14",
+        "quote": "On the plan for the available proceeds: we agreed to use both ISA allowances for the new tax year, make pension contributions into both SIPPs up to the appropriate level, add to the Holloway joint GIA, and place the remaining balance into a new jointly-held investment account.",
+        "report_quote": "We recommend making pension contributions into both SIPPs up to the appropriate level.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They agreed to add to the Holloway joint GIA.",
+        "paragraph_id": "p14",
+        "quote": "On the plan for the available proceeds: we agreed to use both ISA allowances for the new tax year, make pension contributions into both SIPPs up to the appropriate level, add to the Holloway joint GIA, and place the remaining balance into a new jointly-held investment account.",
+        "report_quote": "We recommend adding to the Holloway joint GIA.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They agreed to place the remaining balance into a new jointly-held investment account.",
+        "paragraph_id": "p14",
+        "quote": "On the plan for the available proceeds: we agreed to use both ISA allowances for the new tax year, make pension contributions into both SIPPs up to the appropriate level, add to the Holloway joint GIA, and place the remaining balance into a new jointly-held investment account.",
+        "report_quote": "We recommend placing the balance into a new jointly-held investment account.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They agreed to disinvest a portion of the Holloway joint GIA and rebalance it.",
+        "paragraph_id": "p15",
+        "quote": "As part of tidying up, we agreed to disinvest a portion of the Holloway joint GIA and rebalance it; that sale is a disposal and will have a capital gains position to set out.",
+        "report_quote": "We recommend disinvesting a portion of the Holloway joint GIA and rebalancing it.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They agreed to leave the offshore bond as it is for now and revisit it at the next review.",
+        "paragraph_id": "p17",
+        "quote": "We also briefly discussed the offshore bond and whether it still suited them; we agreed to leave it as it is for now and revisit at the next review.",
+        "report_quote": "We recommend leaving it as it is for now and revisiting it at the next review.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Ongoing platform charges apply to investments on Brightwell, Holloway and Meridian.",
+        "paragraph_id": "p16",
+        "quote": "Caroline asked about the total ongoing cost of all this across the three platforms. I said I would set out the charges in the report once I had verified each platform's figures rather than estimate them in the meeting.",
+        "report_quote": "Ongoing platform charges apply to your investments on Brightwell, Holloway and Meridian",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "An ongoing advice charge applies to the in-scope accounts held on those platforms.",
+        "paragraph_id": "p16",
+        "quote": "Caroline asked about the total ongoing cost of all this across the three platforms. I said I would set out the charges in the report once I had verified each platform's figures rather than estimate them in the meeting.",
+        "report_quote": "and an ongoing advice charge applies to the in-scope accounts held on these platforms.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using both ISA allowances for the new tax year."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend making pension contributions into both SIPPs up to the appropriate level."
+      },
+      {
+        "action_id": "a3",
+        "report_quote": "We recommend adding to the Holloway joint GIA."
+      },
+      {
+        "action_id": "a4",
+        "report_quote": "We recommend placing the balance into a new jointly-held investment account."
+      },
+      {
+        "action_id": "a5",
+        "report_quote": "We recommend disinvesting a portion of the Holloway joint GIA and rebalancing it."
+      },
+      {
+        "action_id": "a6",
+        "report_quote": "We recommend leaving it as it is for now and revisiting it at the next review."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 4096,
+    "output_tokens": 6901,
+    "reasoning_tokens": 5178
+  }
+}

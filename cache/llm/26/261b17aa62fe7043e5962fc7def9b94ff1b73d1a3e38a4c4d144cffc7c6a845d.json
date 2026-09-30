@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0000981",
+  "input_hash": "cc08ff013ff7c20028ffb5adab74ac8d3b1658efd671c26796b055f4abf5b339",
+  "model": "gpt-6-luna",
+  "prompt_version": "6a733e14779d05fab4e472e162ef9a10fa645505e623e27bbbfba172877723ff",
+  "response": {
+    "paragraphs": [
+      "He has more available to invest than he initially thought."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 851,
+    "output_tokens": 26,
+    "reasoning_tokens": 0
+  }
+}

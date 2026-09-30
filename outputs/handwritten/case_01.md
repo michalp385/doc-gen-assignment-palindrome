@@ -8,7 +8,7 @@ This firm is authorised and regulated by the Financial Conduct Authority.
 
 ## Background & Objectives
 
-Helen confirmed there have been no changes to her circumstances or objectives since last year's review and remains comfortable with a moderate approach to risk. She has no income requirement from the portfolio.
+Helen confirmed that her circumstances and objectives remain unchanged since the previous review. She remains comfortable with a moderate approach to risk and has no income requirement from the portfolio.
 
 Your agreed risk profile is 4 (moderate).
 
@@ -22,11 +22,13 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend moving £8,000 from the cash account into the Stocks & Shares ISA, as agreed.
+We recommend moving £8,000 from the cash account into the Stocks & Shares ISA.
 
 ## Fees & Charges
 
-An ongoing platform charge and an ongoing advice charge apply to your investments. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway]. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate].
+An ongoing platform charge applies to your investments on Holloway. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
+
+An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate for the accounts on Holloway].
 
 The initial charge that applies is 0%.
 

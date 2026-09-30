@@ -3,7 +3,7 @@
 ## Status
 
 Release state: draft
-Cache replay vs live: 18 replayed, 0 live
+Cache replay vs live: 20 replayed, 0 live
 Gates: 22/22 passed
 
 ## Blocking before sign-off
@@ -17,9 +17,9 @@ None.
 ## Markers to fill
 
 - #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
-- #2: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
-- #3: capital gains tax on the disposal (firm policy: never estimated), section: tax_implications
-- #4: ISA top-up amounts within the remaining allowances, and where any excess goes (a possible allowance breach or confirmed prior use (P4); never estimated), section: recommendations
+- #2: ongoing advice charge rate for the accounts on Holloway (firm policy: never estimated), section: fees_charges
+- #3: capital gains tax on the disposal of the joint General Investment Account, Holloway (firm policy: never estimated), section: tax_implications
+- #4: ISA top-up amounts for David's Stocks & Shares ISA, Holloway; Susan's Stocks & Shares ISA, Holloway within the remaining allowances, and where any excess goes (a possible allowance breach or confirmed prior use (P4); never estimated), section: recommendations
 
 ## Conflicts and how they were resolved
 

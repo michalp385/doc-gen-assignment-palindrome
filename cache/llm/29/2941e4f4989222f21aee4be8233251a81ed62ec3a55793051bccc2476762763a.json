@@ -1,0 +1,21 @@
+{
+  "cost_usd": "0.0003717",
+  "input_hash": "17b4dae7dab38cbc824378f72a032dcc5ed88ef98a6cab11b7571383ee30a730",
+  "model": "gpt-6-luna",
+  "prompt_version": "1cd1c1a4d1fe5770c784affddec9797fbf0e623af1db911cd3189a26d9fe812f",
+  "response": {
+    "paragraphs": [
+      "We recommend using the gross proceeds of {fact:action.a1.amount} to fund both Robert\u2019s and Jean\u2019s ISAs for the new tax year together with the inheritance.",
+      "This figure is gross before any CGT and becomes available once the disposal completes.",
+      "{marker:isa_amounts}",
+      "We recommend opening a new jointly-held investment account for the balance."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1744,
+    "input_tokens": 1747,
+    "output_tokens": 394,
+    "reasoning_tokens": 305
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "cost_usd": "0.0014577",
+  "input_hash": "ee2229df1d0bc110519ee658b549124708da35430b5b57d7bc40fcd1ffec0ae5",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a36,000 from the cash account into the Stocks & Shares ISA."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "George's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "George confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "George confirmed that his circumstances and objectives are unchanged",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "George remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "George confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "he remains comfortable with a moderate approach to risk.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk profile is 4 (moderate).",
+        "paragraph_id": "p2",
+        "quote": "George confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to move \u00a36,000 from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p5",
+        "quote": "We agreed he would move \u00a36,000 from the cash account into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "We recommend moving \u00a36,000 from the cash account into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a36,000 from the cash account into the Stocks & Shares ISA."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2427,
+    "output_tokens": 2430,
+    "reasoning_tokens": 2070
+  }
+}

@@ -75,7 +75,7 @@
     {
       "gate": "G16",
       "passed": true,
-      "detail": "1 of 3 judge samples disagreed: uncovered clause(s): ['She would like to use this year\u2019s ISA allowance by moving some cash held in her Holloway cash account into her Stocks & Shares ISA.']"
+      "detail": ""
     },
     {
       "gate": "G8",
@@ -136,21 +136,22 @@
     },
     {
       "stage": "extract",
-      "calls": 2,
-      "cache_hits": 2,
+      "calls": 3,
+      "cache_hits": 3,
       "live_calls": 0,
       "tokens": {
-        "input": 3328,
+        "input": 4359,
         "cached_input": 0,
-        "output": 1243,
-        "reasoning": 569
+        "output": 1797,
+        "reasoning": 1106
       },
-      "cost_usd": "0.0009543",
+      "cost_usd": "0.0013344",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
+        "0f597f42f642dde53423b1c2595e9fb5cb90d316a79b4b8657f95b22b90711ba",
         "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
         "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b"
       ]
@@ -161,36 +162,36 @@
       "cache_hits": 5,
       "live_calls": 0,
       "tokens": {
-        "input": 5178,
-        "cached_input": 2275,
-        "output": 482,
-        "reasoning": 211
+        "input": 6226,
+        "cached_input": 1422,
+        "output": 366,
+        "reasoning": 98
       },
-      "cost_usd": "0.0007588",
+      "cost_usd": "0.0008056",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
-        "504468ee89696fcaf8b3624d1d31b81fb0edce8faf54a8bffacd6e5373789944",
-        "5b6572803a7b9f8b6043d7bd4a43c1ca5f2678dbf237aa6e2de6ade291aa0775",
-        "6853b20978571e226ed94b30e6eab663eda7a6195ced94176864e0168f8612de",
-        "710aacb251745659106594df4ec6f0e4956cf31fbbd8fb194fabbf8a5f099351",
-        "ba2848825ed196548bb5567ff22df050679a307bc3566b828246331bb4a11adc"
+        "30f91c95b05038946e72ea9583bf3385a42e0da5c56579610d445b649a0a7f2f",
+        "5d82af3e6687d9d8d06e705a03bb732ec3af5d6a73571706a8781f7be8c3ddd0",
+        "bc75978d80a620494428cf68d9da2866c6f09867b78144c8192416c6a196196c",
+        "cfa4c11a5375e0cfa6b5984ea493d5d59af608051767b8ea722191fa473b6584",
+        "e8ad6e2be045a2de80d6973e56f53b183d273b2b613cf18d59dd8b02508b0481"
       ]
     },
     {
       "stage": "release_judge",
-      "calls": 4,
-      "cache_hits": 4,
+      "calls": 3,
+      "cache_hits": 3,
       "live_calls": 0,
       "tokens": {
-        "input": 10560,
-        "cached_input": 5490,
-        "output": 16915,
-        "reasoning": 14345
+        "input": 7919,
+        "cached_input": 3660,
+        "output": 15365,
+        "reasoning": 12800
       },
-      "cost_usd": "0.0095135",
+      "cost_usd": "0.0084744",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -203,5 +204,5 @@
   "total_calls": 16,
   "total_cache_hits": 16,
   "total_live_calls": 0,
-  "total_cost_usd": "0.0118458"
+  "total_cost_usd": "0.0112336"
 }

@@ -2,13 +2,13 @@
 
 ## Introduction
 
-Further to our recent discussions, we are writing to set out our advice in relation to the following accounts: Robert's Stocks & Shares ISA held with Holloway, your General Investment Account held with Holloway, Jean's Stocks & Shares ISA held with Holloway and your New joint account. This advice is based on the information currently available to us.
+Further to our recent discussions, we are writing to set out our advice in relation to the accounts comprising Robert's Stocks & Shares ISA held with Holloway, your General Investment Account held with Holloway, Jean's Stocks & Shares ISA held with Holloway and your New joint account. This advice is based on the information currently available to us.
 
 This firm is authorised and regulated by the Financial Conduct Authority.
 
 ## Background & Objectives
 
-The couple would like to invest alongside their existing portfolio, with the aim of long-term growth and no need to draw income for the foreseeable future. Their objectives and moderate attitude to risk remain unchanged, and they are comfortable maintaining this level of risk.
+The couple would like to invest alongside their existing portfolio, with unchanged objectives of long-term growth and no income required for the foreseeable future. Both remain comfortable with a moderate level of risk. Jean also mentioned a separate cash account from some years ago, although she is unsure whether it is still active.
 
 Your agreed risk profile is 4 (moderate).
 
@@ -27,25 +27,29 @@ Your joint General Investment Account was previously shown in our records (10 Ma
 
 We recommend the following:
 
-We recommend using the gross proceeds of c. £38,000 to fund both ISAs and the new jointly-held investment account.
+We recommend disinvesting the joint GIA.
 
-This figure is gross before any CGT and becomes available once the disposal completes.
+We recommend using the gross proceeds of c. £38,000 to fund both Robert’s and Jean’s ISAs for the new tax year. This figure is gross before any CGT and becomes available once the disposal completes.
 
-We recommend using the inheritance of £120,000 together with the proceeds to fund both Robert's and Jean's ISAs for the new tax year, and opening a new jointly-held investment account for the balance.
+The inheritance of £120,000 will also fund both ISAs.
+
+The total money available to invest now is £120,000. We recommend opening a new jointly-held investment account for the balance.
 
 [ADVISER TO CONFIRM #5: ISA top-up amounts and the resulting balance for the new account]
 
 ## Tax Implications
 
-We note that the disposal may create a capital gains tax liability assessed against the annual exempt amount for the relevant tax year. The capital gains tax on the disposal is [ADVISER TO CONFIRM #4: capital gains tax on the disposal].
+We note that the disposal may create a capital gains tax liability assessed against the annual exempt amount for the relevant tax year.
+
+[ADVISER TO CONFIRM #4: capital gains tax on the disposal of the joint General Investment Account, Holloway]
 
 ## Fees & Charges
 
-An ongoing platform charge applies to your investments. The platform charge rate for Holloway is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
+An ongoing platform charge applies to your investments held on Holloway. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
 
-An ongoing advice charge also applies to your investments. The ongoing advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate].
+An ongoing advice charge applies to the accounts held on Holloway. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate for the accounts on Holloway].
 
-The charges on the new joint account are [ADVISER TO CONFIRM #3: charges on the new joint account].
+For the new joint account held by Robert and Jean, the platform charge and advice charge rates are [ADVISER TO CONFIRM #3: platform charge and advice charge rates for the new joint account held by Robert and Jean (platform not stated)].
 
 The initial charge that applies is 0.5%.
 
@@ -53,4 +57,4 @@ The initial charge that applies is 0.5%.
 
 The value of investments can fall as well as rise and you may get back less than you invest. Past performance is not a guide to future returns.
 
-Please let us know if you would like to proceed, and we will be happy to help.
+Please let us know if you would like to proceed, and we’ll be happy to help.

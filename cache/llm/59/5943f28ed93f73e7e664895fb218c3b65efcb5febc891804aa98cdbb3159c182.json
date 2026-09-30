@@ -1,0 +1,90 @@
+{
+  "cost_usd": "0.0038338",
+  "input_hash": "d70422a5424a4f18e872a74eede0d0183662f0260516d42af6e28377b6e3f02c",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA in full.\n\nWe recommend using the gross proceeds of c. \u00a345,000 to top up both ISAs equally for the new tax year."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Both clients are retired.",
+        "paragraph_id": "p2",
+        "quote": "Both are now retired.",
+        "report_quote": "Both clients are retired.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Their objectives and circumstances are unchanged since the last review.",
+        "paragraph_id": "p2",
+        "quote": "They confirmed their objectives and circumstances are unchanged since the last review, and both remain comfortable with the balanced approach to risk we agreed.",
+        "report_quote": "Their objectives and circumstances remain unchanged since the last review",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They remain comfortable with the agreed balanced approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "They confirmed their objectives and circumstances are unchanged since the last review, and both remain comfortable with the balanced approach to risk we agreed.",
+        "report_quote": "and they remain comfortable with the balanced approach to risk agreed.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Neither client currently requires income from the portfolio.",
+        "paragraph_id": "p9",
+        "quote": "Neither has any income requirement from the portfolio at the moment.",
+        "report_quote": "Neither currently requires income from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report's estimated proceeds figure is approximately \u00a345,000.",
+        "paragraph_id": "p5",
+        "quote": "It was showing a little over \u00a345,000, which is up from where it had been earlier in the year when we last looked at the statements.",
+        "report_quote": "c. \u00a345,000",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds are to top up both ISAs equally for the new tax year.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "to top up both ISAs equally for the new tax year.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds figure is gross before CGT.",
+        "paragraph_id": "p11",
+        "quote": "We noted that selling down the GIA is a disposal and may have a capital gains position to consider; I will set that out in the report for them.",
+        "report_quote": "This figure is gross before any CGT",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds become available once the disposal completes.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "becomes available once the disposal completes.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA in full."
+      },
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a345,000 to top up both ISAs equally for the new tax year."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2913,
+    "output_tokens": 7085,
+    "reasoning_tokens": 6393
+  }
+}

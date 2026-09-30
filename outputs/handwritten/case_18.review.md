@@ -3,7 +3,7 @@
 ## Status
 
 Release state: draft
-Cache replay vs live: 13 replayed, 0 live
+Cache replay vs live: 6 replayed, 6 live
 Gates: 22/22 passed
 
 ## Blocking before sign-off
@@ -17,7 +17,7 @@ None.
 ## Markers to fill
 
 - #1: ongoing platform charge rate (platform not stated in the account data) (the platform is not stated in the account data; firm policy: never estimated), section: fees_charges
-- #2: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #2: ongoing advice charge rate for any account whose platform is not stated (firm policy: never estimated), section: fees_charges
 
 ## Conflicts and how they were resolved
 

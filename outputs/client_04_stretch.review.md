@@ -3,7 +3,7 @@
 ## Status
 
 Release state: draft
-Cache replay vs live: 20 replayed, 0 live
+Cache replay vs live: 19 replayed, 0 live
 Gates: 22/22 passed
 
 ## Blocking before sign-off
@@ -20,10 +20,10 @@ None.
 - #1: ongoing platform charge rate, Brightwell (firm policy: never estimated), section: fees_charges
 - #2: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
 - #3: ongoing platform charge rate, Meridian (firm policy: never estimated), section: fees_charges
-- #4: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
-- #5: charges on the new joint account (firm policy: never estimated), section: fees_charges
-- #6: capital gains tax on the disposal (firm policy: never estimated), section: tax_implications
-- #7: SIPP contribution amounts (pension contribution amounts are always adviser-review markers (P4); never estimated), section: recommendations
+- #4: ongoing advice charge rate for the accounts on Brightwell, Holloway and Meridian (firm policy: never estimated), section: fees_charges
+- #5: platform charge and advice charge rates for the new joint account held by James and Caroline (platform not stated) (firm policy: never estimated), section: fees_charges
+- #6: capital gains tax on the disposal of the joint General Investment Account, Holloway (firm policy: never estimated), section: tax_implications
+- #7: SIPP contribution amounts for James and for Caroline, each (pension contribution amounts are always adviser-review markers (P4); never estimated), section: recommendations
 - #8: the amount added to the General Investment Account (Holloway) (the amount to add is not stated in the sources (P2); firm policy: never estimated), section: recommendations
 - #9: the portion of the General Investment Account (Holloway) sold (the portion sold is not stated in the sources (P5); firm policy: never estimated), section: recommendations
 - #10: the balance placed into the new account (the balance depends on amounts the sources leave unspecified (P5); firm policy: never estimated), section: recommendations
@@ -49,6 +49,7 @@ None.
 ## Notes
 
 - new joint account: its type and platform are not stated in the sources; confirm both.
+- Only a portion of Holloway joint GIA is sold, and the sources do not say whether the proceeds stay in it or join the £650,000 available to invest; confirm the amount and where the money goes.
 - Pension contribution amounts are adviser-review markers: pension limits depend on personal circumstances, earlier contributions, tapering and carry-forward, so no figure is stated.
 - statement image row 'Holloway GIA (Joint)' did not match any in-scope account
 

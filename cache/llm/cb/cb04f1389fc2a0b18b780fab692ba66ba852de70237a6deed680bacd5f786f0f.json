@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001839",
+  "input_hash": "1e00c9d68642651b696e4f8fb139d2a2a33db80484d9d6df733b2aa44958ce3b",
+  "model": "gpt-6-luna",
+  "prompt_version": "cfa4c11a5375e0cfa6b5984ea493d5d59af608051767b8ea722191fa473b6584",
+  "response": {
+    "paragraphs": [
+      "We recommend leaving the Stocks & Shares ISA as it is."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1422,
+    "input_tokens": 1479,
+    "output_tokens": 72,
+    "reasoning_tokens": 43
+  }
+}

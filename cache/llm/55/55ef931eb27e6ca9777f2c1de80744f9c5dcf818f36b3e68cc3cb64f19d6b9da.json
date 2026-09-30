@@ -1,0 +1,44 @@
+{
+  "cost_usd": "0.0014353",
+  "input_hash": "33650d443deb8e8e078c39a34066e2e4db419bc4a5e1e8fe7a6703c85149ab7b",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend revising the top-up amount from the cash account into the Stocks & Shares ISA to \u00a37,000."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "He has more available to invest than he initially thought.",
+        "paragraph_id": "p2",
+        "quote": "Alistair called to say he has more available to invest than he first thought and would now like to move \u00a37,000 rather than \u00a33,000 from his Holloway cash account into his Stocks & Shares ISA.",
+        "report_quote": "He has more available to invest than he initially thought.",
+        "source_id": "meeting_notes_followup.docx"
+      },
+      {
+        "claim": "The agreed top-up amount is revised to \u00a37,000 from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p3",
+        "quote": "We agreed the top-up amount would be revised to \u00a37,000 from the cash account into the Stocks & Shares ISA.",
+        "report_quote": "We recommend revising the top-up amount from the cash account into the Stocks & Shares ISA to \u00a37,000.",
+        "source_id": "meeting_notes_followup.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend revising the top-up amount from the cash account into the Stocks & Shares ISA to \u00a37,000."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2553,
+    "output_tokens": 2360,
+    "reasoning_tokens": 2070
+  }
+}

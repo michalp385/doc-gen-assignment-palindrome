@@ -23,11 +23,13 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend paying £3,000 into the Stocks & Shares ISA, as agreed. No investments are being sold.
+We recommend paying £3,000 into the Stocks & Shares ISA. We recommend that no investments are sold.
 
 ## Fees & Charges
 
-An ongoing platform charge and an ongoing advice charge apply to your investments. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway]. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate].
+An ongoing platform charge applies to your investments on Holloway. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
+
+An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate for the accounts on Holloway].
 
 The initial charge that applies is 0%.
 

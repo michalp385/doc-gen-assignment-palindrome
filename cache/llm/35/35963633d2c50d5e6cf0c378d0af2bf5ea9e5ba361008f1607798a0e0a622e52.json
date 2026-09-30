@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001673",
+  "input_hash": "68447284c04a37d2edd08ddbe1e3361570deae7342acfdfe41f79498d20db690",
+  "model": "gpt-6-luna",
+  "prompt_version": "1cd1c1a4d1fe5770c784affddec9797fbf0e623af1db911cd3189a26d9fe812f",
+  "response": {
+    "paragraphs": [
+      "We recommend making no changes at this time and reviewing your investments again next year."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1204,
+    "input_tokens": 1258,
+    "output_tokens": 83,
+    "reasoning_tokens": 50
+  }
+}

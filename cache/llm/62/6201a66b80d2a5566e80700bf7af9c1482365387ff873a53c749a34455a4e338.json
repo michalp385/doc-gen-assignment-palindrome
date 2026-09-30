@@ -1,0 +1,20 @@
+{
+  "cost_usd": "0.0002786",
+  "input_hash": "3dfcd6d019328dc6970139a82cd4d9041440eb0ca7d49880d61e6deeb82732a2",
+  "model": "gpt-6-luna",
+  "prompt_version": "9b2d0a51b59b56a64eb750f28310c2999edb74187a36d3f657f926435ef39c9f",
+  "response": {
+    "paragraphs": [
+      "We recommend using the gross proceeds of {fact:action.a1.amount} to top up David\u2019s and Susan\u2019s Stocks & Shares ISAs with Holloway, split equally between the two ISAs.",
+      "This figure is gross before any CGT and becomes available once the disposal completes.",
+      "ISA top-up amounts for David's Stocks & Shares ISA, Holloway; Susan's Stocks & Shares ISA, Holloway within the remaining allowances, and where any excess goes"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1155,
+    "input_tokens": 1646,
+    "output_tokens": 228,
+    "reasoning_tokens": 121
+  }
+}

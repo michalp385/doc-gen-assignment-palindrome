@@ -1,0 +1,66 @@
+{
+  "cost_usd": "0.0020977",
+  "input_hash": "eec275d1f9ba476ac3b004b6161871c12c2c0d9e2a5fe6e751b65c285f49ab86",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a33,000 into the Stocks & Shares ISA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "No investments are being sold."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Patricia has an agreed moderate risk profile.",
+        "paragraph_id": "p2",
+        "quote": "Patricia confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Patricia has no income requirement from the portfolio.",
+        "paragraph_id": "p5",
+        "quote": "Patricia has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Patricia agreed to pay \u00a33,000 into her Stocks & Shares ISA.",
+        "paragraph_id": "p4",
+        "quote": "We agreed she would pay \u00a33,000 into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "We recommend paying \u00a33,000 into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "No investments are being sold.",
+        "paragraph_id": "p4",
+        "quote": "No investments are being sold.",
+        "report_quote": "No investments are being sold.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a33,000 into the Stocks & Shares ISA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "No investments are being sold."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2472,
+    "output_tokens": 3701,
+    "reasoning_tokens": 3361
+  }
+}

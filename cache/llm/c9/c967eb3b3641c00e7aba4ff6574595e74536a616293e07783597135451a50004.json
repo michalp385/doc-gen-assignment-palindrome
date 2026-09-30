@@ -1,0 +1,65 @@
+{
+  "cost_usd": "0.0024115",
+  "input_hash": "a7b5fafc5063bfef26c9e6f09a9d90c9844c413a696a29b2fc0ede6e6dc338e3",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a38,000 from the cash account into the Stocks & Shares ISA."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Helen's circumstances and objectives are unchanged since the previous review.",
+        "paragraph_id": "p2",
+        "quote": "Helen confirmed there have been no changes to her circumstances or objectives since last year's review and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Helen confirmed that her circumstances and objectives remain unchanged since the previous review.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Helen remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Helen confirmed there have been no changes to her circumstances or objectives since last year's review and remains comfortable with a moderate approach to risk.",
+        "report_quote": "She remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Helen has no income requirement from the portfolio.",
+        "paragraph_id": "p5",
+        "quote": "Helen has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk profile is moderate.",
+        "paragraph_id": "p2",
+        "quote": "Helen confirmed there have been no changes to her circumstances or objectives since last year's review and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to move \u00a38,000 from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p4",
+        "quote": "We agreed she would move \u00a38,000 from the cash account into the Stocks & Shares ISA. No investments are being sold to do this.",
+        "report_quote": "We recommend moving \u00a38,000 from the cash account into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a38,000 from the cash account into the Stocks & Shares ISA."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2425,
+    "output_tokens": 4338,
+    "reasoning_tokens": 3900
+  }
+}

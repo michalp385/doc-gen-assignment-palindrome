@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001953",
+  "input_hash": "e50df33a71a97f61aeb1caacd08705e98556204221976e02564d9fdbbd05986e",
+  "model": "gpt-6-luna",
+  "prompt_version": "6a733e14779d05fab4e472e162ef9a10fa645505e623e27bbbfba172877723ff",
+  "response": {
+    "paragraphs": [
+      "Margaret is retired and confirmed that her circumstances and objectives remain unchanged since her previous review. She remains comfortable with the moderate approach to risk agreed previously and is satisfied with the portfolio\u2019s performance. She has cash on deposit that she would like to use towards her ISA allowance by moving it into her Stocks & Shares ISA. She has no current income requirement from the portfolio and does not expect this to change in the near term. She also mentioned that she may wish to discuss gifting to her grandchildren in the future, but this is not for consideration or action at present."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1318,
+    "output_tokens": 127,
+    "reasoning_tokens": 0
+  }
+}

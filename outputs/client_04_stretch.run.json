@@ -95,7 +95,7 @@
     {
       "gate": "G7",
       "passed": true,
-      "detail": "1 of 3 judge samples disagreed: The recommendation to invest the \u201cremaining balance\u201d does not clarify that \u00a3200,000 of the completion payment is already committed to the bridging-loan repayment, so it could treat committed funds as available for investment. ('We recommend placing the remaining balance into a new jointly held investment account.')"
+      "detail": ""
     },
     {
       "gate": "G10",
@@ -136,21 +136,22 @@
     },
     {
       "stage": "extract",
-      "calls": 3,
-      "cache_hits": 3,
+      "calls": 4,
+      "cache_hits": 4,
       "live_calls": 0,
       "tokens": {
-        "input": 5265,
+        "input": 6148,
         "cached_input": 2577,
-        "output": 4650,
-        "reasoning": 2256
+        "output": 4824,
+        "reasoning": 2413
       },
-      "cost_usd": "0.0028515",
+      "cost_usd": "0.0030268",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
+        "0f597f42f642dde53423b1c2595e9fb5cb90d316a79b4b8657f95b22b90711ba",
         "233f6f46a33b45649bfaf46c68daef75aeb27a5c171ef5b4e3be6bf7b76ca7a2",
         "5bf8a66f0c2c1f31c9ece7712fca5a5d43a294dbe9f3c7acea561526ba80b32b",
         "e0813be56c9191a38d231963dab9178fec42114d55a8a68ea72ef3850232cb9d"
@@ -158,27 +159,27 @@
     },
     {
       "stage": "write",
-      "calls": 8,
-      "cache_hits": 8,
+      "calls": 6,
+      "cache_hits": 6,
       "live_calls": 0,
       "tokens": {
-        "input": 8999,
-        "cached_input": 0,
-        "output": 1545,
-        "reasoning": 762
+        "input": 7567,
+        "cached_input": 1422,
+        "output": 1413,
+        "reasoning": 847
       },
-      "cost_usd": "0.0016724",
+      "cost_usd": "0.0014632",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
-        "3ce102c47cb4127db55a4adb432cbdaa94cbd2314e1ead19a817a7f881f7e1d0",
-        "504468ee89696fcaf8b3624d1d31b81fb0edce8faf54a8bffacd6e5373789944",
-        "5b6572803a7b9f8b6043d7bd4a43c1ca5f2678dbf237aa6e2de6ade291aa0775",
-        "6853b20978571e226ed94b30e6eab663eda7a6195ced94176864e0168f8612de",
-        "710aacb251745659106594df4ec6f0e4956cf31fbbd8fb194fabbf8a5f099351",
-        "ba2848825ed196548bb5567ff22df050679a307bc3566b828246331bb4a11adc"
+        "30f91c95b05038946e72ea9583bf3385a42e0da5c56579610d445b649a0a7f2f",
+        "5d82af3e6687d9d8d06e705a03bb732ec3af5d6a73571706a8781f7be8c3ddd0",
+        "8e9274c64c892bbaf63bdbf62bea9b26b880a7998e931b7425158df8f6394764",
+        "bc75978d80a620494428cf68d9da2866c6f09867b78144c8192416c6a196196c",
+        "cfa4c11a5375e0cfa6b5984ea493d5d59af608051767b8ea722191fa473b6584",
+        "e8ad6e2be045a2de80d6973e56f53b183d273b2b613cf18d59dd8b02508b0481"
       ]
     },
     {
@@ -187,12 +188,12 @@
       "cache_hits": 3,
       "live_calls": 0,
       "tokens": {
-        "input": 12029,
+        "input": 12293,
         "cached_input": 5490,
-        "output": 25952,
-        "reasoning": 20453
+        "output": 25984,
+        "reasoning": 19981
       },
-      "cost_usd": "0.0141789",
+      "cost_usd": "0.0142213",
       "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
@@ -202,8 +203,8 @@
       ]
     }
   ],
-  "total_calls": 20,
-  "total_cache_hits": 20,
+  "total_calls": 19,
+  "total_cache_hits": 19,
   "total_live_calls": 0,
-  "total_cost_usd": "0.0194653"
+  "total_cost_usd": "0.0194738"
 }

@@ -1,0 +1,52 @@
+{
+  "cost_usd": "0.0015926",
+  "input_hash": "8013e60abc4022fcccd192ebc199335fc7066c0229b8a04f7e55074592072681",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a34,000 from the cash account into the Stocks & Shares ISA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend that no investments are sold."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "The agreed action is to move \u00a34,000 from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p4",
+        "quote": "We agreed he would move \u00a34,000 from the cash account into the Stocks & Shares ISA.",
+        "report_quote": "We recommend moving \u00a34,000 from the cash account into the Stocks & Shares ISA.",
+        "source_id": "notes_from_meeting.docx"
+      },
+      {
+        "claim": "No investments are being sold, as agreed.",
+        "paragraph_id": "p4",
+        "quote": "No investments are being sold.",
+        "report_quote": "We recommend that no investments are sold.",
+        "source_id": "notes_from_meeting.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend moving \u00a34,000 from the cash account into the Stocks & Shares ISA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We recommend that no investments are sold."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2436,
+    "output_tokens": 2698,
+    "reasoning_tokens": 2442
+  }
+}

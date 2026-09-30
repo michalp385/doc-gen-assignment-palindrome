@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001457",
+  "input_hash": "99f221e276d0b7908afa9981ab5d3a85193df22d75499938e03b9de3b33ef1bc",
+  "model": "gpt-6-luna",
+  "prompt_version": "9b2d0a51b59b56a64eb750f28310c2999edb74187a36d3f657f926435ef39c9f",
+  "response": {
+    "paragraphs": [
+      "We recommend revising the agreed top-up from the cash account into the Stocks & Shares ISA to {fact:action.a1.amount}."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1155,
+    "input_tokens": 1247,
+    "output_tokens": 42,
+    "reasoning_tokens": 0
+  }
+}

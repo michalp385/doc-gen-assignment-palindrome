@@ -3,7 +3,7 @@
 ## Status
 
 Release state: draft
-Cache replay vs live: 12 replayed, 0 live
+Cache replay vs live: 7 replayed, 5 live
 Gates: 22/22 passed
 
 ## Blocking before sign-off
@@ -18,7 +18,7 @@ None.
 
 - #1: sterling value of Klaus Under's General Investment Account, held in EUR (value is not in GBP (P12); firm policy: never estimated or converted), section: account_table
 - #2: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
-- #3: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #3: ongoing advice charge rate for the accounts on Holloway (firm policy: never estimated), section: fees_charges
 
 ## Conflicts and how they were resolved
 

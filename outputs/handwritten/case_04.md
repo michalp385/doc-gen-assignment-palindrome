@@ -2,13 +2,13 @@
 
 ## Introduction
 
-Further to our recent discussions, we are writing to set out our advice in relation to the Stocks & Shares ISA held by Marcus, your General Investment Account and the Stocks & Shares ISA held by Fiona, all held with Holloway. This advice is based on the information currently available to us.
+Further to our recent discussions, we are writing to set out our advice in relation to the accounts comprising Marcus's Stocks & Shares ISA, your General Investment Account and Fiona's Stocks & Shares ISA, held with Holloway. This advice is based on the information currently available to us.
 
 This firm is authorised and regulated by the Financial Conduct Authority.
 
 ## Background & Objectives
 
-Both confirmed that their circumstances and objectives remain unchanged. They are comfortable with a balanced approach to risk and do not currently require income from the portfolio.
+Both confirmed that their circumstances and objectives are unchanged. They remain comfortable with a balanced approach to risk and have no current income requirement from the portfolio.
 
 Your agreed risk profile is 5 (balanced).
 
@@ -28,7 +28,9 @@ We recommend making no changes to your investments at this time and reviewing th
 
 ## Fees & Charges
 
-An ongoing platform charge and an ongoing advice charge apply to your investments. The platform charge rate is [ADVISER TO CONFIRM #2: ongoing platform charge rate, Holloway]. The advice charge rate is [ADVISER TO CONFIRM #3: ongoing advice charge rate].
+An ongoing platform charge applies to your investments on Holloway. The platform charge rate is [ADVISER TO CONFIRM #2: ongoing platform charge rate, Holloway].
+
+An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is [ADVISER TO CONFIRM #3: ongoing advice charge rate for the accounts on Holloway].
 
 The initial charge that applies is 0%.
 

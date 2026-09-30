@@ -146,7 +146,7 @@
     {
       "id": "#2",
       "key": "advice_charge",
-      "text": "ongoing advice charge rate",
+      "text": "ongoing advice charge rate for the accounts on Holloway",
       "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
@@ -154,7 +154,7 @@
     {
       "id": "#3",
       "key": "cgt",
-      "text": "capital gains tax on the disposal",
+      "text": "capital gains tax on the disposal of the joint General Investment Account, Holloway",
       "reason": "firm policy: never estimated",
       "section": "tax_implications",
       "fact_ref": null
@@ -162,7 +162,7 @@
     {
       "id": "#4",
       "key": "isa_amounts",
-      "text": "ISA top-up amounts within the remaining allowances, and where any excess goes",
+      "text": "ISA top-up amounts for David's Stocks & Shares ISA, Holloway; Susan's Stocks & Shares ISA, Holloway within the remaining allowances, and where any excess goes",
       "reason": "a possible allowance breach or confirmed prior use (P4); never estimated",
       "section": "recommendations",
       "fact_ref": null

@@ -1,0 +1,51 @@
+{
+  "cost_usd": "0.0017048",
+  "input_hash": "8e90653165f68640011cc8be48baabb92bbcdac44353b89166f5daa086e7a60d",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a34,000 into the Stocks & Shares ISA, as agreed."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Owen has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Owen has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report recommends paying \u00a34,000 into the Stocks & Shares ISA.",
+        "paragraph_id": "p5",
+        "quote": "We agreed he would pay \u00a34,000 into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "We recommend paying \u00a34,000 into the Stocks & Shares ISA",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The payment into the ISA was agreed.",
+        "paragraph_id": "p5",
+        "quote": "We agreed he would pay \u00a34,000 into the Stocks & Shares ISA. No investments are being sold.",
+        "report_quote": "as agreed.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a34,000 into the Stocks & Shares ISA, as agreed."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2543,
+    "output_tokens": 2901,
+    "reasoning_tokens": 2634
+  }
+}

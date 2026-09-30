@@ -1,0 +1,19 @@
+{
+  "cost_usd": "0.0001659",
+  "input_hash": "a6e100d32d94411eb95d89dca23e852b5e96a650b2b4a2024b68c11f9a511b30",
+  "model": "gpt-6-luna",
+  "prompt_version": "9b2d0a51b59b56a64eb750f28310c2999edb74187a36d3f657f926435ef39c9f",
+  "response": {
+    "paragraphs": [
+      "We recommend moving money from the cash account into the Stocks & Shares ISA.",
+      "topup amount: the report instruction and the meeting record differ"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1155,
+    "input_tokens": 1234,
+    "output_tokens": 85,
+    "reasoning_tokens": 41
+  }
+}

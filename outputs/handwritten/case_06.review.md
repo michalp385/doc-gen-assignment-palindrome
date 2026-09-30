@@ -3,7 +3,7 @@
 ## Status
 
 Release state: draft
-Cache replay vs live: 12 replayed, 0 live
+Cache replay vs live: 5 replayed, 7 live
 Gates: 22/22 passed
 
 ## Blocking before sign-off
@@ -20,7 +20,7 @@ None.
 - #1: current value of Owen Pratt's SIPP (no value in the account data (R6); firm policy: never estimated or converted), section: account_table
 - #2: ongoing platform charge rate, Brightwell (firm policy: never estimated), section: fees_charges
 - #3: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
-- #4: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #4: ongoing advice charge rate for the accounts on Brightwell and Holloway (firm policy: never estimated), section: fees_charges
 
 ## Conflicts and how they were resolved
 

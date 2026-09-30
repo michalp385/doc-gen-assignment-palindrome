@@ -1,0 +1,82 @@
+{
+  "cost_usd": "0.0033742",
+  "input_hash": "dbfc82516255dc4c087fbb451d5233cbdbad277e297589affd7a9dd11b6c3bac",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend selling Diane's General Investment Account.\n\nWe recommend using the gross proceeds of \u00a310,000 to top up her Stocks & Shares ISA for the new tax year."
+      }
+    ],
+    "findings": [
+      {
+        "detail": "The agreed \u00a310,000 is the amount to sell from the General Investment Account, not a stated amount of gross proceeds. The report presents the sale amount as the proceeds available for the ISA top-up.",
+        "gate": "G2",
+        "quote": "We recommend using the gross proceeds of \u00a310,000 to top up her Stocks & Shares ISA for the new tax year."
+      }
+    ],
+    "material_claims": [
+      {
+        "claim": "Diane is comfortable with a moderate approach to risk, described as risk profile 4.",
+        "paragraph_id": "p2",
+        "quote": "Diane confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Diane has no income requirement from the portfolio.",
+        "paragraph_id": "p4",
+        "quote": "Diane has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action includes selling Diane's General Investment Account.",
+        "paragraph_id": "p3",
+        "quote": "We agreed to sell \u00a310,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+        "report_quote": "We recommend selling Diane's General Investment Account.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report recommends using \u00a310,000 of gross proceeds to top up Diane's Stocks & Shares ISA for the new tax year.",
+        "paragraph_id": "p3",
+        "quote": "We agreed to sell \u00a310,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+        "report_quote": "We recommend using the gross proceeds of \u00a310,000 to top up her Stocks & Shares ISA for the new tax year.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report says the figure is gross before capital gains tax.",
+        "paragraph_id": "p3",
+        "quote": "We agreed to sell \u00a310,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+        "report_quote": "This figure is gross before any CGT",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report says the proceeds become available once the disposal completes.",
+        "paragraph_id": "p3",
+        "quote": "We agreed to sell \u00a310,000 of Diane's General Investment Account and use the proceeds to top up her Stocks & Shares ISA for the new tax year.",
+        "report_quote": "becomes available once the disposal completes.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend selling Diane's General Investment Account."
+      },
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using the gross proceeds of \u00a310,000 to top up her Stocks & Shares ISA for the new tax year."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2527,
+    "output_tokens": 6243,
+    "reasoning_tokens": 5421
+  }
+}

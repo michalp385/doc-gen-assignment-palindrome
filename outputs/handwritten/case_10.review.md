@@ -3,7 +3,7 @@
 ## Status
 
 Release state: draft
-Cache replay vs live: 12 replayed, 0 live
+Cache replay vs live: 5 replayed, 8 live
 Gates: 22/22 passed
 
 ## Blocking before sign-off
@@ -18,7 +18,7 @@ None.
 
 - #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
 - #2: ongoing platform charge rate, Meridian (firm policy: never estimated), section: fees_charges
-- #3: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #3: ongoing advice charge rate for the accounts on Holloway and Meridian (firm policy: never estimated), section: fees_charges
 - #4: chargeable-event gain on the bond encashment, to be assessed (firm policy: never estimated), section: recommendations
 
 ## Conflicts and how they were resolved

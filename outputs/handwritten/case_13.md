@@ -1,13 +1,3 @@
-**NOT ISSUED**
-
-a hard gate failed
-
-## Failing gates
-
-- G16: 2 of 3 judge samples failed this gate: unsupported claim(s): ['Rosalind has no income requirement from her portfolio.']
-
----
-
 # Investment Advice Report
 
 ## Introduction
@@ -32,11 +22,13 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend moving £5,000 from the cash account into the Stocks & Shares ISA, as agreed.
+We recommend moving £5,000 from the cash account into the Stocks & Shares ISA.
 
 ## Fees & Charges
 
-An ongoing platform charge and an ongoing advice charge apply to your investments. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway]. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate].
+An ongoing platform charge applies to your investments on Holloway. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
+
+An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate for the accounts on Holloway].
 
 The initial charge that applies is [ADVISER TO CONFIRM #3: initial charge (the report request says TBC)].
 

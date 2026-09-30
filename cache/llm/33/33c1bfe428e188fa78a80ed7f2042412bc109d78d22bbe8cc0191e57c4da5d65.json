@@ -1,0 +1,108 @@
+{
+  "cost_usd": "0.0024948",
+  "input_hash": "cc828f8cbdb2f8eb346987415822e8a97ce1af514bfbbe0f2645de6617ba1ba1",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no changes to your investments at this time."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We will review them again next year."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Ian and Priya\u2019s circumstances and objectives are unchanged since the last review.",
+        "paragraph_id": "p2",
+        "quote": "Both confirmed their circumstances and objectives are unchanged since the last review",
+        "report_quote": "Both confirmed that their circumstances and objectives are unchanged since the last review.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "They remain comfortable with a balanced approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "remain comfortable with a balanced approach to risk",
+        "report_quote": "They remain comfortable with a balanced approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Neither has a current income requirement from the portfolio.",
+        "paragraph_id": "p4",
+        "quote": "Neither has any income requirement from the portfolio at present.",
+        "report_quote": "have no current income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk profile is 5 (balanced).",
+        "paragraph_id": "p2",
+        "quote": "remain comfortable with a balanced approach to risk",
+        "report_quote": "Your agreed risk profile is 5 (balanced).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The joint General Investment Account was previously recorded at \u00a350,000 on 1 April.",
+        "paragraph_id": "p3",
+        "quote": "their jointly-held General Investment Account on the Holloway platform.",
+        "report_quote": "Your joint General Investment Account was previously shown in our records (1 April) as \u00a350,000.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "No changes to the investments are needed at this time.",
+        "paragraph_id": "p5",
+        "quote": "We agreed no changes are needed at this time",
+        "report_quote": "We recommend making no changes to your investments at this time.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The investments will be reviewed again next year.",
+        "paragraph_id": "p5",
+        "quote": "will review again next year.",
+        "report_quote": "We will review them again next year.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "An ongoing platform charge applies to the investments on Holloway.",
+        "paragraph_id": "p3",
+        "quote": "their jointly-held General Investment Account on the Holloway platform.",
+        "report_quote": "An ongoing platform charge applies to your investments on Holloway.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "An ongoing advice charge applies to the accounts on Holloway.",
+        "paragraph_id": "p3",
+        "quote": "their jointly-held General Investment Account on the Holloway platform.",
+        "report_quote": "An ongoing advice charge applies to the accounts on Holloway.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The initial charge is 0%.",
+        "paragraph_id": "p1",
+        "quote": "Report Requirement Summary",
+        "report_quote": "The initial charge that applies is 0%.",
+        "source_id": "report_request.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend making no changes to your investments at this time."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": "We will review them again next year."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2493,
+    "output_tokens": 4491,
+    "reasoning_tokens": 3829
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001453",
+  "input_hash": "6973d1f4a31d0c8179d5590dfcdfb1b4785bbc14df14056ac635997685cde034",
+  "model": "gpt-6-luna",
+  "prompt_version": "6a733e14779d05fab4e472e162ef9a10fa645505e623e27bbbfba172877723ff",
+  "response": {
+    "paragraphs": [
+      "Trevor would like to invest funds in his Stocks & Shares ISA for the new tax year and does not require income from his portfolio."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 868,
+    "output_tokens": 117,
+    "reasoning_tokens": 73
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "cost_usd": "0.0020885",
+  "input_hash": "45ee1f61ab5acb30aeda1d088a8b3eaca9b59d14f1c62d1073462116cf697579",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA."
+      },
+      {
+        "action_id": "a2",
+        "report_quote": null
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Klaus's circumstances and objectives remain unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Klaus confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Klaus confirmed that his circumstances and objectives remain unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Klaus remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Klaus confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "He remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Klaus has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Klaus has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Klaus agreed to pay \u00a36,000 into the Stocks & Shares ISA.",
+        "paragraph_id": "p5",
+        "quote": "We agreed he would pay \u00a36,000 into the Stocks & Shares ISA.",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend paying \u00a36,000 into the Stocks & Shares ISA."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2490,
+    "output_tokens": 3679,
+    "reasoning_tokens": 3344
+  }
+}

@@ -2,9 +2,9 @@
 
 ## Status
 
-Release state: failed
-Cache replay vs live: 12 replayed, 0 live
-Gates: 21/22 passed
+Release state: draft
+Cache replay vs live: 7 replayed, 5 live
+Gates: 22/22 passed
 
 ## Blocking before sign-off
 
@@ -17,7 +17,7 @@ None.
 ## Markers to fill
 
 - #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
-- #2: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #2: ongoing advice charge rate for the accounts on Holloway (firm policy: never estimated), section: fees_charges
 - #3: initial charge (the report request says TBC) (P11: the request field is TBC; a marker, never a default), section: computed_slot
 
 ## Conflicts and how they were resolved

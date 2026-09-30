@@ -137,8 +137,8 @@
     {
       "stage": "extract",
       "calls": 3,
-      "cache_hits": 2,
-      "live_calls": 1,
+      "cache_hits": 3,
+      "live_calls": 0,
       "tokens": {
         "input": 3960,
         "cached_input": 0,
@@ -146,7 +146,7 @@
         "reasoning": 505
       },
       "cost_usd": "0.0008850",
-      "latency_s": 3.4196065419819206,
+      "latency_s": 0.0,
       "models": [
         "gpt-6-luna"
       ],
@@ -159,40 +159,40 @@
     {
       "stage": "write",
       "calls": 5,
-      "cache_hits": 5,
-      "live_calls": 0,
+      "cache_hits": 0,
+      "live_calls": 5,
       "tokens": {
-        "input": 3415,
-        "cached_input": 0,
-        "output": 249,
-        "reasoning": 44
+        "input": 4391,
+        "cached_input": 1350,
+        "output": 301,
+        "reasoning": 89
       },
-      "cost_usd": "0.0004660",
-      "latency_s": 0.0,
+      "cost_usd": "0.0005896",
+      "latency_s": 10.979586709057912,
       "models": [
         "gpt-6-luna"
       ],
       "prompt_versions": [
-        "504468ee89696fcaf8b3624d1d31b81fb0edce8faf54a8bffacd6e5373789944",
-        "5b6572803a7b9f8b6043d7bd4a43c1ca5f2678dbf237aa6e2de6ade291aa0775",
-        "6853b20978571e226ed94b30e6eab663eda7a6195ced94176864e0168f8612de",
-        "710aacb251745659106594df4ec6f0e4956cf31fbbd8fb194fabbf8a5f099351",
-        "ba2848825ed196548bb5567ff22df050679a307bc3566b828246331bb4a11adc"
+        "2f5c10aa61c8a52d8df5705e32f2abb024dd75193ffe535d1ec8a0e6d81ba53d",
+        "30f91c95b05038946e72ea9583bf3385a42e0da5c56579610d445b649a0a7f2f",
+        "5d82af3e6687d9d8d06e705a03bb732ec3af5d6a73571706a8781f7be8c3ddd0",
+        "bc75978d80a620494428cf68d9da2866c6f09867b78144c8192416c6a196196c",
+        "e8ad6e2be045a2de80d6973e56f53b183d273b2b613cf18d59dd8b02508b0481"
       ]
     },
     {
       "stage": "release_judge",
       "calls": 3,
-      "cache_hits": 3,
-      "live_calls": 0,
+      "cache_hits": 0,
+      "live_calls": 3,
       "tokens": {
-        "input": 7232,
-        "cached_input": 3660,
-        "output": 11167,
-        "reasoning": 10054
+        "input": 7271,
+        "cached_input": 5490,
+        "output": 11321,
+        "reasoning": 9946
       },
-      "cost_usd": "0.0063067",
-      "latency_s": 0.0,
+      "cost_usd": "0.0063876",
+      "latency_s": 86.28627399983816,
       "models": [
         "gpt-6-luna"
       ],
@@ -202,7 +202,7 @@
     }
   ],
   "total_calls": 13,
-  "total_cache_hits": 12,
-  "total_live_calls": 1,
-  "total_cost_usd": "0.0078707"
+  "total_cache_hits": 5,
+  "total_live_calls": 8,
+  "total_cost_usd": "0.0080752"
 }

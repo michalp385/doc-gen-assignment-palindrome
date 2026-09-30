@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001019",
+  "input_hash": "c3bc9314e30f62f4cf7c2fa9f3b4a00a45468450b4947ecea29cd06e58152443",
+  "model": "gpt-6-luna",
+  "prompt_version": "bc75978d80a620494428cf68d9da2866c6f09867b78144c8192416c6a196196c",
+  "response": {
+    "paragraphs": [
+      "your Stocks & Shares ISA held with Holloway and your SIPP held with Brightwell"
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 859,
+    "output_tokens": 32,
+    "reasoning_tokens": 0
+  }
+}

@@ -101,7 +101,7 @@
     {
       "id": "#2",
       "key": "advice_charge",
-      "text": "ongoing advice charge rate",
+      "text": "ongoing advice charge rate for the accounts on Holloway",
       "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
@@ -109,7 +109,7 @@
     {
       "id": "#3",
       "key": "cgt",
-      "text": "capital gains tax on the disposal",
+      "text": "capital gains tax on the disposal of Diane's General Investment Account, Holloway",
       "reason": "firm policy: never estimated",
       "section": "tax_implications",
       "fact_ref": null

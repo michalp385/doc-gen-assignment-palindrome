@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001038",
+  "input_hash": "b40dec04c2fac17ba6614d3bdda76ebab9f5162d567a47b36a440df62eb8943b",
+  "model": "gpt-6-luna",
+  "prompt_version": "6a733e14779d05fab4e472e162ef9a10fa645505e623e27bbbfba172877723ff",
+  "response": {
+    "paragraphs": [
+      "George confirmed that his circumstances and objectives are unchanged and that he remains comfortable with a moderate approach to risk."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 858,
+    "output_tokens": 36,
+    "reasoning_tokens": 0
+  }
+}

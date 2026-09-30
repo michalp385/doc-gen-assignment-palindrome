@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Further to our recent discussions, we are writing to set out our advice in relation to your Stocks & Shares ISA and your General Investment Account, both held with Holloway. This advice is based on the information currently available to us.
+Further to our recent discussions, we are writing to set out our advice in relation to your Stocks & Shares ISA and your General Investment Account, held with Holloway. This advice is based on the information currently available to us.
 
 This firm is authorised and regulated by the Financial Conduct Authority.
 
@@ -23,7 +23,9 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend selling Diane’s General Investment Account. We recommend using the gross proceeds of £10,000 to top up her Stocks & Shares ISA for the new tax year.
+We recommend selling Diane's General Investment Account.
+
+We recommend using the gross proceeds of £10,000 to top up Diane's Stocks & Shares ISA for the new tax year.
 
 This figure is gross before any CGT and becomes available once the disposal completes.
 
@@ -33,11 +35,13 @@ This figure is gross before any CGT and becomes available once the disposal comp
 
 We note that the disposal may create a capital gains tax liability assessed against the annual exempt amount for the relevant tax year.
 
-[ADVISER TO CONFIRM #3: capital gains tax on the disposal]
+[ADVISER TO CONFIRM #3: capital gains tax on the disposal of Diane's General Investment Account, Holloway]
 
 ## Fees & Charges
 
-An ongoing platform charge and an ongoing advice charge apply to your investments. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway]. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate].
+An ongoing platform charge applies to your investments on Holloway. The platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate, Holloway].
+
+An ongoing advice charge applies to the accounts on Holloway. The advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate for the accounts on Holloway].
 
 The initial charge that applies is 0%.
 

@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001609",
+  "input_hash": "51b1c7f00252198de43617c290b917c748f863a5b19d1406e0b07729f22682f0",
+  "model": "gpt-6-luna",
+  "prompt_version": "e8ad6e2be045a2de80d6973e56f53b183d273b2b613cf18d59dd8b02508b0481",
+  "response": {
+    "paragraphs": [
+      "Both clients are retired. Their objectives and circumstances remain unchanged since the last review, and they remain comfortable with the balanced approach to risk agreed. Neither currently requires income from the portfolio."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1244,
+    "output_tokens": 73,
+    "reasoning_tokens": 20
+  }
+}

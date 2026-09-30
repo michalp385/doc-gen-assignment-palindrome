@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001939",
+  "input_hash": "2417c26157976a136638fa86144234dec09341dd6e8ea15fa8b319f98a611ffe",
+  "model": "gpt-6-luna",
+  "prompt_version": "cfa4c11a5375e0cfa6b5984ea493d5d59af608051767b8ea722191fa473b6584",
+  "response": {
+    "paragraphs": [
+      "We recommend leaving the investment as it is."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 1422,
+    "input_tokens": 1469,
+    "output_tokens": 94,
+    "reasoning_tokens": 68
+  }
+}

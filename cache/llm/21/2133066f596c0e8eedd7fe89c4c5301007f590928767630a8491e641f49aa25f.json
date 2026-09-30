@@ -1,0 +1,58 @@
+{
+  "cost_usd": "0.0019412",
+  "input_hash": "63c72166c95bcba960d532386c691cf27753013df23e15131c7fb139b244e41e",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving it as it is."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Yvonne's circumstances and objectives are unchanged.",
+        "paragraph_id": "p2",
+        "quote": "Yvonne confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Yvonne confirmed that her circumstances and objectives are unchanged.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne remains comfortable with a moderate approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "Yvonne confirmed her circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "She remains comfortable with a moderate approach to risk",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne has no income requirement from the portfolio.",
+        "paragraph_id": "p6",
+        "quote": "Yvonne has no income requirement from the portfolio.",
+        "report_quote": "has no income requirement from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Yvonne is happy to leave the Stocks & Shares ISA as it is.",
+        "paragraph_id": "p3",
+        "quote": "We discussed her Stocks & Shares ISA, which she is happy to leave as it is.",
+        "report_quote": "We recommend leaving it as it is.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend leaving it as it is."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2432,
+    "output_tokens": 3396,
+    "reasoning_tokens": 3089
+  }
+}

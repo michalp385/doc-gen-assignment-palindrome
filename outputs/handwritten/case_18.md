@@ -22,11 +22,11 @@ The accounts covered by this report are as follows:
 
 We recommend the following:
 
-We recommend moving £3,500 from the cash account into the Stocks & Shares ISA, as agreed.
+We recommend moving £3,500 from the cash account into the Stocks & Shares ISA.
 
 ## Fees & Charges
 
-An ongoing platform charge and an ongoing advice charge apply to your investments. The ongoing platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate (platform not stated in the account data)]. The ongoing advice charge rate is [ADVISER TO CONFIRM #2: ongoing advice charge rate].
+An ongoing platform charge and an ongoing advice charge apply to your investments. The ongoing platform charge rate is [ADVISER TO CONFIRM #1: ongoing platform charge rate (platform not stated in the account data)]. The ongoing advice charge rate for any account whose platform is not stated is [ADVISER TO CONFIRM #2: ongoing advice charge rate for any account whose platform is not stated].
 
 The initial charge that applies is 0%.
 

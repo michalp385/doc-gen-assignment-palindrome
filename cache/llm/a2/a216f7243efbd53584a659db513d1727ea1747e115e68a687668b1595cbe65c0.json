@@ -1,0 +1,22 @@
+{
+  "cost_usd": "0.0002515",
+  "input_hash": "1ac9c2439901e811a74070679a7fdf362f9e8915f233564cf02a074d4a8f293c",
+  "model": "gpt-6-luna",
+  "prompt_version": "5d82af3e6687d9d8d06e705a03bb732ec3af5d6a73571706a8781f7be8c3ddd0",
+  "response": {
+    "paragraphs": [
+      "An ongoing platform charge applies to your investments on Brightwell. The platform charge rate is {marker:platform_charge_brightwell}.",
+      "An ongoing platform charge applies to your investments on Holloway. The platform charge rate is {marker:platform_charge_holloway}.",
+      "An ongoing platform charge applies to your investments on Meridian. The platform charge rate is {marker:platform_charge_meridian}.",
+      "An ongoing advice charge applies to the accounts on Brightwell, Holloway and Meridian. The advice charge rate is {marker:advice_charge}.",
+      "For the new joint account held by James and Caroline, the platform and advice charge rates are {marker:new_account_charges}."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 1080,
+    "output_tokens": 287,
+    "reasoning_tokens": 136
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "cost_usd": "0.0039962",
+  "input_hash": "7ba9829c2028066c1c4141cd9d45625fff8854d353147a7b12040f4cb82af6ed",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA in full. We recommend using the gross proceeds of c. \u00a345,000 to top up David's and Susan's Stocks & Shares ISAs equally for the new tax year."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "Both clients are retired.",
+        "paragraph_id": "p2",
+        "quote": "Both are now retired.",
+        "report_quote": "Both clients are now retired",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Their objectives and circumstances are unchanged since the last review.",
+        "paragraph_id": "p2",
+        "quote": "They confirmed their objectives and circumstances are unchanged since the last review",
+        "report_quote": "confirmed that their objectives and circumstances remain unchanged since the last review.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Both remain comfortable with the agreed balanced approach to risk.",
+        "paragraph_id": "p2",
+        "quote": "both remain comfortable with the balanced approach to risk we agreed.",
+        "report_quote": "They remain comfortable with the balanced approach to risk agreed",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "Neither client currently requires income from the portfolio.",
+        "paragraph_id": "p9",
+        "quote": "Neither has any income requirement from the portfolio at the moment.",
+        "report_quote": "and neither currently requires income from the portfolio.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed risk profile is balanced.",
+        "paragraph_id": "p2",
+        "quote": "the balanced approach to risk we agreed.",
+        "report_quote": "Your agreed risk profile is 5 (balanced).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to disinvest the joint GIA in full.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "We recommend disinvesting the joint GIA in full.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The report estimates gross proceeds of approximately \u00a345,000, consistent with the GIA showing a little over \u00a345,000.",
+        "paragraph_id": "p5",
+        "quote": "I pulled the account up live during the meeting. It was showing a little over \u00a345,000, which is up from where it had been earlier in the year when we last looked at the statements.",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a345,000 to top up David's and Susan's Stocks & Shares ISAs equally for the new tax year.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed action is to use the proceeds to top up David's and Susan's Stocks & Shares ISAs equally for the new tax year.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a345,000 to top up David's and Susan's Stocks & Shares ISAs equally for the new tax year.",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The proceeds become available once the disposal completes.",
+        "paragraph_id": "p7",
+        "quote": "We agreed to disinvest the joint GIA in full and use the proceeds to top up both David's and Susan's Stocks & Shares ISAs for the new tax year, split equally between the two ISAs.",
+        "report_quote": "becomes available once the disposal completes.",
+        "source_id": "meeting_notes.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend disinvesting the joint GIA in full."
+      },
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend using the gross proceeds of c. \u00a345,000 to top up David's and Susan's Stocks & Shares ISAs equally for the new tax year."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2922,
+    "output_tokens": 7408,
+    "reasoning_tokens": 6581
+  }
+}

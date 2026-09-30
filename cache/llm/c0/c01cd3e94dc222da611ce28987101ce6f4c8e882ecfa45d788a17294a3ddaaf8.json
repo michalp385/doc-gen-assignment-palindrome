@@ -1,0 +1,51 @@
+{
+  "cost_usd": "0.0022843",
+  "input_hash": "929fdfd44f075d31d61a17515b5a98d75baa068656a14114854459ef9708bb37",
+  "model": "gpt-6-luna",
+  "prompt_version": "ae74a9832c88b80ade2d2cb1da3f08871d131e089d803b77c9a46441d1ad63db",
+  "response": {
+    "action_coverage": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend revising the agreed top-up from the cash account into the Stocks & Shares ISA to \u00a37,000."
+      }
+    ],
+    "findings": [],
+    "material_claims": [
+      {
+        "claim": "He has more available to invest than he first thought.",
+        "paragraph_id": "p2",
+        "quote": "Alistair called to say he has more available to invest than he first thought and would now like to move \u00a37,000 rather than \u00a33,000 from his Holloway cash account into his Stocks & Shares ISA.",
+        "report_quote": "He has more available to invest than he first thought.",
+        "source_id": "meeting_notes_followup.docx"
+      },
+      {
+        "claim": "The agreed risk profile is moderate.",
+        "paragraph_id": "p2",
+        "quote": "Alistair confirmed his circumstances and objectives are unchanged and remains comfortable with a moderate approach to risk.",
+        "report_quote": "Your agreed risk profile is 4 (moderate).",
+        "source_id": "meeting_notes.docx"
+      },
+      {
+        "claim": "The agreed top-up is revised to \u00a37,000 from the cash account into the Stocks & Shares ISA.",
+        "paragraph_id": "p3",
+        "quote": "We agreed the top-up amount would be revised to \u00a37,000 from the cash account into the Stocks & Shares ISA.",
+        "report_quote": "We recommend revising the agreed top-up from the cash account into the Stocks & Shares ISA to \u00a37,000.",
+        "source_id": "meeting_notes_followup.docx"
+      }
+    ],
+    "recommendation_mappings": [
+      {
+        "action_id": "a1",
+        "report_quote": "We recommend revising the agreed top-up from the cash account into the Stocks & Shares ISA to \u00a37,000."
+      }
+    ]
+  },
+  "stage": "release_judge",
+  "usage": {
+    "cached_input_tokens": 1830,
+    "input_tokens": 2553,
+    "output_tokens": 4058,
+    "reasoning_tokens": 3708
+  }
+}

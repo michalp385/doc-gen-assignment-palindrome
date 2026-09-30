@@ -1,0 +1,18 @@
+{
+  "cost_usd": "0.0001440",
+  "input_hash": "0328a5572fad447fefba350f071c4b8680ff00cac6af7caeffa1102b6ebfb6cd",
+  "model": "gpt-6-luna",
+  "prompt_version": "5d82af3e6687d9d8d06e705a03bb732ec3af5d6a73571706a8781f7be8c3ddd0",
+  "response": {
+    "paragraphs": [
+      "An ongoing platform charge applies to your investments held on Brightwell. The platform charge rate for Brightwell is {marker:platform_charge_brightwell}. An ongoing platform charge also applies to your investments held on Holloway. The platform charge rate for Holloway is {marker:platform_charge_holloway}. An ongoing advice charge applies to the accounts on Brightwell and Holloway. The advice charge rate is {marker:advice_charge}."
+    ]
+  },
+  "stage": "write",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 700,
+    "output_tokens": 148,
+    "reasoning_tokens": 43
+  }
+}

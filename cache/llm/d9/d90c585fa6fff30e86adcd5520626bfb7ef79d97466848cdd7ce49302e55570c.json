@@ -1,0 +1,25 @@
+{
+  "cost_usd": "0.0002617",
+  "input_hash": "fb8bf60d74b2a2869cfccdfc330fc9a5c5c02821cd368f2b0e9310948a08c626",
+  "model": "gpt-6-luna",
+  "prompt_version": "0f597f42f642dde53423b1c2595e9fb5cb90d316a79b4b8657f95b22b90711ba",
+  "response": {
+    "directives": [
+      {
+        "evidence": "The new money being invested is an inheritance the client received following the recent death of her mother. Reference its origin with appropriate sensitivity.",
+        "instruction": "When explaining the funds\u2019 origin, do so with care given the family bereavement.",
+        "person": null,
+        "sections": [
+          "background_objectives"
+        ]
+      }
+    ]
+  },
+  "stage": "extract",
+  "usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 867,
+    "output_tokens": 350,
+    "reasoning_tokens": 271
+  }
+}
