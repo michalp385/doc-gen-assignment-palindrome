@@ -71,6 +71,18 @@ def _join(items: list[str]) -> str:
     return ", ".join(items[:-1]) + f" and {items[-1]}"
 
 
+_COUNT_WORDS = {2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight"}
+
+
+def _counted(label: str, account_type: str, count: int) -> str:
+    """`label` for one account, worded for `count` of them: "your two General Investment
+    Accounts". Inputs to the writer are digit-free, so the count is a word ("several" past the
+    list); one account keeps its label."""
+    if count <= 1:
+        return label
+    return label.replace(account_type, f"{_COUNT_WORDS.get(count, 'several')} {account_type}s", 1)
+
+
 def _describe_scope(ledger: Ledger) -> str:
     """T19, client 02's three in-scope accounts: naming every one as "your <type>" and
     joining with "and" repeats "held with <platform>" once per account and can't tell two
@@ -90,16 +102,23 @@ def _describe_scope(ledger: Ledger) -> str:
             return f"{account.owners[0].split()[0]}'s {account.type}"
         return f"your {account.type}"
 
-    labels = [_label(a) for a in in_scope]
-    platforms = {a.platform for a in in_scope if a.platform}
+    # Accounts that would read identically (the same owner and type on the same platform) are named
+    # once, with their count: listed twice, the same phrase let the scope writer collapse them to
+    # one account. Nothing changes when no two labels repeat.
+    groups: dict[tuple[str, str | None], list[Account]] = {}
+    for account in in_scope:
+        groups.setdefault((_label(account), account.platform), []).append(account)
+    entries = [
+        (_counted(label, members[0].type, len(members)), platform)
+        for (label, platform), members in groups.items()
+    ]
+    labels = [label for label, _ in entries]
+    platforms = {platform for _, platform in entries if platform}
     # One trailing "held with X" is only true when every listed account has that platform; an
     # account with none (a new account's platform is unstated) is named without one.
-    if len(platforms) != 1 or any(not a.platform for a in in_scope):
+    if len(platforms) != 1 or any(not platform for _, platform in entries):
         return _join(
-            [
-                f"{label} held with {a.platform}" if a.platform else label
-                for label, a in zip(labels, in_scope, strict=True)
-            ]
+            [f"{label} held with {platform}" if platform else label for label, platform in entries]
         )
     platform = next(iter(platforms))
     if len(labels) == 1:
