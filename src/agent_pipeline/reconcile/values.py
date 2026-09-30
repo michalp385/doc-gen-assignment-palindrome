@@ -166,13 +166,16 @@ def match_image_row(row: ImageValueRow, accounts: list[Account]) -> Account | No
     finding #8); client 02's two same-type ISAs are that client (T18). A whole-word match,
     not a raw substring: an owner's first name is checked against the label's own words, so
     a short name (e.g. "Ann") can't spuriously match inside an unrelated longer word (e.g.
-    "Channel") the way a plain `in` check would (verifier checkpoint, T18). Anything that
-    still isn't exactly one match stays unresolved, never guessed."""
+    "Channel") the way a plain `in` check would (verifier checkpoint, T18). Two same-type
+    accounts with the same owners on different platforms are told apart by the platform the
+    label names, as a whole word. Anything that still isn't exactly one match stays
+    unresolved, never guessed."""
     same_type = [a for a in accounts if a.type.lower() == row.account_type.lower()]
     if len(same_type) == 1:
         return same_type[0]
     if len(same_type) > 1:
-        label_words = set(re.findall(r"[a-z']+", row.account_label.lower()))
+        label = row.account_label.lower()
+        label_words = set(re.findall(r"[a-z']+", label))
         by_owner = [
             a
             for a in same_type
@@ -180,6 +183,17 @@ def match_image_row(row: ImageValueRow, accounts: list[Account]) -> Account | No
         ]
         if len(by_owner) == 1:
             return by_owner[0]
+        # Two or more accounts of one type share the owners the label names (the same holders on
+        # different platforms): the platform the row's own label names decides, as a whole word
+        # or phrase. A label that names nobody, or a holder we do not have, is never narrowed by
+        # platform alone -- that would pick an account for a person who does not hold it.
+        by_platform = [
+            a
+            for a in by_owner
+            if a.platform and re.search(rf"\b{re.escape(a.platform.lower())}\b", label)
+        ]
+        if len(by_owner) >= 2 and len(by_platform) == 1:
+            return by_platform[0]
     return None
 
 
