@@ -105,6 +105,11 @@ def cgt_marker(disposals: list[Disposal], accounts: Sequence[Account] = ()) -> l
             else "capital gains tax on the possible disposal, pending confirmation of the "
             "account's tax treatment"
         )
+    # A disposal that matched no account (or names one the ledger lacks) cannot be named, but the
+    # adviser still has to price it: say so, or the marker reads as covering only the named ones.
+    # With nothing named, the generic wording above already covers every disposal.
+    if named and any(d.account_id not in by_id for d in taxable + unknown):
+        text += ", and on any other disposal in this advice"
     return [
         Marker(
             id="",

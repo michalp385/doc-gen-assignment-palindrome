@@ -42,14 +42,18 @@ def each_holder_phrase(owners: Sequence[str]) -> str:
     return f"{join_natural([f'for {n}' for n in names])}, each"
 
 
-def account_phrase(account: Account) -> str:
+def account_phrase(account: Account, holders: Sequence[str] = ()) -> str:
     """ "the joint <type>, <platform>" or "Ann's <type>, <platform>"; a missing
-    platform is said, not left out, because the adviser needs to know it is missing."""
+    platform is said, not left out, because the adviser needs to know it is missing. A sole
+    holder is named in full when another of `holders` shares their first name."""
     where = account.platform or PLATFORM_NOT_STATED
     if len(account.owners) > 1:
         return f"the joint {account.type}, {where}"
     if account.owners:
-        return f"{account.owners[0].split()[0]}'s {account.type}, {where}"
+        owner = account.owners[0]
+        firsts = [h.split()[0] for h in _unique(holders) if h != owner and h.split()]
+        name = owner if owner.split()[0] in firsts else owner.split()[0]
+        return f"{name}'s {account.type}, {where}"
     return f"{account.type}, {where}"
 
 
@@ -58,4 +62,5 @@ def accounts_phrase(accounts: Iterable[Account]) -> str:
     seen: dict[tuple[tuple[str, ...], str, str | None], Account] = {}
     for account in accounts:
         seen.setdefault((tuple(account.owners), account.type, account.platform), account)
-    return "; ".join(account_phrase(a) for a in seen.values())
+    holders = [owner for a in seen.values() for owner in a.owners]
+    return "; ".join(account_phrase(a, holders) for a in seen.values())

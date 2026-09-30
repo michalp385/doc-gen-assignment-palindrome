@@ -29,7 +29,11 @@ from typing import Protocol
 from pydantic import BaseModel
 
 from agent_pipeline.config import PromptSpec
-from agent_pipeline.gates.deterministic import word_ngrams
+from agent_pipeline.gates.deterministic import (
+    WORD_FIGURE_RE,
+    WORD_PERCENT_RE,
+    word_ngrams,
+)
 from agent_pipeline.llm import LLMClient
 from agent_pipeline.reconcile.marker_text import join_natural
 from agent_pipeline.reconcile.review import ReviewItemInput
@@ -37,6 +41,18 @@ from agent_pipeline.reconcile.review import ReviewItemInput
 LEAK_RUN_WORDS = 6  # the same run length G10 uses for internal guidance text
 MIN_EVIDENCE_WORDS = 4  # a shorter quote ("the", "client") is in every set of notes
 _FIGURE_RE = re.compile(r"[0-9£$€%]")
+# A share or amount in words reaches the writer as surely as a digit: "half into each ISA", "forty
+# thousand pounds", "fifty per cent". The writer gate's own word-form patterns, plus the fractions.
+_WORD_SHARE_RE = re.compile(r"\b(?:half|quarter)\b", re.IGNORECASE)
+
+
+def _carries_a_figure(instruction: str) -> bool:
+    return bool(
+        _FIGURE_RE.search(instruction)
+        or WORD_FIGURE_RE.search(instruction)
+        or WORD_PERCENT_RE.search(instruction)
+        or _WORD_SHARE_RE.search(instruction)
+    )
 
 
 class RawDirective(BaseModel):
@@ -102,12 +118,17 @@ def _squash(text: str) -> str:
     return re.sub(r"\s+", " ", plain).strip().lower()
 
 
-def _resolve_person(name: str, people: list[str]) -> str | None:
+def _holders_named(name: str, people: list[str]) -> list[str]:
+    """The holders a name can mean: a full name names one, a first name every holder with it."""
     wanted = name.strip().lower()
-    for person in people:
-        if wanted == person.lower() or wanted == person.split()[0].lower():
-            return person
-    return None
+    return [p for p in people if wanted == p.lower() or wanted == p.split()[0].lower()]
+
+
+def _resolve_person(name: str, people: list[str]) -> str | None:
+    """The one holder `name` means; None when it matches nobody or, as a first name two holders
+    share, more than one (applying a note to whichever comes first would be a guess)."""
+    matches = _holders_named(name, people)
+    return matches[0] if len(matches) == 1 else None
 
 
 def extract_directives(
@@ -131,19 +152,24 @@ def extract_directives(
         if raw.person:
             person = _resolve_person(raw.person, unique_people)
             if person is None:
+                why = (
+                    "matches more than one holder on the account data"
+                    if len(_holders_named(raw.person, unique_people)) > 1
+                    else "is not a holder on the account data"
+                )
                 result.review_items.append(
                     ReviewItemInput(
                         kind="ambiguity",
                         blocking=False,
                         detail=(
-                            f"a handling note names {raw.person!r}, who is not a holder on the "
-                            "account data; the note was not applied. Check it by hand."
+                            f"a handling note names {raw.person!r}, which {why}; the note was "
+                            "not applied. Check it by hand."
                         ),
                         refs=[],
                     )
                 )
                 continue
-        if _FIGURE_RE.search(raw.instruction):
+        if _carries_a_figure(raw.instruction):
             result.review_items.append(
                 ReviewItemInput(
                     kind="ambiguity",
