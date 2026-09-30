@@ -94,7 +94,7 @@
       "id": "#1",
       "key": "platform_charge_holloway",
       "text": "ongoing platform charge rate, Holloway",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -102,7 +102,7 @@
       "id": "#2",
       "key": "platform_charge_meridian",
       "text": "ongoing platform charge rate, Meridian",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -110,7 +110,7 @@
       "id": "#3",
       "key": "advice_charge",
       "text": "ongoing advice charge rate",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -118,7 +118,7 @@
       "id": "#4",
       "key": "bond_chargeable_gain",
       "text": "chargeable-event gain on the bond encashment, to be assessed",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "recommendations",
       "fact_ref": null
     }

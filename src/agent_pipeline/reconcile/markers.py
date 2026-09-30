@@ -1,9 +1,9 @@
 """P2, P3, P7: markers that are always required, built in code, never typed by the model.
 
-Platform charge rates and the ongoing advice charge rate are never estimated (CLAUDE.md's
-non-negotiable); one platform-charge marker per platform actually in scope, plus the one
-advice-charge marker. Marker text is built here from the ledger; IDs are assigned later, at
-assembly, by number_markers (T6), in order of first appearance in the report (P1).
+Platform charge rates and the ongoing advice charge rate are never estimated (firm policy);
+one platform-charge marker per platform actually in scope, plus the one advice-charge marker.
+Marker text is built here from the ledger; IDs are assigned later, at assembly, by
+number_markers (T6), in order of first appearance in the report (P1).
 """
 
 from __future__ import annotations
@@ -14,7 +14,9 @@ from agent_pipeline.extract.schemas import RequestField
 from agent_pipeline.ledger import Marker
 from agent_pipeline.reconcile.sections import Disposal
 
-_NEVER_ESTIMATED = "never estimated (CLAUDE.md non-negotiable)"
+# Adviser-facing wording (review sheet, ledger); shared by every reconcile module that builds a
+# never-estimated marker. Never reaches a model prompt: PlanMarker carries only key and text.
+NEVER_ESTIMATED = "firm policy: never estimated"
 
 
 def required_markers(
@@ -25,7 +27,7 @@ def required_markers(
             id="",
             key=f"platform_charge_{platform.lower()}",
             text=f"ongoing platform charge rate, {platform}",
-            reason=_NEVER_ESTIMATED,
+            reason=NEVER_ESTIMATED,
             section="fees_charges",
         )
         for platform in sorted(in_scope_platforms)
@@ -39,7 +41,7 @@ def required_markers(
                 id="",
                 key="platform_charge_unknown_platform",
                 text="ongoing platform charge rate (platform not stated in the account data)",
-                reason=f"the platform is not stated in the account data; {_NEVER_ESTIMATED}",
+                reason=f"the platform is not stated in the account data; {NEVER_ESTIMATED}",
                 section="fees_charges",
             )
         )
@@ -48,7 +50,7 @@ def required_markers(
             id="",
             key="advice_charge",
             text="ongoing advice charge rate",
-            reason=_NEVER_ESTIMATED,
+            reason=NEVER_ESTIMATED,
             section="fees_charges",
         )
     )
@@ -57,7 +59,7 @@ def required_markers(
 
 def cgt_marker(disposals: list[Disposal]) -> list[Marker]:
     """P7 (T19): one marker per taxable disposal -- CGT amounts are never estimated
-    (CLAUDE.md non-negotiable), same rule as the charge markers above. Key is a bare
+    (firm policy), same rule as the charge markers above. Key is a bare
     "cgt" for the single-disposal case every current client has; a second taxable
     disposal in the same advice (none yet) would need a disambiguating key, not built
     until a client actually has two. A disposal from an `unknown` wrapper (G5 case b) also
@@ -78,7 +80,7 @@ def cgt_marker(disposals: list[Disposal]) -> list[Marker]:
             id="",
             key="cgt",
             text=text,
-            reason=_NEVER_ESTIMATED,
+            reason=NEVER_ESTIMATED,
             section="tax_implications",
         )
     ]
@@ -95,7 +97,7 @@ def bond_marker(disposals: list[Disposal]) -> list[Marker]:
             id="",
             key="bond_chargeable_gain",
             text="chargeable-event gain on the bond encashment, to be assessed",
-            reason=_NEVER_ESTIMATED,
+            reason=NEVER_ESTIMATED,
             section="recommendations",
         )
     ]

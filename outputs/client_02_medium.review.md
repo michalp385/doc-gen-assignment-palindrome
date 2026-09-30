@@ -16,9 +16,9 @@ None.
 
 ## Markers to fill
 
-- #1: ongoing platform charge rate, Holloway (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #2: ongoing advice charge rate (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #3: capital gains tax on the disposal (never estimated (CLAUDE.md non-negotiable)), section: tax_implications
+- #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
+- #2: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #3: capital gains tax on the disposal (firm policy: never estimated), section: tax_implications
 - #4: ISA top-up amounts within the remaining allowances, and where any excess goes (a possible allowance breach or confirmed prior use (P4); never estimated), section: recommendations
 
 ## Conflicts and how they were resolved

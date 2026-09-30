@@ -94,7 +94,7 @@
       "id": "#1",
       "key": "platform_charge_holloway",
       "text": "ongoing platform charge rate, Holloway",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -102,7 +102,7 @@
       "id": "#2",
       "key": "advice_charge",
       "text": "ongoing advice charge rate",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -110,7 +110,7 @@
       "id": "#3",
       "key": "cgt",
       "text": "capital gains tax on the disposal",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "tax_implications",
       "fact_ref": null
     },

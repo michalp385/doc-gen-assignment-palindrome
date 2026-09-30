@@ -16,9 +16,9 @@ None.
 
 ## Markers to fill
 
-- #1: sterling value of Klaus Under's General Investment Account, held in EUR (value is not in GBP (P12); never estimated or converted (CLAUDE.md non-negotiable)), section: account_table
-- #2: ongoing platform charge rate, Holloway (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #3: ongoing advice charge rate (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
+- #1: sterling value of Klaus Under's General Investment Account, held in EUR (value is not in GBP (P12); firm policy: never estimated or converted), section: account_table
+- #2: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
+- #3: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
 
 ## Conflicts and how they were resolved
 

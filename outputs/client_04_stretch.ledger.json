@@ -418,7 +418,7 @@
       "id": "#1",
       "key": "platform_charge_brightwell",
       "text": "ongoing platform charge rate, Brightwell",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -426,7 +426,7 @@
       "id": "#2",
       "key": "platform_charge_holloway",
       "text": "ongoing platform charge rate, Holloway",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -434,7 +434,7 @@
       "id": "#3",
       "key": "platform_charge_meridian",
       "text": "ongoing platform charge rate, Meridian",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -442,7 +442,7 @@
       "id": "#4",
       "key": "advice_charge",
       "text": "ongoing advice charge rate",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -450,7 +450,7 @@
       "id": "#5",
       "key": "new_account_charges",
       "text": "charges on the new joint account",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -458,7 +458,7 @@
       "id": "#6",
       "key": "cgt",
       "text": "capital gains tax on the disposal",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "tax_implications",
       "fact_ref": null
     },
@@ -474,7 +474,7 @@
       "id": "#8",
       "key": "gia_addition_amount",
       "text": "the amount added to the General Investment Account (Holloway)",
-      "reason": "the amount to add is not stated in the sources (P2); never estimated (CLAUDE.md non-negotiable)",
+      "reason": "the amount to add is not stated in the sources (P2); firm policy: never estimated",
       "section": "recommendations",
       "fact_ref": null
     },
@@ -482,7 +482,7 @@
       "id": "#9",
       "key": "gia_portion_sold",
       "text": "the portion of the General Investment Account (Holloway) sold",
-      "reason": "the portion sold is not stated in the sources (P5); never estimated (CLAUDE.md non-negotiable)",
+      "reason": "the portion sold is not stated in the sources (P5); firm policy: never estimated",
       "section": "recommendations",
       "fact_ref": null
     },
@@ -490,7 +490,7 @@
       "id": "#10",
       "key": "new_account_balance",
       "text": "the balance placed into the new account",
-      "reason": "the balance depends on amounts the sources leave unspecified (P5); never estimated (CLAUDE.md non-negotiable)",
+      "reason": "the balance depends on amounts the sources leave unspecified (P5); firm policy: never estimated",
       "section": "recommendations",
       "fact_ref": null
     }

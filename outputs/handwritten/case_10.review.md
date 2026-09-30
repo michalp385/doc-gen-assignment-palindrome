@@ -16,10 +16,10 @@ None.
 
 ## Markers to fill
 
-- #1: ongoing platform charge rate, Holloway (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #2: ongoing platform charge rate, Meridian (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #3: ongoing advice charge rate (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #4: chargeable-event gain on the bond encashment, to be assessed (never estimated (CLAUDE.md non-negotiable)), section: recommendations
+- #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
+- #2: ongoing platform charge rate, Meridian (firm policy: never estimated), section: fees_charges
+- #3: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #4: chargeable-event gain on the bond encashment, to be assessed (firm policy: never estimated), section: recommendations
 
 ## Conflicts and how they were resolved
 

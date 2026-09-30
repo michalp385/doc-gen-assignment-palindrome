@@ -16,8 +16,8 @@ None.
 
 ## Markers to fill
 
-- #1: ongoing platform charge rate, Holloway (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #2: ongoing advice charge rate (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
+- #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
+- #2: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
 - #3: which account(s) are meant by "Patricia's Personal Pension" in the report instruction (R8: the scope phrase names an account that resolves to nothing), section: account_table
 
 ## Conflicts and how they were resolved

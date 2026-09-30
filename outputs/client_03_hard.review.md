@@ -16,11 +16,11 @@ Gates: 22/22 passed
 
 ## Markers to fill
 
-- #1: ongoing platform charge rate, Holloway (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #2: ongoing advice charge rate (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #3: charges on the new joint account (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #4: capital gains tax on the disposal (never estimated (CLAUDE.md non-negotiable)), section: tax_implications
-- #5: ISA top-up amounts and the resulting balance for the new account (the ISA amounts are not stated in the sources (P2); never estimated (CLAUDE.md non-negotiable)), section: recommendations
+- #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
+- #2: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #3: charges on the new joint account (firm policy: never estimated), section: fees_charges
+- #4: capital gains tax on the disposal (firm policy: never estimated), section: tax_implications
+- #5: ISA top-up amounts and the resulting balance for the new account (the ISA amounts are not stated in the sources (P2); firm policy: never estimated), section: recommendations
 
 ## Conflicts and how they were resolved
 

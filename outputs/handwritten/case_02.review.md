@@ -16,8 +16,8 @@ None.
 
 ## Markers to fill
 
-- #1: ongoing platform charge rate, Holloway (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #2: ongoing advice charge rate (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
+- #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
+- #2: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
 
 ## Conflicts and how they were resolved
 

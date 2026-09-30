@@ -25,6 +25,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from agent_pipeline.ledger import Account, Marker
+from agent_pipeline.reconcile.markers import NEVER_ESTIMATED
 from agent_pipeline.reconcile.review import ReviewItemInput
 from agent_pipeline.reconcile.wrappers import type_slug
 
@@ -44,7 +45,7 @@ def _currency_in_words(code: str) -> str:
     return f"{code} ({name})" if name else code
 
 
-_NEVER_ESTIMATED = "never estimated or converted (CLAUDE.md non-negotiable)"
+_NEVER_ESTIMATED = f"{NEVER_ESTIMATED} or converted"
 
 
 @dataclass(frozen=True)

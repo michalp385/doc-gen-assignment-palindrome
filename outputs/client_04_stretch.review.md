@@ -17,16 +17,16 @@ None.
 
 ## Markers to fill
 
-- #1: ongoing platform charge rate, Brightwell (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #2: ongoing platform charge rate, Holloway (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #3: ongoing platform charge rate, Meridian (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #4: ongoing advice charge rate (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #5: charges on the new joint account (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #6: capital gains tax on the disposal (never estimated (CLAUDE.md non-negotiable)), section: tax_implications
+- #1: ongoing platform charge rate, Brightwell (firm policy: never estimated), section: fees_charges
+- #2: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
+- #3: ongoing platform charge rate, Meridian (firm policy: never estimated), section: fees_charges
+- #4: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #5: charges on the new joint account (firm policy: never estimated), section: fees_charges
+- #6: capital gains tax on the disposal (firm policy: never estimated), section: tax_implications
 - #7: SIPP contribution amounts (pension contribution amounts are always adviser-review markers (P4); never estimated), section: recommendations
-- #8: the amount added to the General Investment Account (Holloway) (the amount to add is not stated in the sources (P2); never estimated (CLAUDE.md non-negotiable)), section: recommendations
-- #9: the portion of the General Investment Account (Holloway) sold (the portion sold is not stated in the sources (P5); never estimated (CLAUDE.md non-negotiable)), section: recommendations
-- #10: the balance placed into the new account (the balance depends on amounts the sources leave unspecified (P5); never estimated (CLAUDE.md non-negotiable)), section: recommendations
+- #8: the amount added to the General Investment Account (Holloway) (the amount to add is not stated in the sources (P2); firm policy: never estimated), section: recommendations
+- #9: the portion of the General Investment Account (Holloway) sold (the portion sold is not stated in the sources (P5); firm policy: never estimated), section: recommendations
+- #10: the balance placed into the new account (the balance depends on amounts the sources leave unspecified (P5); firm policy: never estimated), section: recommendations
 
 ## Conflicts and how they were resolved
 

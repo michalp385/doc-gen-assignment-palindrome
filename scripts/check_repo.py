@@ -19,6 +19,8 @@
    a prompt in config/prompts/ and a source document under data/ (so a prompt can't quote a
    real meeting note). The report spec (template_spec.md) is exempt: it is the requirement the
    prompts serve, not a client source.
+7. Internal references: no file under outputs/ names "CLAUDE.md". Review sheets and ledgers are
+   adviser-facing, so they must not point at the project's own agent instructions.
 
 Allowlist genuinely general values in scripts/overfit_allowlist.txt, one per line, with a
 reason after a '#'. A bare value is allowed everywhere in the overfitting scan, e.g.
@@ -60,6 +62,9 @@ UPSTREAM_COMMIT = "0f7c264"
 # DESIGN.md section 9: llm.py is the only module that imports openai.
 OPENAI_IMPORT_ONLY_IN = "src/agent_pipeline/llm.py"
 OPENAI_IMPORT_RE = re.compile(r"^\s*(import\s+openai\b|from\s+openai\b)")
+
+# Adviser-facing outputs must not name internal tooling.
+OUTPUTS_FORBIDDEN_TEXT = "CLAUDE.md"
 
 MIN_AMOUNT = 1000  # ignore small numbers: too generic to signal overfitting
 SECRET_RE = re.compile(r"sk-[A-Za-z0-9_\-]{20,}")
@@ -303,6 +308,22 @@ def check_openai_import() -> list[str]:
     return problems
 
 
+def check_outputs_internal_refs() -> list[str]:
+    problems = []
+    outputs = ROOT / "outputs"
+    if not outputs.exists():
+        return problems
+    for path in sorted(outputs.rglob("*")):
+        if not path.is_file():
+            continue
+        if OUTPUTS_FORBIDDEN_TEXT in path.read_text(encoding="utf-8", errors="ignore"):
+            problems.append(
+                f"{path.relative_to(ROOT).as_posix()}: names {OUTPUTS_FORBIDDEN_TEXT!r} "
+                "(outputs are adviser-facing)"
+            )
+    return problems
+
+
 def _words(text: str) -> list[str]:
     # Curly apostrophes are the same word as straight ones, and a token keeps an apostrophe
     # only inside a word: a leading or trailing quote mark ("'cash'", "clients'") is not part
@@ -372,6 +393,7 @@ def main() -> int:
         "protected files": check_protected(),
         "openai import": check_openai_import(),
         "prompt overlap": check_prompt_overlap(per_file_allow),
+        "internal references in outputs": check_outputs_internal_refs(),
     }
     failed = False
     for name, problems in sections.items():

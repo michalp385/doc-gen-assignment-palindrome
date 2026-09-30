@@ -17,10 +17,10 @@ None.
 
 ## Markers to fill
 
-- #1: current value of Owen Pratt's SIPP (no value in the account data (R6); never estimated or converted (CLAUDE.md non-negotiable)), section: account_table
-- #2: ongoing platform charge rate, Brightwell (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #3: ongoing platform charge rate, Holloway (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #4: ongoing advice charge rate (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
+- #1: current value of Owen Pratt's SIPP (no value in the account data (R6); firm policy: never estimated or converted), section: account_table
+- #2: ongoing platform charge rate, Brightwell (firm policy: never estimated), section: fees_charges
+- #3: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
+- #4: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
 
 ## Conflicts and how they were resolved
 

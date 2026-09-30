@@ -23,12 +23,11 @@ from collections.abc import Collection
 from dataclasses import dataclass, field
 
 from agent_pipeline.ledger import Account, Action, Marker, Value, render_prose
+from agent_pipeline.reconcile.markers import NEVER_ESTIMATED
 from agent_pipeline.reconcile.new_accounts import scope_names_new_account
 from agent_pipeline.reconcile.refs import accounts_matching_reference
 from agent_pipeline.reconcile.review import ReviewItemInput
 from agent_pipeline.reconcile.wrappers import classify_wrapper, type_slug
-
-_NEVER_ESTIMATED = "never estimated (CLAUDE.md non-negotiable)"
 
 # An agreed action that puts money into an account. An action without one of these words
 # ("use the allowance", "review", "rebalance") is not a funding action, so no amount is
@@ -142,7 +141,7 @@ def build_unspecified_amounts(
                     key,
                     f"{family.upper()} top-up amounts",
                     f"the {family.upper()} amounts are not stated in the sources (P2); "
-                    f"{_NEVER_ESTIMATED}",
+                    f"{NEVER_ESTIMATED}",
                 )
                 taken_keys.add(key)
                 allowance_markers[key] = marker
@@ -152,7 +151,7 @@ def build_unspecified_amounts(
                     key,
                     f"the amount added to the {account.type}"
                     + (f" ({account.platform})" if account.platform else ""),
-                    f"the amount to add is not stated in the sources (P2); {_NEVER_ESTIMATED}",
+                    f"the amount to add is not stated in the sources (P2); {NEVER_ESTIMATED}",
                 )
             own_upstream.append(marker)
 
@@ -164,7 +163,7 @@ def build_unspecified_amounts(
             _marker(
                 key,
                 f"the portion of the {account.type}{where} sold",
-                "the portion sold is not stated in the sources (P5); " + _NEVER_ESTIMATED,
+                "the portion sold is not stated in the sources (P5); " + NEVER_ESTIMATED,
             )
         )
         # P5: a portion sold has neither a known amount nor a known destination, whatever
@@ -206,7 +205,7 @@ def build_unspecified_amounts(
                         if own_upstream or other_unspecified
                         else "the balance is not stated in the sources (P5); "
                     )
-                    + _NEVER_ESTIMATED,
+                    + NEVER_ESTIMATED,
                 )
             )
 

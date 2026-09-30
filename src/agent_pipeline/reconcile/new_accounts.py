@@ -16,13 +16,13 @@ import re
 from dataclasses import dataclass, field
 
 from agent_pipeline.ledger import Account, Marker
+from agent_pipeline.reconcile.markers import NEVER_ESTIMATED
 from agent_pipeline.reconcile.review import ReviewItemInput
 
 # A built account's id is synthetic (no id exists in the data); never shown to a client.
 SYNTHETIC_ID_PREFIX = "new:"
 # What the client-facing table shows in the account cell of a built account.
 NEW_ACCOUNT_LABEL = "To be opened"
-_NEVER_ESTIMATED = "never estimated (CLAUDE.md non-negotiable)"
 _SCOPE_NEW_ACCOUNT_RE = re.compile(r"\bnew\b(?:\s+[a-z-]+){0,3}?\s+account\b", re.IGNORECASE)
 
 
@@ -144,7 +144,7 @@ def build_new_accounts(
             id="",
             key="new_account_charges" if position == 0 else f"new_account_charges_{position + 1}",
             text="charges on the new joint account" if joint else "charges on the new account",
-            reason=_NEVER_ESTIMATED,
+            reason=NEVER_ESTIMATED,
             section="fees_charges",
         )
         for position, joint in enumerate(kinds)

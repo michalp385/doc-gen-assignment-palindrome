@@ -84,7 +84,7 @@
       "id": "#1",
       "key": "sipp_value",
       "text": "current value of Owen Pratt's SIPP",
-      "reason": "no value in the account data (R6); never estimated or converted (CLAUDE.md non-negotiable)",
+      "reason": "no value in the account data (R6); firm policy: never estimated or converted",
       "section": "account_table",
       "fact_ref": null
     },
@@ -92,7 +92,7 @@
       "id": "#2",
       "key": "platform_charge_brightwell",
       "text": "ongoing platform charge rate, Brightwell",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -100,7 +100,7 @@
       "id": "#3",
       "key": "platform_charge_holloway",
       "text": "ongoing platform charge rate, Holloway",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     },
@@ -108,7 +108,7 @@
       "id": "#4",
       "key": "advice_charge",
       "text": "ongoing advice charge rate",
-      "reason": "never estimated (CLAUDE.md non-negotiable)",
+      "reason": "firm policy: never estimated",
       "section": "fees_charges",
       "fact_ref": null
     }

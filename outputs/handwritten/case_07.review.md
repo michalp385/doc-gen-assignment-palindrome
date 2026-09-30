@@ -16,9 +16,9 @@ None.
 
 ## Markers to fill
 
-- #1: ongoing platform charge rate, Holloway (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #2: ongoing advice charge rate (never estimated (CLAUDE.md non-negotiable)), section: fees_charges
-- #3: capital gains tax on the disposal (never estimated (CLAUDE.md non-negotiable)), section: tax_implications
+- #1: ongoing platform charge rate, Holloway (firm policy: never estimated), section: fees_charges
+- #2: ongoing advice charge rate (firm policy: never estimated), section: fees_charges
+- #3: capital gains tax on the disposal (firm policy: never estimated), section: tax_implications
 - #4: whether an existing investment is sold: the report instruction and the meeting record differ (R4/G5b: a possible taxable disposal pending confirmation, not settled silently), section: recommendations
 
 ## Conflicts and how they were resolved
