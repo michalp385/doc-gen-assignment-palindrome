@@ -15,8 +15,7 @@ and a run summary.
 Status: built, per the implementation plan (`docs/plans/2026-09-27-implementation-plan.md`) through
 T19, plus the deterministic rule code, mutation coverage, synthetic generator and repo checks of
 T20/T21, T24, T27 and T29. `generate.py` runs the new pipeline; the starter path is gone except
-`document_formatter/`. **Not built yet:** `extract/guidance.py` (the handling-directive extractor,
-T20), the
+`document_formatter/`. **Not built yet:** the
 per-stage record folder `outputs/<client>.run/` (only `runs/<run_id>/trace.jsonl` is written), and
 the frozen synthetic clients under `data/synthetic/generated/` (the generator exists; the live
 one-off generation has not been run). Clients 03 and 04 have their rule code but no committed
@@ -33,15 +32,15 @@ outputs: their prompts and live verification are still to do.
 - `agent_pipeline/sources/`: role classification and one adapter per file format. Must not extract
   client facts.
 - `agent_pipeline/extract/`: one extractor per role (meeting, instruction with scope mapping, image,
-  and a proposed scope mapping; guidance is not built yet), with quote/date/label verification
-  (`quotes.py`, `parsing.py`). Returns verified raw facts; never selects between sources and never
+  and a proposed scope mapping; `guidance.py` turns the internal notes into verified handling
+  directives, D29), with quote/date/label verification (`quotes.py`, `parsing.py`). Returns verified raw facts; never selects between sources and never
   decides scope (the scope checks run in `reconcile/scope.py`).
 - `agent_pipeline/ledger.py`: ledger models and value rendering. No I/O beyond (de)serialising.
 - `agent_pipeline/reconcile/`: the trust rules and policies, one function per rule. Pure code, no model
   calls. `ownership.py` (R1, R9), `scope.py` and `refs.py` (R2, R8, matching a free-text account
   reference), `values.py` (R3, P10), `amounts.py` (R5), `account_state.py` (R6, P12: null, closed and
   non-GBP accounts), `money.py` (P5: available now, money items, proceeds), `limits.py` (P4: ISA
-  allowance screening, pension contributions always markers), `new_accounts.py` (R1, P9: the
+  allowance screening, pension contributions always markers), `marker_text.py` (the wording marker descriptions are built from: account, platform, holders), `new_accounts.py` (R1, P9: the
   accounts the advice opens, their charges marker), `unspecified_amounts.py` (P2, P5: markers for
   funding amounts, portions sold and a new account's balance that the sources leave unstated),
   `decisions.py` (R4: the instruction's selling decision against the meeting's disposals),
@@ -141,6 +140,11 @@ outputs: their prompts and live verification are still to do.
   quote by code. A label that decides an outcome has its own verified evidence quote, or code applies
   the conservative default. [extract/quotes.py]
 - Every input given to the writer is digit-free. [write/plan.py]
+- The writer never sees the internal notes' text, only handling directives that code has checked
+  against the notes (verbatim evidence, real sections, a person who is a holder, no six-word run
+  shared with the notes). [extract/guidance.py]
+- A marker's description is built in code from the ledger and names what it concerns (account,
+  platform, holders); it carries no figure, and its key is unchanged. [reconcile/marker_text.py]
 - The investigation agent has read-only tools; its findings affect the ledger only through code
   verification and the rules. [investigate/accept.py]
 - A run stops only where continuing is unsafe (DESIGN.md §8.4); every other input problem degrades to

@@ -632,6 +632,28 @@ does not (case_13) is the release judge's G16 sample vote (D22).
   `test_p11_tbc_computed_fields.py`, `test_degradation_missing_fields.py`,
   `test_task_b_review_fixes.py`, `test_eval_checks_approved_fixes.py`.
 
+### D29. Pass handling notes to the writer as verified directives, and drop any that fail a check
+- **Context:** D8 was unbuilt: the internal notes were used only to check the report did not leak
+  them (G10). Client 03's notes ask that the origin of its new money be treated sensitively, and
+  the notes' other lines only describe data sources. So the client-specific line reached no writer.
+- **Decision:** one extraction call reads the notes and proposes directives (sections, one
+  instruction, the person, the note's own words as evidence). Code keeps a directive only if the
+  evidence is a verbatim quote of the notes, the sections exist, a named person resolves to a holder,
+  and the instruction shares no six-word run with the notes. The writer gets the instruction line
+  only, never the notes. A directive that fails on the person or the wording becomes a non-blocking
+  review item; one with no verbatim evidence or no valid section is dropped without one.
+- **Alternatives:** pass the notes' client-specific paragraph to the writer with "never quote this"
+  (the leak defence would rest on the prompt alone; already rejected in D8); a directive with an
+  unresolved person kept without the name (the instruction may only make sense for that person, and
+  D8 says an unresolved person is a review item, not a guess).
+- **Consequences / how it generalises:** a client with no client-specific notes gets an empty list, and
+  its writer inputs carry no `handling` key, so its cache keys do not change for that reason. The six-word
+  run is the same length G10 uses, so this is a check one step earlier, not a stricter one: a leak of
+  five words gets through both. Revisit if a rebuilt report shows a directive's wording in the text, or
+  if a valid directive is dropped as a false leak.
+- **Evidence:** none yet; the effect is measured by the rebuild recorded in the results files
+  committed with it.
+
 ## What I would do with more time
 - **Run the Luna-versus-Sol comparison (D2).** Every pipeline stage runs on Luna and only the eval judge
   on Sol, but that was never compared: no run has a pipeline stage on Sol. Run extraction, the release
