@@ -45,8 +45,14 @@ QS = ("Q1", "Q2", "Q3", "Q4", "Q5", "Q6")
 NA = "n/a"
 
 
+class CacheMiss(AssertionError):
+    """Raised by the offline transport when a call was not in the cache. An AssertionError
+    subclass so the eval's own "a replay transport raised" handling still re-raises it, but a
+    distinct type so this script catches its own miss and no other assertion."""
+
+
 class _NoNetworkTransport:
-    """A transport that cannot make a live call: a cache miss raises and is counted."""
+    """A transport that cannot make a live call: a cache miss raises CacheMiss and is counted."""
 
     def __init__(self) -> None:
         self.attempts = 0
@@ -61,7 +67,7 @@ class _NoNetworkTransport:
         reasoning_effort: str | None,
     ) -> RawCompletion:
         self.attempts += 1
-        raise AssertionError("cache miss: this script never makes a live call")
+        raise CacheMiss("cache miss: this script never makes a live call")
 
 
 def _client(results: ResultsFile, name: str) -> ClientResult | None:
@@ -87,8 +93,24 @@ def _q(c: ClientResult | None, criterion: str) -> str | None:
     return next((str(q.score) for q in c.q_scores if q.criterion == criterion), None)
 
 
-def render(before: ResultsFile, before_name: str, after: ResultsFile, after_name: str) -> str:
-    """The before/after markdown, every figure read from the two results files."""
+NO_RELEASE_STATE = "n/a (starter has no release states)"
+
+
+def _failed_count(c: ClientResult | None) -> str:
+    return NA if c is None else str(sum(not g.passed for g in c.gate_results))
+
+
+def render(
+    before: ResultsFile,
+    before_name: str,
+    after: ResultsFile,
+    after_name: str,
+    *,
+    before_has_release_states: bool = True,
+) -> str:
+    """The before/after markdown, every figure read from the two results files. The starter
+    pipeline has no release states (the eval reads "draft" off the file it finds), so
+    `before_has_release_states=False` shows that instead of a misleading value."""
     lines = [
         "# Progression: baseline against the current pipeline",
         "",
@@ -108,7 +130,9 @@ def render(before: ResultsFile, before_name: str, after: ResultsFile, after_name
             "| Measure | Baseline | Current |",
             "|---|---|---|",
             f"| Release state (expected {expected}) | "
-            f"{b.release_state if b else NA} | {a.release_state if a else NA} |",
+            f"{(b.release_state if before_has_release_states else NO_RELEASE_STATE) if b else NA}"
+            f" | {a.release_state if a else NA} |",
+            f"| Failed deterministic gates | {_failed_count(b)} | {_failed_count(a)} |",
             f"| Deterministic gates passed | {_gates_passed(b)} | {_gates_passed(a)} |",
             f"| Failing gates | {_failing(b)} | {_failing(a)} |",
         ]
@@ -150,7 +174,7 @@ def _score_side(
                     )
                 )
                 break
-            except AssertionError:
+            except CacheMiss:
                 if not judge:
                     raise  # the miss is not the judge's: stop rather than score around it
                 unjudged += 1
@@ -190,7 +214,13 @@ def main() -> int:
     # Render from the files just written: the table reads only what a results file holds.
     before_file = ResultsFile.model_validate_json(before_path.read_text(encoding="utf-8"))
     after_file = ResultsFile.model_validate_json(after_path.read_text(encoding="utf-8"))
-    table = render(before_file, before_path.as_posix(), after_file, after_path.as_posix())
+    table = render(
+        before_file,
+        before_path.as_posix(),
+        after_file,
+        after_path.as_posix(),
+        before_has_release_states=False,
+    )
     TABLE_PATH.write_text(table, encoding="utf-8")
     print(table)
     print(
