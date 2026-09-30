@@ -6,7 +6,8 @@ description: Run the report evaluation and record the results so every metric is
 # Run and record the eval
 
 Two rules make the eval trustworthy: numbers are produced by the eval and read from its output,
-never typed by hand; and live runs cost real money from a $10 budget.
+never typed by hand; and live runs cost real money, which is reported with every run (D12)
+rather than capped.
 
 ## Before running
 

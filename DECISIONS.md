@@ -181,8 +181,8 @@ ship, not the outcome of a resample. On the 20 hand-written cases, each aimed at
   (≈$5.50, but weaker evidence for D2); dropping the synthetic clients (still tight, no room for a Sol
   upgrade); skipping the experiment and staying on Luna (reverses D2).
 - **Consequences / how it generalises:** any Sol upgrade is recorded with its cost next to the accuracy
-  it buys. CLAUDE.md is updated to match; the `run-eval` skill's "$10 budget" wording still needs the
-  same change. The `--estimate` step before live batches stays.
+  it buys. CLAUDE.md and the `run-eval` skill are updated to match. The cost estimate
+  before a live batch stays, made by hand from the model prices and the number of cache misses.
 - **Evidence:** none yet; spend is read from run summaries and results files.
 
 ### D13. Degrade gracefully on odd or missing inputs, and measure it with an issued rate
