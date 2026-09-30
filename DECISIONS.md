@@ -669,4 +669,4 @@ ship, not the outcome of a resample. On the 20 hand-written cases, each aimed at
   touched a prompt or a trust rule, and its findings were fixed or recorded before the commit.
 - **Models in the pipeline.** `gpt-6-luna` for classification, extraction, writing and the release judge, and
   `gpt-6-sol` for the eval judge only (D2).
-- **Time.** About 12 hours of my time, worked on and off across four days, with Claude Code running long stretches autonomously. My time went mostly to design decisions, the data investigation, reviewing verifier checkpoints and prompt tuning, while the agent did the mechanical build. The repository has 102 commits over 4 days (2026-09-26 to 2026-09-29).
+- **Time.** About 12 hours of my time, worked on and off across four days, with Claude Code running long stretches autonomously. My time went mostly to design decisions, the data investigation, reviewing verifier checkpoints and prompt tuning, while the agent did the mechanical build. The commit history records the timeline.
