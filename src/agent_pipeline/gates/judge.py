@@ -364,9 +364,15 @@ def intro_scope_problems(intro_text: str, ledger: Ledger) -> list[str]:
     out_of_scope = {a.type for a in ledger.accounts if not a.in_scope} - in_scope
 
     named_in_scope: set[str] = set()
+    mentions: dict[str, int] = {}
+    plural: set[str] = set()
     for account_type in sorted(in_scope, key=len, reverse=True):
+        terms = [account_type, *type_aliases(account_type)]
         for match in find(account_type, working):
             named_in_scope.add(account_type)
+            mentions[account_type] = mentions.get(account_type, 0) + 1
+            if match.group(0) in {f"{term.lower()}s" for term in terms}:
+                plural.add(account_type)
             working = (
                 working[: match.start()]
                 + " " * (match.end() - match.start())
@@ -382,6 +388,18 @@ def intro_scope_problems(intro_text: str, ledger: Ledger) -> list[str]:
     ]
     problems += [
         f"the introduction names {t}, which is out of scope" for t in sorted(named_out_of_scope)
+    ]
+    # Naming a type once, in the singular, cannot cover several accounts of it: a plural does,
+    # and so does one mention per account.
+    held = {
+        t: sum(1 for a in ledger.accounts if a.in_scope and not a.is_new and a.type == t)
+        for t in in_scope
+    }
+    problems += [
+        f"the introduction names the {t} {mentions[t]} time(s) in the singular, but the report "
+        f"covers {held[t]} of them: name each one or use the plural"
+        for t in sorted(named_in_scope)
+        if held[t] > mentions[t] and t not in plural
     ]
     return problems
 

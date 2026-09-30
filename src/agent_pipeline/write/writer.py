@@ -32,6 +32,7 @@ from agent_pipeline.gates.deterministic import (
     split_sentences,
     word_ngrams,
 )
+from agent_pipeline.gates.judge import intro_scope_problems
 from agent_pipeline.ledger import Ledger
 from agent_pipeline.llm import LLMClient
 from agent_pipeline.write.schemas import SectionPlan
@@ -234,6 +235,16 @@ def _check_g12_post(text: str) -> str | None:
     return None
 
 
+def _check_intro_scope(section: Section, text: str, ledger: Ledger) -> str | None:
+    """The Introduction's scope sentence is checked against the ledger in code (G16's own
+    check), here in the writer so a wrong count or a missing type is repaired in the slot's
+    repair rounds, not found later as a failed generation."""
+    if section.id != "introduction":
+        return None
+    problems = intro_scope_problems(text, ledger)
+    return "; ".join(problems) if problems else None
+
+
 def write_slot(
     plan: SectionPlan,
     section: Section,
@@ -280,7 +291,7 @@ def write_slot(
             continue
 
         filled = fill_tokens(text, ledger)
-        failure = _check_g12_post(filled)
+        failure = _check_g12_post(filled) or _check_intro_scope(section, filled, ledger)
         if failure is not None:
             corrections.append(failure)
             continue
