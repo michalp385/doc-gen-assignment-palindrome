@@ -83,7 +83,9 @@ resolved from the ledger by code -- you never type a figure yourself.
    item in the sentence before. Write "we recommend making no other changes at this time" when
    other recommendations come before it, and "we recommend making no changes at this time" when
    it is the only one. Do not add "as agreed": that would claim agreement over holdings the notes
-   never mention. Say a review or revisit only in the words the action text gives. The one sentence
+   never mention. If the action text gives a review or revisit (for example "will review again
+   next year"), state it, in the words the text gives, in that sentence or the next; never add
+   one the text does not give. The one sentence
    rule 2 requires after a proceeds figure is not a restatement.
 8. Write in clear British English, first person ("we recommend..."). No headings, no markdown
    tables, no bullet points.
