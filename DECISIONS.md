@@ -677,11 +677,14 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
   and forbids an instruction from stating a circumstance, event, reason or amount, in digits or words
   (the word forms are also refused in code). The directive now reaches both sections and reads "refer to
   the source of the new funds in restrained, sensitive language". The rubric judge's Q3 for client 03 is
-  still 2 in the results file, because it wants the report to mention the bereavement, and that fact is
-  only in the internal notes: a report that stated it would break the rule that guidance text never
-  appears. I treat that score as one the rules prevent me from raising. Routing is still chosen by the
-  model, with no code check that the named sections mention the subject ("What I would do with more
-  time").
+  still 2 in the results file, because it wants the report to state where the money came from. I had
+  written that this fact is only in the internal notes; that was wrong. The meeting notes and the report
+  request, both client-facing sources, state the inheritance and its origin, so the letter could state
+  it from those sources without breaking the rule that guidance text never appears. Two known gaps
+  stop it: the pipeline does not carry origin of funds as a fact, so nothing in the ledger lets the
+  writer state it, and `inherit\w*` in `_CONTINGENT_RE` (`gates/judge.py`) treats any mention of an
+  inheritance as contingent. Both are in "What I would do with more time". Routing is still chosen by
+  the model, with no code check that the named sections mention the subject.
 - **Also fixed:** the review sheet printed only some note kinds, so an applied `handling_note`, and every
   `ambiguity` item (several modules produce them; six items across five committed outputs), were in the
   ledger but never shown. `assemble._NOTE_KINDS` now includes both, so a note the run could not apply
@@ -871,6 +874,14 @@ matching their expected state, 0 failing deterministic gates, 0 wrongly issued a
 - **Tighten the checks the second review left (D35).** Extend the matcher's owner guard to the older
   paths, pluralise account types from a table rather than by appending "s", make the introduction check
   alias-aware, and name which joint account the table footnote means.
+- **Origin of funds as a verified fact (D29).** Extract it from the meeting notes and report request with a
+  verified quote, carry it in the ledger, and apply it with the handling directive. Also stop
+  `inherit\w*` in `_CONTINGENT_RE` treating any mention as contingent.
+- **Pass the objectives to the recommendation writer.** This is the cause of Q1 = 2 (D32, D35).
+- **Lower-case account types in prose.** "Your New joint account" reads as a name mid-sentence.
+- **Name the platform in the stale-value footnote.** It says "Your joint General Investment Account"
+  without saying which one.
+- **Give rule 7 of the writer prompt a generic example** in place of the wording that now stands for it.
 - **A deterministic judge (D22).** `config/models.json` records `temperature_accepted: false` for
   both models on this key (`gpt-6-luna` and `gpt-6-sol`), so no available model can give a stable verdict. The fix is a
   judge on a model that accepts `temperature=0`, or a smaller judge surface still: build the
